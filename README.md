@@ -10,7 +10,7 @@ VG: 34 (85%).
 
 # Kravlista (4)
 
-## Krav för G
+### Krav för G
 
 - [ ] En logga, splashscreen och appikon ska designas och användas. *
 - [ ] Applikationen ska byggas med RN, Expo & TS. *
@@ -23,7 +23,7 @@ All information ska kommuniceras till och från en server. (VG)
 
 # Hushåll (7)
 
-## Krav för G
+### Krav för G
 
 - [ ] Ett hushåll ska ha ett namn och en genererad (enkel) kod så andra kan gå med i hushållet,
 namnet ska gå att ändra. *
@@ -39,7 +39,7 @@ namnet ska gå att ändra. *
 
 # Konto (5)
 
-## Krav för G
+### Krav för G
 
 - [ ] En användare ska kunna logga in sig. *
 - [ ] En användare ska kunna skapa ett nytt hushåll. *
@@ -53,7 +53,7 @@ godkänna användaren.
 
 # Profil (6)
 
-## Krav för G
+### Krav för G
 
 - [ ] En användare ska kunna ange sitt namn. *
 - [ ] En användare ska kunna välja en avatar (emoji-djur + färg) från en fördefinierad lista. *
@@ -64,7 +64,7 @@ godkänna användaren.
 
 # Sysslor (6)
 
-## Krav för G
+### Krav för G
 
 - [ ] En ägare ska kunna lägga till sysslor att göra i hemmet. *
 - [ ] En syssla ska ha ett namn, en beskrivning (text), hur ofta den ska göras (dagar), och en vikt som beskriver hur energikrävande den är. *
@@ -78,7 +78,7 @@ godkänna användaren.
 
 # Dagsvyn (3)
 
-## Krav för G
+### Krav för G
 
 - [ ] Alla sysslor ska listas i en dagsvy och ge en översikt kring vad som behöver göras. *
 - [ ] Utöver sysslans namn ska även vem/vilka som har gjort sysslan visas, hur många dagar sedan sysslan gjordes senast samt om den är försenad. *
@@ -86,7 +86,7 @@ godkänna användaren.
 
 # Statistik (6)
 
-## Krav för G
+### Krav för G
 
 - [ ] En användare ska kunna se fördelningen av gjorda sysslor mellan användarna i sitt hushåll. *
 - [ ] Varje statistikvy ska visa den totala fördelningen (inräknat vikterna för sysslorna) samt fördelning av varje enskild syssla. *
