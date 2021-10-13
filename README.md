@@ -19,7 +19,7 @@ med produktägare, godkännas och dokumenteras. *
 
 ### Krav för VG
 
-All information ska kommuniceras till och från en server. (VG)
+- [ ] All information ska kommuniceras till och från en server. (VG)
 
 # Hushåll (7)
 
