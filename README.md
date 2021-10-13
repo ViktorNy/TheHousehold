@@ -1,12 +1,14 @@
 # TheHousehold
 
 # Kravlista
+
 *: Dessa krav måste göras (21st).
 
 # Antal krav: 40.
-G: 24 (60%).  (3st)
-VG: 34 (85%).
-  (10st)
+
+### G: 24 (60%). (3st)
+
+### VG: 34 (85%). (10st)
 
 # Kravlista (4)
 
