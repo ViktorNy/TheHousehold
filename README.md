@@ -9,7 +9,7 @@ VG: 34 (85%).
   (10st)
 
 # Kravlista (4)
-[]En logga, splashscreen och appikon ska designas och användas. *
+- [] En logga, splashscreen och appikon ska designas och användas. *
 []Applikationen ska byggas med RN, Expo & TS. *
 []Designen av appen ska utgå ifrån befintliga skisser, undantag kan ges men ska diskuteras
 
