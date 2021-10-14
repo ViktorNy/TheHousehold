@@ -1,4 +1,16 @@
-# TheHousehold
+
+
+# <p align = "center"> The household </p>
+
+## <p align = "center">Beskrivning av projektet </p>
+
+
+
+## <p align = "center">Bygg och starta projektet</p>
+
+
+
+## <p align = "center">Komponenter</p> 
 
 # Kravlista
 
