@@ -1,8 +1,8 @@
 import { Text } from 'react-native';
 import React from 'react';
 
-export default function StartScreen() {
+export default function HouseholdScreen() {
     return (
-        <Text>Start screen</Text>
+        <Text>Household Scriiin</Text>
     )
 }
