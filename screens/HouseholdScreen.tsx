@@ -1,8 +1,8 @@
 import React from "react";
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import { Button, FlatList, Text, TouchableOpacity, View } from "react-native";
 import { Member } from "../data/data";
 import { RootStackScreenProps } from "../navigation/RootStackNavigator";
-import { getAllHouseholdsByUserIdSelector, getAllHouseholdsSelector, membersOfHouseholdSelector } from "../store/household/householdSelectors";
+import { getAllHouseholdsByUserIdSelector, membersOfHouseholdSelector } from "../store/household/householdSelectors";
 import { useAppSelector } from "../store/store";
 
 export default function HouseholdScreen({navigation,route}: RootStackScreenProps<"Household">) {
@@ -37,6 +37,7 @@ export default function HouseholdScreen({navigation,route}: RootStackScreenProps
           <Text>{item.userId}</Text>
           ) }
       />
+    <Button title='Medlemmar' onPress={() => navigation.navigate('Member',{householdId: currentHousehold.id})}/>
       </View>
     )
   }
