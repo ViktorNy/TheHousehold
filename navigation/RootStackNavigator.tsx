@@ -6,7 +6,14 @@ import HouseholdScreen from "../screens/HouseholdScreen";
 import DistributeChoreScreen from "../screens/DistributeChoreScreen";
 import ChoreScreen from "../screens/ChoreScreen";
 
-const Stack = createNativeStackNavigator();
+type RootStackParamList = { // undefined behöver antagligen ändras :) 
+    Start: undefined;
+    Household: undefined;
+    DistributeChore: undefined;
+    Chore: undefined;
+}
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStackNavigator () {
     return (
