@@ -1,23 +1,40 @@
 import React from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
-import { mockedHouseholdData } from "../data/data";
+import { Member } from "../data/data";
 import { RootStackScreenProps } from "../navigation/RootStackNavigator";
+import { getAllHouseholdsByUserIdSelector, getAllHouseholdsSelector, membersOfHouseholdSelector } from "../store/household/householdSelectors";
+import { useAppSelector } from "../store/store";
 
 export default function HouseholdScreen({navigation,route}: RootStackScreenProps<"Household">) {
-  const houseHolds = mockedHouseholdData;
-  const userHouseHold = houseHolds.filter((item) =>
-    item.members.filter((item) => item.userId === route.params.user.id)
+  const userHouseHold = useAppSelector((state ) => 
+    getAllHouseholdsByUserIdSelector(state, route.params.user.id)
   );
+  const currentHousehold = route.params.houseHold;
+  let memberList: Member[] = [];
+
+  // Todo: Fråga david om detta är en korrekt lösning?
+  if (currentHousehold) {
+    memberList = useAppSelector(state => membersOfHouseholdSelector(state, currentHousehold.id))
+  }
+  else {
+    memberList = useAppSelector(membersOfHouseholdSelector)
+  };
   
-  if (route.params.houseHold) {
-    const houseHoldChores = route.params.houseHold.chores.filter(item => item.signedToUserId.filter(item => item === route.params.user.id));
+  if (currentHousehold) {
+    const houseHoldChores = currentHousehold.chores.filter(item => item.signedToUserId.filter(item => item === route.params.user.id));
     return(
       <View>
-        <Text>{route.params.houseHold.name}</Text>
+        <Text>{currentHousehold.name}</Text>
         <FlatList
         data={houseHoldChores}
         renderItem={({ item }) => (
           <Text>{item.name}</Text>
+          ) }
+      />
+      <FlatList
+        data={memberList}
+        renderItem={({ item }) => (
+          <Text>{item.userId}</Text>
           ) }
       />
       </View>

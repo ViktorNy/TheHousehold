@@ -1,9 +1,9 @@
-import { Household } from "../../data/data";
+import { Household, mockedHouseholdData } from "../../data/data";
 
 export interface HouseholdState {
     householdList: Household[]
 }
 
 export const initialState: HouseholdState = {
-    householdList: []
+    householdList: mockedHouseholdData
 }
