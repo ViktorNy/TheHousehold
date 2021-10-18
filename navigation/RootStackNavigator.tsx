@@ -5,12 +5,12 @@ import React from "react";
 import HouseholdScreen from "../screens/HouseholdScreen";
 import DistributeChoreScreen from "../screens/DistributeChoreScreen";
 import ChoreScreen from "../screens/ChoreScreen";
-import { User } from "../data/data";
+import { Household, User } from "../data/data";
 
 type RootStackParamList = {
   // undefined behöver antagligen ändras :)
   Start: undefined;
-  Household: { user: User };
+  Household: { user: User, houseHold?: Household };
   DistributeChore: undefined;
   Chore: undefined;
 };

@@ -44,7 +44,7 @@ export interface Chore {
     lastDone?: Date,
     doneBy: ChoreDoneBy[],
     score: ChoreScore,
-    signedToUserId?: string[],
+    signedToUserId: string[],
 }
 
 export interface ChoreDoneBy {
@@ -102,7 +102,8 @@ export const mockedHouseholdData: Household[] = [
                 description: 'Koka kaffet snabbt så in i helvete annars blir jag GRINIG',
                 frequency: 2,
                 doneBy: [],
-                score: 8
+                score: 8,
+                signedToUserId: []
             }],
     },
     {
@@ -124,7 +125,8 @@ export const mockedHouseholdData: Household[] = [
                 description: 'Den sköter sig inte, den ska ut.',
                 frequency: 2,
                 doneBy: [],
-                score: 8
+                score: 8,
+                signedToUserId: []
             }
         ],
     }
