@@ -17,4 +17,8 @@ export const getChoreByIdSelector = (state: RootState, choreId: string, househol
   }
 }
 
+export const getHouseholdByIdSelector = (state: RootState, householdId: string) => {
+  return state.household.householdList.find(h => h.id === householdId)
+}
+
 export const getAllHouseholdsSelector = (state: RootState) => state.household.householdList;

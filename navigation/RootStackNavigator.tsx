@@ -4,6 +4,7 @@ import React from "react";
 import { User } from "../data/data";
 import ChoreDetailScreen from "../screens/ChoreDetailScreen";
 import DistributeChoreScreen from "../screens/DistributeChoreScreen";
+import HouseholdChoresScreen from "../screens/HouseholdChoresScreen";
 import HouseholdScreen from "../screens/HouseholdScreen";
 import MemberScreen from "../screens/MemberScreen";
 import StartScreen from "../screens/StartScreen";
@@ -15,6 +16,7 @@ type RootStackParamList = {
   DistributeChore: undefined;
   ChoreDetail: {choreId: string, householdId: string};
   Member: {householdId: string};
+  HouseholdChores: {householdId: string};
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<RootStackParamList, Screen>;
@@ -33,6 +35,7 @@ function RootStackNavigator() {
         />
         <Stack.Screen name="ChoreDetail" component={ChoreDetailScreen} />
         <Stack.Screen name="Member" component={MemberScreen} />
+        <Stack.Screen name="HouseholdChores" component={HouseholdChoresScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

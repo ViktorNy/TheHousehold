@@ -33,6 +33,10 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                     title="Medlemmar"
                     onPress={() => navigation.navigate("Member", { householdId: currentHousehold.id })}
                 />
+                <Button
+                    title="Visa alla sysslor i hushållet"
+                    onPress={() => navigation.navigate("HouseholdChores", { householdId: currentHousehold.id })}
+                />
             </View>
         );
     } else {
