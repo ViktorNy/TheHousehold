@@ -42,13 +42,23 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                 <FlatList
                     data={userHousehold}
                     renderItem={({ item }) => (
+                      <View>
                         <TouchableOpacity
                             onPress={() =>
-                                navigation.push("Household", { user: route.params.user, householdId: item.id })
+                              navigation.push("Household", { user: route.params.user, householdId: item.id })
                             }
-                        >
+                            >
                             <Text>{item.name}</Text>
                         </TouchableOpacity>
+                  
+                        {item.chores.map(chore => {
+                         return <TouchableOpacity key={chore.id} onPress={() => (
+                           navigation.navigate("ChoreDetail", { choreId: chore.id, householdId: item.id})
+                         )}>
+                           <Text>{chore.name}</Text>
+                         </TouchableOpacity>
+                        })}
+                        </View>
                     )}
                 />
             </View>
