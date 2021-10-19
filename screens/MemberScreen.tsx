@@ -9,7 +9,7 @@ export default function MemberScreen({ route }: RootStackScreenProps<"Member">) 
     
     return (
         <View>
-            { memberList&& <FlatList data={memberList} renderItem={({ item }) => <Text>{item.userId}</Text>} />}
+              <FlatList data={memberList} renderItem={({ item }) => <Text>{item.userId}</Text>} />
         </View>
     );
 }

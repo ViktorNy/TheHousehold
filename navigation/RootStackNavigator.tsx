@@ -1,19 +1,19 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack";
-import StartScreen from "../screens/StartScreen";
 import React from "react";
-import HouseholdScreen from "../screens/HouseholdScreen";
+import { User } from "../data/data";
+import ChoreDetailScreen from "../screens/ChoreDetailScreen";
 import DistributeChoreScreen from "../screens/DistributeChoreScreen";
-import ChoreScreen from "../screens/ChoreScreen";
-import { Household, User } from "../data/data";
+import HouseholdScreen from "../screens/HouseholdScreen";
 import MemberScreen from "../screens/MemberScreen";
+import StartScreen from "../screens/StartScreen";
 
 type RootStackParamList = {
   // undefined behöver antagligen ändras :)
   Start: undefined;
   Household: { user: User, householdId?: string  };
   DistributeChore: undefined;
-  Chore: undefined;
+  ChoreDetail: {choreId: string, householdId: string};
   Member: {householdId: string};
 };
 
@@ -31,7 +31,7 @@ function RootStackNavigator() {
           name="DistributeChore"
           component={DistributeChoreScreen}
         />
-        <Stack.Screen name="Chore" component={ChoreScreen} />
+        <Stack.Screen name="ChoreDetail" component={ChoreDetailScreen} />
         <Stack.Screen name="Member" component={MemberScreen} />
       </Stack.Navigator>
     </NavigationContainer>

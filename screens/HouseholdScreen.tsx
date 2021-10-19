@@ -17,7 +17,18 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
         return (
             <View>
                 <Text>{currentHousehold.name}</Text>
-                <FlatList data={houseHoldChores} renderItem={({ item }) => <Text>{item.name}</Text>} />
+                <FlatList
+                    data={houseHoldChores}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity
+                            onPress={() =>
+                                navigation.navigate("ChoreDetail", { choreId: item.id, householdId: currentHousehold.id })
+                            }
+                        >
+                            <Text>{item.name}</Text>
+                        </TouchableOpacity>
+                    )}
+                />
                 <Button
                     title="Medlemmar"
                     onPress={() => navigation.navigate("Member", { householdId: currentHousehold.id })}
@@ -33,7 +44,7 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                     renderItem={({ item }) => (
                         <TouchableOpacity
                             onPress={() =>
-                                navigation.navigate("Household", { user: route.params.user, householdId: item.id })
+                                navigation.push("Household", { user: route.params.user, householdId: item.id })
                             }
                         >
                             <Text>{item.name}</Text>

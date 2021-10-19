@@ -42,7 +42,7 @@ export interface Chore {
     name: string,
     description: string,
     frequency: number,
-    lastDone?: Date,
+    lastDone?: string,
     doneBy: ChoreDoneBy[],
     score: ChoreScore,
     signedToUserId: string[],
@@ -51,7 +51,7 @@ export interface Chore {
 export interface ChoreDoneBy {
     choreId: string,
     userId: string,
-    date: Date,
+    date: string,
     score: number,  //spara score här  ifall men justerar det senare
 }
 
@@ -102,15 +102,15 @@ export const mockedHouseholdData: Household[] = [
                 description: 'Copy pasta lorem ipsum städa då snälla hjälp mig',
                 frequency: 1,
                 score: 4,
-                signedToUserId: ['1'],
-                lastDone: new Date('2021-09-12'),
-                doneBy: [
-                    {
-                        choreId: '1',
-                        userId: '1',
-                        date: new Date('2021-09-12'),
-                        score: 4,
-                    }]
+                signedToUserId: ["1"],
+                lastDone: '2021-09-12',
+                doneBy:[
+                        {
+                            choreId: '1',
+                            userId: '1',
+                            date: '2021-09-12',
+                            score: 4,
+                        }]
             },
             {
                 id: '2',
