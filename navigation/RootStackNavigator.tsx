@@ -11,7 +11,7 @@ import MemberScreen from "../screens/MemberScreen";
 type RootStackParamList = {
   // undefined behöver antagligen ändras :)
   Start: undefined;
-  Household: { user: User, houseHold?: Household };
+  Household: { user: User, householdId?: string  };
   DistributeChore: undefined;
   Chore: undefined;
   Member: {householdId: string};

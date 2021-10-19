@@ -1,59 +1,46 @@
 import React from "react";
 import { Button, FlatList, Text, TouchableOpacity, View } from "react-native";
-import { Member } from "../data/data";
 import { RootStackScreenProps } from "../navigation/RootStackNavigator";
-import { getAllHouseholdsByUserIdSelector, membersOfHouseholdSelector } from "../store/household/householdSelectors";
+import { getAllHouseholdsByUserIdSelector } from "../store/household/householdSelectors";
 import { useAppSelector } from "../store/store";
 
-export default function HouseholdScreen({navigation,route}: RootStackScreenProps<"Household">) {
-  const userHouseHold = useAppSelector((state ) => 
-    getAllHouseholdsByUserIdSelector(state, route.params.user.id)
-  );
-  const currentHousehold = route.params.houseHold;
-  let memberList: Member[] = [];
+export default function HouseholdScreen({ navigation, route }: RootStackScreenProps<"Household">) {
+    const userHousehold = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, route.params.user.id));
+    const currentHousehold = useAppSelector((state) =>
+        state.household.householdList.find((h) => h.id === route.params.householdId)
+    );
 
-  // Todo: Fråga david om detta är en korrekt lösning?
-  if (currentHousehold) {
-    memberList = useAppSelector(state => membersOfHouseholdSelector(state, currentHousehold.id))
-  }
-  else {
-    memberList = useAppSelector(membersOfHouseholdSelector)
-  };
-  
-  if (currentHousehold) {
-    const houseHoldChores = currentHousehold.chores.filter(item => item.signedToUserId.filter(item => item === route.params.user.id));
-    return(
-      <View>
-        <Text>{currentHousehold.name}</Text>
-        <FlatList
-        data={houseHoldChores}
-        renderItem={({ item }) => (
-          <Text>{item.name}</Text>
-          ) }
-      />
-      <FlatList
-        data={memberList}
-        renderItem={({ item }) => (
-          <Text>{item.userId}</Text>
-          ) }
-      />
-    <Button title='Medlemmar' onPress={() => navigation.navigate('Member',{householdId: currentHousehold.id})}/>
-      </View>
-    )
-  }
-  else {
-      return (
-    <View>
-      <Text>Welcome {route.params.user.username}</Text>
-      <FlatList
-        data={userHouseHold}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => 
-          navigation.navigate('Household', {user: route.params.user, houseHold: item})}>
-          <Text>{item.name}</Text>
-          </TouchableOpacity>) }
-      />
-    </View>
-  );
-  }
+    if (currentHousehold) {
+        const houseHoldChores = currentHousehold.chores.filter((item) =>
+            item.signedToUserId.filter((item) => item === route.params.user.id)
+        );
+        return (
+            <View>
+                <Text>{currentHousehold.name}</Text>
+                <FlatList data={houseHoldChores} renderItem={({ item }) => <Text>{item.name}</Text>} />
+                <Button
+                    title="Medlemmar"
+                    onPress={() => navigation.navigate("Member", { householdId: currentHousehold.id })}
+                />
+            </View>
+        );
+    } else {
+        return (
+            <View>
+                <Text>Welcome {route.params.user.username}</Text>
+                <FlatList
+                    data={userHousehold}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity
+                            onPress={() =>
+                                navigation.navigate("Household", { user: route.params.user, householdId: item.id })
+                            }
+                        >
+                            <Text>{item.name}</Text>
+                        </TouchableOpacity>
+                    )}
+                />
+            </View>
+        );
+    }
 }

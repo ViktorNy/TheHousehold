@@ -12,7 +12,7 @@ export interface Household {
     id: string,
     name: string,
     codeToJoin: string,
-    members: Member[],
+    // members: Member[],
     chores: Chore[],
 }
 
@@ -20,6 +20,7 @@ export type MemberType = "member" | "owner";
 
 export interface Member {
     id: string,
+    householdId: string,
     userId: string,
     memberType: MemberType,
     avatar: string, //format?
@@ -58,27 +59,42 @@ export interface ChoreDoneBy {
 
 // ------------ MOCKED DATA BELOW -----------------
 
+export const mockedMemberData: Member[] = [
+    {
+        id: '1',
+        userId: '1',
+        memberType: 'owner',
+        avatar: '1',
+        joinData: new Date('2021-01-01'),
+        pausedHistory: [],
+        householdId: '1'
+    },
+    {
+        id: '2',
+        userId: '2',
+        memberType: 'member',
+        avatar: '2',
+        joinData: new Date('2021-01-02'),
+        pausedHistory: [],
+        householdId: '1'
+    },
+    {
+        id: '3',
+        userId: '2',
+        memberType: 'owner',
+        avatar: '2',
+        joinData: new Date('2021-01-02'),
+        pausedHistory: [],
+        householdId: '2'
+    }
+]
+
+
 export const mockedHouseholdData: Household[] = [
     {
         id: '1',
         name: 'Hemmet',
         codeToJoin: '123',
-        members: [{
-            id: '1',
-            userId: '1',
-            memberType: 'owner',
-            avatar: '1',
-            joinData: new Date('2021-01-01'),
-            pausedHistory: [],
-        },
-        {
-            id: '2',
-            userId: '2',
-            memberType: 'member',
-            avatar: '2',
-            joinData: new Date('2021-01-02'),
-            pausedHistory: [],
-        }],
         chores: [
             {
                 id: '1',
@@ -110,14 +126,6 @@ export const mockedHouseholdData: Household[] = [
         id: '2',
         name: 'Hemmet Jr',
         codeToJoin: '444',
-        members: [{
-            id: '3',
-            userId: '2',
-            memberType: 'owner',
-            avatar: '2',
-            joinData: new Date('2021-01-02'),
-            pausedHistory: [],
-        }],
         chores: [
             {
                 id: '3',

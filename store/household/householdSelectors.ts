@@ -1,19 +1,10 @@
 import { RootState } from "../store";
 
-export const membersOfHouseholdSelector = (state: RootState, id?: string) => {
-  if (id) {
-      const memberList = state.household.householdList.find(item => item.id === id)?.members;
-    return memberList ? memberList : []
-  } 
-  else {
-      return []
-  } 
-}
-
 export const getAllHouseholdsByUserIdSelector = (state: RootState, userId: string) => {
-   return state.household.householdList.filter((item) =>
-  item.members.filter((item) => item.userId === userId)
-  );
+  const memberShipList = state.member.memberList.filter(m => m.userId === userId)
+  // const userHouseholdId = memberShipList.forEach()
+  const userHouseholds = state.household.householdList.filter(h => memberShipList.find(m => m.householdId === h.id));
+  return userHouseholds
 }
 
 export const getAllHouseholdsSelector = (state: RootState) => state.household.householdList;
