@@ -48,7 +48,7 @@ function RootStackNavigator() {
   return (
     <NavigationContainer theme={colorScheme === 'dark' ? DarkCutomTheme : DefaultCustomTheme}>
       <Stack.Navigator>
-        <Stack.Screen name="Start" component={StartScreen} />
+        <Stack.Screen name="Start" options={{headerShown: false}} component={StartScreen} />
         <Stack.Screen name="Household" component={HouseholdScreen} />
         <Stack.Screen name="DistributeChore" component={DistributeChoreScreen} />
         <Stack.Screen name="ChoreDetail" component={ChoreDetailScreen} />
