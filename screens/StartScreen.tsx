@@ -1,8 +1,16 @@
-import { Text } from 'react-native';
-import React from 'react';
+import { useTheme } from "@react-navigation/native";
+import React from "react";
+import { Button, Text, View } from "react-native";
+import { CustomNavigateButton } from "../component/CustomNavigateButton";
+import { mockedUserData } from "../data/data";
+import { RootStackScreenProps } from "../navigation/RootStackNavigator";
 
-export default function StartScreen() {
+export default function StartScreen({ navigation }: RootStackScreenProps<"Start">) {
+    const newUser = mockedUserData[1];
+    const { colors } = useTheme();
     return (
-        <Text>Start screen</Text>
-    )
+        <View>
+            <CustomNavigateButton buttonText="Gå till hushåll" goto={() => navigation.navigate("Household", { user: newUser }) }/>
+        </View>
+    );
 }

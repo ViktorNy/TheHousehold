@@ -1,9 +1,9 @@
-import { Member } from "../../data/data";
+import { Member, mockedMemberData } from "../../data/data";
 
 export interface MemberState {
     memberList: Member[]
 }
 
 export const initialState: MemberState = {
-    memberList: []
+    memberList: mockedMemberData
 }
