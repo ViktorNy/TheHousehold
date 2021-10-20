@@ -24,7 +24,7 @@ export interface Member {
     userId: string,
     memberType: MemberType,
     avatar: string, //format?
-    joinData: Date,
+    joinData: string,
     pausedHistory: PausedMember[],
 }
 
@@ -65,7 +65,7 @@ export const mockedMemberData: Member[] = [
         userId: '1',
         memberType: 'owner',
         avatar: '1',
-        joinData: new Date('2021-01-01'),
+        joinData: '2021-01-01',
         pausedHistory: [],
         householdId: '1'
     },
@@ -74,7 +74,7 @@ export const mockedMemberData: Member[] = [
         userId: '2',
         memberType: 'member',
         avatar: '2',
-        joinData: new Date('2021-01-02'),
+        joinData: '2021-01-02',
         pausedHistory: [],
         householdId: '1'
     },
@@ -83,7 +83,7 @@ export const mockedMemberData: Member[] = [
         userId: '2',
         memberType: 'owner',
         avatar: '2',
-        joinData: new Date('2021-01-02'),
+        joinData: '2021-01-02',
         pausedHistory: [],
         householdId: '2'
     }

@@ -4,7 +4,7 @@ import { PressableProps, StyleSheet, Text, TouchableOpacity, View } from "react-
 
 interface Props{
     goto: () => void,
-    buttonText: string
+    buttonText?: string
 }
 
 export function CustomNavigateButton({goto, buttonText}: Props) {
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     root: {
         height: 50,
         borderRadius: 10,
-        margin: 10,
+        marginTop: 10,
         justifyContent: 'center',
         alignItems: 'center'
     }
