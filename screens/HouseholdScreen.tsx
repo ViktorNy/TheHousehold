@@ -1,6 +1,7 @@
 import { useTheme } from "@react-navigation/native";
 import React from "react";
 import { Button, FlatList, Text, TouchableOpacity, View } from "react-native";
+import { CustomNavigateButton } from "../component/CustomNavigateButton";
 import { RootStackScreenProps } from "../navigation/RootStackNavigator";
 import { getAllHouseholdsByUserIdSelector } from "../store/household/householdSelectors";
 import { useAppSelector } from "../store/store";
@@ -23,13 +24,7 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                 <FlatList
                     data={houseHoldChores}
                     renderItem={({ item }) => (
-                        <TouchableOpacity
-                            onPress={() =>
-                                navigation.navigate("ChoreDetail", { choreId: item.id, householdId: currentHousehold.id })
-                            }
-                        >
-                            <Text style={[{ color: colors.text }]}>{item.name}</Text>
-                        </TouchableOpacity>
+                        <CustomNavigateButton buttonText={item.name} goto={() => navigation.navigate("ChoreDetail", { choreId: item.id, householdId: currentHousehold.id })} />
                     )}
                 />
                 <Button
@@ -59,11 +54,7 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                             </TouchableOpacity>
 
                             {item.chores.map(chore => {
-                                return <TouchableOpacity key={chore.id} onPress={() => (
-                                    navigation.navigate("ChoreDetail", { choreId: chore.id, householdId: item.id })
-                                )}>
-                                    <Text style={[{ color: colors.text }]}>{chore.name}</Text>
-                                </TouchableOpacity>
+                                return <CustomNavigateButton key={chore.id} buttonText={chore.name} goto={() => navigation.navigate("ChoreDetail", { choreId: chore.id, householdId: item.id })} />
                             })}
                         </View>
                     )}

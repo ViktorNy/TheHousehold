@@ -13,11 +13,11 @@ import StartScreen from "../screens/StartScreen";
 type RootStackParamList = {
   // undefined behöver antagligen ändras :)
   Start: undefined;
-  Household: { user: User, householdId?: string  };
+  Household: { user: User, householdId?: string };
   DistributeChore: undefined;
-  ChoreDetail: {choreId: string, householdId: string};
-  Member: {householdId: string};
-  HouseholdChores: {householdId: string};
+  ChoreDetail: { choreId: string, householdId: string };
+  Member: { householdId: string };
+  HouseholdChores: { householdId: string };
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<RootStackParamList, Screen>;
@@ -27,23 +27,28 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootStackNavigator() {
   const colorScheme = useColorScheme();
 
-  // const MyTheme = {
-  //   ...DarkTheme,
-  //   colors: {
-  //     ...DarkTheme.colors,
-  //     text: 'rgb(255, 255, 255)',
-  //   },
-  // };
+  const DefaultCustomTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: 'rgb(255, 255, 255)'
+    },
+  };
+
+  const DarkCutomTheme = {
+    ...DarkTheme,
+    colors: {
+      ...DarkTheme.colors,
+      primary: 'rgb(50, 50, 50)'
+    },
+  };
 
   return (
-    <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <NavigationContainer theme={colorScheme === 'dark' ? DarkCutomTheme : DefaultCustomTheme}>
       <Stack.Navigator>
         <Stack.Screen name="Start" component={StartScreen} />
         <Stack.Screen name="Household" component={HouseholdScreen} />
-        <Stack.Screen
-          name="DistributeChore"
-          component={DistributeChoreScreen}
-        />
+        <Stack.Screen name="DistributeChore" component={DistributeChoreScreen} />
         <Stack.Screen name="ChoreDetail" component={ChoreDetailScreen} />
         <Stack.Screen name="Member" component={MemberScreen} />
         <Stack.Screen name="HouseholdChores" component={HouseholdChoresScreen} />
