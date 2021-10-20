@@ -8,10 +8,10 @@ import { store } from './store/store';
 export default function App() {
   return (
     <Provider store={store}>
-    <SafeAreaProvider >
-      <RootStackNavigator/>
-      <StatusBar style="auto" />
-    </SafeAreaProvider>
+      <SafeAreaProvider >
+        <RootStackNavigator />
+        <StatusBar style="auto" />
+      </SafeAreaProvider>
     </Provider>
   );
 }

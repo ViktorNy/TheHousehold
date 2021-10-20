@@ -1,3 +1,4 @@
+import { useTheme } from "@react-navigation/native";
 import React from "react";
 import { Button, FlatList, Text, TouchableOpacity, View } from "react-native";
 import { RootStackScreenProps } from "../navigation/RootStackNavigator";
@@ -5,6 +6,8 @@ import { getAllHouseholdsByUserIdSelector } from "../store/household/householdSe
 import { useAppSelector } from "../store/store";
 
 export default function HouseholdScreen({ navigation, route }: RootStackScreenProps<"Household">) {
+    const { colors } = useTheme();
+
     const userHousehold = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, route.params.user.id));
     const currentHousehold = useAppSelector((state) =>
         state.household.householdList.find((h) => h.id === route.params.householdId)
@@ -16,7 +19,7 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
         );
         return (
             <View>
-                <Text>{currentHousehold.name}</Text>
+                <Text style={[{ color: colors.text }]}>{currentHousehold.name}</Text>
                 <FlatList
                     data={houseHoldChores}
                     renderItem={({ item }) => (
@@ -25,7 +28,7 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                                 navigation.navigate("ChoreDetail", { choreId: item.id, householdId: currentHousehold.id })
                             }
                         >
-                            <Text>{item.name}</Text>
+                            <Text style={[{ color: colors.text }]}>{item.name}</Text>
                         </TouchableOpacity>
                     )}
                 />
@@ -42,26 +45,26 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
     } else {
         return (
             <View>
-                <Text>Welcome {route.params.user.username}</Text>
+                <Text style={[{ color: colors.text }]}>Welcome {route.params.user.username}</Text>
                 <FlatList
                     data={userHousehold}
                     renderItem={({ item }) => (
-                      <View>
-                        <TouchableOpacity
-                            onPress={() =>
-                              navigation.push("Household", { user: route.params.user, householdId: item.id })
-                            }
+                        <View>
+                            <TouchableOpacity
+                                onPress={() =>
+                                    navigation.push("Household", { user: route.params.user, householdId: item.id })
+                                }
                             >
-                            <Text>{item.name}</Text>
-                        </TouchableOpacity>
-                  
-                        {item.chores.map(chore => {
-                         return <TouchableOpacity key={chore.id} onPress={() => (
-                           navigation.navigate("ChoreDetail", { choreId: chore.id, householdId: item.id})
-                         )}>
-                           <Text>{chore.name}</Text>
-                         </TouchableOpacity>
-                        })}
+                                <Text style={[{ color: colors.text }]}>{item.name}</Text>
+                            </TouchableOpacity>
+
+                            {item.chores.map(chore => {
+                                return <TouchableOpacity key={chore.id} onPress={() => (
+                                    navigation.navigate("ChoreDetail", { choreId: chore.id, householdId: item.id })
+                                )}>
+                                    <Text style={[{ color: colors.text }]}>{chore.name}</Text>
+                                </TouchableOpacity>
+                            })}
                         </View>
                     )}
                 />
