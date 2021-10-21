@@ -2,6 +2,7 @@ import { useTheme } from "@react-navigation/native";
 import React from "react";
 import { Button, FlatList, Text, TouchableOpacity, View } from "react-native";
 import { CustomNavigateButton } from "../component/CustomNavigateButton";
+import { ProfileHeader } from "../component/ProfileHeader";
 import { RootStackScreenProps } from "../navigation/RootStackNavigator";
 import { getAllHouseholdsByUserIdSelector } from "../store/household/householdSelectors";
 import { useAppSelector } from "../store/store";
@@ -13,6 +14,9 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
     const currentHousehold = useAppSelector((state) =>
         state.household.householdList.find((h) => h.id === route.params.householdId)
     );
+    const userMemberInfo = useAppSelector((state) =>
+        state.member.memberList.find((m) => m.userId === route.params.user.id && m.householdId === currentHousehold?.id)
+    );
 
     if (currentHousehold) {
         const houseHoldChores = currentHousehold.chores.filter((item) =>
@@ -20,11 +24,23 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
         );
         return (
             <View>
+                <ProfileHeader
+                    household={currentHousehold}
+                    userInformation={{ user: route.params.user, member: userMemberInfo }}
+                />
                 <Text style={[{ color: colors.text }]}>{currentHousehold.name}</Text>
                 <FlatList
                     data={houseHoldChores}
                     renderItem={({ item }) => (
-                        <CustomNavigateButton buttonText={item.name} goto={() => navigation.navigate("ChoreDetail", { choreId: item.id, householdId: currentHousehold.id })} />
+                        <CustomNavigateButton
+                            buttonText={item.name}
+                            goto={() =>
+                                navigation.navigate("ChoreDetail", {
+                                    choreId: item.id,
+                                    householdId: currentHousehold.id,
+                                })
+                            }
+                        />
                     )}
                 />
                 <Button
@@ -40,6 +56,7 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
     } else {
         return (
             <View>
+                <ProfileHeader userInformation={{ user: route.params.user }} />
                 <Text style={[{ color: colors.text }]}>Welcome {route.params.user.username}</Text>
                 <FlatList
                     data={userHousehold}
@@ -53,8 +70,19 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                                 <Text style={[{ color: colors.text }]}>{item.name}</Text>
                             </TouchableOpacity>
 
-                            {item.chores.map(chore => {
-                                return <CustomNavigateButton key={chore.id} buttonText={chore.name} goto={() => navigation.navigate("ChoreDetail", { choreId: chore.id, householdId: item.id })} />
+                            {item.chores.map((chore) => {
+                                return (
+                                    <CustomNavigateButton
+                                        key={chore.id}
+                                        buttonText={chore.name}
+                                        goto={() =>
+                                            navigation.navigate("ChoreDetail", {
+                                                choreId: chore.id,
+                                                householdId: item.id,
+                                            })
+                                        }
+                                    />
+                                );
                             })}
                         </View>
                     )}
