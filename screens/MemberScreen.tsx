@@ -15,7 +15,7 @@ export default function MemberScreen({ navigation, route }: RootStackScreenProps
             <FlatList data={memberList} renderItem={
                 ({ item }) => {
                     const username = allUsers.find(u => u.id === item.userId)?.username;
-                    return <CustomNavigateButton buttonText={username} goto={() => navigation.navigate("MemeberDetailScreen", { memberId: item.id })} />
+                    return <CustomNavigateButton buttonText={username} singleAvatarId={item.avatar} goto={() => navigation.navigate("MemeberDetailScreen", { memberId: item.id })} />
                 }
             } />
         </View>
