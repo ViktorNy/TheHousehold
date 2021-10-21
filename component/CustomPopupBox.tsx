@@ -68,7 +68,7 @@ export function CustomPopupBox({modalCase, id}: Props) {
             setModalVisible(!modalVisible);
           }}>
           <View style={styles.centeredView}>
-            <View style={[styles.modalView, { backgroundColor: colors.background }]}>
+            <View style={[styles.modalView, { backgroundColor: colors.popupBackground }]}>
               <View style={[styles.headerStyle, { backgroundColor: colors.primary }]}>
                 <Text style={[ styles.textStyle, styles.headerTextStyle, { color: colors.text } ]}>{modalTitle}</Text>
               </View>
