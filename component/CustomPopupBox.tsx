@@ -4,8 +4,8 @@ import { AntDesign } from '@expo/vector-icons';
 import Modal from 'react-native-modal';
 
 let modalTitle = '';
-let ModalLeft = 'Acceptera';
-let modalRight = 'Avbryt';
+let ModalLeft = '';
+let modalRight = '';
 let modalPlaceholder = '';
 
 interface Props{
