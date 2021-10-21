@@ -11,12 +11,16 @@ import HouseholdScreen from "../screens/HouseholdScreen";
 import LoginScreen from "../screens/LoginScreen";
 import MemberDetailScreen from "../screens/MemberDetailScreen";
 import MemberScreen from "../screens/MemberScreen";
+import RegisterScreen from "../screens/RegisterScreen";
+import RegisterUserNameScreen from "../screens/RegisterUserNameScreen";
 import StartScreen from "../screens/StartScreen";
 
 type RootStackParamList = {
   // undefined behöver antagligen ändras :)
   Start: undefined; // Tar inte in några parametrerar
   Login: undefined; // Tar inte in några parametrerar
+  Register: undefined; // Tar inte in några parametrerar
+  RegisterUserName: {email: string, password: string};
   Household: { user: User, householdId?: string };
   DistributeChore: undefined;
   ChoreDetail: { choreId: string, householdId: string };
@@ -60,6 +64,22 @@ function RootStackNavigator() {
         <Stack.Screen
           name="Login"
           component={LoginScreen}
+          options={{
+            title: '',
+            headerStyle: { backgroundColor: colors.background }, headerShadowVisible: false
+          }}
+        />
+         <Stack.Screen
+          name="Register"
+          component={RegisterScreen}
+          options={{
+            title: '',
+            headerStyle: { backgroundColor: colors.background }, headerShadowVisible: false
+          }}
+        />
+        <Stack.Screen
+          name="RegisterUserName"
+          component={RegisterUserNameScreen}
           options={{
             title: '',
             headerStyle: { backgroundColor: colors.background }, headerShadowVisible: false

@@ -19,7 +19,7 @@ export default function StartScreen({ navigation }: RootStackScreenProps<"Start"
             <View style={styles.viewStyle}>
                 <CustomNavigateButton buttonText="Logga in" goto={() => navigation.navigate("Login")} />
                 <Text style={styles.notMemberText}>Är du inte medlem?</Text>
-                <CustomNavigateButton buttonText="Registrera" goto={() => {}} />
+                <CustomNavigateButton buttonText="Registrera" goto={() => navigation.navigate("Register")} />
             </View>
         </SafeAreaView>
     );

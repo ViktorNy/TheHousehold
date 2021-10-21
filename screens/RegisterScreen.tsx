@@ -3,36 +3,22 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CustomNavigateButton } from "../component/CustomNavigateButton";
-import { mockedUserData } from '../data/data';
 import { RootStackScreenProps } from "../navigation/RootStackNavigator";
+import RegisterUserNameScreen from "./RegisterUserNameScreen";
 
-export default function LoginScreen({ navigation }: RootStackScreenProps<"Login">) {
+export default function RegisterScreen({ navigation }: RootStackScreenProps<"Register">) {
     const { colors } = useTheme();
-    const [userText, onUserTextChange] = useState('');
+    const [userEmail, onUserEmailChange] = useState('');
     const [userPassword, onUserPasswordChange] = useState('');
-
-    const user = mockedUserData[0];
-
-    // Needs to be revised. Now only works if you log in with user info: 
-    // Username: SvenSvensson
-    // Password: Svensson
-    // Otherwise logs out 'faulty user' in console
-    function checkUserInfo() {
-        if (user.email === userText || user.username === userText && user.password === userPassword) {
-            navigation.navigate('Household', { user });
-        } else {
-            console.log('Faulty user');
-        }
-    }
 
     return (
         <SafeAreaView style={[{ backgroundColor: colors.background }]}>
-            <Text style={styles.loginText}>Logga in</Text>
+            <Text style={styles.loginText}>Registrera</Text>
             <TextInput
                 style={styles.input}
-                value={userText}
-                onChangeText={onUserTextChange}
-                placeholder='Epost / användarnamn'
+                value={userEmail}
+                onChangeText={onUserEmailChange}
+                placeholder='E-mail'
                 textAlign='center'
             />
             <TextInput
@@ -44,7 +30,7 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<"Login"
                 textAlign='center'
             />
             <View style={styles.viewStyle}>
-                <CustomNavigateButton buttonText="Logga in" goto={checkUserInfo} />
+                <CustomNavigateButton buttonText="Spara" goto={() => navigation.navigate('RegisterUserName', {email: userEmail, password: userPassword})} />
             </View>
         </SafeAreaView>
     );
