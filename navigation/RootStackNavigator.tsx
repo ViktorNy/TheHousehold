@@ -12,38 +12,41 @@ import MemberScreen from "../screens/MemberScreen";
 import StartScreen from "../screens/StartScreen";
 
 type RootStackParamList = {
-  // undefined behöver antagligen ändras :)
-  Start: undefined;
-  Household: { user: User, householdId?: string };
-  DistributeChore: undefined;
-  ChoreDetail: { choreId: string, householdId: string };
-  Member: { householdId: string };
-  HouseholdChores: { householdId: string };
-  MemeberDetailScreen: { memberId: string};
+    // undefined behöver antagligen ändras :)
+    Start: undefined;
+    Household: { user: User; householdId?: string };
+    DistributeChore: undefined;
+    ChoreDetail: { choreId: string; householdId: string };
+    Member: { householdId: string };
+    HouseholdChores: { householdId: string };
+    MemeberDetailScreen: { memberId: string };
 };
 
-export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<RootStackParamList, Screen>;
+export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
+    RootStackParamList,
+    Screen
+>;
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStackNavigator() {
-  const colorScheme = useColorScheme();
+    const colorScheme = useColorScheme();
 
-  const DefaultCustomTheme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      primary: 'rgb(255, 255, 255)'
-    },
-  };
+    const DefaultCustomTheme = {
+        ...DefaultTheme,
+        colors: {
+            ...DefaultTheme.colors,
+            primary: "rgb(255, 255, 255)",
+        },
+    };
 
-  const DarkCutomTheme = {
-    ...DarkTheme,
-    colors: {
-      ...DarkTheme.colors,
-      primary: 'rgb(50, 50, 50)'
-    },
-  };
+    const DarkCutomTheme = {
+        ...DarkTheme,
+        colors: {
+            ...DarkTheme.colors,
+            primary: "rgb(50, 50, 50)",
+        },
+    };
 
   return (
     <NavigationContainer theme={colorScheme === 'dark' ? DarkCutomTheme : DefaultCustomTheme}>

@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Button, FlatList, Modal, Pressable, Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import { CustomNavigateButton } from "../component/CustomNavigateButton";
 import HamburgerMenu from "../component/HamburgerMenu";
+import { ProfileHeader } from "../component/ProfileHeader";
+
 import { RootStackScreenProps } from "../navigation/RootStackNavigator";
 import { getAllHouseholdsByUserIdSelector } from "../store/household/householdSelectors";
 import { useAppSelector } from "../store/store";
@@ -14,8 +16,9 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
     const currentHousehold = useAppSelector((state) =>
         state.household.householdList.find((h) => h.id === route.params.householdId)
     );
-    const currentMember = useAppSelector((state) => state.member.memberList.find(m => m.userId === route.params.user.id && m.householdId === currentHousehold?.id))
-
+    const userMemberInfo = useAppSelector((state) =>
+        state.member.memberList.find((m) => m.userId === route.params.user.id && m.householdId === currentHousehold?.id)
+    );
 
     if (currentHousehold) {
         const houseHoldChores = currentHousehold.chores.filter((item) =>
@@ -28,14 +31,26 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                     toggleIsShowing={setIsShowingModal}
                     rootStackProps={{ navigation, route }}
                     householdID={currentHousehold.id}
-                    currentMember={currentMember}
+                    currentMember={userMemberInfo}
                 />
                 <Button title="Show menu" onPress={() => setIsShowingModal(!isShowingModal)} />
+                <ProfileHeader
+                    household={currentHousehold}
+                    userInformation={{ user: route.params.user, member: userMemberInfo }}
+                />
                 <Text style={[{ color: colors.text }]}>{currentHousehold.name}</Text>
                 <FlatList
                     data={houseHoldChores}
                     renderItem={({ item }) => (
-                        <CustomNavigateButton buttonText={item.name} goto={() => navigation.navigate("ChoreDetail", { choreId: item.id, householdId: currentHousehold.id })} />
+                        <CustomNavigateButton
+                            buttonText={item.name}
+                            goto={() =>
+                                navigation.navigate("ChoreDetail", {
+                                    choreId: item.id,
+                                    householdId: currentHousehold.id,
+                                })
+                            }
+                        />
                     )}
                 />
             </View>
@@ -49,6 +64,7 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                     rootStackProps={{ navigation, route }}
                 />
                 <Button title="Show menu" onPress={() => setIsShowingModal(!isShowingModal)} />
+                <ProfileHeader userInformation={{ user: route.params.user }} />
                 <Text style={[{ color: colors.text }]}>Welcome {route.params.user.username}</Text>
                 <FlatList
                     data={userHousehold}
@@ -62,8 +78,19 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                                 <Text style={[{ color: colors.text }]}>{item.name}</Text>
                             </TouchableOpacity>
 
-                            {item.chores.map(chore => {
-                                return <CustomNavigateButton key={chore.id} buttonText={chore.name} goto={() => navigation.navigate("ChoreDetail", { choreId: chore.id, householdId: item.id })} />
+                            {item.chores.map((chore) => {
+                                return (
+                                    <CustomNavigateButton
+                                        key={chore.id}
+                                        buttonText={chore.name}
+                                        goto={() =>
+                                            navigation.navigate("ChoreDetail", {
+                                                choreId: chore.id,
+                                                householdId: item.id,
+                                            })
+                                        }
+                                    />
+                                );
                             })}
                         </View>
                     )}
