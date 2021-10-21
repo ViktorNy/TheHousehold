@@ -22,6 +22,9 @@ export default function RegisterUserNameScreen({ navigation, route }: RootStackS
             <View style={styles.viewStyle}>
                 <CustomNavigateButton buttonText="Registrera användare" goto={() => {}} />
             </View>
+            <Text style={styles.approvalText}>Genom att klicka “Registrera användare” godkänner du
+            <Text style={styles.underlineText}> Hemmets användarvillkor</Text>
+            .</Text>
         </SafeAreaView>
     );
 }
@@ -44,4 +47,10 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: 'white'
     },
+    approvalText: {
+        margin: 10
+    },
+    underlineText: {
+        textDecorationLine: 'underline'
+    }
 });
