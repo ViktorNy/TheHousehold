@@ -1,7 +1,14 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, Pressable, View, TextInput } from "react-native";
+import { StyleSheet, Text, Pressable, View, TextInput, StatusBar } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import Modal from "react-native-modal";
+
+
+
+
+
+
+
 
 export function CustomPopupBox() {
     const [modalVisible, setModalVisible] = useState(true);
@@ -13,6 +20,7 @@ export function CustomPopupBox() {
           animationIn="fadeIn"
           coverScreen={true}
           isVisible={modalVisible}
+          statusBarTranslucent={true}
           onBackButtonPress={() => {
             setModalVisible(!modalVisible);
           }}>
