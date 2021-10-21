@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, Pressable, View, TextInput } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import Modal from 'react-native-modal';
+import { useAppSelector } from '../store/store';
+import { getAllUsersSelector } from '../store/user/userSelector';
+import { useTheme } from '@react-navigation/native';
 
 let modalTitle = '';
 let ModalLeft = '';
@@ -9,12 +12,19 @@ let modalRight = '';
 let modalPlaceholder = '';
 
 interface Props{
+  id: string
   modalCase: string
 }
 
-export function CustomPopupBox({modalCase}: Props) {
+export function CustomPopupBox({modalCase, id}: Props) {
     const [modalVisible, setModalVisible] = useState(true);
     const [userInput, onUserInputChange] = useState('');
+
+    const allUsers = useAppSelector(getAllUsersSelector);
+    const username = allUsers.find(u => u.id === id)?.username;
+
+    const { colors } = useTheme();
+    const iconColor = colors.text
 
     if (modalCase === 'JH') {
       modalTitle = 'Gå med i Hushåll'
@@ -32,19 +42,19 @@ export function CustomPopupBox({modalCase}: Props) {
       modalTitle = 'Gör till ägare'
       ModalLeft = 'Acceptera'
       modalRight = 'Avbryt'
-      modalPlaceholder = 'Gör GrodanBool till ägare'
+      modalPlaceholder = 'Gör ' + username + ' till ägare'
     }
     else if (modalCase === 'RUFH') {
       modalTitle = 'Ta bort från hushåll'
       ModalLeft = 'Ja'
       modalRight = 'Avbryt'
-      modalPlaceholder = 'Vill du verkligen ta bort Viktor?'
+      modalPlaceholder = 'Vill du verkligen ta bort' + username + '?'
     }
     else if (modalCase === 'AR') {
       modalTitle = 'Besvara förfrågan'
       ModalLeft = 'Acceptera'
       modalRight = 'Avslå'
-      modalPlaceholder = 'Jesus vill gå med'
+      modalPlaceholder = username + ' vill gå med'
     }
 
     return (
@@ -58,32 +68,34 @@ export function CustomPopupBox({modalCase}: Props) {
             setModalVisible(!modalVisible);
           }}>
           <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <View style={styles.headerStyle}>
-                <Text style={[ styles.textStyle, styles.headerTextStyle ]}>{modalTitle}</Text>
+            <View style={[styles.modalView, { backgroundColor: colors.background }]}>
+              <View style={[styles.headerStyle, { backgroundColor: colors.primary }]}>
+                <Text style={[ styles.textStyle, styles.headerTextStyle, { color: colors.text } ]}>{modalTitle}</Text>
               </View>
-              <View style={styles.inputInfoStyle}>
+              <View style={[{ backgroundColor: colors.primary}, styles.inputInfoStyle]}>
                 <TextInput 
                 onChangeText={onUserInputChange}
                 style={styles.middleTextStyle}
                 value={userInput}
                 placeholder={modalPlaceholder}
+                placeholderTextColor={colors.placeholderTextColor}
+                selectionColor={iconColor}
                 />
               </View>
-              <View style={styles.rowStyle}>
+              <View style={[styles.rowStyle, { backgroundColor: colors.primary }]}>
               <Pressable
-                style={styles.button}
+                style={[styles.button, { backgroundColor: colors.primary }]}
                 onPress={() => setModalVisible(!modalVisible)}
               >
-              <AntDesign name='pluscircleo' size={24} color='black' />
-              <Text style={styles.textStyle}>  {ModalLeft}</Text>
+              <AntDesign name='pluscircleo' size={24} color={iconColor} />
+              <Text style={[styles.textStyle, { color: colors.text }]}>  {ModalLeft}</Text>
               </Pressable>
               <Pressable
-                style={[styles.button, styles.buttonRightStyle]}
+                style={[styles.button, styles.buttonRightStyle, { backgroundColor: colors.primary }]}
                 onPress={() => setModalVisible(!modalVisible)}
               >
-              <AntDesign name='closecircleo' size={24} color='black' />
-              <Text style={styles.textStyle}>  {modalRight}</Text>
+              <AntDesign name='closecircleo' size={24} color={iconColor} />
+              <Text style={[styles.textStyle, { color: colors.text }]}>  {modalRight}</Text>
               </Pressable>
               </View>
             </View>
@@ -99,50 +111,12 @@ const styles = StyleSheet.create({
       alignItems: 'center',
     },
     modalView: {
-      backgroundColor: '#F2F2F2',
       borderRadius: 20,
       minHeight: 210,
       height: '28%',
       width: '100%',
       alignItems: 'center',
       elevation: 20,
-    },
-    button: {
-      flexDirection: 'row',
-      width: '50%',
-      elevation: 2,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#FFF'
-    },
-    buttonRightStyle: {
-        elevation: 5,
-    },
-    textStyle: {
-      color: 'black',
-      fontWeight: 'bold',
-      textAlign: 'center',
-      fontSize: 20
-    },
-    middleTextStyle: {
-        color: 'gray',
-        textAlign: 'left',
-        marginLeft: 20,
-        fontSize: 20
-    },
-    headerTextStyle: {
-      fontSize: 24
-    },
-    headerStyle: {
-      flexDirection: 'row',
-      width: '100%',
-      backgroundColor: 'white',
-      borderTopLeftRadius: 20,
-      borderTopRightRadius: 20,
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '30%',
-      elevation: 2,
     },
     rowStyle: {
         flexDirection: 'row',
@@ -152,13 +126,44 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 20,
         height: '30%',
     },
+    button: {
+      flexDirection: 'row',
+      width: '50%',
+      elevation: 2,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    buttonRightStyle: {
+        elevation: 5,
+    },
+    textStyle: {
+      fontWeight: 'bold',
+      textAlign: 'center',
+      fontSize: 20
+    },
+    middleTextStyle: {
+        textAlign: 'left',
+        marginLeft: 20,
+        fontSize: 20
+    },
     inputInfoStyle: {
       margin: 15,
-      backgroundColor: '#FFF',
       borderRadius: 10,
       height: '30%',
       width: '90%',
       elevation: 5,
       justifyContent: 'center',
+    },
+    headerTextStyle: {
+      fontSize: 24
+    },
+    headerStyle: {
+      width: '100%',
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '30%',
+      elevation: 2,
     },
 });

@@ -14,7 +14,7 @@ export default function StartScreen({ navigation }: RootStackScreenProps<"Start"
         
         <View>
             <CustomNavigateButton buttonText="Gå till hushåll" goto={() => navigation.navigate("Household", { user: newUser }) }/>
-            <CustomPopupBox modalCase={'JH'} />
+            <CustomPopupBox modalCase={'JH'} id={'1'}/>
             
         </View>
         

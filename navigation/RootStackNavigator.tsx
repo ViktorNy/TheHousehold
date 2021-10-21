@@ -33,7 +33,8 @@ function RootStackNavigator() {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      primary: 'rgb(255, 255, 255)'
+      primary: 'rgb(255, 255, 255)',
+      placeholderTextColor: 'rgb(50, 50, 50)'
     },
   };
 
@@ -41,7 +42,8 @@ function RootStackNavigator() {
     ...DarkTheme,
     colors: {
       ...DarkTheme.colors,
-      primary: 'rgb(50, 50, 50)'
+      primary: 'rgb(50, 50, 50)',
+      placeholderTextColor: 'rgb(200, 200, 200)'
     },
   };
 
