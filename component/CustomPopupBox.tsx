@@ -3,17 +3,10 @@ import { StyleSheet, Text, Pressable, View, TextInput, StatusBar } from "react-n
 import { AntDesign } from '@expo/vector-icons';
 import Modal from "react-native-modal";
 
-
-
-
-
-
-
+const [userInput, onUserInputChange] = useState('');
 
 export function CustomPopupBox() {
     const [modalVisible, setModalVisible] = useState(true);
-    let userText;
-    let onUserTextChange;
     return (
       <View>
         <Modal
@@ -31,9 +24,9 @@ export function CustomPopupBox() {
               </View>
               <View style={styles.inputInfoStyle}>
                 <TextInput 
-                onChangeText={onUserTextChange}
+                onChangeText={onUserInputChange}
                 style={styles.middleTextStyle}
-                value={userText}
+                value={userInput}
                 placeholder='Hushållskod'
                 />
               </View>
