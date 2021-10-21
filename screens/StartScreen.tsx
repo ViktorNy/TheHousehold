@@ -4,7 +4,6 @@ import { Button, StyleSheet, Text, View, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CustomNavigateButton } from "../component/CustomNavigateButton";
 import { RootStackScreenProps } from "../navigation/RootStackNavigator";
-// import ladyTrashcan from '../assets'
 
 export default function StartScreen({ navigation }: RootStackScreenProps<"Start">) {
     const { colors } = useTheme();
@@ -14,14 +13,12 @@ export default function StartScreen({ navigation }: RootStackScreenProps<"Start"
 
             <Text style={styles.simplifyText}>Förenkla din vardag</Text>
             <Text style={styles.pitchText}>
-                Få koll på era sysslor, fördela, engagera och glöm bort blir nu ett minne blott!
+                Få koll på era sysslor, fördela och engagera. Att glömma bort blir nu ett minne blott!
             </Text>
             <Image style={styles.imageStyle}  source={require('../assets/ladyontrashcan.png')}/>
             <View style={styles.viewStyle}>
-                <CustomNavigateButton buttonText="Logga in" goto={() => {}} />
-
+                <CustomNavigateButton buttonText="Logga in" goto={() => navigation.navigate("Login")} />
                 <Text style={styles.notMemberText}>Är du inte medlem?</Text>
-
                 <CustomNavigateButton buttonText="Registrera" goto={() => {}} />
             </View>
         </SafeAreaView>
