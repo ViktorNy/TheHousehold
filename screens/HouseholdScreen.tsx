@@ -21,7 +21,7 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
         );
         return (
             <View>
-                <ProfileHeader household={currentHousehold} />
+                <ProfileHeader household={currentHousehold} user={route.params.user} />
                 <Text style={[{ color: colors.text }]}>{currentHousehold.name}</Text>
                 <FlatList
                     data={houseHoldChores}

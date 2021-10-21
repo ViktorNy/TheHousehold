@@ -1,20 +1,22 @@
 import { useTheme } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Household, Member } from "../data/data";
+import { Household, Member, User } from "../data/data";
 import Avatar from "./Avatar";
 import { Entypo } from "@expo/vector-icons";
 
 interface Props {
     household?: Household;
+    user: User;
     visitMember?: Member;
 }
 
-export function ProfileHeader({ household, visitMember }: Props) {
+export function ProfileHeader({ household, user, visitMember }: Props) {
     const { colors } = useTheme();
 
     function ShowProfile(household?: Household) {
         if (visitMember) {
+            //visit another member profile
             return (
                 <TouchableOpacity style={styles.row}>
                     <Entypo name="arrow-long-left" size={20} color={colors.text} />
@@ -22,6 +24,7 @@ export function ProfileHeader({ household, visitMember }: Props) {
                 </TouchableOpacity>
             );
         } else if (household) {
+            //visit one of youre households
             return (
                 <TouchableOpacity style={styles.row}>
                     <Text style={[styles.title, { color: colors.text }]}>{household.name}</Text>
@@ -29,6 +32,7 @@ export function ProfileHeader({ household, visitMember }: Props) {
                 </TouchableOpacity>
             );
         } else {
+            //visit youre page "min sida"
             return (
                 <TouchableOpacity style={styles.row}>
                     <Text style={[styles.title, { color: colors.text }]}>Min sida</Text>
@@ -50,16 +54,42 @@ export function ProfileHeader({ household, visitMember }: Props) {
         );
     }
 
-    function DisplayUser(userName?: string, userType?: string, avatar?: string) {
-        return (
-            <View style={styles.user}>
-                <View style={[styles.circle]}>
-                    <Text style={{ color: colors.text }}>{avatar}</Text>
+    function DisplayUser(user: User, household?: Household, visitMember?: Member) {
+        if (visitMember) {
+            //visit another member profile
+            // TODO: hämta rätt info
+            return (
+                <View style={styles.user}>
+                    <View style={[styles.circle]}>
+                        <Text style={{ color: colors.text }}>{visitMember.avatar}</Text>
+                    </View>
+                    <Text style={{ color: colors.text }}>{visitMember.memberType}</Text>
                 </View>
-                {userName && <Text>{userName}</Text>}
-                {userType && <Text>{userType}</Text>}
-            </View>
-        );
+            );
+        } else if (household) {
+            //visit one of youre households
+            // TODO: hämta rätt info
+            return (
+                <View style={styles.user}>
+                    <View style={[styles.circle]}>
+                        <Text style={{ color: colors.text }}>todo avatar</Text>
+                    </View>
+                    <Text style={{ color: colors.text }}>{user.username}</Text>
+                    <Text style={{ color: colors.text }}>todo memberType</Text>
+                </View>
+            );
+        } else {
+            //visit youre page "min sida"
+            //TODO: Hämta rätt info
+            return (
+                <View style={styles.user}>
+                    <View style={[styles.circle]}>
+                        <Text style={{ color: colors.text }}>todo avatar</Text>
+                    </View>
+                    <Text style={{ color: colors.text }}>{user.username}</Text>
+                </View>
+            );
+        }
     }
 
     return (
@@ -73,16 +103,15 @@ export function ProfileHeader({ household, visitMember }: Props) {
             </View>
             {/* Row 2: circles + text */}
             <View style={styles.rowTwo}>
-                {DisplayUser("Användarnamn", "Ägare", "Ö")}
-                <View style={styles.scoreBox}>
-                    <View style={{ alignItems: "center" }}>
-                        <View style={[styles.row, styles.spaceBetween]}>
-                            {DisplayScore("Att göra", 0)}
-                            {DisplayScore("Avklarade", 10)}
-                            {DisplayScore("Poäng", 16)}
-                        </View>
-                        <Text style={{ color: colors.text }}>För nuvarande månad</Text>
+                {/*  */}
+                {DisplayUser(user, household)}
+                <View style={{ alignItems: "center" }}>
+                    <View style={[styles.row, styles.spaceBetween]}>
+                        {DisplayScore("Att göra", 0)}
+                        {DisplayScore("Avklarade", 10)}
+                        {DisplayScore("Poäng")}
                     </View>
+                    <Text style={{ color: colors.border }}>För nuvarande månad</Text>
                 </View>
             </View>
         </View>
@@ -101,6 +130,7 @@ const styles = StyleSheet.create({
     },
     rowTwo: {
         //backgroundColor: "pink",
+        justifyContent: "space-between",
         paddingRight: 20,
         paddingTop: 5,
         flexDirection: "row",
@@ -108,10 +138,6 @@ const styles = StyleSheet.create({
     },
     user: {
         alignItems: "center",
-    },
-    scoreBox: {
-        alignItems: "flex-end",
-        flex: 1,
     },
     score: {
         alignItems: "center",
