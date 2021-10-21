@@ -1,19 +1,52 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, Pressable, View, TextInput, StatusBar } from 'react-native';
+import { StyleSheet, Text, Pressable, View, TextInput } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import Modal from 'react-native-modal';
 
+let modalTitle = '';
+let ModalLeft = 'Acceptera';
+let modalRight = 'Avbryt';
+let modalPlaceholder = '';
+
 interface Props{
-  modalTitle: string
-  ModalLeft: string
-  modalRight: string
-  modalPlaceholder: string
+  modalCase: string
 }
 
-export function CustomPopupBox({modalTitle, ModalLeft, modalRight, modalPlaceholder}: Props) {
+export function CustomPopupBox({modalCase}: Props) {
     const [modalVisible, setModalVisible] = useState(true);
     const [userInput, onUserInputChange] = useState('');
-    
+
+    if (modalCase === 'JH') {
+      modalTitle = 'Gå med i Hushåll'
+      ModalLeft = 'Gå med'
+      modalRight = 'Avbryt'
+      modalPlaceholder = 'Hushållskod'
+    } 
+    else if (modalCase === 'CH') {
+      modalTitle = 'Skapa Hushåll'
+      ModalLeft = 'Skapa'
+      modalRight = 'Avbryt'
+      modalPlaceholder = 'Namn'
+    }
+    else if (modalCase === 'MO') {
+      modalTitle = 'Gör till ägare'
+      ModalLeft = 'Acceptera'
+      modalRight = 'Avbryt'
+      modalPlaceholder = 'Gör GrodanBool till ägare'
+    }
+    else if (modalCase === 'RUFH') {
+      modalTitle = 'Ta bort från hushåll'
+      ModalLeft = 'Ja'
+      modalRight = 'Avbryt'
+      modalPlaceholder = 'Vill du verkligen ta bort Viktor?'
+    }
+    else if (modalCase === 'AR') {
+      modalTitle = 'Besvara förfrågan'
+      ModalLeft = 'Acceptera'
+      modalRight = 'Avslå'
+      modalPlaceholder = 'Jesus vill gå med'
+    }
+
     return (
       <View>
         <Modal
