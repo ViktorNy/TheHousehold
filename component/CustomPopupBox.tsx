@@ -1,16 +1,23 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, Pressable, View, TextInput, StatusBar } from "react-native";
+import React, { useState } from 'react';
+import { StyleSheet, Text, Pressable, View, TextInput, StatusBar } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import Modal from "react-native-modal";
+import Modal from 'react-native-modal';
 
-const [userInput, onUserInputChange] = useState('');
+interface Props{
+  modalTitle: string
+  ModalLeft: string
+  modalRight: string
+  modalPlaceholder: string
+}
 
-export function CustomPopupBox() {
+export function CustomPopupBox({modalTitle, ModalLeft, modalRight, modalPlaceholder}: Props) {
     const [modalVisible, setModalVisible] = useState(true);
+    const [userInput, onUserInputChange] = useState('');
+    
     return (
       <View>
         <Modal
-          animationIn="fadeIn"
+          animationIn='fadeIn'
           coverScreen={true}
           isVisible={modalVisible}
           statusBarTranslucent={true}
@@ -20,14 +27,14 @@ export function CustomPopupBox() {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <View style={styles.headerStyle}>
-                <Text style={[ styles.textStyle, styles.headerTextStyle ]}>Gå med i hushåll</Text>
+                <Text style={[ styles.textStyle, styles.headerTextStyle ]}>{modalTitle}</Text>
               </View>
               <View style={styles.inputInfoStyle}>
                 <TextInput 
                 onChangeText={onUserInputChange}
                 style={styles.middleTextStyle}
                 value={userInput}
-                placeholder='Hushållskod'
+                placeholder={modalPlaceholder}
                 />
               </View>
               <View style={styles.rowStyle}>
@@ -35,15 +42,15 @@ export function CustomPopupBox() {
                 style={styles.button}
                 onPress={() => setModalVisible(!modalVisible)}
               >
-              <AntDesign name="pluscircleo" size={24} color="black" />
-              <Text style={styles.textStyle}>  Gå med</Text>
+              <AntDesign name='pluscircleo' size={24} color='black' />
+              <Text style={styles.textStyle}>  {ModalLeft}</Text>
               </Pressable>
               <Pressable
                 style={[styles.button, styles.buttonRightStyle]}
                 onPress={() => setModalVisible(!modalVisible)}
               >
-              <AntDesign name="closecircleo" size={24} color="black" />
-              <Text style={styles.textStyle}>  Avbryt</Text>
+              <AntDesign name='closecircleo' size={24} color='black' />
+              <Text style={styles.textStyle}>  {modalRight}</Text>
               </Pressable>
               </View>
             </View>
@@ -55,38 +62,38 @@ export function CustomPopupBox() {
 
 const styles = StyleSheet.create({
     centeredView: {
-      justifyContent: "center",
-      alignItems: "center",
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     modalView: {
-      backgroundColor: "#F2F2F2",
+      backgroundColor: '#F2F2F2',
       borderRadius: 20,
       minHeight: 210,
       height: '28%',
       width: '100%',
-      alignItems: "center",
+      alignItems: 'center',
       elevation: 20,
     },
     button: {
       flexDirection: 'row',
       width: '50%',
       elevation: 2,
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "#FFF"
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#FFF'
     },
     buttonRightStyle: {
         elevation: 5,
     },
     textStyle: {
-      color: "black",
-      fontWeight: "bold",
-      textAlign: "center",
+      color: 'black',
+      fontWeight: 'bold',
+      textAlign: 'center',
       fontSize: 20
     },
     middleTextStyle: {
-        color: "gray",
-        textAlign: "left",
+        color: 'gray',
+        textAlign: 'left',
         marginLeft: 20,
         fontSize: 20
     },
@@ -114,11 +121,11 @@ const styles = StyleSheet.create({
     },
     inputInfoStyle: {
       margin: 15,
-      backgroundColor: "#FFF",
+      backgroundColor: '#FFF',
       borderRadius: 10,
       height: '30%',
       width: '90%',
-      shadowColor: "#000",
+      shadowColor: '#000',
       shadowOffset: {
         width: 0,
         height: 2
