@@ -52,7 +52,10 @@ function RootStackNavigator() {
         <Stack.Screen name="Household" component={HouseholdScreen} />
         <Stack.Screen name="DistributeChore" component={DistributeChoreScreen} />
         <Stack.Screen name="ChoreDetail" component={ChoreDetailScreen} />
-        <Stack.Screen name="Member" component={MemberScreen} />
+        <Stack.Screen name="Member" component={MemberScreen} 
+        options={{
+          headerTitle: "Medlemmar"
+        }}/>
         <Stack.Screen name="HouseholdChores" component={HouseholdChoresScreen} />
         <Stack.Screen name="MemeberDetailScreen" component={MemberDetailScreen} />
       </Stack.Navigator>
