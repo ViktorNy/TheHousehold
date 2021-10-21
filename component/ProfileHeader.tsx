@@ -7,20 +7,27 @@ import { Entypo } from "@expo/vector-icons";
 
 interface Props {
     household?: Household;
-    user: User;
-    visitMember?: Member;
+    userInformation?: {
+        user: User;
+        member?: Member;
+    };
+    visitMember?: {
+        member?: Member;
+        userName?: string;
+    };
 }
 
-export function ProfileHeader({ household, user, visitMember }: Props) {
+export function ProfileHeader({ household, userInformation, visitMember }: Props) {
     const { colors } = useTheme();
 
     function ShowProfile(household?: Household) {
         if (visitMember) {
             //visit another member profile
+            // TODO: namn på member ?
             return (
                 <TouchableOpacity style={styles.row}>
                     <Entypo name="arrow-long-left" size={20} color={colors.text} />
-                    <Text style={[styles.title, { paddingLeft: 10, color: colors.text }]}>{visitMember.userId}</Text>
+                    <Text style={[styles.title, { paddingLeft: 10, color: colors.text }]}>{visitMember.userName}</Text>
                 </TouchableOpacity>
             );
         } else if (household) {
@@ -46,7 +53,7 @@ export function ProfileHeader({ household, user, visitMember }: Props) {
         if (!score) score = 0;
         return (
             <View style={styles.score}>
-                <View style={[styles.circle, { borderColor: colors.border }]}>
+                <View style={[styles.circle, { borderColor: colors.text }]}>
                     <Text style={{ color: colors.text }}>{score}</Text>
                 </View>
                 <Text style={{ color: colors.text }}>{description}</Text>
@@ -54,16 +61,18 @@ export function ProfileHeader({ household, user, visitMember }: Props) {
         );
     }
 
-    function DisplayUser(user: User, household?: Household, visitMember?: Member) {
+    function DisplayUser({ household, userInformation, visitMember }: Props) {
         if (visitMember) {
             //visit another member profile
             // TODO: hämta rätt info
             return (
                 <View style={styles.user}>
                     <View style={[styles.circle]}>
-                        <Text style={{ color: colors.text }}>{visitMember.avatar}</Text>
+                        {visitMember.member && (
+                            <Avatar avatarId={visitMember.member.avatar} showCircle={true} avatarSize={22} />
+                        )}
                     </View>
-                    <Text style={{ color: colors.text }}>{visitMember.memberType}</Text>
+                    <Text style={{ color: colors.text }}>{visitMember.member?.memberType}</Text>
                 </View>
             );
         } else if (household) {
@@ -72,10 +81,12 @@ export function ProfileHeader({ household, user, visitMember }: Props) {
             return (
                 <View style={styles.user}>
                     <View style={[styles.circle]}>
-                        <Text style={{ color: colors.text }}>todo avatar</Text>
+                        {userInformation?.member && (
+                            <Avatar avatarId={userInformation.member.avatar} showCircle={true} avatarSize={22} />
+                        )}
                     </View>
-                    <Text style={{ color: colors.text }}>{user.username}</Text>
-                    <Text style={{ color: colors.text }}>todo memberType</Text>
+                    <Text style={{ color: colors.text }}>{userInformation?.user.username}</Text>
+                    <Text style={{ color: colors.text }}>{userInformation?.member?.memberType}</Text>
                 </View>
             );
         } else {
@@ -83,10 +94,10 @@ export function ProfileHeader({ household, user, visitMember }: Props) {
             //TODO: Hämta rätt info
             return (
                 <View style={styles.user}>
-                    <View style={[styles.circle]}>
-                        <Text style={{ color: colors.text }}>todo avatar</Text>
+                    <View style={[styles.circle, { borderColor: colors.text }]}>
+                        {/* <Text style={{ color: colors.text }}></Text> */}
                     </View>
-                    <Text style={{ color: colors.text }}>{user.username}</Text>
+                    <Text style={{ color: colors.text }}>{userInformation?.user.username}</Text>
                 </View>
             );
         }
@@ -104,14 +115,14 @@ export function ProfileHeader({ household, user, visitMember }: Props) {
             {/* Row 2: circles + text */}
             <View style={styles.rowTwo}>
                 {/*  */}
-                {DisplayUser(user, household)}
+                {DisplayUser({ userInformation, household, visitMember })}
                 <View style={{ alignItems: "center" }}>
                     <View style={[styles.row, styles.spaceBetween]}>
                         {DisplayScore("Att göra", 0)}
                         {DisplayScore("Avklarade", 10)}
                         {DisplayScore("Poäng")}
                     </View>
-                    <Text style={{ color: colors.border }}>För nuvarande månad</Text>
+                    <Text style={{ color: colors.text }}>För nuvarande månad</Text>
                 </View>
             </View>
         </View>

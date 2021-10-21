@@ -88,7 +88,7 @@ export const mockedMemberData: Member[] = [
         id: '3',
         userId: '2',
         memberType: 'owner',
-        avatar: '2',
+        avatar: '7',
         joinData: '2021-01-02',
         pausedHistory: [],
         householdId: '2'

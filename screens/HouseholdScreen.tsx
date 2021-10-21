@@ -14,6 +14,9 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
     const currentHousehold = useAppSelector((state) =>
         state.household.householdList.find((h) => h.id === route.params.householdId)
     );
+    const userMemberInfo = useAppSelector((state) =>
+        state.member.memberList.find((m) => m.userId === route.params.user.id && m.householdId === currentHousehold?.id)
+    );
 
     if (currentHousehold) {
         const houseHoldChores = currentHousehold.chores.filter((item) =>
@@ -21,7 +24,10 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
         );
         return (
             <View>
-                <ProfileHeader household={currentHousehold} user={route.params.user} />
+                <ProfileHeader
+                    household={currentHousehold}
+                    userInformation={{ user: route.params.user, member: userMemberInfo }}
+                />
                 <Text style={[{ color: colors.text }]}>{currentHousehold.name}</Text>
                 <FlatList
                     data={houseHoldChores}
@@ -50,6 +56,7 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
     } else {
         return (
             <View>
+                <ProfileHeader userInformation={{ user: route.params.user }} />
                 <Text style={[{ color: colors.text }]}>Welcome {route.params.user.username}</Text>
                 <FlatList
                     data={userHousehold}
