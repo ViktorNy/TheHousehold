@@ -2,6 +2,7 @@ import { useTheme } from "@react-navigation/native";
 import React from "react";
 import { Button, FlatList, Text, TouchableOpacity, View } from "react-native";
 import { CustomNavigateButton } from "../component/CustomNavigateButton";
+import { ProfileHeader } from "../component/ProfileHeader";
 import { RootStackScreenProps } from "../navigation/RootStackNavigator";
 import { getAllHouseholdsByUserIdSelector } from "../store/household/householdSelectors";
 import { useAppSelector } from "../store/store";
@@ -20,11 +21,20 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
         );
         return (
             <View>
+                <ProfileHeader household={currentHousehold} />
                 <Text style={[{ color: colors.text }]}>{currentHousehold.name}</Text>
                 <FlatList
                     data={houseHoldChores}
                     renderItem={({ item }) => (
-                        <CustomNavigateButton buttonText={item.name} goto={() => navigation.navigate("ChoreDetail", { choreId: item.id, householdId: currentHousehold.id })} />
+                        <CustomNavigateButton
+                            buttonText={item.name}
+                            goto={() =>
+                                navigation.navigate("ChoreDetail", {
+                                    choreId: item.id,
+                                    householdId: currentHousehold.id,
+                                })
+                            }
+                        />
                     )}
                 />
                 <Button
@@ -53,8 +63,19 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                                 <Text style={[{ color: colors.text }]}>{item.name}</Text>
                             </TouchableOpacity>
 
-                            {item.chores.map(chore => {
-                                return <CustomNavigateButton key={chore.id} buttonText={chore.name} goto={() => navigation.navigate("ChoreDetail", { choreId: chore.id, householdId: item.id })} />
+                            {item.chores.map((chore) => {
+                                return (
+                                    <CustomNavigateButton
+                                        key={chore.id}
+                                        buttonText={chore.name}
+                                        goto={() =>
+                                            navigation.navigate("ChoreDetail", {
+                                                choreId: chore.id,
+                                                householdId: item.id,
+                                            })
+                                        }
+                                    />
+                                );
                             })}
                         </View>
                     )}
