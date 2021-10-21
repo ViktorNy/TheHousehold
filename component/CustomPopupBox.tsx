@@ -1,37 +1,44 @@
 import React, { useState } from "react";
-import { Modal, StyleSheet, Text, Pressable, View } from "react-native";
+import { StyleSheet, Text, Pressable, View, TextInput } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
+import Modal from "react-native-modal";
 
 export function CustomPopupBox() {
-    const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible, setModalVisible] = useState(true);
+    let userText;
+    let onUserTextChange;
     return (
-      <View style={styles.centeredView}>
+      <View>
         <Modal
-          animationType="fade"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
+          animationIn="fadeIn"
+          coverScreen={true}
+          isVisible={modalVisible}
+          onBackButtonPress={() => {
             setModalVisible(!modalVisible);
-          }}
-        >
+          }}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <View style={styles.headerStyle}>
-                <Text style={styles.headerTextStyle}>Gå med i hushåll</Text>
+                <Text style={[ styles.textStyle, styles.headerTextStyle ]}>Gå med i hushåll</Text>
               </View>
               <View style={styles.inputInfoStyle}>
-                <Text style={styles.middleTextStyle}>Hushållskod</Text>
+                <TextInput 
+                onChangeText={onUserTextChange}
+                style={styles.middleTextStyle}
+                value={userText}
+                placeholder='Hushållskod'
+                />
               </View>
               <View style={styles.rowStyle}>
               <Pressable
-                style={[styles.buttonLeft, styles.buttonClose]}
+                style={styles.button}
                 onPress={() => setModalVisible(!modalVisible)}
               >
               <AntDesign name="pluscircleo" size={24} color="black" />
               <Text style={styles.textStyle}>  Gå med</Text>
               </Pressable>
               <Pressable
-                style={[styles.buttonRight, styles.buttonClose]}
+                style={[styles.button, styles.buttonRightStyle]}
                 onPress={() => setModalVisible(!modalVisible)}
               >
               <AntDesign name="closecircleo" size={24} color="black" />
@@ -41,67 +48,34 @@ export function CustomPopupBox() {
             </View>
           </View>
         </Modal>
-        <Pressable                                    //för att visa modalen, endast i testsyften
-          style={[styles.button, styles.buttonOpen]}
-          onPress={() => setModalVisible(true)}
-        >
-        </Pressable>
       </View>
-    );
+  );
 };
 
 const styles = StyleSheet.create({
     centeredView: {
-      flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      marginTop: 22
     },
     modalView: {
-      margin: 20,
       backgroundColor: "#F2F2F2",
       borderRadius: 20,
+      minHeight: 210,
       height: '28%',
-      width: '90%',
+      width: '100%',
       alignItems: "center",
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 2
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 4,
       elevation: 20,
     },
     button: {
-        borderRadius: 20,
-        padding: 10,
-        marginLeft: 0,
-        elevation: 2
-      },
-    buttonLeft: {
-      borderBottomLeftRadius: 20,
       flexDirection: 'row',
       width: '50%',
       elevation: 2,
       justifyContent: "center",
       alignItems: "center",
-      overflow: 'hidden'
+      backgroundColor: "#FFF"
     },
-    buttonRight: {
-        borderBottomRightRadius: 20,
-        flexDirection: 'row',
-        width: '50%',
+    buttonRightStyle: {
         elevation: 5,
-        justifyContent: "center",
-        alignItems: "center",
-        overflow: 'hidden'
-      },
-    buttonOpen: {
-      backgroundColor: "#F194FF",
-    },
-    buttonClose: {
-      backgroundColor: "#FFF",
     },
     textStyle: {
       color: "black",
@@ -109,15 +83,14 @@ const styles = StyleSheet.create({
       textAlign: "center",
       fontSize: 20
     },
-    headerTextStyle: {
-      color: "black",
-      fontWeight: "bold",
-      textAlign: "center",
-      fontSize: 24
+    middleTextStyle: {
+        color: "gray",
+        textAlign: "left",
+        marginLeft: 20,
+        fontSize: 20
     },
-    modalText: {
-      justifyContent: 'center',
-      textAlign: "center"
+    headerTextStyle: {
+      fontSize: 24
     },
     headerStyle: {
       flexDirection: 'row',
@@ -154,10 +127,4 @@ const styles = StyleSheet.create({
       elevation: 5,
       justifyContent: 'center',
     },
-    middleTextStyle: {
-        color: "gray",
-        textAlign: "left",
-        marginLeft: 20,
-        fontSize: 20
-    }
   });
