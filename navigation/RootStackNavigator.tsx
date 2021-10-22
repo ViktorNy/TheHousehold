@@ -16,7 +16,6 @@ import RegisterUserNameScreen from "../screens/RegisterUserNameScreen";
 import StartScreen from "../screens/StartScreen";
 
 type RootStackParamList = {
-  // undefined behöver antagligen ändras :)
   Start: undefined; // Tar inte in några parametrerar
   Login: undefined; // Tar inte in några parametrerar
   Register: undefined; // Tar inte in några parametrerar
@@ -29,7 +28,10 @@ type RootStackParamList = {
   MemeberDetailScreen: { memberId: string };
 };
 
-export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<RootStackParamList, Screen>;
+export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
+    RootStackParamList,
+    Screen
+>;
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -97,10 +99,13 @@ function RootStackNavigator() {
           name="ChoreDetail"
           component={ChoreDetailScreen}
         />
-        <Stack.Screen
-          name="Member"
-          component={MemberScreen}
-        />
+              <Stack.Screen
+                    name="Member"
+                    component={MemberScreen}
+                    options={{
+                        headerTitle: "Medlemmar",
+                    }}
+                />
         <Stack.Screen
           name="HouseholdChores"
           component={HouseholdChoresScreen}
