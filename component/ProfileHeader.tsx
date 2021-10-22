@@ -15,9 +15,10 @@ interface Props {
         member?: Member;
         userName?: string;
     };
+    openMenu?: (open: boolean) => void
 }
 
-export function ProfileHeader({ household, userInformation, visitMember }: Props) {
+export function ProfileHeader({ household, userInformation, visitMember, openMenu }: Props) {
     const { colors } = useTheme();
 
     function ShowProfile(household?: Household) {
@@ -25,7 +26,8 @@ export function ProfileHeader({ household, userInformation, visitMember }: Props
             //visit another member profile
             // TODO: namn på member ?
             return (
-                <TouchableOpacity style={styles.row}>
+                <TouchableOpacity style={styles.row}
+                    onPress={() => openMenu && openMenu(true)}>
                     <Entypo name="arrow-long-left" size={20} color={colors.text} />
                     <Text style={[styles.title, { paddingLeft: 10, color: colors.text }]}>{visitMember.userName}</Text>
                 </TouchableOpacity>
@@ -33,7 +35,8 @@ export function ProfileHeader({ household, userInformation, visitMember }: Props
         } else if (household) {
             //visit one of youre households
             return (
-                <TouchableOpacity style={styles.row}>
+                <TouchableOpacity style={styles.row}
+                    onPress={() => openMenu && openMenu(true)}>
                     <Text style={[styles.title, { color: colors.text }]}>{household.name}</Text>
                     <Entypo name="chevron-small-down" size={24} color={colors.text} />
                 </TouchableOpacity>
@@ -41,7 +44,8 @@ export function ProfileHeader({ household, userInformation, visitMember }: Props
         } else {
             //visit youre page "min sida"
             return (
-                <TouchableOpacity style={styles.row}>
+                <TouchableOpacity style={styles.row}
+                    onPress={() => openMenu && openMenu(true)}>
                     <Text style={[styles.title, { color: colors.text }]}>Min sida</Text>
                     <Entypo name="chevron-small-down" size={24} color={colors.text} />
                 </TouchableOpacity>
@@ -108,14 +112,15 @@ export function ProfileHeader({ household, userInformation, visitMember }: Props
             {/* Row 1: household + menu */}
             <View style={[styles.row, styles.spaceBetween]}>
                 {ShowProfile(household)}
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => openMenu && openMenu(true)}>
                     <Entypo name="menu" size={24} color={colors.text} />
                 </TouchableOpacity>
             </View>
             {/* Row 2: circles + text */}
             <View style={styles.rowTwo}>
                 {/*  */}
-                {DisplayUser({ userInformation, household, visitMember })}
+                {DisplayUser({ userInformation, household, visitMember, openMenu })}
                 <View style={{ alignItems: "center" }}>
                     <View style={[styles.row, styles.spaceBetween]}>
                         {DisplayScore("Att göra", 0)}
