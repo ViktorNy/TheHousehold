@@ -1,8 +1,7 @@
 import { useTheme } from "@react-navigation/native";
 import React from "react";
-import { Button, StyleSheet, Text, View, Image } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Avatar from "../component/Avatar";
 import { CustomNavigateButton } from "../component/CustomNavigateButton";
 import { RootStackScreenProps } from "../navigation/RootStackNavigator";
 
