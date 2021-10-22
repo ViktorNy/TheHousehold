@@ -4,7 +4,6 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CustomNavigateButton } from "../component/CustomNavigateButton";
 import { RootStackScreenProps } from "../navigation/RootStackNavigator";
-import RegisterUserNameScreen from "./RegisterUserNameScreen";
 
 export default function RegisterScreen({ navigation }: RootStackScreenProps<"Register">) {
     const { colors } = useTheme();
@@ -22,7 +21,7 @@ export default function RegisterScreen({ navigation }: RootStackScreenProps<"Reg
                 textAlign='center'
             />
             <TextInput
-                style={styles.input}
+                style={[styles.input, {marginTop: 0}]}
                 value={userPassword}
                 onChangeText={onUserPasswordChange}
                 secureTextEntry={true}

@@ -7,15 +7,15 @@ import { RootStackScreenProps } from "../navigation/RootStackNavigator";
 
 export default function RegisterUserNameScreen({ navigation, route }: RootStackScreenProps<"RegisterUserName">) {
     const { colors } = useTheme();
-    const [userEmail, onUserEmailChange] = useState('');
+    const [username, onUsernameChange] = useState('');
 
     return (
         <SafeAreaView style={[{ backgroundColor: colors.background }]}>
             <Text style={styles.loginText}>Registrera</Text>
             <TextInput
-                style={styles.input}
-                value={userEmail}
-                onChangeText={onUserEmailChange}
+                style={[styles.input, {marginBottom: 0}]}
+                value={username}
+                onChangeText={onUsernameChange}
                 placeholder='Användarnamn'
                 textAlign='center'
             />

@@ -36,7 +36,7 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<"Login"
                 textAlign='center'
             />
             <TextInput
-                style={styles.input}
+                style={[styles.input, {marginTop: 0}]}
                 value={userPassword}
                 onChangeText={onUserPasswordChange}
                 secureTextEntry={true}
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 50,
-        margin: 12,
+        margin: 10,
         borderWidth: 1,
         padding: 10,
         borderRadius: 10,
