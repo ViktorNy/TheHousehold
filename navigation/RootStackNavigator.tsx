@@ -34,7 +34,6 @@ function RootStackNavigator() {
     colors: {
       ...DefaultTheme.colors,
       primary: 'rgb(255, 255, 255)',
-      card: '#F2F2F2',
       notification: 'rgb(100, 100, 100)',
     },
   };

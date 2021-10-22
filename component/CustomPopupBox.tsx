@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { LayoutChoice } from './LayoutChoice';
 import { AntDesign } from '@expo/vector-icons';
 import { useTheme } from '@react-navigation/native';
-import { StyleSheet, Text, Pressable, View, TextInput } from 'react-native';
+import { StyleSheet, Text, Pressable, View, TextInput, Appearance } from 'react-native';
 
 interface Props {
   id: string
@@ -13,7 +13,7 @@ interface Props {
 export function CustomPopupBox({id, modalCase}: Props) {
     const [modalVisible, setModalVisible] = useState(true);
     const [userInput, onUserInputChange] = useState('');
-    const layoutChoice = LayoutChoice(modalCase, id)
+    const layoutChoices = LayoutChoice(modalCase, id)
     const { colors } = useTheme();
     const iconColor = colors.text
 
@@ -21,6 +21,7 @@ export function CustomPopupBox({id, modalCase}: Props) {
       <View>
         <Modal
           animationIn='fadeIn'
+          backdropColor='#303030'
           coverScreen={true}
           isVisible={modalVisible}
           statusBarTranslucent={true}
@@ -28,18 +29,20 @@ export function CustomPopupBox({id, modalCase}: Props) {
             setModalVisible(!modalVisible);
           }}>
           <View style={styles.centeredView}>
-            <View style={[styles.modalView, { backgroundColor: colors.card }, styles.centeredView]}>
+            <View style={[styles.modalView, { backgroundColor: colors.background }, styles.centeredView]}>
               <View style={[styles.headerStyle, { backgroundColor: colors.primary }, styles.centeredView]}>
-                <Text style={[ styles.textStyle, styles.headerTextStyle, { color: colors.text } ]}>{layoutChoice.modalTitle}</Text>
+                <Text style={[ styles.textStyle, styles.headerTextStyle, { color: colors.text } ]}>{layoutChoices.modalTitle}</Text>
               </View>
               <View style={[{ backgroundColor: colors.primary}, styles.inputInfoStyle]}>
                 <TextInput 
                 onChangeText={onUserInputChange}
                 style={[styles.middleTextStyle, {color: colors.text}]}
                 value={userInput}
-                placeholder={layoutChoice.modalPlaceholder}
+                placeholder={layoutChoices.modalPlaceholder}
                 placeholderTextColor={colors.notification}
                 selectionColor={iconColor}
+                editable={layoutChoices.modalInputActive}
+                multiline={true}
                 />
               </View>
               <View style={[styles.rowStyle, { backgroundColor: colors.primary }]}>
@@ -48,14 +51,14 @@ export function CustomPopupBox({id, modalCase}: Props) {
                 onPress={() => setModalVisible(!modalVisible)}
               >
               <AntDesign name='pluscircleo' size={24} color={iconColor} />
-              <Text style={[styles.textStyle, { color: colors.text }]}>  {layoutChoice.ModalLeft}</Text>
+              <Text style={[styles.textStyle, { color: colors.text }]}>  {layoutChoices.ModalLeft}</Text>
               </Pressable>
               <Pressable
                 style={[styles.rowStyle, styles.button, styles.buttonRightStyle, { backgroundColor: colors.primary }, styles.centeredView]}
                 onPress={() => setModalVisible(!modalVisible)}
               >
               <AntDesign name='closecircleo' size={24} color={iconColor} />
-              <Text style={[styles.textStyle, { color: colors.text }]}>  {layoutChoice.modalRight}</Text>
+              <Text style={[styles.textStyle, { color: colors.text }]}>  {layoutChoices.modalRight}</Text>
               </Pressable>
               </View>
             </View>
@@ -78,7 +81,6 @@ const styles = StyleSheet.create({
     modalView: {
       height: '55%',
       width: '100%',
-      elevation: 20,
       maxWidth: 380,
       maxHeight: 240,
       borderRadius: 20,
