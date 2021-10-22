@@ -7,24 +7,24 @@ interface Props {
     goto: () => void,
     buttonText?: string,
     avatarIdList?: string[]
-    singleAvatarId?: string
+    singleAvatarId?: string // for future use
 }
 
 export function CustomNavigateButton({ goto, buttonText, avatarIdList, singleAvatarId }: Props) {
     const { colors } = useTheme();
     if (singleAvatarId) {
         return (
-            <TouchableOpacity style={[styles.root, { backgroundColor: colors.primary }, { borderColor: colors.border }, { borderWidth: 1 }]}
+            <TouchableOpacity style={[styles.rootAvatar, { backgroundColor: colors.primary }, { borderColor: colors.border }, { borderWidth: 1 }]}
                 onPress={goto}>
                 <Avatar avatarId={singleAvatarId} showCircle={true} avatarSize={22} />
                 <Text style={[styles.textpadding, { color: colors.text }]}>{buttonText}</Text>
             </TouchableOpacity>
         )
-    } else{
+    } else {
         return (
             <TouchableOpacity style={[styles.root, { backgroundColor: colors.primary }, { borderColor: colors.border }, { borderWidth: 1 }]}
                 onPress={goto}>
-                <Text style={{ color: colors.text }}>{buttonText}</Text>
+                <Text style={[styles.buttonText, { color: colors.text }]}>{buttonText}</Text>
             </TouchableOpacity>
         )
     }
@@ -34,13 +34,19 @@ const styles = StyleSheet.create({
     root: {
         height: 50,
         borderRadius: 10,
-        marginTop: 10,
-        marginLeft: 10,
-        marginRight: 10,
+        justifyContent: 'center',
         alignItems: 'center',
-        flexDirection: "row",
-        paddingLeft: 20,
-        paddingRight: 20
+    },
+    rootAvatar: {
+        padding: 15,
+        height: 50,
+        borderRadius: 10,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
+    buttonText: {
+        fontWeight: 'bold'
     },
     textpadding: {
         paddingLeft: 20
