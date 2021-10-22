@@ -7,6 +7,7 @@ import { RootStackScreenProps } from "../navigation/RootStackNavigator";
 
 export default function StartScreen({ navigation }: RootStackScreenProps<"Start">) {
     const { colors } = useTheme();
+    
     return (
         <SafeAreaView style={[{ backgroundColor: colors.background }]}>
             <Text style={styles.homeTextStyle}>Hemmet</Text>

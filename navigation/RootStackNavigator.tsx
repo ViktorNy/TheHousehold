@@ -42,20 +42,22 @@ function RootStackNavigator() {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      primary: 'rgb(255, 255, 255)'
+      primary: 'rgb(255, 255, 255)',
+      notification: 'rgb(100, 100, 100)',
     },
   };
 
-  const DarkCutomTheme = {
+  const DarkCustomTheme = {
     ...DarkTheme,
     colors: {
       ...DarkTheme.colors,
-      primary: 'rgb(50, 50, 50)'
+      primary: 'rgb(50, 50, 50)',
+      notification: 'rgb(200, 200, 200)',
     },
   };
 
   return (
-    <NavigationContainer theme={colorScheme === 'dark' ? DarkCutomTheme : DefaultCustomTheme}>
+    <NavigationContainer theme={colorScheme === 'dark' ? DarkCustomTheme : DefaultCustomTheme}>
       <Stack.Navigator>
         <Stack.Screen
           name="Start"
