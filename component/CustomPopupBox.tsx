@@ -1,61 +1,21 @@
-import { StyleSheet, Text, Pressable, View, TextInput } from 'react-native';
-import { getAllUsersSelector } from '../store/user/userSelector';
-import { useTheme } from '@react-navigation/native';
-import { useAppSelector } from '../store/store';
-import { AntDesign } from '@expo/vector-icons';
-import React, { useState } from 'react';
 import Modal from 'react-native-modal';
-
-let modalTitle = '';
-let ModalLeft = '';
-let modalRight = '';
-let modalPlaceholder = '';
+import React, { useState } from 'react';
+import { LayoutChoice } from './LayoutChoice';
+import { AntDesign } from '@expo/vector-icons';
+import { useTheme } from '@react-navigation/native';
+import { StyleSheet, Text, Pressable, View, TextInput } from 'react-native';
 
 interface Props {
   id: string
   modalCase: string
 }
 
-export function CustomPopupBox({modalCase, id}: Props) {
+export function CustomPopupBox({id, modalCase}: Props) {
     const [modalVisible, setModalVisible] = useState(true);
     const [userInput, onUserInputChange] = useState('');
-
-    const allUsers = useAppSelector(getAllUsersSelector);
-    const username = allUsers.find(u => u.id === id)?.username;
-
+    const layoutChoice = LayoutChoice(modalCase, id)
     const { colors } = useTheme();
     const iconColor = colors.text
-
-    if (modalCase === 'JH') {
-      modalTitle = 'Gå med i Hushåll'
-      ModalLeft = 'Gå med'
-      modalRight = 'Avbryt'
-      modalPlaceholder = 'Hushållskod'
-    } 
-    else if (modalCase === 'CH') {
-      modalTitle = 'Skapa Hushåll'
-      ModalLeft = 'Skapa'
-      modalRight = 'Avbryt'
-      modalPlaceholder = 'Namn'
-    }
-    else if (modalCase === 'MO') {
-      modalTitle = 'Gör till ägare'
-      ModalLeft = 'Acceptera'
-      modalRight = 'Avbryt'
-      modalPlaceholder = 'Gör ' + username + ' till ägare'
-    }
-    else if (modalCase === 'RUFH') {
-      modalTitle = 'Ta bort från hushåll'
-      ModalLeft = 'Ja'
-      modalRight = 'Avbryt'
-      modalPlaceholder = 'Vill du verkligen ta bort' + username + '?'
-    }
-    else if (modalCase === 'AR') {
-      modalTitle = 'Besvara förfrågan'
-      ModalLeft = 'Acceptera'
-      modalRight = 'Avslå'
-      modalPlaceholder = username + ' vill gå med'
-    }
 
     return (
       <View>
@@ -70,14 +30,14 @@ export function CustomPopupBox({modalCase, id}: Props) {
           <View style={styles.centeredView}>
             <View style={[styles.modalView, { backgroundColor: colors.card }, styles.centeredView]}>
               <View style={[styles.headerStyle, { backgroundColor: colors.primary }, styles.centeredView]}>
-                <Text style={[ styles.textStyle, styles.headerTextStyle, { color: colors.text } ]}>{modalTitle}</Text>
+                <Text style={[ styles.textStyle, styles.headerTextStyle, { color: colors.text } ]}>{layoutChoice.modalTitle}</Text>
               </View>
               <View style={[{ backgroundColor: colors.primary}, styles.inputInfoStyle]}>
                 <TextInput 
                 onChangeText={onUserInputChange}
                 style={[styles.middleTextStyle, {color: colors.text}]}
                 value={userInput}
-                placeholder={modalPlaceholder}
+                placeholder={layoutChoice.modalPlaceholder}
                 placeholderTextColor={colors.notification}
                 selectionColor={iconColor}
                 />
@@ -88,14 +48,14 @@ export function CustomPopupBox({modalCase, id}: Props) {
                 onPress={() => setModalVisible(!modalVisible)}
               >
               <AntDesign name='pluscircleo' size={24} color={iconColor} />
-              <Text style={[styles.textStyle, { color: colors.text }]}>  {ModalLeft}</Text>
+              <Text style={[styles.textStyle, { color: colors.text }]}>  {layoutChoice.ModalLeft}</Text>
               </Pressable>
               <Pressable
                 style={[styles.rowStyle, styles.button, styles.buttonRightStyle, { backgroundColor: colors.primary }, styles.centeredView]}
                 onPress={() => setModalVisible(!modalVisible)}
               >
               <AntDesign name='closecircleo' size={24} color={iconColor} />
-              <Text style={[styles.textStyle, { color: colors.text }]}>  {modalRight}</Text>
+              <Text style={[styles.textStyle, { color: colors.text }]}>  {layoutChoice.modalRight}</Text>
               </Pressable>
               </View>
             </View>
