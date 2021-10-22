@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { LayoutChoice } from './LayoutChoice';
 import { AntDesign } from '@expo/vector-icons';
 import { useTheme } from '@react-navigation/native';
-import { StyleSheet, Text, Pressable, View, TextInput, Appearance } from 'react-native';
+import { StyleSheet, Text, Pressable, View, TextInput } from 'react-native';
 
 interface Props {
   id: string
@@ -21,12 +21,12 @@ export function CustomPopupBox({id, modalCase}: Props) {
       <View>
         <Modal
           animationIn='fadeIn'
-          backdropColor='#303030'
+          backdropColor='#181818'
           coverScreen={true}
           isVisible={modalVisible}
           statusBarTranslucent={true}
           onBackButtonPress={() => {
-            setModalVisible(!modalVisible);
+            setModalVisible(false);
           }}>
           <View style={styles.centeredView}>
             <View style={[styles.modalView, { backgroundColor: colors.background }, styles.centeredView]}>
@@ -48,14 +48,14 @@ export function CustomPopupBox({id, modalCase}: Props) {
               <View style={[styles.rowStyle, { backgroundColor: colors.primary }]}>
               <Pressable
                 style={[styles.rowStyle, styles.button, { backgroundColor: colors.primary }, styles.centeredView]}
-                onPress={() => setModalVisible(!modalVisible)}
+                onPress={() => setModalVisible(false)}
               >
               <AntDesign name='pluscircleo' size={24} color={iconColor} />
               <Text style={[styles.textStyle, { color: colors.text }]}>  {layoutChoices.ModalLeft}</Text>
               </Pressable>
               <Pressable
                 style={[styles.rowStyle, styles.button, styles.buttonRightStyle, { backgroundColor: colors.primary }, styles.centeredView]}
-                onPress={() => setModalVisible(!modalVisible)}
+                onPress={() => setModalVisible(false)}
               >
               <AntDesign name='closecircleo' size={24} color={iconColor} />
               <Text style={[styles.textStyle, { color: colors.text }]}>  {layoutChoices.modalRight}</Text>

@@ -38,7 +38,7 @@ function RootStackNavigator() {
     },
   };
 
-  const DarkCutomTheme = {
+  const DarkCustomTheme = {
     ...DarkTheme,
     colors: {
       ...DarkTheme.colors,
@@ -48,7 +48,7 @@ function RootStackNavigator() {
   };
 
   return (
-    <NavigationContainer theme={colorScheme === 'dark' ? DarkCutomTheme : DefaultCustomTheme}>
+    <NavigationContainer theme={colorScheme === 'dark' ? DarkCustomTheme : DefaultCustomTheme}>
       <Stack.Navigator>
         <Stack.Screen name="Start" component={StartScreen} />
         <Stack.Screen name="Household" component={HouseholdScreen} />
