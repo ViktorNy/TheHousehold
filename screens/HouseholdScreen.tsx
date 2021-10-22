@@ -33,10 +33,10 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                     householdID={currentHousehold.id}
                     currentMember={userMemberInfo}
                 />
-                <Button title="Show menu" onPress={() => setIsShowingModal(!isShowingModal)} />
                 <ProfileHeader
                     household={currentHousehold}
                     userInformation={{ user: route.params.user, member: userMemberInfo }}
+                    openMenu={setIsShowingModal}
                 />
                 <Text style={[{ color: colors.text }]}>{currentHousehold.name}</Text>
                 <FlatList
@@ -63,8 +63,10 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                     toggleIsShowing={setIsShowingModal}
                     rootStackProps={{ navigation, route }}
                 />
-                <Button title="Show menu" onPress={() => setIsShowingModal(!isShowingModal)} />
-                <ProfileHeader userInformation={{ user: route.params.user }} />
+                <ProfileHeader
+                    userInformation={{ user: route.params.user }}
+                    openMenu={setIsShowingModal}
+                />
                 <Text style={[{ color: colors.text }]}>Welcome {route.params.user.username}</Text>
                 <FlatList
                     data={userHousehold}
