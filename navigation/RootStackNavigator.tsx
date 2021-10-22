@@ -18,7 +18,7 @@ type RootStackParamList = {
   Start: undefined; // Tar inte in några parametrerar
   Login: undefined; // Tar inte in några parametrerar
   Register: undefined; // Tar inte in några parametrerar
-  RegisterUserName: {email: string, password: string};
+  RegisterUserName: { email: string, password: string };
   Household: { user: User, householdId?: string };
   DistributeChore: undefined;
   ChoreDetail: { choreId: string, householdId: string };
@@ -28,16 +28,15 @@ type RootStackParamList = {
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
-    RootStackParamList,
-    Screen
+  RootStackParamList,
+  Screen
 >;
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStackNavigator() {
   const colorScheme = useColorScheme();
-  const { colors } = useTheme();
-
+  
   const DefaultCustomTheme = {
     ...DefaultTheme,
     colors: {
@@ -46,18 +45,22 @@ function RootStackNavigator() {
       notification: 'rgb(100, 100, 100)',
     },
   };
-
+  
   const DarkCustomTheme = {
     ...DarkTheme,
     colors: {
       ...DarkTheme.colors,
       primary: 'rgb(50, 50, 50)',
       notification: 'rgb(200, 200, 200)',
+      background: 'rgb(0, 0, 0)'
     },
   };
+  
+  const theme = (colorScheme === 'dark') ? DarkCustomTheme : DefaultCustomTheme;
+  const colors = theme.colors;
 
   return (
-    <NavigationContainer theme={colorScheme === 'dark' ? DarkCustomTheme : DefaultCustomTheme}>
+    <NavigationContainer theme={theme}>
       <Stack.Navigator>
         <Stack.Screen
           name="Start"
@@ -69,15 +72,17 @@ function RootStackNavigator() {
           component={LoginScreen}
           options={{
             title: '',
-            headerStyle: { backgroundColor: colors.background }, headerShadowVisible: false
+            headerStyle: { backgroundColor: colors.background },
+            headerShadowVisible: false
           }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="Register"
           component={RegisterScreen}
           options={{
             title: '',
-            headerStyle: { backgroundColor: colors.background }, headerShadowVisible: false
+            headerShadowVisible: false,
+            headerStyle: { backgroundColor: colors.background }
           }}
         />
         <Stack.Screen
@@ -85,7 +90,8 @@ function RootStackNavigator() {
           component={RegisterUserNameScreen}
           options={{
             title: '',
-            headerStyle: { backgroundColor: colors.background }, headerShadowVisible: false
+            headerStyle: { backgroundColor: colors.background }, 
+            headerShadowVisible: false
           }}
         />
         <Stack.Screen
@@ -100,13 +106,13 @@ function RootStackNavigator() {
           name="ChoreDetail"
           component={ChoreDetailScreen}
         />
-              <Stack.Screen
-                    name="Member"
-                    component={MemberScreen}
-                    options={{
-                        headerTitle: "Medlemmar",
-                    }}
-                />
+        <Stack.Screen
+          name="Member"
+          component={MemberScreen}
+          options={{
+            headerTitle: "Medlemmar",
+          }}
+        />
         <Stack.Screen
           name="HouseholdChores"
           component={HouseholdChoresScreen}

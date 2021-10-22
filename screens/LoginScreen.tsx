@@ -27,21 +27,23 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<"Login"
 
     return (
         <SafeAreaView style={[{ backgroundColor: colors.background }]}>
-            <Text style={styles.loginText}>Logga in</Text>
+            <Text style={[styles.loginText, {color: colors.text}]}>Logga in</Text>
             <TextInput
-                style={styles.input}
+                style={[styles.input, {backgroundColor: colors.primary, color: colors.text}]}
                 value={userText}
                 onChangeText={onUserTextChange}
                 placeholder='Epost / användarnamn'
                 textAlign='center'
+                placeholderTextColor={colors.text}
             />
             <TextInput
-                style={[styles.input, {marginTop: 0}]}
+                style={[styles.input, {marginTop: 0, backgroundColor: colors.primary, color: colors.text}]}
                 value={userPassword}
                 onChangeText={onUserPasswordChange}
                 secureTextEntry={true}
                 placeholder='Lösenord'
                 textAlign='center'
+                placeholderTextColor={colors.text}
             />
             <View style={styles.viewStyle}>
                 <CustomNavigateButton buttonText="Logga in" goto={checkUserInfo} />

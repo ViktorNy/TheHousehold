@@ -12,21 +12,23 @@ export default function RegisterScreen({ navigation }: RootStackScreenProps<"Reg
 
     return (
         <SafeAreaView style={[{ backgroundColor: colors.background }]}>
-            <Text style={styles.loginText}>Registrera</Text>
+            <Text style={[styles.loginText, {color: colors.text}]}>Registrera</Text>
             <TextInput
-                style={styles.input}
+                style={[styles.input, {backgroundColor: colors.primary, color: colors.text}]}
                 value={userEmail}
                 onChangeText={onUserEmailChange}
                 placeholder='E-mail'
                 textAlign='center'
+                placeholderTextColor={colors.text}
             />
             <TextInput
-                style={[styles.input, {marginTop: 0}]}
+                style={[styles.input, {marginTop: 0, backgroundColor: colors.primary, color: colors.text}]}
                 value={userPassword}
                 onChangeText={onUserPasswordChange}
                 secureTextEntry={true}
                 placeholder='Lösenord'
                 textAlign='center'
+                placeholderTextColor={colors.text}
             />
             <View style={styles.viewStyle}>
                 <CustomNavigateButton buttonText="Spara" goto={() => navigation.navigate('RegisterUserName', {email: userEmail, password: userPassword})} />

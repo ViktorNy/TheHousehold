@@ -10,16 +10,16 @@ export default function StartScreen({ navigation }: RootStackScreenProps<"Start"
     
     return (
         <SafeAreaView style={[{ backgroundColor: colors.background }]}>
-            <Text style={styles.homeTextStyle}>Hemmet</Text>
+            <Text style={[styles.homeTextStyle, {color: colors.text}]}>Hemmet</Text>
 
-            <Text style={styles.simplifyText}>Förenkla din vardag</Text>
-            <Text style={styles.pitchText}>
+            <Text style={[styles.simplifyText, {color: colors.text}]}>Förenkla din vardag</Text>
+            <Text style={[styles.pitchText, {color: colors.text}]}>
                 Få koll på era sysslor, fördela och engagera. Att glömma bort blir nu ett minne blott!
-            </Text>
+            </Text> 
             <Image style={styles.imageStyle}  source={require('../assets/ladyontrashcan.png')}/>
             <View style={styles.viewStyle}>
                 <CustomNavigateButton buttonText="Logga in" goto={() => navigation.navigate("Login")} />
-                <Text style={styles.notMemberText}>Är du inte medlem?</Text>
+                <Text style={[styles.notMemberText, {color: colors.text}]}>Är du inte medlem?</Text>
                 <CustomNavigateButton buttonText="Registrera" goto={() => navigation.navigate("Register")} />
             </View>
         </SafeAreaView>

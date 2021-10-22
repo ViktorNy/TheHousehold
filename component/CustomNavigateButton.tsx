@@ -24,7 +24,7 @@ export function CustomNavigateButton({ goto, buttonText, avatarIdList, singleAva
         return (
             <TouchableOpacity style={[styles.root, { backgroundColor: colors.primary }, { borderColor: colors.border }, { borderWidth: 1 }]}
                 onPress={goto}>
-                <Text style={{ color: colors.text }}>{buttonText}</Text>
+                <Text style={[styles.buttonText, { color: colors.text }]}>{buttonText}</Text>
             </TouchableOpacity>
         )
     }
