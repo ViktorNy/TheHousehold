@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
 import { StyleSheet, Text, Pressable, View, TextInput } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import Modal from 'react-native-modal';
-import { useAppSelector } from '../store/store';
 import { getAllUsersSelector } from '../store/user/userSelector';
 import { useTheme } from '@react-navigation/native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { useAppSelector } from '../store/store';
+import { AntDesign } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import Modal from 'react-native-modal';
 
 let modalTitle = '';
 let ModalLeft = '';
 let modalRight = '';
 let modalPlaceholder = '';
 
-interface Props{
+interface Props {
   id: string
   modalCase: string
 }
@@ -69,8 +68,8 @@ export function CustomPopupBox({modalCase, id}: Props) {
             setModalVisible(!modalVisible);
           }}>
           <View style={styles.centeredView}>
-            <View style={[styles.modalView, { backgroundColor: colors.card }]}>
-              <View style={[styles.headerStyle, { backgroundColor: colors.primary }]}>
+            <View style={[styles.modalView, { backgroundColor: colors.card }, styles.centeredView]}>
+              <View style={[styles.headerStyle, { backgroundColor: colors.primary }, styles.centeredView]}>
                 <Text style={[ styles.textStyle, styles.headerTextStyle, { color: colors.text } ]}>{modalTitle}</Text>
               </View>
               <View style={[{ backgroundColor: colors.primary}, styles.inputInfoStyle]}>
@@ -85,14 +84,14 @@ export function CustomPopupBox({modalCase, id}: Props) {
               </View>
               <View style={[styles.rowStyle, { backgroundColor: colors.primary }]}>
               <Pressable
-                style={[styles.button, { backgroundColor: colors.primary }]}
+                style={[styles.rowStyle, styles.button, { backgroundColor: colors.primary }, styles.centeredView]}
                 onPress={() => setModalVisible(!modalVisible)}
               >
               <AntDesign name='pluscircleo' size={24} color={iconColor} />
               <Text style={[styles.textStyle, { color: colors.text }]}>  {ModalLeft}</Text>
               </Pressable>
               <Pressable
-                style={[styles.button, styles.buttonRightStyle, { backgroundColor: colors.primary }]}
+                style={[styles.rowStyle, styles.button, styles.buttonRightStyle, { backgroundColor: colors.primary }, styles.centeredView]}
                 onPress={() => setModalVisible(!modalVisible)}
               >
               <AntDesign name='closecircleo' size={24} color={iconColor} />
@@ -108,63 +107,53 @@ export function CustomPopupBox({modalCase, id}: Props) {
 
 const styles = StyleSheet.create({
     centeredView: {
+      alignItems: 'center',
       justifyContent: 'center',
-      alignItems: 'center',
-    },
-    modalView: {
-      borderRadius: 20,
-      minHeight: 210,
-      height: '28%',
-      width: '100%',
-      alignItems: 'center',
-      elevation: 20,
-    },
-    rowStyle: {
-        flexDirection: 'row',
-        overflow: 'hidden',
-        width: '100%',
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
-        height: '30%',
-    },
-    button: {
-      flexDirection: 'row',
-      width: '50%',
-      elevation: 2,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    buttonRightStyle: {
-        elevation: 5,
     },
     textStyle: {
+      fontSize: 20,
       fontWeight: 'bold',
       textAlign: 'center',
-      fontSize: 20
     },
-    middleTextStyle: {
-        textAlign: 'left',
-        marginLeft: 20,
-        fontSize: 20
-    },
-    inputInfoStyle: {
-      margin: 15,
-      borderRadius: 10,
-      height: '30%',
-      width: '90%',
-      elevation: 5,
-      justifyContent: 'center',
-    },
-    headerTextStyle: {
-      fontSize: 24
+    modalView: {
+      height: '55%',
+      width: '100%',
+      elevation: 20,
+      maxWidth: 380,
+      maxHeight: 240,
+      borderRadius: 20,
+      overflow: 'hidden',
     },
     headerStyle: {
-      width: '100%',
-      borderTopLeftRadius: 20,
-      borderTopRightRadius: 20,
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '30%',
       elevation: 2,
+      width: '100%',
+      height: '30%',
+    },
+    headerTextStyle: {
+      fontSize: 24,
+    },
+    inputInfoStyle: {
+      margin: '4%',
+      elevation: 5,
+      height: '28%',
+      minWidth: '93%',
+      borderRadius: 10,
+      justifyContent: 'center',
+    },
+    middleTextStyle: {
+      fontSize: 20,
+      marginLeft: 20,
+    },
+    rowStyle: {
+      height: '30%',
+      flexDirection: 'row',
+    },
+    button: {
+      elevation: 2,
+      width: '50%',
+      height: '100%',
+    },
+    buttonRightStyle: {
+      elevation: 5,
     },
 });
