@@ -5,6 +5,7 @@ import Modal from 'react-native-modal';
 import { useAppSelector } from '../store/store';
 import { getAllUsersSelector } from '../store/user/userSelector';
 import { useTheme } from '@react-navigation/native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 let modalTitle = '';
 let ModalLeft = '';
@@ -68,17 +69,17 @@ export function CustomPopupBox({modalCase, id}: Props) {
             setModalVisible(!modalVisible);
           }}>
           <View style={styles.centeredView}>
-            <View style={[styles.modalView, { backgroundColor: colors.popupBackground }]}>
+            <View style={[styles.modalView, { backgroundColor: colors.card }]}>
               <View style={[styles.headerStyle, { backgroundColor: colors.primary }]}>
                 <Text style={[ styles.textStyle, styles.headerTextStyle, { color: colors.text } ]}>{modalTitle}</Text>
               </View>
               <View style={[{ backgroundColor: colors.primary}, styles.inputInfoStyle]}>
                 <TextInput 
                 onChangeText={onUserInputChange}
-                style={styles.middleTextStyle}
+                style={[styles.middleTextStyle, {color: colors.text}]}
                 value={userInput}
                 placeholder={modalPlaceholder}
-                placeholderTextColor={colors.placeholderTextColor}
+                placeholderTextColor={colors.notification}
                 selectionColor={iconColor}
                 />
               </View>
