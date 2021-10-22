@@ -35,6 +35,12 @@ export interface PausedMember {
     toDate: Date
 }
 
+export interface MemberAvatar {
+    id: string,
+    avatar: string,
+    backgroundColor: string
+}
+
 export type ChoreScore = 1 | 2 | 4 | 6 | 8;
 
 export interface Chore {
@@ -82,7 +88,7 @@ export const mockedMemberData: Member[] = [
         id: '3',
         userId: '2',
         memberType: 'owner',
-        avatar: '2',
+        avatar: '7',
         joinData: '2021-01-02',
         pausedHistory: [],
         householdId: '2'
@@ -104,13 +110,13 @@ export const mockedHouseholdData: Household[] = [
                 score: 4,
                 signedToUserId: ["1"],
                 lastDone: '2021-09-12',
-                doneBy:[
-                        {
-                            choreId: '1',
-                            userId: '1',
-                            date: '2021-09-12',
-                            score: 4,
-                        }]
+                doneBy: [
+                    {
+                        choreId: '1',
+                        userId: '1',
+                        date: '2021-09-12',
+                        score: 4,
+                    }]
             },
             {
                 id: '2',
@@ -153,4 +159,57 @@ export const mockedUserData: User[] = [
         username: "JohanJohansson",
         password: "Johansson"
     }
+]
+
+export const mockAvatarData: MemberAvatar[] = [
+    {
+        id: '1',
+        avatar: '🦊',
+        backgroundColor: '#FD7711'
+    },
+    {
+        id: '2',
+        avatar: '🐳',
+        backgroundColor: '#00DCF4'
+    },
+    {
+        id: '3',
+        avatar: '🦑',
+        backgroundColor: '#E17780'
+    },
+    {
+        id: '4',
+        avatar: '🐥',
+        backgroundColor: '#FFFFA7'
+    },
+    {
+        id: '5',
+        avatar: '🐷',
+        backgroundColor: '#D18D9E'
+    },
+    {
+        id: '6',
+        avatar: '🦁',
+        backgroundColor: '#FFB31A'
+    },
+    {
+        id: '7',
+        avatar: '🐶',
+        backgroundColor: '#A77731'
+    },
+    {
+        id: '8',
+        avatar: '🐭',
+        backgroundColor: '#B3A7A9'
+    },
+    {
+        id: '9',
+        avatar: '🐹',
+        backgroundColor: '#FFDD99'
+    },
+    {
+        id: '10',
+        avatar: '🐸',
+        backgroundColor: '#70B65B'
+    },
 ]
