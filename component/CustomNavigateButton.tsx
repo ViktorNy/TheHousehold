@@ -34,13 +34,12 @@ const styles = StyleSheet.create({
     root: {
         height: 50,
         borderRadius: 10,
-        marginTop: 10,
-        marginLeft: 10,
-        marginRight: 10,
+        justifyContent: 'center',
         alignItems: 'center',
         flexDirection: "row",
-        paddingLeft: 20,
-        paddingRight: 20
+    },
+    buttonText: {
+        fontWeight: 'bold'
     },
     textpadding: {
         paddingLeft: 20

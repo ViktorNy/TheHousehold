@@ -1,17 +1,59 @@
 import { useTheme } from "@react-navigation/native";
 import React from "react";
-import { Button, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View, Image } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Avatar from "../component/Avatar";
 import { CustomNavigateButton } from "../component/CustomNavigateButton";
-import { mockedUserData } from "../data/data";
 import { RootStackScreenProps } from "../navigation/RootStackNavigator";
 
 export default function StartScreen({ navigation }: RootStackScreenProps<"Start">) {
-    const newUser = mockedUserData[1];
     const { colors } = useTheme();
     return (
-        <View>
-            <CustomNavigateButton buttonText="Gå till hushåll" goto={() => navigation.navigate("Household", { user: newUser }) }/>
-        </View>
+        <SafeAreaView style={[{ backgroundColor: colors.background }]}>
+            <Text style={styles.homeTextStyle}>Hemmet</Text>
+
+            <Text style={styles.simplifyText}>Förenkla din vardag</Text>
+            <Text style={styles.pitchText}>
+                Få koll på era sysslor, fördela och engagera. Att glömma bort blir nu ett minne blott!
+            </Text>
+            <Image style={styles.imageStyle}  source={require('../assets/ladyontrashcan.png')}/>
+            <View style={styles.viewStyle}>
+                <CustomNavigateButton buttonText="Logga in" goto={() => navigation.navigate("Login")} />
+                <Text style={styles.notMemberText}>Är du inte medlem?</Text>
+                <CustomNavigateButton buttonText="Registrera" goto={() => navigation.navigate("Register")} />
+            </View>
+        </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    homeTextStyle: {
+        marginTop: 100,
+        fontSize: 40,
+        marginLeft: 30,
+    },
+    simplifyText: {
+        fontSize: 15,
+        marginLeft: 30,
+        marginTop: 100,
+        fontWeight: "bold",
+    },
+    pitchText: {
+        marginLeft: 30,
+        marginRight: 100,
+        marginTop: 10
+    },
+    notMemberText: {
+        alignSelf: "center",
+        marginTop: 10
+    },
+    viewStyle: {
+        marginTop: 50,
+        margin: 10
+    },
+    imageStyle: {
+        width: 100,
+        height: 170,
+        marginLeft: 280
+    }
+});
