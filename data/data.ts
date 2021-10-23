@@ -5,14 +5,12 @@ export interface User {
     email: string,
     username: string,
     password: string,
-    // households: Household[], //tom array i början
 }
 
 export interface Household {
     id: string,
     name: string,
     codeToJoin: string,
-    // members: Member[],
     chores: Chore[],
 }
 
@@ -23,7 +21,7 @@ export interface Member {
     householdId: string,
     userId: string,
     memberType: MemberType,
-    avatar: string, //format?
+    avatar: string,
     joinData: string,
     pausedHistory: PausedMember[],
 }
@@ -49,6 +47,7 @@ export interface Chore {
     description: string,
     frequency: number,
     lastDone?: string,
+    createdDate: string, //lagt till / emelie
     doneBy: ChoreDoneBy[],
     score: ChoreScore,
     signedToUserId: string[],
@@ -109,12 +108,18 @@ export const mockedHouseholdData: Household[] = [
                 frequency: 1,
                 score: 4,
                 signedToUserId: ["1"],
-                lastDone: '2021-09-12',
+                createdDate: '2021-10-01',
+                lastDone: '2021-10-22',
                 doneBy: [
                     {
                         choreId: '1',
                         userId: '1',
-                        date: '2021-09-12',
+                        date: '2021-10-12',
+                        score: 4,
+                    }, {
+                        choreId: '1',
+                        userId: '1',
+                        date: '2021-10-22',
                         score: 4,
                     }]
             },
@@ -125,7 +130,8 @@ export const mockedHouseholdData: Household[] = [
                 frequency: 2,
                 doneBy: [],
                 score: 8,
-                signedToUserId: []
+                signedToUserId: [],
+                createdDate:'2021-10-10'
             }],
     },
     {
@@ -140,7 +146,8 @@ export const mockedHouseholdData: Household[] = [
                 frequency: 2,
                 doneBy: [],
                 score: 8,
-                signedToUserId: []
+                signedToUserId: [],
+                createdDate: '2021-10-22'
             }
         ],
     }

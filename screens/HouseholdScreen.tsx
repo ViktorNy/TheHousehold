@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Button, FlatList, Modal, Pressable, Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import { CustomNavigateButton } from "../component/CustomNavigateButton";
 import HamburgerMenu from "../component/HamburgerMenu";
+import { ChoreButton } from "../component/ChoreButton";
 import { ProfileHeader } from "../component/ProfileHeader";
 
 import { RootStackScreenProps } from "../navigation/RootStackNavigator";
@@ -82,9 +83,19 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
 
                             {item.chores.map((chore) => {
                                 return (
-                                    <CustomNavigateButton
-                                        key={chore.id}
-                                        buttonText={chore.name}
+                                    // <CustomNavigateButton
+                                    //     key={chore.id}
+                                    //     buttonText={chore.name}
+                                    //     goto={() =>
+                                    //         navigation.navigate("ChoreDetail", {
+                                    //             choreId: chore.id,
+                                    //             householdId: item.id,
+                                    //         })
+                                    //     }
+                                    // />
+                                    <ChoreButton
+                                    key={chore.id}
+                                        chore={chore}
                                         goto={() =>
                                             navigation.navigate("ChoreDetail", {
                                                 choreId: chore.id,
