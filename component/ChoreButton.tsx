@@ -1,4 +1,5 @@
 import { useTheme } from "@react-navigation/native";
+import moment from "moment";
 import React from "react";
 import { PressableProps, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Chore } from "../data/data";
@@ -13,25 +14,36 @@ export function ChoreButton({ goto, chore }: Props) {
     const { colors } = useTheme();
 
     function setIconLastDone(chore: Chore) {
-        const today = new Date();
+        // const today = new Date();
+        // today.setHours(0,0,0,0);
+        const today = moment(new Date()).format('YYYY-MM-DD');
+        // const date = (chore.lastDone? new Date(chore.lastDone): new Date(chore.createdDate));
+        // date.setHours(0,0,0,0);
+        const date = (chore.lastDone? moment(new Date(chore.lastDone)).format('YYYY-MM-DD'): moment(new Date(chore.createdDate)).format('YYYY-MM-DD'));
+
+        const doneNextByDate = moment(date).add(chore.frequency, 'day').format('YYYY-MM-DD');
+
         console.log("today:" + today)
-        const date = (chore.lastDone? new Date(chore.lastDone): new Date(chore.createdDate));
         console.log("chore.lastDone:" + chore.lastDone)
         console.log("lastDone:" + date)
-        const frequency = chore.frequency;
-        if(true) {
-            //if today === chore.lastDone  --> gå till DoneBye och hämta alla objekt med matchande datum --> plocka ut UserId (???) för att få tag på avatar
-            // Är vägen för att få tag på avatar rätt i data.ts ?
+        console.log("doneNextDate:" + doneNextByDate)
+
+        if(today === date) {
+            // TODO: Query to get avatar by using UserId and HouseholdId... ?
             return(
-                <Text>5</Text>
-            );
-        } else {
-            //skapa datum för "const souldBeDoneNextDate = lastDone + frequency"
-            // har datumet paserat ?
-            // Skapa if-sats
-            return(
-                {}
-            );
+                <Text>avatars</Text>
+                );
+                //if chore is created today and have no match in doneBy[] --> present GREY number
+      } else {
+            //check doneNewxtByDate
+            if(true) {
+                //Days left to due date
+                return <Text>GREY 5</Text>
+            } else {
+                //Days past due date
+                return <Text>RED 5</Text>
+            }
+            //TODO: Is case should be done today coverd correctly?
         }
     }
         return (
