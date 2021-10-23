@@ -1,15 +1,17 @@
 import { useTheme } from "@react-navigation/native";
-import React from "react";
-import { Button, FlatList, Text, TouchableOpacity, View } from "react-native";
+import React, { useState } from "react";
+import { Button, FlatList, Modal, Pressable, Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import { CustomNavigateButton } from "../component/CustomNavigateButton";
+import HamburgerMenu from "../component/HamburgerMenu";
 import { ProfileHeader } from "../component/ProfileHeader";
+
 import { RootStackScreenProps } from "../navigation/RootStackNavigator";
 import { getAllHouseholdsByUserIdSelector } from "../store/household/householdSelectors";
 import { useAppSelector } from "../store/store";
 
 export default function HouseholdScreen({ navigation, route }: RootStackScreenProps<"Household">) {
     const { colors } = useTheme();
-
+    const [isShowingModal, setIsShowingModal] = useState(false);
     const userHousehold = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, route.params.user.id));
     const currentHousehold = useAppSelector((state) =>
         state.household.householdList.find((h) => h.id === route.params.householdId)
@@ -24,9 +26,17 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
         );
         return (
             <View>
+                <HamburgerMenu
+                    isShowingMenu={isShowingModal}
+                    toggleIsShowing={setIsShowingModal}
+                    rootStackProps={{ navigation, route }}
+                    householdID={currentHousehold.id}
+                    currentMember={userMemberInfo}
+                />
                 <ProfileHeader
                     household={currentHousehold}
                     userInformation={{ user: route.params.user, member: userMemberInfo }}
+                    openMenu={setIsShowingModal}
                 />
                 <Text style={[{ color: colors.text }]}>{currentHousehold.name}</Text>
                 <FlatList
@@ -43,20 +53,20 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                         />
                     )}
                 />
-                <Button
-                    title="Medlemmar"
-                    onPress={() => navigation.navigate("Member", { householdId: currentHousehold.id })}
-                />
-                <Button
-                    title="Visa alla sysslor i hushållet"
-                    onPress={() => navigation.navigate("HouseholdChores", { householdId: currentHousehold.id })}
-                />
             </View>
         );
     } else {
         return (
             <View>
-                <ProfileHeader userInformation={{ user: route.params.user }} />
+                <HamburgerMenu
+                    isShowingMenu={isShowingModal}
+                    toggleIsShowing={setIsShowingModal}
+                    rootStackProps={{ navigation, route }}
+                />
+                <ProfileHeader
+                    userInformation={{ user: route.params.user }}
+                    openMenu={setIsShowingModal}
+                />
                 <Text style={[{ color: colors.text }]}>Welcome {route.params.user.username}</Text>
                 <FlatList
                     data={userHousehold}
@@ -91,3 +101,48 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
         );
     }
 }
+
+const styles = StyleSheet.create({
+    centeredView: {
+        flex: 1,
+        justifyContent: "flex-end",
+        alignItems: "center",
+        marginTop: 22
+    },
+    modalView: {
+        margin: 0,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "flex-start",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        width: '100%'
+    },
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
+    },
+    buttonOpen: {
+        backgroundColor: "#F194FF",
+    },
+    buttonClose: {
+        backgroundColor: "#2196F3",
+    },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+    }
+});
