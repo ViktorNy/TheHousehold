@@ -11,6 +11,7 @@ interface Props {
 }
 
 export function ChoreButton({ goto, chore }: Props) {
+    // TODO: Imporve theme colos to be used for this component ?
     const { colors } = useTheme();
 
     function setIconLastDone(chore: Chore) {
@@ -25,24 +26,32 @@ export function ChoreButton({ goto, chore }: Props) {
         console.log("doneNextDate:" + doneNextByDate)
 
         if(today === date) {
-            // TODO: Query to get avatar by using UserId and HouseholdId... ?
-            return(
-                <Text>avatars</Text>
-                );
+            // TODO: Query to get avatar by using UserId and HouseholdId... ? What parameter do we need to take in?
+            return  <Text>avatars</Text>
+                {/* <Avatar avatarId={singleAvatarId} showCircle={false} avatarSize={22} /> */}
                 //TODO: if chore is created today and have no match in doneBy[] --> present GREY number
       } else {
-            //check doneNewxtByDate
-            var Difference_In_Days = (new Date(today).getTime() - new Date(doneNextByDate).getTime()) / (1000 * 3600 * 24);
-            console.log(Difference_In_Days)
-
-            const notPasedDoneNextBy = Date.parse(today) < Date.parse(doneNextByDate);
-            if (notPasedDoneNextBy) {
-                //Days left to due date
-                return <Text>GREY {Difference_In_Days}</Text>
-            } else {
-                //Days past due date
-                return <Text>RED {Difference_In_Days}</Text>
-                //TODO: In case it should be done today? Number 0 will appeare here
+            var differenceInDays = (new Date(today).getTime() - new Date(doneNextByDate).getTime()) / (1000 * 3600 * 24);
+            console.log(differenceInDays)
+                
+            if(differenceInDays === 0) {
+                return (
+                    <View style={[styles.circle, { backgroundColor: colors.border }]}>
+                        <Text style={{ color: colors.text }}>{differenceInDays}</Text>
+                    </View>
+                )
+            } else if(differenceInDays > 0) {
+                return (
+                    <View style={[styles.circle, { backgroundColor: "red" }]}>
+                        <Text style={{ color: colors.text }}>{differenceInDays}</Text>
+                    </View>
+                )
+            } else if( differenceInDays < 0) {
+                return (
+                    <View style={[styles.circle, { backgroundColor: colors.border }]}>
+                        <Text style={{ color: colors.text }}>{differenceInDays}</Text>
+                    </View>
+                )
             }
         }
     }
@@ -51,7 +60,6 @@ export function ChoreButton({ goto, chore }: Props) {
                 onPress={goto}>
                 <Text style={[{ color: colors.text }]}>{chore.name}</Text>
                 {setIconLastDone(chore)}
-                {/* <Avatar avatarId={singleAvatarId} showCircle={false} avatarSize={22} /> */}
             </TouchableOpacity>
         )
 }
@@ -68,5 +76,12 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 20,
         justifyContent: "space-between",
-    }
+    },
+    circle: {
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 100,
+        height: 30,
+        width: 30,
+    },
 });
