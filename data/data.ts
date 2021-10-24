@@ -105,7 +105,7 @@ export const mockedHouseholdData: Household[] = [
                 id: '1',
                 name: 'Städa',
                 description: 'Copy pasta lorem ipsum städa då snälla hjälp mig',
-                frequency: 1,
+                frequency: 3,
                 score: 4,
                 signedToUserId: ["1"],
                 createdDate: '2021-10-01',
@@ -137,6 +137,38 @@ export const mockedHouseholdData: Household[] = [
                 score: 8,
                 signedToUserId: [],
                 createdDate:'2021-10-10'
+            },  
+            {
+                id: '3',
+                name: 'Baka bröd',
+                description: 'Kolla först i frysan och skafferiet vad som finns. Baka sedan valfri sort som räcker till veckan.',
+                frequency: 7,
+                doneBy: [],
+                score: 8,
+                signedToUserId: [],
+                createdDate:'2021-10-24'
+            },
+            {
+                id: '4',
+                name: 'Byta sängkläder',
+                description: 'Copy pasta lorem ipsum städa då snälla hjälp mig',
+                frequency: 7,
+                score: 4,
+                signedToUserId: ["2"],
+                createdDate: '2021-10-13',
+                lastDone: '2021-10-17',
+                doneBy: [
+                    {
+                        choreId: '1',
+                        userId: '2',
+                        date: '2021-10-12',
+                        score: 4,
+                    }, {
+                        choreId: '1',
+                        userId: '2',
+                        date: '2021-10-17',
+                        score: 4,
+                    }]
             }],
     },
     {

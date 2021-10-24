@@ -14,11 +14,7 @@ export function ChoreButton({ goto, chore }: Props) {
     const { colors } = useTheme();
 
     function setIconLastDone(chore: Chore) {
-        // const today = new Date();
-        // today.setHours(0,0,0,0);
         const today = moment(new Date()).format('YYYY-MM-DD');
-        // const date = (chore.lastDone? new Date(chore.lastDone): new Date(chore.createdDate));
-        // date.setHours(0,0,0,0);
         const date = (chore.lastDone? moment(new Date(chore.lastDone)).format('YYYY-MM-DD'): moment(new Date(chore.createdDate)).format('YYYY-MM-DD'));
 
         const doneNextByDate = moment(date).add(chore.frequency, 'day').format('YYYY-MM-DD');
@@ -33,17 +29,21 @@ export function ChoreButton({ goto, chore }: Props) {
             return(
                 <Text>avatars</Text>
                 );
-                //if chore is created today and have no match in doneBy[] --> present GREY number
+                //TODO: if chore is created today and have no match in doneBy[] --> present GREY number
       } else {
             //check doneNewxtByDate
-            if(true) {
+            var Difference_In_Days = (new Date(today).getTime() - new Date(doneNextByDate).getTime()) / (1000 * 3600 * 24);
+            console.log(Difference_In_Days)
+
+            const notPasedDoneNextBy = Date.parse(today) < Date.parse(doneNextByDate);
+            if (notPasedDoneNextBy) {
                 //Days left to due date
-                return <Text>GREY 5</Text>
+                return <Text>GREY {Difference_In_Days}</Text>
             } else {
                 //Days past due date
-                return <Text>RED 5</Text>
+                return <Text>RED {Difference_In_Days}</Text>
+                //TODO: In case it should be done today? Number 0 will appeare here
             }
-            //TODO: Is case should be done today coverd correctly?
         }
     }
         return (
