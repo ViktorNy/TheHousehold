@@ -1,19 +1,19 @@
-import { useTheme } from "@react-navigation/native";
-import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { CustomNavigateButton } from "../component/CustomNavigateButton";
+import { useTheme } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { CustomNavigateButton } from '../component/CustomNavigateButton';
 import { mockedUserData } from '../data/data';
-import { RootStackScreenProps } from "../navigation/RootStackNavigator";
+import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 
-export default function LoginScreen({ navigation }: RootStackScreenProps<"Login">) {
+export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'>) {
     const { colors } = useTheme();
     const [userText, onUserTextChange] = useState('');
     const [userPassword, onUserPasswordChange] = useState('');
 
-    const user = mockedUserData[0];
+    const user = mockedUserData[2];
 
-    // Needs to be revised. Now only works if you log in with user info: 
+    // Needs to be revised. Now only works if you log in with user info:
     // Username: SvenSvensson
     // Password: Svensson
     // Otherwise logs out 'faulty user' in console
@@ -27,9 +27,9 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<"Login"
 
     return (
         <SafeAreaView style={[{ backgroundColor: colors.background }]}>
-            <Text style={[styles.loginText, {color: colors.text}]}>Logga in</Text>
+            <Text style={[styles.loginText, { color: colors.text }]}>Logga in</Text>
             <TextInput
-                style={[styles.input, {backgroundColor: colors.primary, color: colors.text}]}
+                style={[styles.input, { backgroundColor: colors.primary, color: colors.text }]}
                 value={userText}
                 onChangeText={onUserTextChange}
                 placeholder='Epost / användarnamn'
@@ -37,7 +37,7 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<"Login"
                 placeholderTextColor={colors.text}
             />
             <TextInput
-                style={[styles.input, {marginTop: 0, backgroundColor: colors.primary, color: colors.text}]}
+                style={[styles.input, { marginTop: 0, backgroundColor: colors.primary, color: colors.text }]}
                 value={userPassword}
                 onChangeText={onUserPasswordChange}
                 secureTextEntry={true}
@@ -69,5 +69,5 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 10,
         backgroundColor: 'white'
-    },
+    }
 });

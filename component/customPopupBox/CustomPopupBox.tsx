@@ -13,7 +13,7 @@ interface Props {
   modalCase: string
 }
 
-export function CustomPopupBox({id, modalCase}: Props) {
+export function CustomPopupBox({ id, modalCase }: Props) {
     const [modalVisible, setModalVisible] = useState(true);
     const [userInput, onUserInputChange] = useState('');
     const layoutChoices = LayoutChoice(modalCase, id)

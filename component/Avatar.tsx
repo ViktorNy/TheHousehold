@@ -1,7 +1,6 @@
 import { useTheme } from "@react-navigation/native";
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import { mockAvatarData } from "../data/data";
 
 interface Props {
@@ -21,10 +20,9 @@ export default function Avatar({ avatarId, showCircle, avatarSize }: Props) {
             <View style={[styles.avatarPosition, styles.root, { backgroundColor: avatar?.backgroundColor, borderColor: colors.colors.primary }]}>
                 <Text style={[{ fontSize: 32 }]}>{avatar?.avatar}</Text>
             </View>
-        )
-    }
-    else {
-        return <Text style={[{ fontSize: avatarSize }]}>{avatar?.avatar}</Text>
+        );
+    } else {
+        return <Text style={[{ fontSize: avatarSize }]}>{avatar?.avatar}</Text>;
     }
 }
 
@@ -39,5 +37,5 @@ const styles = StyleSheet.create({
     avatarPosition: {
         justifyContent: 'center',
         alignItems: 'center'
-    },
+    }
 });

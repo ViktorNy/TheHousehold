@@ -1,4 +1,4 @@
-import { Chore } from "../../data/data";
+import { Chore } from '../../data/data';
 
 export interface CreateChoreAction {
     type: 'CREATE';

@@ -40,71 +40,71 @@ function RootStackNavigator() {
   const theme = (colorScheme === 'dark') ? DarkCustomTheme : DefaultCustomTheme;
   const colors = theme.colors;
 
-  return (
-    <NavigationContainer theme={theme}>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Start"
-          options={{ headerShown: false }}
-          component={StartScreen}
-        />
-        <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{
-            title: '',
-            headerStyle: { backgroundColor: colors.background },
-            headerShadowVisible: false
-          }}
-        />
-        <Stack.Screen
-          name="Register"
-          component={RegisterScreen}
-          options={{
-            title: '',
-            headerShadowVisible: false,
-            headerStyle: { backgroundColor: colors.background }
-          }}
-        />
-        <Stack.Screen
-          name="RegisterUserName"
-          component={RegisterUserNameScreen}
-          options={{
-            title: '',
-            headerStyle: { backgroundColor: colors.background }, 
-            headerShadowVisible: false
-          }}
-        />
-        <Stack.Screen
-          name="Household"
-          component={HouseholdScreen}
-        />
-        <Stack.Screen
-          name="DistributeChore"
-          component={DistributeChoreScreen}
-        />
-        <Stack.Screen
-          name="ChoreDetail"
-          component={ChoreDetailScreen}
-        />
-        <Stack.Screen
-          name="Member"
-          component={MemberScreen}
-          options={{
-            headerTitle: "Medlemmar",
-          }}
-        />
-        <Stack.Screen
-          name="HouseholdChores"
-          component={HouseholdChoresScreen}
-        />
-        <Stack.Screen
-          name="MemeberDetailScreen"
-          component={MemberDetailScreen}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+    return (
+        <NavigationContainer theme={theme}>
+            <Stack.Navigator>
+                <Stack.Screen
+                    name="Start"
+                    options={{ headerShown: false }}
+                    component={StartScreen}
+                />
+                <Stack.Screen
+                    name="Login"
+                    component={LoginScreen}
+                    options={{
+                        title: '',
+                        headerStyle: { backgroundColor: colors.background },
+                        headerShadowVisible: false
+                    }}
+                />
+                <Stack.Screen
+                    name="Register"
+                    component={RegisterScreen}
+                    options={{
+                        title: '',
+                        headerShadowVisible: false,
+                        headerStyle: { backgroundColor: colors.background }
+                    }}
+                />
+                <Stack.Screen
+                    name="RegisterUserName"
+                    component={RegisterUserNameScreen}
+                    options={{
+                        title: '',
+                        headerStyle: { backgroundColor: colors.background },
+                        headerShadowVisible: false
+                    }}
+                />
+                <Stack.Screen
+                    name="Household"
+                    component={HouseholdScreen}
+                />
+                <Stack.Screen
+                    name="DistributeChore"
+                    component={DistributeChoreScreen}
+                />
+                <Stack.Screen
+                    name="ChoreDetail"
+                    component={ChoreDetailScreen}
+                />
+                <Stack.Screen
+                    name="Member"
+                    component={MemberScreen}
+                    options={{
+                        headerTitle: 'Medlemmar'
+                    }}
+                />
+                <Stack.Screen
+                    name="HouseholdChores"
+                    component={HouseholdChoresScreen}
+                />
+                <Stack.Screen
+                    name="MemeberDetailScreen"
+                    component={MemberDetailScreen}
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
 }
 
 export default RootStackNavigator;

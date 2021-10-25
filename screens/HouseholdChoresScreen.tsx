@@ -1,11 +1,11 @@
-import { useTheme } from "@react-navigation/native";
-import React from "react";
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
-import { RootStackScreenProps } from "../navigation/RootStackNavigator";
-import { getHouseholdByIdSelector } from "../store/household/householdSelectors";
-import { useAppSelector } from "../store/store";
+import { useTheme } from '@react-navigation/native';
+import React from 'react';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { RootStackScreenProps } from '../navigation/RootStackNavigator';
+import { getHouseholdByIdSelector } from '../store/household/householdSelectors';
+import { useAppSelector } from '../store/store';
 
-export default function HouseholdChoresScreen({ navigation, route }: RootStackScreenProps<"HouseholdChores">) {
+export default function HouseholdChoresScreen({ navigation, route }: RootStackScreenProps<'HouseholdChores'>) {
     const { colors } = useTheme();
     const household = useAppSelector((state) => getHouseholdByIdSelector(state, route.params.householdId));
     if (household) {
@@ -18,7 +18,7 @@ export default function HouseholdChoresScreen({ navigation, route }: RootStackSc
                         <View>
                             <TouchableOpacity
                                 onPress={() =>
-                                    navigation.navigate("ChoreDetail", { choreId: item.id, householdId: household.id })
+                                    navigation.navigate('ChoreDetail', { choreId: item.id, householdId: household.id })
                                 }
                             >
                                 <Text style={[{ color: colors.text }]}>{item.name}</Text>
