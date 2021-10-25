@@ -3,6 +3,7 @@ import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomNavigateButton } from '../component/CustomNavigateButton';
+import { CustomPopupBox } from '../component/customPopupBox/CustomPopupBox';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 
 export default function StartScreen({ navigation }: RootStackScreenProps<'Start'>) {
