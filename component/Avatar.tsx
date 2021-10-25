@@ -1,6 +1,6 @@
 import { useTheme } from '@react-navigation/native';
-import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { mockAvatarData } from '../data/data';
 
 interface Props {
@@ -13,13 +13,14 @@ export default function Avatar({ avatarId, showCircle, avatarSize }: Props) {
     // Ska troligtvis hämtas ut på annat ställe
     const avatarList = mockAvatarData;
     const colors = useTheme();
+    const [chosenAvatar, setChosenAvatar] = useState(false)
 
     const avatar = avatarList.find(a => a.id === avatarId);
     if (showCircle) {
         return (
-            <View style={[styles.avatarPosition, styles.root, { backgroundColor: avatar?.backgroundColor, borderColor: colors.colors.primary }]}>
+            <TouchableOpacity onPress={()=>setChosenAvatar(!chosenAvatar)} style={[chosenAvatar ? styles.selectedAvatar : {}, styles.avatarPosition, styles.root, { backgroundColor: avatar?.backgroundColor }]}>
                 <Text style={[{ fontSize: 32 }]}>{avatar?.avatar}</Text>
-            </View>
+            </TouchableOpacity>
         );
     } else {
         return <Text style={[{ fontSize: avatarSize }]}>{avatar?.avatar}</Text>;
@@ -32,10 +33,16 @@ const styles = StyleSheet.create({
         width: 50,
         borderRadius: 100,
         marginTop: 1,
-        borderWidth: 2
     },
     avatarPosition: {
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+    },
+    unavailableAvatar: {
+
+    },
+    selectedAvatar: {
+        borderColor: 'blue',
+        borderWidth: 5
     }
 });

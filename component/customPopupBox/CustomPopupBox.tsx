@@ -44,9 +44,9 @@ export function CustomPopupBox({ id, modalCase }: Props) {
                             </View>
                             <View style={modalStyles.avatarContainerStyle}>
                                 {avatarArray.map((avatar) => (
-                                    <TouchableOpacity key={avatar.id} style={modalStyles.avatarStyle} >
+                                  <View key={avatar.id}>
                                         <Avatar avatarId={avatar.id} showCircle={true} avatarSize={32} />
-                                    </TouchableOpacity>
+                                  </View>
                                 ))}
                             </View>
                         </View>
