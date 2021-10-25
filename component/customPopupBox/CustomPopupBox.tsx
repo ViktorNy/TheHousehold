@@ -1,6 +1,6 @@
 import Modal from 'react-native-modal';
 import React, { useState } from 'react';
-import { LayoutChoice } from './LayoutChoice';
+import { LayoutChoice } from './popupLayoutChoice';
 import { AntDesign } from '@expo/vector-icons';
 import { useTheme } from '@react-navigation/native';
 import { StyleSheet, Text, Pressable, View, TextInput } from 'react-native';

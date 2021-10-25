@@ -1,5 +1,5 @@
-import { useAppSelector } from "../store/store";
-import { getAllUsersSelector } from "../store/user/userSelector";
+import { useAppSelector } from "../../store/store";
+import { getAllUsersSelector } from "../../store/user/userSelector";
 
 let modalTitle = '';
 let ModalLeft = '';
