@@ -34,8 +34,10 @@ export function CustomPopupBox({id, modalCase}: Props) {
           statusBarTranslucent={true}
           onBackButtonPress={() => {
             setModalVisible(false);
-          }}>
-          <View style={modalStyles.centeredView}>
+          }}
+          style={modalStyles.avatarContainerPosition}
+          >
+          <View style={modalStyles.avatarContainerPosition}>
             <View style={[modalStyles.modalView, { backgroundColor: colors.popupBackground }, modalStyles.centeredView]}>
               <View style={[modalStyles.headerStyle, { backgroundColor: colors.popupOverlayColor }, modalStyles.centeredView]}>
                 <Text style={[ modalStyles.textStyle, modalStyles.headerTextStyle, { color: colors.text } ]}>{layoutChoices.modalTitle}</Text>
