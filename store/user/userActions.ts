@@ -1,4 +1,4 @@
-import { User } from "../../data/data";
+import { User } from '../../data/data';
 
 export interface CreateUserAction {
     type: 'CREATE';

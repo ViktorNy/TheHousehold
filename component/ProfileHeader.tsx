@@ -1,9 +1,9 @@
-import { useTheme } from "@react-navigation/native";
-import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Household, Member, User } from "../data/data";
-import Avatar from "./Avatar";
-import { Entypo } from "@expo/vector-icons";
+import { useTheme } from '@react-navigation/native';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Household, Member, User } from '../data/data';
+import Avatar from './Avatar';
+import { Entypo } from '@expo/vector-icons';
 
 interface Props {
     household?: Household;
@@ -23,7 +23,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMen
 
     function ShowProfile(household?: Household) {
         if (visitMember) {
-            //visit another member profile
+            // visit another member profile
             // TODO: namn på member ?
             return (
                 <TouchableOpacity style={styles.row}
@@ -33,7 +33,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMen
                 </TouchableOpacity>
             );
         } else if (household) {
-            //visit one of youre households
+            // visit one of youre households
             return (
                 <TouchableOpacity style={styles.row}
                     onPress={() => openMenu && openMenu(true)}>
@@ -42,7 +42,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMen
                 </TouchableOpacity>
             );
         } else {
-            //visit youre page "min sida"
+            // visit youre page "min sida"
             return (
                 <TouchableOpacity style={styles.row}
                     onPress={() => openMenu && openMenu(true)}>
@@ -67,7 +67,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMen
 
     function DisplayUser({ household, userInformation, visitMember }: Props) {
         if (visitMember) {
-            //visit another member profile
+            // visit another member profile
             // TODO: hämta rätt info
             return (
                 <View style={styles.user}>
@@ -80,7 +80,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMen
                 </View>
             );
         } else if (household) {
-            //visit one of youre households
+            // visit one of youre households
             // TODO: hämta rätt info
             return (
                 <View style={styles.user}>
@@ -94,8 +94,8 @@ export function ProfileHeader({ household, userInformation, visitMember, openMen
                 </View>
             );
         } else {
-            //visit youre page "min sida"
-            //TODO: Hämta rätt info
+            // visit youre page "min sida"
+            // TODO: Hämta rätt info
             return (
                 <View style={styles.user}>
                     <View style={[styles.circle, { borderColor: colors.text }]}>
@@ -121,11 +121,11 @@ export function ProfileHeader({ household, userInformation, visitMember, openMen
             <View style={styles.rowTwo}>
                 {/*  */}
                 {DisplayUser({ userInformation, household, visitMember, openMenu })}
-                <View style={{ alignItems: "center" }}>
+                <View style={{ alignItems: 'center' }}>
                     <View style={[styles.row, styles.spaceBetween]}>
-                        {DisplayScore("Att göra", 0)}
-                        {DisplayScore("Avklarade", 10)}
-                        {DisplayScore("Poäng")}
+                        {DisplayScore('Att göra', 0)}
+                        {DisplayScore('Avklarade', 10)}
+                        {DisplayScore('Poäng')}
                     </View>
                     <Text style={{ color: colors.text }}>För nuvarande månad</Text>
                 </View>
@@ -136,39 +136,39 @@ export function ProfileHeader({ household, userInformation, visitMember, openMen
 
 const styles = StyleSheet.create({
     root: {
-        padding: 10,
+        padding: 10
     },
     row: {
-        flexDirection: "row",
+        flexDirection: 'row'
     },
     spaceBetween: {
-        justifyContent: "space-between",
+        justifyContent: 'space-between'
     },
     rowTwo: {
-        //backgroundColor: "pink",
-        justifyContent: "space-between",
+        // backgroundColor: "pink",
+        justifyContent: 'space-between',
         paddingRight: 20,
         paddingTop: 5,
-        flexDirection: "row",
-        width: "100%",
+        flexDirection: 'row',
+        width: '100%'
     },
     user: {
-        alignItems: "center",
+        alignItems: 'center'
     },
     score: {
-        alignItems: "center",
-        paddingLeft: 10,
+        alignItems: 'center',
+        paddingLeft: 10
     },
     circle: {
-        alignItems: "center",
-        justifyContent: "center",
+        alignItems: 'center',
+        justifyContent: 'center',
         borderRadius: 100,
         borderWidth: 1,
         height: 40,
-        width: 40,
+        width: 40
     },
     title: {
         fontSize: 18,
-        fontWeight: "bold",
-    },
+        fontWeight: 'bold'
+    }
 });

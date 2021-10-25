@@ -1,8 +1,8 @@
-import { Household } from "../../data/data";
+import { Household } from '../../data/data';
 
 export interface CreateHouseholdAction {
     type: 'CREATE';
-    payload: Household; // Rätt! Wow! 
+    payload: Household; // Rätt! Wow!
 }
 
 export interface EditHouseholdAction {

@@ -1,4 +1,4 @@
-import { Chore } from "../../data/data";
+import { Chore } from '../../data/data';
 
 export interface ChoreState {
     choreList: Chore[]
@@ -6,4 +6,4 @@ export interface ChoreState {
 
 export const initialState: ChoreState = {
     choreList: []
-}
+};

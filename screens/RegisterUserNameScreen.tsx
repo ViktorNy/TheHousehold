@@ -1,19 +1,19 @@
-import { useTheme } from "@react-navigation/native";
-import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, useColorScheme, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { CustomNavigateButton } from "../component/CustomNavigateButton";
-import { RootStackScreenProps } from "../navigation/RootStackNavigator";
+import { useTheme } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { CustomNavigateButton } from '../component/CustomNavigateButton';
+import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 
-export default function RegisterUserNameScreen({ navigation, route }: RootStackScreenProps<"RegisterUserName">) {
+export default function RegisterUserNameScreen({ navigation, route }: RootStackScreenProps<'RegisterUserName'>) {
     const { colors } = useTheme();
     const [username, onUsernameChange] = useState('');
 
     return (
         <SafeAreaView style={[{ backgroundColor: colors.background }]}>
-            <Text style={[styles.loginText, {color: colors.text}]}>Registrera</Text>
+            <Text style={[styles.loginText, { color: colors.text }]}>Registrera</Text>
             <TextInput
-                style={[styles.input, {marginBottom: 0, backgroundColor: colors.primary, color: colors.text}]}
+                style={[styles.input, { marginBottom: 0, backgroundColor: colors.primary, color: colors.text }]}
                 value={username}
                 onChangeText={onUsernameChange}
                 placeholder='Användarnamn'
@@ -23,8 +23,8 @@ export default function RegisterUserNameScreen({ navigation, route }: RootStackS
             <View style={styles.viewStyle}>
                 <CustomNavigateButton buttonText="Registrera användare" goto={() => {}} />
             </View>
-            <Text style={[styles.approvalText, {color: colors.text}]}>Genom att klicka “Registrera användare” godkänner du
-            <Text style={[styles.underlineText, {color: colors.text}]}> Hemmets användarvillkor</Text>
+            <Text style={[styles.approvalText, { color: colors.text }]}>Genom att klicka “Registrera användare” godkänner du
+                <Text style={[styles.underlineText, { color: colors.text }]}> Hemmets användarvillkor</Text>
             .</Text>
         </SafeAreaView>
     );
