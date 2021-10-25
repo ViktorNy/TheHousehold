@@ -21,6 +21,10 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
         state.member.memberList.find((m) => m.userId === route.params.user.id && m.householdId === currentHousehold?.id)
     );
 
+    const members = useAppSelector((state) =>
+        state.member.memberList.filter((m) => m.householdId === currentHousehold?.id)
+    );
+
     if (currentHousehold) {
         const houseHoldChores = currentHousehold.chores.filter((item) =>
             item.signedToUserId.filter((item) => item === route.params.user.id)
@@ -64,10 +68,7 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                     toggleIsShowing={setIsShowingModal}
                     rootStackProps={{ navigation, route }}
                 />
-                <ProfileHeader
-                    userInformation={{ user: route.params.user }}
-                    openMenu={setIsShowingModal}
-                />
+                <ProfileHeader userInformation={{ user: route.params.user }} openMenu={setIsShowingModal} />
                 <Text style={[{ color: colors.text }]}>Welcome {route.params.user.username}</Text>
                 <FlatList
                     data={userHousehold}
@@ -86,6 +87,7 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                                     // <CustomNavigateButton
                                     //     key={chore.id}
                                     //     buttonText={chore.name}
+                                    //     avatarIdList={["1", "2"]}
                                     //     goto={() =>
                                     //         navigation.navigate("ChoreDetail", {
                                     //             choreId: chore.id,
@@ -93,9 +95,11 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                                     //         })
                                     //     }
                                     // />
+
                                     <ChoreButton
-                                    key={chore.id}
+                                        key={chore.id}
                                         chore={chore}
+                                        avatarIdList={["1"]} //TODO: lista med avatarID som matchar valt datum också..
                                         goto={() =>
                                             navigation.navigate("ChoreDetail", {
                                                 choreId: chore.id,
@@ -118,7 +122,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "flex-end",
         alignItems: "center",
-        marginTop: 22
+        marginTop: 22,
     },
     modalView: {
         margin: 0,
@@ -129,17 +133,17 @@ const styles = StyleSheet.create({
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 2
+            height: 2,
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5,
-        width: '100%'
+        width: "100%",
     },
     button: {
         borderRadius: 20,
         padding: 10,
-        elevation: 2
+        elevation: 2,
     },
     buttonOpen: {
         backgroundColor: "#F194FF",
@@ -150,10 +154,10 @@ const styles = StyleSheet.create({
     textStyle: {
         color: "white",
         fontWeight: "bold",
-        textAlign: "center"
+        textAlign: "center",
     },
     modalText: {
         marginBottom: 15,
-        textAlign: "center"
-    }
+        textAlign: "center",
+    },
 });

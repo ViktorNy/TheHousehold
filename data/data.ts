@@ -55,7 +55,8 @@ export interface Chore {
 
 export interface ChoreDoneBy {
     choreId: string,
-    userId: string,
+    // userId: string,
+    memberId: string,
     date: string,
     score: number,  //spara score här  ifall men justerar det senare
 }
@@ -109,22 +110,22 @@ export const mockedHouseholdData: Household[] = [
                 score: 4,
                 signedToUserId: ["1"],
                 createdDate: '2021-10-01',
-                lastDone: '2021-10-23',
+                lastDone: '2021-10-25',
                 doneBy: [
                     {
                         choreId: '1',
-                        userId: '1',
+                        memberId: '1',
                         date: '2021-10-12',
                         score: 4,
                     }, {
                         choreId: '1',
-                        userId: '1',
+                        memberId: '1',
                         date: '2021-10-23',
                         score: 4,
                     }, {
                         choreId: '1',
-                        userId: '2',
-                        date: '2021-10-23',
+                        memberId: '2',
+                        date: '2021-10-25',
                         score: 4,
                     }]
             },
@@ -156,17 +157,17 @@ export const mockedHouseholdData: Household[] = [
                 score: 4,
                 signedToUserId: ["2"],
                 createdDate: '2021-10-13',
-                lastDone: '2021-10-17',
+                lastDone: '2021-10-18',
                 doneBy: [
                     {
                         choreId: '1',
-                        userId: '2',
+                        memberId: '2',
                         date: '2021-10-12',
                         score: 4,
                     }, {
                         choreId: '1',
-                        userId: '2',
-                        date: '2021-10-17',
+                        memberId: '2',
+                        date: '2021-10-18',
                         score: 4,
                     }]
             }],
@@ -184,7 +185,7 @@ export const mockedHouseholdData: Household[] = [
                 doneBy: [],
                 score: 8,
                 signedToUserId: [],
-                createdDate: '2021-10-22'
+                createdDate: '2021-10-23'
             }
         ],
     }
