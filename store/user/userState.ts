@@ -1,4 +1,4 @@
-import { mockedUserData, User } from "../../data/data";
+import { mockedUserData, User } from '../../data/data';
 
 export interface UserState {
     userList: User[]
@@ -6,4 +6,4 @@ export interface UserState {
 
 export const initialState: UserState = {
     userList: mockedUserData
-}
+};

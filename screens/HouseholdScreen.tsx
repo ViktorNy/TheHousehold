@@ -1,16 +1,15 @@
-import { useTheme } from "@react-navigation/native";
-import React, { useState } from "react";
-import { Button, FlatList, Modal, Pressable, Text, TouchableOpacity, View, StyleSheet } from "react-native";
-import { CustomNavigateButton } from "../component/CustomNavigateButton";
+import { useTheme } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { CustomNavigateButton } from '../component/CustomNavigateButton';
 import { CustomPlusButton } from "../component/CustomPlusButton";
-import HamburgerMenu from "../component/HamburgerMenu";
-import { ProfileHeader } from "../component/ProfileHeader";
+import HamburgerMenu from '../component/HamburgerMenu';
+import { ProfileHeader } from '../component/ProfileHeader';
+import { RootStackScreenProps } from '../navigation/RootStackNavigator';
+import { getAllHouseholdsByUserIdSelector } from '../store/household/householdSelectors';
+import { useAppSelector } from '../store/store';
 
-import { RootStackScreenProps } from "../navigation/RootStackNavigator";
-import { getAllHouseholdsByUserIdSelector } from "../store/household/householdSelectors";
-import { useAppSelector } from "../store/store";
-
-export default function HouseholdScreen({ navigation, route }: RootStackScreenProps<"Household">) {
+export default function HouseholdScreen({ navigation, route }: RootStackScreenProps<'Household'>) {
     const { colors } = useTheme();
     const [isShowingModal, setIsShowingModal] = useState(false);
     const userHousehold = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, route.params.user.id));
@@ -46,9 +45,9 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                         <CustomNavigateButton
                             buttonText={item.name}
                             goto={() =>
-                                navigation.navigate("ChoreDetail", {
+                                navigation.navigate('ChoreDetail', {
                                     choreId: item.id,
-                                    householdId: currentHousehold.id,
+                                    householdId: currentHousehold.id
                                 })
                             }
                         />
