@@ -5,8 +5,8 @@ import { Member } from '../data/data';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 
 interface Props {
-    isShowingMenu: boolean;
-    toggleIsShowing: (toggleValue: boolean) => void;
+    isShowingMenu: boolean,
+    toggleIsShowing: (toggleValue: boolean) => void,
     rootStackProps: RootStackScreenProps<'Household'>,
     householdID?: string,
     currentMember?: Member

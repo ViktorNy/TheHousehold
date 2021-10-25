@@ -11,6 +11,8 @@ import { useAppSelector } from '../store/store';
 export default function HouseholdScreen({ navigation, route }: RootStackScreenProps<'Household'>) {
     const { colors } = useTheme();
     const [isShowingModal, setIsShowingModal] = useState(false);
+    // const allCurrentUserMemberID = useAppSelector((state) => state.member.memberList.filter(m => m.userId === route.params.user.id));
+    // const allHouseholdsConnectedToUser = useAppSelector((state) => staet)
     const currentHousehold = useAppSelector((state) =>
         state.household.householdList.find((h) => h.id === route.params.householdId)
     );
