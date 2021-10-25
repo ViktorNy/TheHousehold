@@ -2,6 +2,7 @@ import { useTheme } from "@react-navigation/native";
 import React, { useState } from "react";
 import { Button, FlatList, Modal, Pressable, Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import { CustomNavigateButton } from "../component/CustomNavigateButton";
+import { CustomPlusButton } from "../component/CustomPlusButton";
 import HamburgerMenu from "../component/HamburgerMenu";
 import { ProfileHeader } from "../component/ProfileHeader";
 
@@ -63,40 +64,20 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                     toggleIsShowing={setIsShowingModal}
                     rootStackProps={{ navigation, route }}
                 />
-                <ProfileHeader
-                    userInformation={{ user: route.params.user }}
-                    openMenu={setIsShowingModal}
-                />
-                <Text style={[{ color: colors.text }]}>Welcome {route.params.user.username}</Text>
-                <FlatList
-                    data={userHousehold}
-                    renderItem={({ item }) => (
-                        <View>
-                            <TouchableOpacity
-                                onPress={() =>
-                                    navigation.push("Household", { user: route.params.user, householdId: item.id })
-                                }
-                            >
-                                <Text style={[{ color: colors.text }]}>{item.name}</Text>
-                            </TouchableOpacity>
-
-                            {item.chores.map((chore) => {
-                                return (
-                                    <CustomNavigateButton
-                                        key={chore.id}
-                                        buttonText={chore.name}
-                                        goto={() =>
-                                            navigation.navigate("ChoreDetail", {
-                                                choreId: chore.id,
-                                                householdId: item.id,
-                                            })
-                                        }
-                                    />
-                                );
-                            })}
-                        </View>
-                    )}
-                />
+                <ProfileHeader userInformation={{ user: route.params.user }} openMenu={setIsShowingModal} />
+                <View style={styles.conatiner}>
+                    <Text style={[{ color: colors.text }, styles.simplifyText]}>Förenkla din vardag </Text>
+                    <Text style={[{ color: colors.text }, styles.pitchText]}>
+                        Få koll på era sysslor, fördela och engagera. Att glömma bort blir nu ett minne blott!
+                    </Text>
+                    <Text style={[{ color: colors.text }, styles.notMemberText]}>
+                        Du är inte medlem i något hushåll, för att komma vidare skapa ett ny eller gå med i ett.{" "}
+                    </Text>
+                    <View style={styles.buttonContainer}>
+                        <CustomPlusButton buttonText="Skapa nytt" goto={() => {}} />
+                        <CustomPlusButton buttonText="Gå med i" goto={() => {}} />
+                    </View>
+                </View>
             </View>
         );
     }
@@ -107,7 +88,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "flex-end",
         alignItems: "center",
-        marginTop: 22
+        marginTop: 22,
     },
     modalView: {
         margin: 0,
@@ -118,17 +99,17 @@ const styles = StyleSheet.create({
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 2
+            height: 2,
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5,
-        width: '100%'
+        width: "100%",
     },
     button: {
         borderRadius: 20,
         padding: 10,
-        elevation: 2
+        elevation: 2,
     },
     buttonOpen: {
         backgroundColor: "#F194FF",
@@ -139,10 +120,37 @@ const styles = StyleSheet.create({
     textStyle: {
         color: "white",
         fontWeight: "bold",
-        textAlign: "center"
+        textAlign: "center",
     },
     modalText: {
         marginBottom: 15,
-        textAlign: "center"
-    }
+        textAlign: "center",
+    },
+    buttonContainer: {
+        flexDirection: "row",
+        marginTop: 170,
+        width: "100%",
+        justifyContent: "space-evenly",
+    },
+    conatiner: {
+        alignItems: "center",
+        marginTop: 100,
+        width: "100%",
+    },
+    simplifyText: {
+        fontWeight: "bold",
+        fontSize: 20,
+        marginRight: 150,
+    },
+    pitchText: {
+        marginLeft: 30,
+        marginRight: 80,
+        marginTop: 10,
+    },
+    notMemberText: {
+        alignSelf: "center",
+        marginTop: 10,
+        marginLeft: 30,
+        marginRight: 70,
+    },
 });
