@@ -1,19 +1,19 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack";
-import React from "react";
-import { useColorScheme } from "react-native";
-import { User } from "../data/data";
-import ChoreDetailScreen from "../screens/ChoreDetailScreen";
-import DistributeChoreScreen from "../screens/DistributeChoreScreen";
-import HouseholdChoresScreen from "../screens/HouseholdChoresScreen";
-import HouseholdScreen from "../screens/HouseholdScreen";
-import LoginScreen from "../screens/LoginScreen";
-import MemberDetailScreen from "../screens/MemberDetailScreen";
-import MemberScreen from "../screens/MemberScreen";
-import RegisterScreen from "../screens/RegisterScreen";
-import RegisterUserNameScreen from "../screens/RegisterUserNameScreen";
-import StartScreen from "../screens/StartScreen";
-import { DarkCustomTheme, DefaultCustomTheme } from "../style/theme";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
+import React from 'react';
+import { useColorScheme } from 'react-native';
+import { User } from '../data/data';
+import ChoreDetailScreen from '../screens/ChoreDetailScreen';
+import DistributeChoreScreen from '../screens/DistributeChoreScreen';
+import HouseholdChoresScreen from '../screens/HouseholdChoresScreen';
+import HouseholdScreen from '../screens/HouseholdScreen';
+import LoginScreen from '../screens/LoginScreen';
+import MemberDetailScreen from '../screens/MemberDetailScreen';
+import MemberScreen from '../screens/MemberScreen';
+import RegisterScreen from '../screens/RegisterScreen';
+import RegisterUserNameScreen from '../screens/RegisterUserNameScreen';
+import StartScreen from '../screens/StartScreen';
+import { DarkCustomTheme, DefaultCustomTheme } from '../style/theme';
 
 type RootStackParamList = {
   Start: undefined; // Tar inte in några parametrerar
@@ -36,9 +36,9 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStackNavigator() {
-  const colorScheme = useColorScheme();
-  const theme = (colorScheme === 'dark') ? DarkCustomTheme : DefaultCustomTheme;
-  const colors = theme.colors;
+    const colorScheme = useColorScheme();
+    const theme = (colorScheme === 'dark') ? DarkCustomTheme : DefaultCustomTheme;
+    const colors = theme.colors;
 
     return (
         <NavigationContainer theme={theme}>

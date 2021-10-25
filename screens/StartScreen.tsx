@@ -23,7 +23,7 @@ export default function StartScreen({ navigation }: RootStackScreenProps<'Start'
                 <Text style={[styles.notMemberText, { color: colors.text }]}>Är du inte medlem?</Text>
                 <CustomNavigateButton buttonText="Registrera" goto={() => navigation.navigate('Register')} />
             </View>
-            <CustomPopupBox id={"1"} modalCase={"AI"}/>
+            <CustomPopupBox id={'1'} modalCase={'AI'}/>
         </SafeAreaView>
     );
 }

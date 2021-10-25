@@ -1,7 +1,7 @@
-import { useTheme } from "@react-navigation/native";
-import React from "react";
-import { View, StyleSheet, Text } from "react-native";
-import { mockAvatarData } from "../data/data";
+import { useTheme } from '@react-navigation/native';
+import React from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import { mockAvatarData } from '../data/data';
 
 interface Props {
     avatarId: string,
