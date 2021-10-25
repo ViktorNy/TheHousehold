@@ -1,5 +1,4 @@
 
-
 export interface User {
     id: string,
     email: string,
@@ -16,14 +15,14 @@ export interface Household {
     chores: Chore[],
 }
 
-export type MemberType = "member" | "owner";
+export type MemberType = 'member' | 'owner';
 
 export interface Member {
     id: string,
     householdId: string,
     userId: string,
     memberType: MemberType,
-    avatar: string, //format?
+    avatar: string, // format?
     joinData: string,
     pausedHistory: PausedMember[],
 }
@@ -31,7 +30,7 @@ export interface Member {
 export interface PausedMember {
     householdId: string,
     userId: string,
-    fromDate: Date, //ta med år, månad och datum
+    fromDate: Date, // ta med år, månad och datum
     toDate: Date
 }
 
@@ -58,10 +57,8 @@ export interface ChoreDoneBy {
     choreId: string,
     userId: string,
     date: string,
-    score: number,  //spara score här  ifall men justerar det senare
+    score: number, // spara score här  ifall men justerar det senare
 }
-
-
 
 // ------------ MOCKED DATA BELOW -----------------
 
@@ -93,8 +90,7 @@ export const mockedMemberData: Member[] = [
         pausedHistory: [],
         householdId: '2'
     }
-]
-
+];
 
 export const mockedHouseholdData: Household[] = [
     {
@@ -108,14 +104,14 @@ export const mockedHouseholdData: Household[] = [
                 description: 'Copy pasta lorem ipsum städa då snälla hjälp mig',
                 frequency: 1,
                 score: 4,
-                signedToUserId: ["1"],
+                signedToUserId: ['1'],
                 lastDone: '2021-09-12',
                 doneBy: [
                     {
                         choreId: '1',
                         userId: '1',
                         date: '2021-09-12',
-                        score: 4,
+                        score: 4
                     }]
             },
             {
@@ -126,7 +122,7 @@ export const mockedHouseholdData: Household[] = [
                 doneBy: [],
                 score: 8,
                 signedToUserId: []
-            }],
+            }]
     },
     {
         id: '2',
@@ -142,18 +138,19 @@ export const mockedHouseholdData: Household[] = [
                 score: 8,
                 signedToUserId: []
             }
-        ],
+        ]
     }
-]
+];
 
 export const mockedUserData: User[] = [
     {
-        id: "1",
-        email: "svensson@mail.com",
-        username: "SvenSvensson",
-        password: "Svensson"
+        id: '1',
+        email: 'svensson@mail.com',
+        username: 'SvenSvensson',
+        password: 'Svensson'
     },
     {
+
         id: "2",
         email: "johansson@mail.com",
         username: "JohanJohansson",
@@ -164,8 +161,9 @@ export const mockedUserData: User[] = [
         email: "pettersson@mail.com",
         username: "petter",
         password: "pettersson"
+
     }
-]
+];
 
 export const mockAvatarData: MemberAvatar[] = [
     {
@@ -217,5 +215,5 @@ export const mockAvatarData: MemberAvatar[] = [
         id: '10',
         avatar: '🐸',
         backgroundColor: '#70B65B'
-    },
-]
+    }
+];

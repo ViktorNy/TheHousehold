@@ -1,6 +1,6 @@
-import React from "react";
-import { View, StyleSheet, Text } from "react-native";
-import { mockAvatarData } from "../data/data";
+import React from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import { mockAvatarData } from '../data/data';
 
 interface Props {
     avatarId: string,
@@ -18,10 +18,9 @@ export default function Avatar({ avatarId, showCircle, avatarSize }: Props) {
             <View style={[styles.avatarPosition, styles.root, { backgroundColor: avatar?.backgroundColor }]}>
                 <Text style={[{ fontSize: avatarSize }]}>{avatar?.avatar}</Text>
             </View>
-        )
-    }
-    else {
-        return <Text style={[{ fontSize: avatarSize }]}>{avatar?.avatar}</Text>
+        );
+    } else {
+        return <Text style={[{ fontSize: avatarSize }]}>{avatar?.avatar}</Text>;
     }
 }
 
@@ -35,5 +34,5 @@ const styles = StyleSheet.create({
     avatarPosition: {
         justifyContent: 'center',
         alignItems: 'center'
-    },
+    }
 });

@@ -5,9 +5,9 @@ import { useAppSelector } from '../store/store';
 import { getChoreByIdSelector } from '../store/household/householdSelectors';
 import { useTheme } from '@react-navigation/native';
 
-export default function ChoreDetailScreen({ navigation, route }: RootStackScreenProps<"ChoreDetail">) {
+export default function ChoreDetailScreen({ navigation, route }: RootStackScreenProps<'ChoreDetail'>) {
     const { colors } = useTheme();
-    const chore = useAppSelector(state => getChoreByIdSelector( state, route.params.choreId, route.params.householdId ))
+    const chore = useAppSelector(state => getChoreByIdSelector(state, route.params.choreId, route.params.householdId));
     return (
         <View>
             <Text style={[{ color: colors.text }]}>Chore screen</Text>
@@ -20,5 +20,5 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
             <Text style={[{ color: colors.text }]}>{chore?.score}</Text>
             <Text style={[{ color: colors.text }]}>{chore?.signedToUserId}</Text>
         </View>
-    )
+    );
 }
