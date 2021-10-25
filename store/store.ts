@@ -1,17 +1,16 @@
-import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
-import { combineReducers, createStore } from "redux";
-import choreReducer from "./chore/choreReducer";
-import householdReducer from "./household/householdReducer";
-import memberReducer from "./member/memberReducer";
-import userReducer from "./user/userReducer";
-
+import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux';
+import { combineReducers, createStore } from 'redux';
+import choreReducer from './chore/choreReducer';
+import householdReducer from './household/householdReducer';
+import memberReducer from './member/memberReducer';
+import userReducer from './user/userReducer';
 
 const rootReducers = combineReducers({
     household: householdReducer,
     user: userReducer,
     chore: choreReducer,
-    member: memberReducer,
-})
+    member: memberReducer
+});
 
 export const store = createStore(rootReducers);
 
