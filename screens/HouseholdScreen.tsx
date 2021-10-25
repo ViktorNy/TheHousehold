@@ -1,14 +1,14 @@
-import { useTheme } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { CustomNavigateButton } from '../component/CustomNavigateButton';
-import { CustomPlusButton } from '../component/CustomPlusButton';
-import HamburgerMenu from '../component/HamburgerMenu';
-import { ProfileHeader } from '../component/ProfileHeader';
-import { RootStackScreenProps } from '../navigation/RootStackNavigator';
-import { useAppSelector } from '../store/store';
+import { useTheme } from "@react-navigation/native";
+import React, { useState } from "react";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import { CustomNavigateButton } from "../component/CustomNavigateButton";
+import { CustomPlusButton } from "../component/CustomPlusButton";
+import HamburgerMenu from "../component/HamburgerMenu";
+import { ProfileHeader } from "../component/ProfileHeader";
+import { RootStackScreenProps } from "../navigation/RootStackNavigator";
+import { useAppSelector } from "../store/store";
 
-export default function HouseholdScreen({ navigation, route }: RootStackScreenProps<'Household'>) {
+export default function HouseholdScreen({ navigation, route }: RootStackScreenProps<"Household">) {
     const { colors } = useTheme();
     const [isShowingModal, setIsShowingModal] = useState(false);
     const currentHousehold = useAppSelector((state) =>
@@ -43,9 +43,9 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                         <CustomNavigateButton
                             buttonText={item.name}
                             goto={() =>
-                                navigation.navigate('ChoreDetail', {
+                                navigation.navigate("ChoreDetail", {
                                     choreId: item.id,
-                                    householdId: currentHousehold.id
+                                    householdId: currentHousehold.id,
                                 })
                             }
                         />
@@ -61,6 +61,7 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                     toggleIsShowing={setIsShowingModal}
                     rootStackProps={{ navigation, route }}
                 />
+
                 <ProfileHeader userInformation={{ user: route.params.user }} openMenu={setIsShowingModal} />
                 <View style={styles.conatiner}>
                     <Text style={[{ color: colors.text }, styles.simplifyText]}>Förenkla din vardag </Text>
@@ -68,7 +69,7 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                         Få koll på era sysslor, fördela och engagera. Att glömma bort blir nu ett minne blott!
                     </Text>
                     <Text style={[{ color: colors.text }, styles.notMemberText]}>
-                        Du är inte medlem i något hushåll, för att komma vidare skapa ett ny eller gå med i ett.{' '}
+                        Du är inte medlem i något hushåll, för att komma vidare skapa ett ny eller gå med i ett.{" "}
                     </Text>
                     <View style={styles.buttonContainer}>
                         <CustomPlusButton buttonText="Skapa nytt" goto={() => {}} />
@@ -83,71 +84,71 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
 const styles = StyleSheet.create({
     centeredView: {
         flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        marginTop: 22
+        justifyContent: "flex-end",
+        alignItems: "center",
+        marginTop: 22,
     },
     modalView: {
         margin: 0,
-        backgroundColor: 'white',
+        backgroundColor: "white",
         borderRadius: 20,
         padding: 35,
-        alignItems: 'flex-start',
-        shadowColor: '#000',
+        alignItems: "flex-start",
+        shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 2
+            height: 2,
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5,
-        width: '100%'
+        width: "100%",
     },
     button: {
         borderRadius: 20,
         padding: 10,
-        elevation: 2
+        elevation: 2,
     },
     buttonOpen: {
-        backgroundColor: '#F194FF'
+        backgroundColor: "#F194FF",
     },
     buttonClose: {
-        backgroundColor: '#2196F3'
+        backgroundColor: "#2196F3",
     },
     textStyle: {
-        color: 'white',
-        fontWeight: 'bold',
-        textAlign: 'center'
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center",
     },
     modalText: {
         marginBottom: 15,
-        textAlign: 'center'
+        textAlign: "center",
     },
     buttonContainer: {
-        flexDirection: 'row',
+        flexDirection: "row",
         marginTop: 170,
-        width: '100%',
-        justifyContent: 'space-evenly'
+        width: "100%",
+        justifyContent: "space-evenly",
     },
     conatiner: {
-        alignItems: 'center',
+        alignItems: "center",
         marginTop: 100,
-        width: '100%'
+        width: "100%",
     },
     simplifyText: {
-        fontWeight: 'bold',
+        fontWeight: "bold",
         fontSize: 20,
-        marginRight: 150
+        marginRight: 150,
     },
     pitchText: {
         marginLeft: 30,
         marginRight: 80,
-        marginTop: 10
+        marginTop: 10,
     },
     notMemberText: {
-        alignSelf: 'center',
+        alignSelf: "center",
         marginTop: 10,
         marginLeft: 30,
-        marginRight: 70
-    }
+        marginRight: 70,
+    },
 });
