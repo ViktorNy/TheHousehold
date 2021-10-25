@@ -5,7 +5,7 @@ import { mockAvatarData } from "../data/data";
 interface Props {
     avatarId: string,
     showCircle: boolean,
-    avatarSize: 14 | 22
+    avatarSize: 14 | 22 | 32
 }
 
 export default function Avatar({ avatarId, showCircle, avatarSize }: Props) {
@@ -16,7 +16,7 @@ export default function Avatar({ avatarId, showCircle, avatarSize }: Props) {
     if (showCircle) {
         return (
             <View style={[styles.avatarPosition, styles.root, { backgroundColor: avatar?.backgroundColor }]}>
-                <Text style={[{ fontSize: avatarSize }]}>{avatar?.avatar}</Text>
+                <Text style={[{ fontSize: 32 }]}>{avatar?.avatar}</Text>
             </View>
         )
     }
@@ -27,8 +27,8 @@ export default function Avatar({ avatarId, showCircle, avatarSize }: Props) {
 
 const styles = StyleSheet.create({
     root: {
-        height: 40,
-        width: 40,
+        height: 50,
+        width: 50,
         borderRadius: 100,
         marginTop: 1
     },

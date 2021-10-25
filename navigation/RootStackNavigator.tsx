@@ -1,4 +1,4 @@
-import { DarkTheme, DefaultTheme, NavigationContainer, useTheme } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { useColorScheme } from "react-native";
@@ -13,6 +13,7 @@ import MemberScreen from "../screens/MemberScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import RegisterUserNameScreen from "../screens/RegisterUserNameScreen";
 import StartScreen from "../screens/StartScreen";
+import { DarkCustomTheme, DefaultCustomTheme } from "../style/theme";
 
 type RootStackParamList = {
   Start: undefined; // Tar inte in några parametrerar
@@ -36,26 +37,6 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStackNavigator() {
   const colorScheme = useColorScheme();
-  
-  const DefaultCustomTheme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      primary: 'rgb(255, 255, 255)',
-      notification: 'rgb(100, 100, 100)',
-    },
-  };
-  
-  const DarkCustomTheme = {
-    ...DarkTheme,
-    colors: {
-      ...DarkTheme.colors,
-      primary: 'rgb(50, 50, 50)',
-      notification: 'rgb(200, 200, 200)',
-      background: 'rgb(0, 0, 0)'
-    },
-  };
-  
   const theme = (colorScheme === 'dark') ? DarkCustomTheme : DefaultCustomTheme;
   const colors = theme.colors;
 
