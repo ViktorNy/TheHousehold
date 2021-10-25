@@ -11,7 +11,7 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<"Login"
     const [userText, onUserTextChange] = useState('');
     const [userPassword, onUserPasswordChange] = useState('');
 
-    const user = mockedUserData[0];
+    const user = mockedUserData[2];
 
     // Needs to be revised. Now only works if you log in with user info: 
     // Username: SvenSvensson
