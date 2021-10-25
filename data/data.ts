@@ -158,6 +158,12 @@ export const mockedUserData: User[] = [
         email: "johansson@mail.com",
         username: "JohanJohansson",
         password: "Johansson"
+    },
+    {
+        id: "3",
+        email: "pettersson@mail.com",
+        username: "petter",
+        password: "pettersson"
     }
 ]
 
