@@ -12,6 +12,7 @@ interface Props {
 
 export function CustomPlusButton({ goto, buttonText }: Props) {
     const { colors } = useTheme();
+    const iconColor = colors.text;
 
     return (
         <TouchableOpacity
@@ -24,7 +25,7 @@ export function CustomPlusButton({ goto, buttonText }: Props) {
             onPress={goto}
         >
 
-            <AntDesign name="pluscircleo" size={24} color="black" />
+            <AntDesign name="pluscircleo" size={24} color={iconColor} />
             <Text style={[styles.buttonText, { color: colors.text }]}>{buttonText}</Text>
         </TouchableOpacity>
     );
