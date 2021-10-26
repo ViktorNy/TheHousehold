@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import { mockAvatarData } from "../data/data";
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { mockAvatarData } from '../data/data';
 
 interface Props {
     avatarId: string;
@@ -11,7 +11,6 @@ interface Props {
 export default function Avatar({ avatarId, showCircle, avatarSize }: Props) {
     // Ska troligtvis hämtas ut på annat ställe
     const avatarList = mockAvatarData;
-    const [chosenAvatar, setChosenAvatar] = useState(false);
 
     const avatar = avatarList.find((a) => a.id === avatarId);
 
@@ -30,23 +29,26 @@ export default function Avatar({ avatarId, showCircle, avatarSize }: Props) {
 
 export function AvatarChoice({ avatarId, avatarSize }: Props) {
     const avatarList = mockAvatarData;
-    const [chosenAvatar, setChosenAvatar] = useState(false);
+    // const [chosenAvatar, setChosenAvatar] = useState('');
     const avatar = avatarList.find((a) => a.id === avatarId);
 
-    for (let i = 0; i < avatarList.length; i++) {}
+    // const pressedAvatar = (selectedAvatar: string) => {
+    //     setChosenAvatar(selectedAvatar);
+    //     console.log(selectedAvatar);
+    // };
 
     return (
-        <TouchableOpacity
-            onPress={() => setChosenAvatar(!chosenAvatar && chosenAvatar)}
+        <View
+            // onPress={() => pressedAvatar(avatar!.id)}
             style={[
-                chosenAvatar ? styles.selectedAvatar : {},
+                // chosenAvatar === avatar?.id ? styles.selectedAvatar : {},
                 styles.avatarPosition,
                 styles.root,
-                { backgroundColor: avatar?.backgroundColor },
+                { backgroundColor: avatar?.backgroundColor }
             ]}
         >
             <Text style={[{ fontSize: avatarSize }]}>{avatar?.avatar}</Text>
-        </TouchableOpacity>
+        </View>
     );
 }
 
@@ -54,17 +56,17 @@ const styles = StyleSheet.create({
     root: {
         height: 50,
         width: 50,
-        borderRadius: 100,
+        borderRadius: 100
     },
     avatarPosition: {
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     unavailableAvatar: {
-        textDecorationLine: "line-through",
+        textDecorationLine: 'line-through'
     },
     selectedAvatar: {
-        borderColor: "white",
-        borderWidth: 2,
-    },
+        borderColor: 'blue',
+        borderWidth: 2
+    }
 });
