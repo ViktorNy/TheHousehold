@@ -1,12 +1,12 @@
-import { AntDesign } from '@expo/vector-icons';
-import React, { useState } from 'react';
-import { Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import Modal from 'react-native-modal';
-import { mockAvatarData } from '../../data/data';
-import { modalStyles } from '../../style/modalStyle';
-import Avatar from '../Avatar';
-import { ColorGetter } from '../themeColorGetter';
-import { LayoutChoice } from './popupLayoutChoice';
+import { AntDesign } from "@expo/vector-icons";
+import React, { useState } from "react";
+import { Pressable, Text, TextInput, TouchableOpacity, View } from "react-native";
+import Modal from "react-native-modal";
+import { mockAvatarData } from "../../data/data";
+import { modalStyles } from "../../style/modalStyle";
+import Avatar from "../Avatar";
+import { ColorGetter } from "../themeColorGetter";
+import { LayoutChoice } from "./popupLayoutChoice";
 
 interface Props {
     id: string;
@@ -15,15 +15,14 @@ interface Props {
 
 export function CustomPopupBox({ id, modalCase }: Props) {
     const [modalVisible, setModalVisible] = useState(true);
-    const [userInput, onUserInputChange] = useState('');
+    const [userInput, onUserInputChange] = useState("");
     const layoutChoices = LayoutChoice(modalCase, id);
     const avatarArray = mockAvatarData;
 
-    const [chosenAvatar, setChosenAvatar] = useState('');
+    const [chosenAvatar, setChosenAvatar] = useState("");
 
     const pressedAvatar = (avatar: string) => {
         setChosenAvatar(avatar);
-        console.log(chosenAvatar);
     };
 
     const colors = ColorGetter();
@@ -48,14 +47,14 @@ export function CustomPopupBox({ id, modalCase }: Props) {
                             style={[
                                 modalStyles.modalView,
                                 { backgroundColor: colors.popupBackground },
-                                modalStyles.centeredView
+                                modalStyles.centeredView,
                             ]}
                         >
                             <View
                                 style={[
                                     modalStyles.headerStyle,
                                     { backgroundColor: colors.popupOverlayColor },
-                                    modalStyles.centeredView
+                                    modalStyles.centeredView,
                                 ]}
                             >
                                 <Text
@@ -69,15 +68,13 @@ export function CustomPopupBox({ id, modalCase }: Props) {
                                     <TouchableOpacity
                                         key={avatar.id}
                                         onPress={() => pressedAvatar(avatar.id)}
-                                        style={
-                                            [chosenAvatar === avatar.id ? modalStyles.chosenAvatar : {}, modalStyles.avatarStyle, { backgroundColor: avatar?.backgroundColor }]
-                                        }
+                                        style={[
+                                            chosenAvatar === avatar.id ? modalStyles.chosenAvatar : {},
+                                            modalStyles.avatarStyle,
+                                            { backgroundColor: avatar?.backgroundColor },
+                                        ]}
                                     >
-                                        <Avatar
-                                            avatarId={avatar.id}
-                                            avatarSize={32}
-                                            showCircle={true}
-                                        />
+                                        <Avatar avatarId={avatar.id} avatarSize={32} showCircle={false} />
                                     </TouchableOpacity>
                                 ))}
                             </View>
@@ -104,14 +101,14 @@ export function CustomPopupBox({ id, modalCase }: Props) {
                             style={[
                                 modalStyles.modalView,
                                 { backgroundColor: colors.popupBackground },
-                                modalStyles.centeredView
+                                modalStyles.centeredView,
                             ]}
                         >
                             <View
                                 style={[
                                     modalStyles.headerStyle,
                                     { backgroundColor: colors.popupOverlayColor },
-                                    modalStyles.centeredView
+                                    modalStyles.centeredView,
                                 ]}
                             >
                                 <Text
@@ -138,13 +135,13 @@ export function CustomPopupBox({ id, modalCase }: Props) {
                                         modalStyles.rowStyle,
                                         modalStyles.button,
                                         { backgroundColor: colors.popupOverlayColor },
-                                        modalStyles.centeredView
+                                        modalStyles.centeredView,
                                     ]}
                                     onPress={() => setModalVisible(false)}
                                 >
                                     <AntDesign name="pluscircleo" size={24} color={iconColor} />
                                     <Text style={[modalStyles.textStyle, { color: colors.text }]}>
-                                        {' '}
+                                        {" "}
                                         {layoutChoices.ModalLeft}
                                     </Text>
                                 </Pressable>
@@ -154,13 +151,13 @@ export function CustomPopupBox({ id, modalCase }: Props) {
                                         modalStyles.button,
                                         modalStyles.buttonRightStyle,
                                         { backgroundColor: colors.popupOverlayColor },
-                                        modalStyles.centeredView
+                                        modalStyles.centeredView,
                                     ]}
                                     onPress={() => setModalVisible(false)}
                                 >
                                     <AntDesign name="closecircleo" size={24} color={iconColor} />
                                     <Text style={[modalStyles.textStyle, { color: colors.text }]}>
-                                        {' '}
+                                        {" "}
                                         {layoutChoices.modalRight}
                                     </Text>
                                 </Pressable>
