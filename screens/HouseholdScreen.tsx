@@ -58,7 +58,7 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                         <ChoreButton
                             key={item.id}
                             chore={item}
-                            avatarIdList={getAvatarIdList(item)} // TODO: lista med avatarID som matchar valt datum också..
+                            avatarIdList={getAvatarIdList(item)}
                             goto={() =>
                                 navigation.navigate('ChoreDetail', {
                                     choreId: item.id,
