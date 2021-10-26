@@ -1,10 +1,11 @@
 import { useTheme } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { CustomNavigateButton } from '../component/CustomNavigateButton';
+import { CustomPlusButton } from '../component/CustomPlusButton';
 import HamburgerMenu from '../component/HamburgerMenu';
 import { ProfileHeader } from '../component/ProfileHeader';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
-import { getAllHouseholdsByUserIdSelector } from '../store/household/householdSelectors';
 import { useAppSelector } from '../store/store';
 import { ChoreButton } from '../component/ChoreButton';
 import { Chore } from '../data/data';
@@ -70,8 +71,8 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                 />
             </View>
         );
-    } else {
-        // present active user all housholds + chores
+    } else if (userHousehold.length > 0) {
+      // present active user all housholds + chores
         return (
             <View>
                 <HamburgerMenu
@@ -111,7 +112,102 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                         </View>
                     )}
                 />
+    } else {
+        // present info for user with no household
+        return (
+            <View>
+                <HamburgerMenu
+                    isShowingMenu={isShowingModal}
+                    toggleIsShowing={setIsShowingModal}
+                    rootStackProps={{ navigation, route }}
+                />
+                <ProfileHeader userInformation={{ user: route.params.user }} openMenu={setIsShowingModal} />
+                <View style={styles.conatiner}>
+                    <Text style={[{ color: colors.text }, styles.simplifyText]}>Förenkla din vardag </Text>
+                    <Text style={[{ color: colors.text }, styles.pitchText]}>
+                        Få koll på era sysslor, fördela och engagera. Att glömma bort blir nu ett minne blott!
+                    </Text>
+                    <Text style={[{ color: colors.text }, styles.notMemberText]}>
+                        Du är inte medlem i något hushåll, för att komma vidare skapa ett ny eller gå med i ett.{' '}
+                    </Text>
+                    <View style={styles.buttonContainer}>
+                        <CustomPlusButton buttonText="Skapa nytt" goto={() => {}} />
+                        <CustomPlusButton buttonText="Gå med i" goto={() => {}} />
+                    </View>
+                </View>
             </View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    centeredView: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        marginTop: 22
+    },
+    modalView: {
+        margin: 0,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 35,
+        alignItems: 'flex-start',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        width: '100%'
+    },
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
+    },
+    buttonOpen: {
+        backgroundColor: '#F194FF'
+    },
+    buttonClose: {
+        backgroundColor: '#2196F3'
+    },
+    textStyle: {
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: 'center'
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        marginTop: 170,
+        width: '100%',
+        justifyContent: 'space-evenly'
+    },
+    conatiner: {
+        alignItems: 'center',
+        marginTop: 100,
+        width: '100%'
+    },
+    simplifyText: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        marginRight: 150
+    },
+    pitchText: {
+        marginLeft: 30,
+        marginRight: 80,
+        marginTop: 10
+    },
+    notMemberText: {
+        alignSelf: 'center',
+        marginTop: 10,
+        marginLeft: 30,
+        marginRight: 70
+    }
+});
