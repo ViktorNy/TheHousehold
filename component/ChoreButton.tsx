@@ -25,12 +25,6 @@ export function ChoreButton({ goto, chore, avatarIdList }: Props) {
 
         const differenceInDays = (new Date(today).getTime() - new Date(doneNextByDate).getTime()) / (1000 * 3600 * 24);
 
-        console.log('difference in day: ' + differenceInDays);
-        console.log('today:' + today);
-        console.log('chore.lastDone:' + chore.lastDone);
-        console.log('lastDone:' + lastDoneDate);
-        console.log('doneNextDate:' + doneNextByDate);
-
         if (today === lastDoneDate && avatarIdList) {
             return (
                 <View style={{ flexDirection: 'row' }}>
