@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { mockAvatarData } from '../data/data';
 
 interface Props {
@@ -16,41 +16,33 @@ export default function Avatar({ avatarId, showCircle, avatarSize }: Props) {
 
     if (showCircle) {
         return (
-            <TouchableOpacity
+            <View
                 style={[styles.avatarPosition, styles.root, { backgroundColor: avatar?.backgroundColor }]}
             >
                 <Text style={[{ fontSize: 32 }]}>{avatar?.avatar}</Text>
-            </TouchableOpacity>
+            </View>
         );
     } else {
         return <Text style={[{ fontSize: avatarSize }]}>{avatar?.avatar}</Text>;
     }
 }
 
-export function AvatarChoice({ avatarId, avatarSize }: Props) {
-    const avatarList = mockAvatarData;
-    // const [chosenAvatar, setChosenAvatar] = useState('');
-    const avatar = avatarList.find((a) => a.id === avatarId);
+// export function AvatarChoice({ avatarId, avatarSize }: Props) {
+//     const avatarList = mockAvatarData;
+//     const avatar = avatarList.find((a) => a.id === avatarId);
 
-    // const pressedAvatar = (selectedAvatar: string) => {
-    //     setChosenAvatar(selectedAvatar);
-    //     console.log(selectedAvatar);
-    // };
-
-    return (
-        <View
-            // onPress={() => pressedAvatar(avatar!.id)}
-            style={[
-                // chosenAvatar === avatar?.id ? styles.selectedAvatar : {},
-                styles.avatarPosition,
-                styles.root,
-                { backgroundColor: avatar?.backgroundColor }
-            ]}
-        >
-            <Text style={[{ fontSize: avatarSize }]}>{avatar?.avatar}</Text>
-        </View>
-    );
-}
+//     return (
+//         <View
+//             style={[
+//                 styles.avatarPosition,
+//                 styles.root,
+//                 { backgroundColor: avatar?.backgroundColor }
+//             ]}
+//         >
+//             <Text style={[{ fontSize: avatarSize }]}>{avatar?.avatar}</Text>
+//         </View>
+//     );
+// }
 
 const styles = StyleSheet.create({
     root: {

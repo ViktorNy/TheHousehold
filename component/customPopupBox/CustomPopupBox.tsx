@@ -1,12 +1,12 @@
-import Modal from 'react-native-modal';
-import React, { useState } from 'react';
-import { LayoutChoice } from './popupLayoutChoice';
 import { AntDesign } from '@expo/vector-icons';
-import { Text, Pressable, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { modalStyles } from '../../style/modalStyle';
+import React, { useState } from 'react';
+import { Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import Modal from 'react-native-modal';
 import { mockAvatarData } from '../../data/data';
-import { AvatarChoice } from '../Avatar';
+import { modalStyles } from '../../style/modalStyle';
+import Avatar from '../Avatar';
 import { ColorGetter } from '../themeColorGetter';
+import { LayoutChoice } from './popupLayoutChoice';
 
 interface Props {
     id: string;
@@ -66,18 +66,19 @@ export function CustomPopupBox({ id, modalCase }: Props) {
                             </View>
                             <View style={modalStyles.avatarContainerStyle}>
                                 {avatarArray.map((avatar) => (
-                                    // <View key={avatar.id} style={modalStyles.avatarStyle}>
                                     <TouchableOpacity
                                         key={avatar.id}
                                         onPress={() => pressedAvatar(avatar.id)}
-                                        style={chosenAvatar === avatar.id ? styles.root : {}}
+                                        style={
+                                            [chosenAvatar === avatar.id ? modalStyles.chosenAvatar : {}, modalStyles.avatarStyle, { backgroundColor: avatar?.backgroundColor }]
+                                        }
                                     >
-                                        <AvatarChoice
+                                        <Avatar
                                             avatarId={avatar.id}
                                             avatarSize={32}
+                                            showCircle={true}
                                         />
                                     </TouchableOpacity>
-                                    // </View>
                                 ))}
                             </View>
                         </View>
@@ -171,10 +172,3 @@ export function CustomPopupBox({ id, modalCase }: Props) {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    root: {
-        borderColor: 'white',
-        borderWidth: 5
-    }
-});

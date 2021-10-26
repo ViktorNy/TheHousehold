@@ -59,12 +59,19 @@ export const modalStyles = StyleSheet.create({
         justifyContent: 'center'
     },
     avatarStyle: {
-        padding: 5,
+        // padding: 5,
+        margin: 5,
         width: '20%',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderRadius: 100
     },
     avatarContainerPosition: {
         alignContent: 'flex-end',
         justifyContent: 'flex-end'
+    },
+    chosenAvatar: {
+        borderColor: 'white',
+        borderWidth: 2,
+        borderRadius: 100
     }
 });
