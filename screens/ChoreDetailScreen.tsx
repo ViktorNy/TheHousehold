@@ -7,12 +7,14 @@ import { useTheme } from '@react-navigation/native';
 
 export default function ChoreDetailScreen({ navigation, route }: RootStackScreenProps<'ChoreDetail'>) {
     const { colors } = useTheme();
-    const chore = useAppSelector(state => getChoreByIdSelector(state, route.params.choreId, route.params.householdId));
+    const chore = useAppSelector((state) =>
+        getChoreByIdSelector(state, route.params.choreId, route.params.householdId)
+    );
     return (
         <View>
             <Text style={[{ color: colors.text }]}>Chore screen</Text>
             <Text style={[{ color: colors.text }]}>{chore?.description}</Text>
-            <Text style={[{ color: colors.text }]}>{chore?.doneBy.length}</Text>
+            <Text style={[{ color: colors.text }]}>Done by array: {chore?.doneBy.length}</Text>
             <Text style={[{ color: colors.text }]}>{chore?.frequency}</Text>
             <Text style={[{ color: colors.text }]}>{chore?.id}</Text>
             <Text style={[{ color: colors.text }]}>{chore?.lastDone?.length}</Text>
