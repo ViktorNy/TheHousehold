@@ -1,7 +1,6 @@
 import { useTheme } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { CustomNavigateButton } from '../component/CustomNavigateButton';
 import { CustomPlusButton } from '../component/CustomPlusButton';
 import HamburgerMenu from '../component/HamburgerMenu';
 import { ProfileHeader } from '../component/ProfileHeader';
@@ -10,6 +9,7 @@ import { useAppSelector } from '../store/store';
 import { ChoreButton } from '../component/ChoreButton';
 import { Chore } from '../data/data';
 import moment from 'moment';
+import { getAllHouseholdsByUserIdSelector } from '../store/household/householdSelectors';
 
 export default function HouseholdScreen({ navigation, route }: RootStackScreenProps<'Household'>) {
     const { colors } = useTheme();
@@ -72,7 +72,7 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
             </View>
         );
     } else if (userHousehold.length > 0) {
-      // present active user all housholds + chores
+        // present active user all housholds + chores
         return (
             <View>
                 <HamburgerMenu
@@ -112,6 +112,8 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                         </View>
                     )}
                 />
+            </View>
+        );
     } else {
         // present info for user with no household
         return (
