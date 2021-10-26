@@ -1,7 +1,7 @@
-import { useTheme } from "@react-navigation/native";
-import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import Avatar from "./Avatar";
+import { useTheme } from '@react-navigation/native';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import Avatar from './Avatar';
 
 interface Props {
     goto: () => void;
@@ -19,7 +19,7 @@ export function CustomNavigateButton({ goto, buttonText, avatarIdList, singleAva
                     styles.rootAvatar,
                     { backgroundColor: colors.primary },
                     { borderColor: colors.border },
-                    { borderWidth: 1 },
+                    { borderWidth: 1 }
                 ]}
                 onPress={goto}
             >
@@ -34,7 +34,7 @@ export function CustomNavigateButton({ goto, buttonText, avatarIdList, singleAva
                     styles.root,
                     { backgroundColor: colors.primary },
                     { borderColor: colors.border },
-                    { borderWidth: 1 },
+                    { borderWidth: 1 }
                 ]}
                 onPress={goto}
             >
@@ -48,21 +48,21 @@ const styles = StyleSheet.create({
     root: {
         height: 50,
         borderRadius: 10,
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     rootAvatar: {
         padding: 15,
         height: 50,
         borderRadius: 10,
-        justifyContent: "flex-start",
-        alignItems: "center",
-        flexDirection: "row",
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        flexDirection: 'row'
     },
     buttonText: {
-        fontWeight: "bold",
+        fontWeight: 'bold'
     },
     textpadding: {
-        paddingLeft: 20,
-    },
+        paddingLeft: 20
+    }
 });

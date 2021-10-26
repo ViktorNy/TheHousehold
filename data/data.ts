@@ -46,7 +46,7 @@ export interface Chore {
     description: string,
     frequency: number,
     lastDone?: string,
-    createdDate: string, //lagt till / emelie
+    createdDate: string, // lagt till / emelie
     doneBy: ChoreDoneBy[],
     score: ChoreScore,
     signedToUserId: string[],
@@ -104,7 +104,7 @@ export const mockedHouseholdData: Household[] = [
                 description: 'Copy pasta lorem ipsum städa då snälla hjälp mig',
                 frequency: 3,
                 score: 4,
-                signedToUserId: ["1"],
+                signedToUserId: ['1'],
                 createdDate: '2021-10-01',
                 lastDone: '2021-10-25',
                 doneBy: [
@@ -112,17 +112,17 @@ export const mockedHouseholdData: Household[] = [
                         choreId: '1',
                         memberId: '1',
                         date: '2021-10-12',
-                        score: 4,
+                        score: 4
                     }, {
                         choreId: '1',
                         memberId: '1',
                         date: '2021-10-23',
-                        score: 4,
+                        score: 4
                     }, {
                         choreId: '1',
                         memberId: '2',
                         date: '2021-10-25',
-                        score: 4,
+                        score: 4
                     }]
             },
             {
@@ -133,8 +133,8 @@ export const mockedHouseholdData: Household[] = [
                 doneBy: [],
                 score: 8,
                 signedToUserId: [],
-                createdDate:'2021-10-10'
-            },  
+                createdDate: '2021-10-10'
+            },
             {
                 id: '3',
                 name: 'Baka bröd',
@@ -143,7 +143,7 @@ export const mockedHouseholdData: Household[] = [
                 doneBy: [],
                 score: 8,
                 signedToUserId: [],
-                createdDate:'2021-10-24'
+                createdDate: '2021-10-24'
             },
             {
                 id: '4',
@@ -151,7 +151,7 @@ export const mockedHouseholdData: Household[] = [
                 description: 'Copy pasta lorem ipsum städa då snälla hjälp mig',
                 frequency: 7,
                 score: 4,
-                signedToUserId: ["2"],
+                signedToUserId: ['2'],
                 createdDate: '2021-10-13',
                 lastDone: '2021-10-18',
                 doneBy: [
@@ -159,14 +159,14 @@ export const mockedHouseholdData: Household[] = [
                         choreId: '1',
                         memberId: '2',
                         date: '2021-10-12',
-                        score: 4,
+                        score: 4
                     }, {
                         choreId: '1',
                         memberId: '2',
                         date: '2021-10-18',
-                        score: 4,
+                        score: 4
                     }]
-            }],
+            }]
     },
     {
         id: '2',
