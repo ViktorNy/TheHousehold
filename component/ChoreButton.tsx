@@ -49,7 +49,7 @@ export function ChoreButton({ goto, chore, avatarIdList }: Props) {
             } else if (differenceInDays < 0) {
                 return (
                     <View style={[styles.circle, { backgroundColor: colors.border }]}>
-                        <Text style={{ color: colors.text }}>{differenceInDays}</Text>
+                        <Text style={{ color: colors.text }}>{differenceInDays * -1}</Text>
                     </View>
                 );
             }
