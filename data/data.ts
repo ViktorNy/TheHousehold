@@ -1,5 +1,4 @@
 
-
 export interface User {
     id: string,
     email: string,
@@ -14,7 +13,7 @@ export interface Household {
     chores: Chore[],
 }
 
-export type MemberType = "member" | "owner";
+export type MemberType = 'member' | 'owner';
 
 export interface Member {
     id: string,
@@ -29,7 +28,7 @@ export interface Member {
 export interface PausedMember {
     householdId: string,
     userId: string,
-    fromDate: Date, //ta med år, månad och datum
+    fromDate: Date, // ta med år, månad och datum
     toDate: Date
 }
 
@@ -58,10 +57,8 @@ export interface ChoreDoneBy {
     // userId: string,
     memberId: string,
     date: string,
-    score: number,  //spara score här  ifall men justerar det senare
+    score: number, // spara score här  ifall men justerar det senare
 }
-
-
 
 // ------------ MOCKED DATA BELOW -----------------
 
@@ -93,8 +90,7 @@ export const mockedMemberData: Member[] = [
         pausedHistory: [],
         householdId: '2'
     }
-]
-
+];
 
 export const mockedHouseholdData: Household[] = [
     {
@@ -187,24 +183,24 @@ export const mockedHouseholdData: Household[] = [
                 signedToUserId: [],
                 createdDate: '2021-10-23'
             }
-        ],
+        ]
     }
-]
+];
 
 export const mockedUserData: User[] = [
     {
-        id: "1",
-        email: "svensson@mail.com",
-        username: "SvenSvensson",
-        password: "Svensson"
+        id: '1',
+        email: 'svensson@mail.com',
+        username: 'SvenSvensson',
+        password: 'Svensson'
     },
     {
-        id: "2",
-        email: "johansson@mail.com",
-        username: "JohanJohansson",
-        password: "Johansson"
+        id: '2',
+        email: 'johansson@mail.com',
+        username: 'JohanJohansson',
+        password: 'Johansson'
     }
-]
+];
 
 export const mockAvatarData: MemberAvatar[] = [
     {
@@ -256,5 +252,5 @@ export const mockAvatarData: MemberAvatar[] = [
         id: '10',
         avatar: '🐸',
         backgroundColor: '#70B65B'
-    },
-]
+    }
+];

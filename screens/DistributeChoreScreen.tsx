@@ -6,5 +6,5 @@ export default function DistributeChoreScreen() {
     const { colors } = useTheme();
     return (
         <Text style={[{ color: colors.text }]}>Distribute chore screen</Text>
-    )
+    );
 }

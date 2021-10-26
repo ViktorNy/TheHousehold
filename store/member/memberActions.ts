@@ -1,4 +1,4 @@
-import { Member } from "../../data/data";
+import { Member } from '../../data/data';
 
 export interface CreateMemberAction {
     type: 'CREATE';

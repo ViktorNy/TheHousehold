@@ -27,23 +27,6 @@ export function CustomNavigateButton({ goto, buttonText, avatarIdList, singleAva
                 <Text style={[styles.textpadding, { color: colors.text }]}>{buttonText}</Text>
             </TouchableOpacity>
         );
-    } else if (avatarIdList) {
-        return (
-            <TouchableOpacity
-                style={[
-                    styles.rootAvatar,
-                    { backgroundColor: colors.primary },
-                    { borderColor: colors.border },
-                    { borderWidth: 1 },
-                ]}
-                onPress={goto}
-            >
-                <Text style={[styles.textpadding, { color: colors.text }]}>{buttonText}</Text>
-                {avatarIdList.map((id) => {
-                    return <Avatar avatarId={id} showCircle={false} avatarSize={22} />;
-                })}
-            </TouchableOpacity>
-        );
     } else {
         return (
             <TouchableOpacity

@@ -1,14 +1,13 @@
 import { useTheme } from "@react-navigation/native";
 import React, { useState } from "react";
-import { Button, FlatList, Modal, Pressable, Text, TouchableOpacity, View, StyleSheet } from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { CustomNavigateButton } from "../component/CustomNavigateButton";
 import HamburgerMenu from "../component/HamburgerMenu";
-import { ChoreButton } from "../component/ChoreButton";
 import { ProfileHeader } from "../component/ProfileHeader";
-
 import { RootStackScreenProps } from "../navigation/RootStackNavigator";
 import { getAllHouseholdsByUserIdSelector } from "../store/household/householdSelectors";
 import { useAppSelector } from "../store/store";
+import { ChoreButton } from "../component/ChoreButton";
 
 export default function HouseholdScreen({ navigation, route }: RootStackScreenProps<"Household">) {
     const { colors } = useTheme();
@@ -116,48 +115,3 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
         );
     }
 }
-
-const styles = StyleSheet.create({
-    centeredView: {
-        flex: 1,
-        justifyContent: "flex-end",
-        alignItems: "center",
-        marginTop: 22,
-    },
-    modalView: {
-        margin: 0,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "flex-start",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-        width: "100%",
-    },
-    button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2,
-    },
-    buttonOpen: {
-        backgroundColor: "#F194FF",
-    },
-    buttonClose: {
-        backgroundColor: "#2196F3",
-    },
-    textStyle: {
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center",
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: "center",
-    },
-});

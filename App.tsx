@@ -6,12 +6,12 @@ import RootStackNavigator from './navigation/RootStackNavigator';
 import { store } from './store/store';
 
 export default function App() {
-  return (
-    <Provider store={store}>
-      <SafeAreaProvider >
-        <RootStackNavigator />
-        <StatusBar style="auto" />
-      </SafeAreaProvider>
-    </Provider>
-  );
+    return (
+        <Provider store={store}>
+            <SafeAreaProvider >
+                <RootStackNavigator />
+                <StatusBar style="auto" />
+            </SafeAreaProvider>
+        </Provider>
+    );
 }
