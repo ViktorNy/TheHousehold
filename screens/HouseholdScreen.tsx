@@ -22,13 +22,15 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
         state.member.memberList.find((m) => m.userId === route.params.user.id && m.householdId === currentHousehold?.id)
     );
 
-    // TODO: Fråga Davis om denna kod.. väldigt svårskriven!!!
     function getAvatarIdList(chore: Chore) {
-        return chore.doneBy.reduce<string[]>((result, db) => {
+        const result: string[] = [];
+        for (const db of chore.doneBy) {
             const member = members.find((m) => m.id === db.memberId);
-            member && db.date === moment(new Date()).format('YYYY-MM-DD') && result.push(member.avatar);
-            return result;
-        }, []);
+            if (member && db.date === moment(new Date()).format('YYYY-MM-DD')) {
+                result.push(member.avatar);
+            }
+        }
+        return result;
     }
 
     const members = useAppSelector((state) => state.member.memberList);
