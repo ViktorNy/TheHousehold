@@ -3,16 +3,22 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
-export function ChoresSlider() {
-    const { colors } = useTheme();
-    type options = 'Alla'| 'Idag' | 'Denna vecka' | 'Denna månad' ;
-    const [displayOption, setDisplayOption] = useState<options>('Alla');
+interface Props {
+    onChange: (data: displayChoreSelection) => void;
+}
 
-    const pressedArrow = (goTo: 'right' | 'left', currentState: options) => {
+export type displayChoreSelection = 'Alla'| 'Idag' | 'Denna vecka' | 'Denna månad';
+export function ChoresSlider({ onChange }: Props) {
+    const { colors } = useTheme();
+    const [displayOption, setDisplayOption] = useState<displayChoreSelection>('Alla');
+
+    const pressedArrow = (goTo: 'right' | 'left', currentState: displayChoreSelection) => {
         switch (currentState) {
         case 'Alla':
-            if (goTo === 'right') setDisplayOption('Idag');
-            else setDisplayOption('Denna månad');
+            if (goTo === 'right') {
+                setDisplayOption('Idag');
+                onChange(displayOption);
+            } else { setDisplayOption('Denna månad'); };
             break;
         case 'Idag':
             if (goTo === 'right') setDisplayOption('Denna vecka');
