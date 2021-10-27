@@ -2,8 +2,8 @@ import { useTheme } from '@react-navigation/native';
 import moment from 'moment';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Chore } from '../data/data';
-import Avatar from './Avatar';
+import { Chore } from '../../data/data';
+import Avatar from '../Avatar';
 
 interface Props {
     goto: () => void;

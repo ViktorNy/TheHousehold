@@ -17,7 +17,6 @@ export function ChoresSlider({ onChange }: Props) {
         case 'Alla':
             if (goTo === 'right') {
                 setDisplayOption('Idag');
-                onChange(displayOption);
             } else { setDisplayOption('Denna månad'); };
             break;
         case 'Idag':
@@ -27,11 +26,13 @@ export function ChoresSlider({ onChange }: Props) {
         case 'Denna vecka':
             if (goTo === 'right') setDisplayOption('Denna månad');
             else setDisplayOption('Idag');
+
             break;
         case 'Denna månad':
             if (goTo === 'right') setDisplayOption('Alla');
             else setDisplayOption('Denna vecka');
         }
+        onChange(displayOption);
     };
 
     return <View style={[styles.root, { backgroundColor: colors.primary }]}>
