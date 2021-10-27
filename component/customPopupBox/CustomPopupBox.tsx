@@ -19,32 +19,23 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
     const [modalVisible, setModalVisible] = useState(true);
     const [userInput, onUserInputChange] = useState('');
     const layoutChoices = LayoutChoice(modalCase, memberId);
-
-    const avatarArray = mockAvatarData;
-
-    // 1. Hitta rätt member
-    const member = useAppSelector((state) => getMemberByIdSelector(state, memberId));
-
-    // 2. Hitta alla andra members i det hushållet
-    const members: Member[] = useAppSelector((state) => getMembersOfHouseholdSelector(state, member!.householdId));
-
-    // 3. Kolla om "vår" member redan har en avatar och välj den i så fall
-    const [chosenAvatar, setChosenAvatar] = useState(() => {
-        if (memberId) {
-            return memberId;
-        } else {
-            return '';
-        }
-    });
-
-    let memberObject; // håll ett öga på den här
-
-    const pressedAvatar = (avatar: string) => {
-        setChosenAvatar(avatar);
-    };
-
     const colors = ColorGetter();
     const iconColor = colors.text;
+
+    let memberObject: Member | undefined;
+    const avatarArray = mockAvatarData;
+    const activeMember = useAppSelector((state) => getMemberByIdSelector(state, memberId));
+    const allMembersOfCurrentHousehold: Member[] = useAppSelector((state) => getMembersOfHouseholdSelector(state, activeMember!.householdId));
+
+    // Kolla om det finns ett snyggare sätt för if-satsen - Nils
+    const [currentlyChosenAvatar, setCurrentlyChosenAvatar] = useState(() => {
+        if (memberId) return memberId;
+        else return '';
+    });
+
+    const onAvatarPress = (avatar: string) => {
+        setCurrentlyChosenAvatar(avatar);
+    };
 
     if (layoutChoices.avatar === true) {
         return (
@@ -85,15 +76,15 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                                 {avatarArray.map(
                                     (avatar) => (
                                         // eslint-disable-next-line no-sequences
-                                        (memberObject = members.find((a) => a.avatar === avatar.id)),
+                                        (memberObject = allMembersOfCurrentHousehold.find((member) => member.avatar === avatar.id)),
                                         (
                                             <TouchableOpacity
-                                                disabled={avatar.id === memberObject?.avatar}
+                                                disabled={avatar.id === memberObject?.avatar && avatar.id !== activeMember?.avatar}
                                                 key={avatar.id}
-                                                onPress={() => pressedAvatar(avatar.id)}
+                                                onPress={() => onAvatarPress(avatar.id)}
                                                 style={[
-                                                    chosenAvatar === avatar.id ? modalStyles.chosenAvatar : {},
-                                                    avatar.id === memberObject?.avatar ? modalStyles.avatarOpacity : {},
+                                                    avatar.id === memberObject?.avatar && avatar.id !== activeMember?.avatar ? modalStyles.avatarOpacity : {},
+                                                    currentlyChosenAvatar === avatar.id ? modalStyles.chosenAvatar : {},
                                                     modalStyles.avatarStyle,
                                                     { backgroundColor: avatar?.backgroundColor }
                                                 ]}

@@ -74,7 +74,8 @@ export const modalStyles = StyleSheet.create({
     chosenAvatar: {
         borderColor: 'lightblue',
         borderWidth: 2,
-        borderRadius: 100
+        borderRadius: 100,
+        opacity: 1
     },
     avatarOpacity: {
         opacity: 0.15
