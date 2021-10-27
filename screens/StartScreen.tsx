@@ -1,5 +1,5 @@
-import { useTheme } from '@react-navigation/native';
 import React from 'react';
+import { useTheme } from '@react-navigation/native';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomNavigateButton } from '../component/CustomNavigateButton';
@@ -23,7 +23,7 @@ export default function StartScreen({ navigation }: RootStackScreenProps<'Start'
                 <Text style={[styles.notMemberText, { color: colors.text }]}>Är du inte medlem?</Text>
                 <CustomNavigateButton buttonText="Registrera" goto={() => navigation.navigate('Register')} />
             </View>
-            <CustomPopupBox id={'1'} modalCase={'AI'}/>
+            <CustomPopupBox memberId={'1'} modalCase={'AI'}/>
         </SafeAreaView>
     );
 }

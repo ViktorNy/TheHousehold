@@ -1,6 +1,6 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { mockAvatarData } from "../data/data";
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { mockAvatarData } from '../data/data';
 
 interface Props {
     avatarId: string;
@@ -28,10 +28,10 @@ const styles = StyleSheet.create({
     root: {
         height: 50,
         width: 50,
-        borderRadius: 100,
+        borderRadius: 100
     },
     avatarPosition: {
-        justifyContent: "center",
-        alignItems: "center",
-    },
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });

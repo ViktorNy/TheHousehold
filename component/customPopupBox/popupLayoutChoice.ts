@@ -8,7 +8,7 @@ let modalPlaceholder = '';
 let modalInputActive = true;
 let avatar = false;
 
-export function LayoutChoice(modalCase: string, id: string) {
+export function LayoutChoice(modalCase: string, id?: string) {
     const allUsers = useAppSelector(getAllUsersSelector);
     const username = allUsers.find(u => u.id === id)?.username;
 
