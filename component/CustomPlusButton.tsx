@@ -1,7 +1,7 @@
-import { useTheme } from '@react-navigation/native';
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import { useTheme } from "react-native-paper";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 
 interface Props {
     goto: () => void;
@@ -15,15 +15,9 @@ export function CustomPlusButton({ goto, buttonText }: Props) {
 
     return (
         <TouchableOpacity
-            style={[
-                styles.root,
-                { backgroundColor: colors.primary },
-                { borderColor: colors.border },
-                { borderWidth: 1 }
-            ]}
+            style={[styles.root, { backgroundColor: colors.primary }, { borderColor: colors.border }, { borderWidth: 1 }]}
             onPress={goto}
         >
-
             <AntDesign name="pluscircleo" size={24} color="black" />
             <Text style={[styles.buttonText, { color: colors.text }]}>{buttonText}</Text>
         </TouchableOpacity>
@@ -35,14 +29,14 @@ const styles = StyleSheet.create({
         height: 52,
         width: 140,
         borderRadius: 25,
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
-        flexDirection: 'row'
+        justifyContent: "space-evenly",
+        alignItems: "center",
+        flexDirection: "row",
     },
     buttonText: {
-        fontWeight: 'bold'
+        fontWeight: "bold",
     },
     textpadding: {
-        paddingLeft: 20
-    }
+        paddingLeft: 20,
+    },
 });
