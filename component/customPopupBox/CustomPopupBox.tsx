@@ -86,7 +86,10 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                                                     avatar.id === memberObject?.avatar && avatar.id !== activeMember?.avatar ? modalStyles.avatarOpacity : {},
                                                     currentlyChosenAvatar === avatar.id ? modalStyles.chosenAvatar : {},
                                                     modalStyles.avatarStyle,
-                                                    { backgroundColor: avatar?.backgroundColor }
+                                                    {
+                                                        backgroundColor: avatar?.backgroundColor,
+                                                        borderColor: colors.avatarOutline
+                                                    }
                                                 ]}
                                             >
                                                 <Avatar avatarId={avatar.id} avatarSize={32} showCircle={false} />

@@ -60,8 +60,8 @@ export const modalStyles = StyleSheet.create({
     },
     avatarStyle: {
         margin: '2%',
-        width: '15%',
-        height: '34%',
+        width: 50,
+        height: 50,
         alignItems: 'center',
         justifyContent: 'center',
         alignContent: 'center',
@@ -72,7 +72,6 @@ export const modalStyles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
     chosenAvatar: {
-        borderColor: 'lightblue',
         borderWidth: 2,
         borderRadius: 100,
         opacity: 1
