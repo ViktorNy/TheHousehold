@@ -5,14 +5,17 @@ import { CustomNavigateButton } from '../component/CustomNavigateButton';
 import { CustomPlusButton } from '../component/CustomPlusButton';
 import HamburgerMenu from '../component/HamburgerMenu';
 import { ProfileHeader } from '../component/ProfileHeader';
+import SelectHouseholdMenu from '../component/SelectHouseholdMenu';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
+import { getAllHouseholdsByUserIdSelector } from '../store/household/householdSelectors';
 import { useAppSelector } from '../store/store';
 
 export default function HouseholdScreen({ navigation, route }: RootStackScreenProps<'Household'>) {
     const { colors } = useTheme();
-    const [isShowingModal, setIsShowingModal] = useState(false);
-    // const allCurrentUserMemberID = useAppSelector((state) => state.member.memberList.filter(m => m.userId === route.params.user.id));
-    // const allHouseholdsConnectedToUser = useAppSelector((state) => staet)
+    const [isShowingMenuModal, setIsShowingMainMenuModal] = useState(false);
+    const [isShowingHouseholdModal, setIsShowingHouseholdModal] = useState(false);
+    const allHouseholdsConnectedToUser = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, route.params.user.id));
+    const allMemberInfoOnUser = useAppSelector((state) => state.member.memberList.filter(m => m.userId === route.params.user.id));
     const currentHousehold = useAppSelector((state) =>
         state.household.householdList.find((h) => h.id === route.params.householdId)
     );
@@ -27,16 +30,26 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
         return (
             <View>
                 <HamburgerMenu
-                    isShowingMenu={isShowingModal}
-                    toggleIsShowing={setIsShowingModal}
+                    isShowingMenu={isShowingMenuModal}
+                    toggleIsShowing={setIsShowingMainMenuModal}
                     rootStackProps={{ navigation, route }}
                     householdID={currentHousehold.id}
                     currentMember={userMemberInfo}
                 />
+                <SelectHouseholdMenu
+                    isShowingMenu={isShowingHouseholdModal}
+                    toggleIsShowing={setIsShowingHouseholdModal}
+                    rootStackProps={{ navigation, route }}
+                    householdList={allHouseholdsConnectedToUser}
+                    user={route.params.user}
+                    memberList={allMemberInfoOnUser}
+                    isHouseholdSelected={true}
+                />
                 <ProfileHeader
                     household={currentHousehold}
                     userInformation={{ user: route.params.user, member: userMemberInfo }}
-                    openMenu={setIsShowingModal}
+                    openMainMenu={setIsShowingMainMenuModal}
+                    openHouseholdMenu={setIsShowingHouseholdModal}
                 />
                 <Text style={[{ color: colors.text }]}>{currentHousehold.name}</Text>
                 <FlatList
@@ -59,12 +72,23 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
         return (
             <View>
                 <HamburgerMenu
-                    isShowingMenu={isShowingModal}
-                    toggleIsShowing={setIsShowingModal}
+                    isShowingMenu={isShowingMenuModal}
+                    toggleIsShowing={setIsShowingMainMenuModal}
                     rootStackProps={{ navigation, route }}
                 />
-
-                <ProfileHeader userInformation={{ user: route.params.user }} openMenu={setIsShowingModal} />
+                <SelectHouseholdMenu
+                    isShowingMenu={isShowingHouseholdModal}
+                    toggleIsShowing={setIsShowingHouseholdModal}
+                    rootStackProps={{ navigation, route }}
+                    householdList={allHouseholdsConnectedToUser}
+                    user={route.params.user}
+                    memberList={allMemberInfoOnUser}
+                    isHouseholdSelected={false}
+                />
+                <ProfileHeader userInformation={{ user: route.params.user }}
+                    openMainMenu={setIsShowingMainMenuModal}
+                    openHouseholdMenu={setIsShowingHouseholdModal}
+                />
                 <View style={styles.conatiner}>
                     <Text style={[{ color: colors.text }, styles.simplifyText]}>Förenkla din vardag </Text>
                     <Text style={[{ color: colors.text }, styles.pitchText]}>
@@ -74,8 +98,8 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                         Du är inte medlem i något hushåll, för att komma vidare skapa ett ny eller gå med i ett.{' '}
                     </Text>
                     <View style={styles.buttonContainer}>
-                        <CustomPlusButton buttonText="Skapa nytt" goto={() => {}} />
-                        <CustomPlusButton buttonText="Gå med i" goto={() => {}} />
+                        <CustomPlusButton buttonText="Skapa nytt" goto={() => { }} />
+                        <CustomPlusButton buttonText="Gå med i" goto={() => { }} />
                     </View>
                 </View>
             </View>
