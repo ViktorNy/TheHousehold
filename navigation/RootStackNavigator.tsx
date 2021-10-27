@@ -1,18 +1,20 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
-import { ThemeGetter, ColorGetter } from '../component/themeColorGetter';
-import { User } from '../data/data';
-import ChoreDetailScreen from '../screens/ChoreDetailScreen';
-import DistributeChoreScreen from '../screens/DistributeChoreScreen';
-import HouseholdChoresScreen from '../screens/HouseholdChoresScreen';
-import HouseholdScreen from '../screens/HouseholdScreen';
-import LoginScreen from '../screens/LoginScreen';
-import MemberDetailScreen from '../screens/MemberDetailScreen';
-import MemberScreen from '../screens/MemberScreen';
-import RegisterScreen from '../screens/RegisterScreen';
-import RegisterUserNameScreen from '../screens/RegisterUserNameScreen';
-import StartScreen from '../screens/StartScreen';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack";
+import React from "react";
+import { useColorScheme } from "react-native";
+import { useTheme } from "react-native-paper";
+import { User } from "../data/data";
+import ChoreDetailScreen from "../screens/ChoreDetailScreen";
+import DistributeChoreScreen from "../screens/DistributeChoreScreen";
+import HouseholdChoresScreen from "../screens/HouseholdChoresScreen";
+import HouseholdScreen from "../screens/HouseholdScreen";
+import LoginScreen from "../screens/LoginScreen";
+import MemberDetailScreen from "../screens/MemberDetailScreen";
+import MemberScreen from "../screens/MemberScreen";
+import RegisterScreen from "../screens/RegisterScreen";
+import RegisterUserNameScreen from "../screens/RegisterUserNameScreen";
+import StartScreen from "../screens/StartScreen";
+import { CustomDarkTheme, CustomDefaultTheme } from "../style/themes";
 
 type RootStackParamList = {
     Start: undefined; // Tar inte in några parametrerar
@@ -27,46 +29,42 @@ type RootStackParamList = {
     MemeberDetailScreen: { memberId: string };
 };
 
-export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
-    RootStackParamList,
-    Screen
->;
+export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<RootStackParamList, Screen>;
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStackNavigator() {
-    const theme = ThemeGetter();
-    const colors = ColorGetter();
-
+    const scheme = useColorScheme();
+    const { colors } = useTheme();
     return (
-        <NavigationContainer theme={theme}>
+        <NavigationContainer theme={scheme === "dark" ? CustomDarkTheme : CustomDefaultTheme}>
             <Stack.Navigator>
                 <Stack.Screen name="Start" options={{ headerShown: false }} component={StartScreen} />
                 <Stack.Screen
                     name="Login"
                     component={LoginScreen}
                     options={{
-                        title: '',
+                        title: "",
                         headerStyle: { backgroundColor: colors.background },
-                        headerShadowVisible: false
+                        headerShadowVisible: false,
                     }}
                 />
                 <Stack.Screen
                     name="Register"
                     component={RegisterScreen}
                     options={{
-                        title: '',
+                        title: "",
                         headerShadowVisible: false,
-                        headerStyle: { backgroundColor: colors.background }
+                        headerStyle: { backgroundColor: colors.background },
                     }}
                 />
                 <Stack.Screen
                     name="RegisterUserName"
                     component={RegisterUserNameScreen}
                     options={{
-                        title: '',
+                        title: "",
                         headerStyle: { backgroundColor: colors.background },
-                        headerShadowVisible: false
+                        headerShadowVisible: false,
                     }}
                 />
                 <Stack.Screen name="Household" component={HouseholdScreen} />
@@ -76,7 +74,7 @@ function RootStackNavigator() {
                     name="Member"
                     component={MemberScreen}
                     options={{
-                        headerTitle: 'Medlemmar'
+                        headerTitle: "Medlemmar",
                     }}
                 />
                 <Stack.Screen name="HouseholdChores" component={HouseholdChoresScreen} />

@@ -1,14 +1,14 @@
-import { AntDesign } from '@expo/vector-icons';
-import React, { useState } from 'react';
-import { Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import Modal from 'react-native-modal';
-import { Member, mockAvatarData } from '../../data/data';
-import { getMemberByIdSelector, getMembersOfHouseholdSelector } from '../../store/member/memberSelector';
-import { useAppSelector } from '../../store/store';
-import { modalStyles } from '../../style/modalStyle';
-import Avatar from '../Avatar';
-import { ColorGetter } from '../themeColorGetter';
-import { LayoutChoice } from './popupLayoutChoice';
+import { AntDesign } from "@expo/vector-icons";
+import React, { useState } from "react";
+import { Pressable, Text, TextInput, TouchableOpacity, View } from "react-native";
+import Modal from "react-native-modal";
+import { Member, mockAvatarData } from "../../data/data";
+import { getMemberByIdSelector, getMembersOfHouseholdSelector } from "../../store/member/memberSelector";
+import { useAppSelector } from "../../store/store";
+import { modalStyles } from "../../style/modalStyle";
+import Avatar from "../Avatar";
+import { LayoutChoice } from "./popupLayoutChoice";
+import { useTheme } from "react-native-paper";
 
 interface Props {
     memberId: string;
@@ -17,20 +17,22 @@ interface Props {
 
 export function CustomPopupBox({ memberId, modalCase }: Props) {
     const [modalVisible, setModalVisible] = useState(true);
-    const [userInput, onUserInputChange] = useState('');
+    const [userInput, onUserInputChange] = useState("");
     const layoutChoices = LayoutChoice(modalCase, memberId);
-    const colors = ColorGetter();
+    const { colors } = useTheme();
     const iconColor = colors.text;
 
     let memberObject: Member | undefined;
     const avatarArray = mockAvatarData;
     const activeMember = useAppSelector((state) => getMemberByIdSelector(state, memberId));
-    const allMembersOfCurrentHousehold: Member[] = useAppSelector((state) => getMembersOfHouseholdSelector(state, activeMember!.householdId));
+    const allMembersOfCurrentHousehold: Member[] = useAppSelector((state) =>
+        getMembersOfHouseholdSelector(state, activeMember!.householdId)
+    );
 
     // Kolla om det finns ett snyggare sätt för if-satsen - Nils
     const [currentlyChosenAvatar, setCurrentlyChosenAvatar] = useState(() => {
         if (memberId) return memberId;
-        else return '';
+        else return "";
     });
 
     const onAvatarPress = (avatar: string) => {
@@ -56,14 +58,14 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                             style={[
                                 modalStyles.modalView,
                                 { backgroundColor: colors.popupBackground },
-                                modalStyles.centeredView
+                                modalStyles.centeredView,
                             ]}
                         >
                             <View
                                 style={[
                                     modalStyles.headerStyle,
                                     { backgroundColor: colors.popupOverlayColor },
-                                    modalStyles.centeredView
+                                    modalStyles.centeredView,
                                 ]}
                             >
                                 <Text
@@ -76,20 +78,28 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                                 {avatarArray.map(
                                     (avatar) => (
                                         // eslint-disable-next-line no-sequences
-                                        (memberObject = allMembersOfCurrentHousehold.find((member) => member.avatar === avatar.id)),
+                                        (memberObject = allMembersOfCurrentHousehold.find(
+                                            (member) => member.avatar === avatar.id
+                                        )),
                                         (
                                             <TouchableOpacity
-                                                disabled={avatar.id === memberObject?.avatar && avatar.id !== activeMember?.avatar}
+                                                disabled={
+                                                    avatar.id === memberObject?.avatar &&
+                                                    avatar.id !== activeMember?.avatar
+                                                }
                                                 key={avatar.id}
                                                 onPress={() => onAvatarPress(avatar.id)}
                                                 style={[
-                                                    avatar.id === memberObject?.avatar && avatar.id !== activeMember?.avatar ? modalStyles.avatarOpacity : {},
+                                                    avatar.id === memberObject?.avatar &&
+                                                    avatar.id !== activeMember?.avatar
+                                                        ? modalStyles.avatarOpacity
+                                                        : {},
                                                     currentlyChosenAvatar === avatar.id ? modalStyles.chosenAvatar : {},
                                                     modalStyles.avatarStyle,
                                                     {
                                                         backgroundColor: avatar?.backgroundColor,
-                                                        borderColor: colors.avatarOutline
-                                                    }
+                                                        borderColor: colors.avatarOutline,
+                                                    },
                                                 ]}
                                             >
                                                 <Avatar avatarId={avatar.id} avatarSize={32} showCircle={false} />
@@ -121,14 +131,14 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                             style={[
                                 modalStyles.modalView,
                                 { backgroundColor: colors.popupBackground },
-                                modalStyles.centeredView
+                                modalStyles.centeredView,
                             ]}
                         >
                             <View
                                 style={[
                                     modalStyles.headerStyle,
                                     { backgroundColor: colors.popupOverlayColor },
-                                    modalStyles.centeredView
+                                    modalStyles.centeredView,
                                 ]}
                             >
                                 <Text
@@ -155,13 +165,13 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                                         modalStyles.rowStyle,
                                         modalStyles.button,
                                         { backgroundColor: colors.popupOverlayColor },
-                                        modalStyles.centeredView
+                                        modalStyles.centeredView,
                                     ]}
                                     onPress={() => setModalVisible(false)}
                                 >
                                     <AntDesign name="pluscircleo" size={24} color={iconColor} />
                                     <Text style={[modalStyles.textStyle, { color: colors.text }]}>
-                                        {' '}
+                                        {" "}
                                         {layoutChoices.ModalLeft}
                                     </Text>
                                 </Pressable>
@@ -171,13 +181,13 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                                         modalStyles.button,
                                         modalStyles.buttonRightStyle,
                                         { backgroundColor: colors.popupOverlayColor },
-                                        modalStyles.centeredView
+                                        modalStyles.centeredView,
                                     ]}
                                     onPress={() => setModalVisible(false)}
                                 >
                                     <AntDesign name="closecircleo" size={24} color={iconColor} />
                                     <Text style={[modalStyles.textStyle, { color: colors.text }]}>
-                                        {' '}
+                                        {" "}
                                         {layoutChoices.modalRight}
                                     </Text>
                                 </Pressable>
