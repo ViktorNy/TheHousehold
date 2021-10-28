@@ -1,10 +1,11 @@
 import { useTheme } from '@react-navigation/native';
 import React from 'react';
-import { Modal, TouchableOpacity, StyleSheet, View, Text } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Text } from 'react-native';
 import { Household, Member, User } from '../data/data';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 import Avatar from './Avatar';
 import moment from 'moment';
+import Modal from 'react-native-modal';
 
 interface Props {
     isShowingMenu: boolean,
@@ -20,9 +21,17 @@ export default function SelectHouseholdMenu({ isShowingMenu, toggleIsShowing, ro
     const { colors } = useTheme();
     return (
         <Modal
-            animationType="slide"
-            transparent={true}
-            visible={isShowingMenu}
+            // animationType="slide"
+            // transparent={true}
+            // visible={isShowingMenu}
+            animationIn="fadeIn"
+            backdropColor="#181818"
+            coverScreen={true}
+            isVisible={isShowingMenu}
+            statusBarTranslucent={true}
+            onBackButtonPress={() => {
+                toggleIsShowing(false);
+            }}
         >
             <TouchableOpacity
                 style={[styles.centeredView]}
