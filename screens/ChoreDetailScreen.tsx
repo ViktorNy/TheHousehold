@@ -1,22 +1,48 @@
 import { useTheme } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { CustomNavigateButton } from '../component/CustomNavigateButton';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 import { getChoreByIdSelector } from '../store/household/householdSelectors';
 import { useAppSelector } from '../store/store';
 import { choreStyles } from '../style/choreDetailStyle';
+import { Menu, Button } from 'react-native-paper';
+import { mockAvatarData } from '../data/data';
 
 export default function ChoreDetailScreen({ navigation, route }: RootStackScreenProps<'ChoreDetail'>) {
+    const [menuVisible, setMenuVisible] = useState(false);
+
+    const openMenu = () => setMenuVisible(true);
+    const closeMenu = () => setMenuVisible(false);
+
     const { colors } = useTheme();
+
     const chore = useAppSelector((state) => getChoreByIdSelector(state, route.params.choreId, route.params.householdId));
 
     useEffect(() => {
         navigation.setOptions({ title: chore?.name });
     }, []);
 
+    // const texts: string[] = ['titel 1', 'titel 2', 'titel 3'];
+
+    const avatars = mockAvatarData;
+
     return (
         <View style={[{ backgroundColor: colors.background }, choreStyles.root]}>
+            <View style={[{ width: '95%' }, { top: 0 }, { position: 'absolute' }, { borderRadius: 10 }]}>
+                <Text style={[{ color: colors.text }, { margin: 5 }]}>Tilldelade</Text>
+                <Menu
+                    style={[{ width: '95%' }, { borderRadius: 10 }]}
+                    visible={menuVisible}
+                    onDismiss={closeMenu}
+                    anchor={<Button onPress={openMenu} style={[{ backgroundColor: 'green' }, { width: '100%' }, { borderRadius: 10 }]}>Show menu</Button>}>
+                    {avatars.map((avatar) => {
+                        return <Menu.Item key={avatar.id} style={{ backgroundColor: avatar.backgroundColor }} title={avatar.avatar} />;
+                    }
+                    )}
+                </Menu>
+            </View>
+
             <Text
                 style={[
                     {

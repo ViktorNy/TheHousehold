@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 export const choreStyles = StyleSheet.create({
     root: {
         height: '100%',
-        justifyContent: 'center',
         alignItems: 'center'
     },
     middleContainer: {
@@ -27,7 +26,8 @@ export const choreStyles = StyleSheet.create({
         borderRadius: 10,
         padding: 5,
         elevation: 10,
-        fontSize: 20
+        fontSize: 20,
+        marginTop: 80
     },
     frequencyContainer: {
         width: '95%',
