@@ -1,4 +1,4 @@
-import { useTheme } from '@react-navigation/native';
+import { useTheme } from 'react-native-paper';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Household, Member, User } from '../data/data';
@@ -15,7 +15,7 @@ interface Props {
         member?: Member;
         userName?: string;
     };
-    openMenu?: (open: boolean) => void
+    openMenu?: (open: boolean) => void;
 }
 
 export function ProfileHeader({ household, userInformation, visitMember, openMenu }: Props) {
@@ -26,8 +26,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMen
             // visit another member profile
             // TODO: namn på member ?
             return (
-                <TouchableOpacity style={styles.row}
-                    onPress={() => openMenu && openMenu(true)}>
+                <TouchableOpacity style={styles.row} onPress={() => openMenu && openMenu(true)}>
                     <Entypo name="arrow-long-left" size={20} color={colors.text} />
                     <Text style={[styles.title, { paddingLeft: 10, color: colors.text }]}>{visitMember.userName}</Text>
                 </TouchableOpacity>
@@ -35,8 +34,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMen
         } else if (household) {
             // visit one of youre households
             return (
-                <TouchableOpacity style={styles.row}
-                    onPress={() => openMenu && openMenu(true)}>
+                <TouchableOpacity style={styles.row} onPress={() => openMenu && openMenu(true)}>
                     <Text style={[styles.title, { color: colors.text }]}>{household.name}</Text>
                     <Entypo name="chevron-small-down" size={24} color={colors.text} />
                 </TouchableOpacity>
@@ -44,8 +42,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMen
         } else {
             // visit youre page "min sida"
             return (
-                <TouchableOpacity style={styles.row}
-                    onPress={() => openMenu && openMenu(true)}>
+                <TouchableOpacity style={styles.row} onPress={() => openMenu && openMenu(true)}>
                     <Text style={[styles.title, { color: colors.text }]}>Min sida</Text>
                     <Entypo name="chevron-small-down" size={24} color={colors.text} />
                 </TouchableOpacity>
@@ -72,9 +69,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMen
             return (
                 <View style={styles.user}>
                     <View style={[styles.circle]}>
-                        {visitMember.member && (
-                            <Avatar avatarId={visitMember.member.avatar} showCircle={true} avatarSize={22} />
-                        )}
+                        {visitMember.member && <Avatar avatarId={visitMember.member.avatar} showCircle={true} avatarSize={22} />}
                     </View>
                     <Text style={{ color: colors.text }}>{visitMember.member?.memberType}</Text>
                 </View>
@@ -85,9 +80,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMen
             return (
                 <View style={styles.user}>
                     <View style={[styles.circle]}>
-                        {userInformation?.member && (
-                            <Avatar avatarId={userInformation.member.avatar} showCircle={true} avatarSize={22} />
-                        )}
+                        {userInformation?.member && <Avatar avatarId={userInformation.member.avatar} showCircle={true} avatarSize={22} />}
                     </View>
                     <Text style={{ color: colors.text }}>{userInformation?.user.username}</Text>
                     <Text style={{ color: colors.text }}>{userInformation?.member?.memberType}</Text>
@@ -98,9 +91,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMen
             // TODO: Hämta rätt info
             return (
                 <View style={styles.user}>
-                    <View style={[styles.circle, { borderColor: colors.text }]}>
-                        {/* <Text style={{ color: colors.text }}></Text> */}
-                    </View>
+                    <View style={[styles.circle, { borderColor: colors.text }]}>{/* <Text style={{ color: colors.text }}></Text> */}</View>
                     <Text style={{ color: colors.text }}>{userInformation?.user.username}</Text>
                 </View>
             );
@@ -112,8 +103,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMen
             {/* Row 1: household + menu */}
             <View style={[styles.row, styles.spaceBetween]}>
                 {ShowProfile(household)}
-                <TouchableOpacity
-                    onPress={() => openMenu && openMenu(true)}>
+                <TouchableOpacity onPress={() => openMenu && openMenu(true)}>
                     <Entypo name="menu" size={24} color={colors.text} />
                 </TouchableOpacity>
             </View>
