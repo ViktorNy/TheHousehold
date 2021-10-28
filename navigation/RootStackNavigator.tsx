@@ -6,13 +6,13 @@ import { User } from '../data/data';
 import ChoreDetailScreen from '../screens/ChoreDetailScreen';
 import DistributeChoreScreen from '../screens/DistributeChoreScreen';
 import HouseholdChoresScreen from '../screens/HouseholdChoresScreen';
-import HouseholdScreen from '../screens/HouseholdScreen';
 import LoginScreen from '../screens/LoginScreen';
 import MemberDetailScreen from '../screens/MemberDetailScreen';
 import MemberScreen from '../screens/MemberScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import RegisterUserNameScreen from '../screens/RegisterUserNameScreen';
 import StartScreen from '../screens/StartScreen';
+import ChoresTabNavigator from './ChoresTabNavigator';
 
 type RootStackParamList = {
   Start: undefined; // Tar inte in några parametrerar
@@ -96,7 +96,8 @@ function RootStackNavigator() {
                 />
                 <Stack.Screen
                     name="Household"
-                    component={HouseholdScreen}
+                    component={ChoresTabNavigator}
+
                 />
                 <Stack.Screen
                     name="DistributeChore"
