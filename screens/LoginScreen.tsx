@@ -1,15 +1,15 @@
-import { useTheme } from "react-native-paper";
-import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { CustomNavigateButton } from "../component/CustomNavigateButton";
-import { mockedUserData } from "../data/data";
-import { RootStackScreenProps } from "../navigation/RootStackNavigator";
+import { useTheme } from 'react-native-paper';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { CustomNavigateButton } from '../component/CustomNavigateButton';
+import { mockedUserData } from '../data/data';
+import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 
-export default function LoginScreen({ navigation }: RootStackScreenProps<"Login">) {
+export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'>) {
     const { colors } = useTheme();
-    const [userText, onUserTextChange] = useState("");
-    const [userPassword, onUserPasswordChange] = useState("");
+    const [userText, onUserTextChange] = useState('');
+    const [userPassword, onUserPasswordChange] = useState('');
 
     const user = mockedUserData[2];
 
@@ -19,9 +19,9 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<"Login"
     // Otherwise logs out 'faulty user' in console
     function checkUserInfo() {
         if (user.email === userText || (user.username === userText && user.password === userPassword)) {
-            navigation.navigate("Household", { user });
+            navigation.navigate('Household', { user });
         } else {
-            console.log("Faulty user");
+            console.log('Faulty user');
         }
     }
 
@@ -56,11 +56,11 @@ const styles = StyleSheet.create({
     loginText: {
         fontSize: 40,
         marginLeft: 10,
-        marginBottom: 10,
+        marginBottom: 10
     },
     viewStyle: {
         marginTop: 12,
-        margin: 10,
+        margin: 10
     },
     input: {
         height: 50,
@@ -68,6 +68,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         borderRadius: 10,
-        backgroundColor: "white",
-    },
+        backgroundColor: 'white'
+    }
 });

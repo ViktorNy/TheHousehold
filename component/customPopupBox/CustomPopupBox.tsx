@@ -25,9 +25,7 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
     let memberObject: Member | undefined;
     const avatarArray = mockAvatarData;
     const activeMember = useAppSelector((state) => getMemberByIdSelector(state, memberId));
-    const allMembersOfCurrentHousehold: Member[] = useAppSelector((state) =>
-        getMembersOfHouseholdSelector(state, activeMember!.householdId)
-    );
+    const allMembersOfCurrentHousehold: Member[] = useAppSelector((state) => getMembersOfHouseholdSelector(state, activeMember!.householdId));
 
     // Kolla om det finns ett snyggare sätt för if-satsen - Nils
     const [currentlyChosenAvatar, setCurrentlyChosenAvatar] = useState(() => {
@@ -54,23 +52,9 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                     style={modalStyles.avatarContainerPosition}
                 >
                     <View style={modalStyles.avatarContainerPosition}>
-                        <View
-                            style={[
-                                modalStyles.modalView,
-                                { backgroundColor: colors.popupBackground },
-                                modalStyles.centeredView,
-                            ]}
-                        >
-                            <View
-                                style={[
-                                    modalStyles.headerStyle,
-                                    { backgroundColor: colors.popupOverlayColor },
-                                    modalStyles.centeredView,
-                                ]}
-                            >
-                                <Text
-                                    style={[modalStyles.textStyle, modalStyles.headerTextStyle, { color: colors.text }]}
-                                >
+                        <View style={[modalStyles.modalView, { backgroundColor: colors.popupBackground }, modalStyles.centeredView]}>
+                            <View style={[modalStyles.headerStyle, { backgroundColor: colors.popupOverlayColor }, modalStyles.centeredView]}>
+                                <Text style={[modalStyles.textStyle, modalStyles.headerTextStyle, { color: colors.text }]}>
                                     {layoutChoices.modalTitle}
                                 </Text>
                             </View>
@@ -78,20 +62,14 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                                 {avatarArray.map(
                                     (avatar) => (
                                         // eslint-disable-next-line no-sequences
-                                        (memberObject = allMembersOfCurrentHousehold.find(
-                                            (member) => member.avatar === avatar.id
-                                        )),
+                                        (memberObject = allMembersOfCurrentHousehold.find((member) => member.avatar === avatar.id)),
                                         (
                                             <TouchableOpacity
-                                                disabled={
-                                                    avatar.id === memberObject?.avatar &&
-                                                    avatar.id !== activeMember?.avatar
-                                                }
+                                                disabled={avatar.id === memberObject?.avatar && avatar.id !== activeMember?.avatar}
                                                 key={avatar.id}
                                                 onPress={() => onAvatarPress(avatar.id)}
                                                 style={[
-                                                    avatar.id === memberObject?.avatar &&
-                                                    avatar.id !== activeMember?.avatar
+                                                    avatar.id === memberObject?.avatar && avatar.id !== activeMember?.avatar
                                                         ? modalStyles.avatarOpacity
                                                         : {},
                                                     currentlyChosenAvatar === avatar.id ? modalStyles.chosenAvatar : {},
@@ -127,23 +105,9 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                     }}
                 >
                     <View style={modalStyles.centeredView}>
-                        <View
-                            style={[
-                                modalStyles.modalView,
-                                { backgroundColor: colors.popupBackground },
-                                modalStyles.centeredView,
-                            ]}
-                        >
-                            <View
-                                style={[
-                                    modalStyles.headerStyle,
-                                    { backgroundColor: colors.popupOverlayColor },
-                                    modalStyles.centeredView,
-                                ]}
-                            >
-                                <Text
-                                    style={[modalStyles.textStyle, modalStyles.headerTextStyle, { color: colors.text }]}
-                                >
+                        <View style={[modalStyles.modalView, { backgroundColor: colors.popupBackground }, modalStyles.centeredView]}>
+                            <View style={[modalStyles.headerStyle, { backgroundColor: colors.popupOverlayColor }, modalStyles.centeredView]}>
+                                <Text style={[modalStyles.textStyle, modalStyles.headerTextStyle, { color: colors.text }]}>
                                     {layoutChoices.modalTitle}
                                 </Text>
                             </View>
@@ -170,10 +134,7 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                                     onPress={() => setModalVisible(false)}
                                 >
                                     <AntDesign name="pluscircleo" size={24} color={iconColor} />
-                                    <Text style={[modalStyles.textStyle, { color: colors.text }]}>
-                                        {" "}
-                                        {layoutChoices.ModalLeft}
-                                    </Text>
+                                    <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.ModalLeft}</Text>
                                 </Pressable>
                                 <Pressable
                                     style={[
@@ -186,10 +147,7 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                                     onPress={() => setModalVisible(false)}
                                 >
                                     <AntDesign name="closecircleo" size={24} color={iconColor} />
-                                    <Text style={[modalStyles.textStyle, { color: colors.text }]}>
-                                        {" "}
-                                        {layoutChoices.modalRight}
-                                    </Text>
+                                    <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.modalRight}</Text>
                                 </Pressable>
                             </View>
                         </View>

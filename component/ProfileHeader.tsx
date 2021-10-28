@@ -1,9 +1,9 @@
-import { useTheme } from "react-native-paper";
-import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Household, Member, User } from "../data/data";
-import Avatar from "./Avatar";
-import { Entypo } from "@expo/vector-icons";
+import { useTheme } from 'react-native-paper';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Household, Member, User } from '../data/data';
+import Avatar from './Avatar';
+import { Entypo } from '@expo/vector-icons';
 
 interface Props {
     household?: Household;
@@ -111,11 +111,11 @@ export function ProfileHeader({ household, userInformation, visitMember, openMen
             <View style={styles.rowTwo}>
                 {/*  */}
                 {DisplayUser({ userInformation, household, visitMember, openMenu })}
-                <View style={{ alignItems: "center" }}>
+                <View style={{ alignItems: 'center' }}>
                     <View style={[styles.row, styles.spaceBetween]}>
-                        {DisplayScore("Att göra", 0)}
-                        {DisplayScore("Avklarade", 10)}
-                        {DisplayScore("Poäng")}
+                        {DisplayScore('Att göra', 0)}
+                        {DisplayScore('Avklarade', 10)}
+                        {DisplayScore('Poäng')}
                     </View>
                     <Text style={{ color: colors.text }}>För nuvarande månad</Text>
                 </View>
@@ -126,39 +126,39 @@ export function ProfileHeader({ household, userInformation, visitMember, openMen
 
 const styles = StyleSheet.create({
     root: {
-        padding: 10,
+        padding: 10
     },
     row: {
-        flexDirection: "row",
+        flexDirection: 'row'
     },
     spaceBetween: {
-        justifyContent: "space-between",
+        justifyContent: 'space-between'
     },
     rowTwo: {
         // backgroundColor: "pink",
-        justifyContent: "space-between",
+        justifyContent: 'space-between',
         paddingRight: 20,
         paddingTop: 5,
-        flexDirection: "row",
-        width: "100%",
+        flexDirection: 'row',
+        width: '100%'
     },
     user: {
-        alignItems: "center",
+        alignItems: 'center'
     },
     score: {
-        alignItems: "center",
-        paddingLeft: 10,
+        alignItems: 'center',
+        paddingLeft: 10
     },
     circle: {
-        alignItems: "center",
-        justifyContent: "center",
+        alignItems: 'center',
+        justifyContent: 'center',
         borderRadius: 100,
         borderWidth: 1,
         height: 40,
-        width: 40,
+        width: 40
     },
     title: {
         fontSize: 18,
-        fontWeight: "bold",
-    },
+        fontWeight: 'bold'
+    }
 });
