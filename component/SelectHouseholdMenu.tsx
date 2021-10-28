@@ -1,4 +1,4 @@
-import { useTheme } from '@react-navigation/native';
+import { useTheme } from 'react-native-paper';
 import moment from 'moment';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';

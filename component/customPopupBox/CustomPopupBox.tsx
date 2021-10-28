@@ -11,13 +11,13 @@ import { LayoutChoice } from './popupLayoutChoice';
 import { useTheme } from 'react-native-paper';
 
 interface Props {
-  id: string
-  modalCase: string
-  isShowing: boolean
-  toggleModal: (toggle: boolean) => void
+    memberId: string
+    modalCase: string
+    isShowing: boolean
+    toggleModal: (toggle: boolean) => void
 }
 
-export function CustomPopupBox({ id, modalCase, isShowing, toggleModal }: Props) {
+export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: Props) {
     const [userInput, onUserInputChange] = useState('');
     const layoutChoices = LayoutChoice(modalCase, memberId);
     const { colors } = useTheme();
@@ -47,8 +47,9 @@ export function CustomPopupBox({ id, modalCase, isShowing, toggleModal }: Props)
                     isVisible={isShowing}
                     statusBarTranslucent={true}
                     onBackButtonPress={() => {
-                        toggleModal(false)}
-                    }}
+                        toggleModal(false);
+                    }
+                    }
                     style={modalStyles.avatarContainerPosition}
                 >
                     <View style={modalStyles.avatarContainerPosition}>
@@ -89,7 +90,7 @@ export function CustomPopupBox({ id, modalCase, isShowing, toggleModal }: Props)
                         </View>
                     </View>
                 </Modal>
-            </View>
+            </View >
         );
     } else {
         return (
@@ -98,11 +99,12 @@ export function CustomPopupBox({ id, modalCase, isShowing, toggleModal }: Props)
                     animationIn="fadeIn"
                     backdropColor="#181818"
                     coverScreen={true}
-                    isVisible={modalVisible}
+                    isVisible={isShowing}
                     statusBarTranslucent={true}
                     onBackButtonPress={() => {
-                        toggleModal(false)};
-                    }}
+                        toggleModal(false);
+                    }
+                    }
                 >
                     <View style={modalStyles.centeredView}>
                         <View style={[modalStyles.modalView, { backgroundColor: colors.popupBackground }, modalStyles.centeredView]}>
@@ -131,7 +133,7 @@ export function CustomPopupBox({ id, modalCase, isShowing, toggleModal }: Props)
                                         { backgroundColor: colors.popupOverlayColor },
                                         modalStyles.centeredView
                                     ]}
-                                    onPress={() => toggleModal(false)}}
+                                    onPress={() => toggleModal(false)}
                                 >
                                     <AntDesign name="pluscircleo" size={24} color={iconColor} />
                                     <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.ModalLeft}</Text>
@@ -144,16 +146,16 @@ export function CustomPopupBox({ id, modalCase, isShowing, toggleModal }: Props)
                                         { backgroundColor: colors.popupOverlayColor },
                                         modalStyles.centeredView
                                     ]}
-                                    onPress={() => toggleModal(false)}}
+                                    onPress={() => toggleModal(false)}
                                 >
                                     <AntDesign name="closecircleo" size={24} color={iconColor} />
                                     <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.modalRight}</Text>
                                 </Pressable>
-                            </View>
-                        </View>
-                    </View>
-                </Modal>
-            </View>
+                            </View >
+                        </View >
+                    </View >
+                </Modal >
+            </View >
         );
     }
 }

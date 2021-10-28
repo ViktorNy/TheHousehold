@@ -28,7 +28,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
             // TODO: namn på member ?
             return (
                 <TouchableOpacity style={styles.row}
-                    onPress={() => {}}>
+                    onPress={() => { }}>
                     <Entypo name="arrow-long-left" size={20} color={colors.text} />
                     <Text style={[styles.title, { paddingLeft: 10, color: colors.text }]}>{visitMember.userName}</Text>
                 </TouchableOpacity>
@@ -47,7 +47,6 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
             return (
                 <TouchableOpacity style={styles.row}
                     onPress={() => { openHouseholdMenu && openHouseholdMenu(true); }}>
-                <TouchableOpacity style={styles.row} onPress={() => openMenu && openMenu(true)}>
                     <Text style={[styles.title, { color: colors.text }]}>Min sida</Text>
                     <Entypo name="chevron-small-down" size={24} color={colors.text} />
                 </TouchableOpacity>
