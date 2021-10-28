@@ -67,7 +67,10 @@ function RootStackNavigator({ colorScheme }: { colorScheme: ColorSchemeName }) {
                 />
                 <Stack.Screen name="Household" component={HouseholdScreen} />
                 <Stack.Screen name="DistributeChore" component={DistributeChoreScreen} />
-                <Stack.Screen name="ChoreDetail" component={ChoreDetailScreen} />
+                <Stack.Screen
+                    name="ChoreDetail"
+                    component={ChoreDetailScreen}
+                />
                 <Stack.Screen
                     name="Member"
                     component={MemberScreen}
