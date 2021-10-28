@@ -10,8 +10,6 @@ import { ChoreButton } from '../component/choreComponent/ChoreButton';
 import { Chore } from '../data/data';
 import moment from 'moment';
 import { getAllHouseholdsByUserIdSelector } from '../store/household/householdSelectors';
-import { ChoresSlider, displayChoreSelection } from '../component/choreComponent/ChoresSlider';
-import displayChore from '../component/choreComponent/displayChore';
 
 export default function HouseholdScreen({ navigation, route }: RootStackScreenProps<'Household'>) {
     const { colors } = useTheme();
@@ -36,8 +34,6 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
     }
 
     const members = useAppSelector((state) => state.member.memberList);
-
-    const [displayChores, setDisplayChores] = useState<displayChoreSelection>('Alla');
 
     if (currentHousehold) {
         const houseHoldChores = currentHousehold.chores.filter((item) =>
@@ -87,7 +83,6 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                     rootStackProps={{ navigation, route }}
                 />
                 <ProfileHeader userInformation={{ user: route.params.user }} openMenu={setIsShowingModal} />
-                <ChoresSlider onChange={setDisplayChores}/>
                 <FlatList
                     data={userHousehold}
                     renderItem={({ item }) => (
@@ -101,7 +96,6 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                             </TouchableOpacity>
 
                             {item.chores.map((chore) => {
-                                displayChore(displayChores, chore);
                                 // Check if date match Chore slider selection
                                 // Red days applies with chores today
                                 // Grey days applies to this week/month + red days included

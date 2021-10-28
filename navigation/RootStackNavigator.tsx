@@ -1,6 +1,6 @@
 import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { Component } from 'react';
 import { useColorScheme } from 'react-native';
 import { User } from '../data/data';
 import ChoreDetailScreen from '../screens/ChoreDetailScreen';
@@ -19,7 +19,7 @@ type RootStackParamList = {
     Login: undefined; // Tar inte in några parametrerar
     Register: undefined; // Tar inte in några parametrerar
     RegisterUserName: { email: string; password: string };
-    Household: { user: User; householdId?: string }; // TODO: replace user with userId insted and refector code
+    Household: { userId: string; householdId?: string; memberId?: string };
     DistributeChore: undefined;
     ChoreDetail: { choreId: string; householdId: string };
     Member: { householdId: string };

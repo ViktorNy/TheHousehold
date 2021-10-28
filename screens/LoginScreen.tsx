@@ -1,5 +1,5 @@
 import { useTheme } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { Children, useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomNavigateButton } from '../component/CustomNavigateButton';
@@ -19,7 +19,8 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'
     // Otherwise logs out 'faulty user' in console
     function checkUserInfo() {
         if (user.email === userText || (user.username === userText && user.password === userPassword)) {
-            navigation.navigate('Household', { user });
+            console.log('login user id: ' + user.id);
+            navigation.navigate('Household', { userId: user.id });
         } else {
             console.log('Faulty user');
         }
