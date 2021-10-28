@@ -5,9 +5,9 @@
   "jsxSingleQuote": false,
   "printWidth": 150,
   "semi": true,
-  "singleQuote": false,
+  "singleQuote": true,
   "tabWidth": 4,
-  "trailingComma": "es5",
+  "trailingComma": "none",
   "useTabs": false,
   "parser": "typescript"
 }

@@ -11,14 +11,14 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'
     const [userText, onUserTextChange] = useState('');
     const [userPassword, onUserPasswordChange] = useState('');
 
-    const user = mockedUserData[2];
+    const user = mockedUserData[0];
 
     // Needs to be revised. Now only works if you log in with user info:
-    // Username: SvenSvensson
-    // Password: Svensson
+    // Username: s
+    // Password: s
     // Otherwise logs out 'faulty user' in console
     function checkUserInfo() {
-        if (user.email === userText || user.username === userText && user.password === userPassword) {
+        if (user.email === userText || (user.username === userText && user.password === userPassword)) {
             navigation.navigate('Household', { user });
         } else {
             console.log('Faulty user');
@@ -32,8 +32,8 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'
                 style={[styles.input, { backgroundColor: colors.primary, color: colors.text }]}
                 value={userText}
                 onChangeText={onUserTextChange}
-                placeholder='Epost / användarnamn'
-                textAlign='center'
+                placeholder="Epost / användarnamn"
+                textAlign="center"
                 placeholderTextColor={colors.text}
             />
             <TextInput
@@ -41,8 +41,8 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'
                 value={userPassword}
                 onChangeText={onUserPasswordChange}
                 secureTextEntry={true}
-                placeholder='Lösenord'
-                textAlign='center'
+                placeholder="Lösenord"
+                textAlign="center"
                 placeholderTextColor={colors.text}
             />
             <View style={styles.viewStyle}>
