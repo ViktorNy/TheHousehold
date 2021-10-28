@@ -1,4 +1,4 @@
-import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, NavigationContainer, ParamListBase } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { Component } from 'react';
 import { useColorScheme } from 'react-native';
@@ -14,12 +14,18 @@ import RegisterUserNameScreen from '../screens/RegisterUserNameScreen';
 import StartScreen from '../screens/StartScreen';
 import ChoresTabNavigator from './ChoresTabNavigator';
 
-type RootStackParamList = {
+// declare global {
+//     namespace ReactNavigation {
+//         interface RootParamList extends RootStackParamList { }
+//     }
+// }
+
+export interface RootStackParamList extends ParamListBase{
     Start: undefined; // Tar inte in några parametrerar
     Login: undefined; // Tar inte in några parametrerar
     Register: undefined; // Tar inte in några parametrerar
     RegisterUserName: { email: string; password: string };
-    Household: { userId: string; householdId?: string; memberId?: string };
+    Household: { screen: string, params: { userId: string; householdId?: string; memberId?: string }};
     DistributeChore: undefined;
     ChoreDetail: { choreId: string; householdId: string };
     Member: { householdId: string };
@@ -27,7 +33,7 @@ type RootStackParamList = {
     MemeberDetailScreen: { memberId: string };
 };
 
-export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
+export type RootStackScreenProps<Screen extends keyof RootStackParamList = string> = NativeStackScreenProps<
     RootStackParamList,
     Screen
 >;

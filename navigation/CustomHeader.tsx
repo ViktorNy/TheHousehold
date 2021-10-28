@@ -5,13 +5,22 @@ import { ChoresSlider } from '../component/choreComponent/ChoresSlider';
 import { ProfileHeader } from '../component/ProfileHeader';
 import { User } from '../data/data';
 
-export default function CustomHeader(props: MaterialTopTabBarProps) {
-    const currentRoute = props.state.routes[props.state.index];
-    const nextRoute = props.state.routes[props.state.index + 1];
-    const previousRoute = props.state.routes[props.state.index - 1];
-    const { options } = props.descriptors[currentRoute.key];
+interface Props {
+    newProps: MaterialTopTabBarProps,
+    userId?: 'string'
+}
+
+export default function CustomHeader({ newProps, userId } : Props) {
+    const currentRoute = newProps.state.routes[newProps.state.index];
+    const nextRoute = newProps.state.routes[newProps.state.index + 1];
+    const previousRoute = newProps.state.routes[newProps.state.index - 1];
+    const { options } = newProps.descriptors[currentRoute.key];
 
     const label = options.tabBarLabel || options.title || currentRoute.name;
+
+    // const [isShowingModal, setIsShowingModal] = useState(false);
+
+    console.log('user id in custom header: ' + userId);
 
     return (
         <View>
@@ -19,9 +28,16 @@ export default function CustomHeader(props: MaterialTopTabBarProps) {
             <ChoresSlider
                 label={label}
                 headline={'Sysslor'}
-                onLeftPress={() => props.navigation.navigate(previousRoute.name)}
-                onRightPress={() => props.navigation.navigate(nextRoute.name)}
+                onLeftPress={() => newProps.navigation.navigate(previousRoute.name)}
+                onRightPress={() => newProps.navigation.navigate(nextRoute.name)}
             />
+            {/* <HamburgerMenu
+                isShowingMenu={isShowingModal}
+                toggleIsShowing={setIsShowingModal}
+                rootStackProps={{ navigation, route }}
+                householdID={currentHousehold.id}
+                currentMember={userMemberInfo}
+            /> */}
         </View>
     );
 }

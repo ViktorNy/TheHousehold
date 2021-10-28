@@ -1,10 +1,10 @@
-import React from 'react';
 import { createMaterialTopTabNavigator, MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
+import React from 'react';
 import AllChoresScreen from '../screens/AllChoresScreen';
-import TodayChoresScreen from '../screens/TodayChoresScreen';
-import CustomHeader from './CustomHeader';
-import WeekChoresScreen from '../screens/WeekChoresScreen';
 import MonthChoresScreen from '../screens/MonthChoresScreen';
+import TodayChoresScreen from '../screens/TodayChoresScreen';
+import WeekChoresScreen from '../screens/WeekChoresScreen';
+import CustomHeader from './CustomHeader';
 
 interface Props {
     userId: string;
@@ -13,7 +13,7 @@ interface Props {
     // ?? det som behövs inne på screen för rätt info..
 }
 
-type ParamList = {
+export type ParamList = {
     All: Props;
     Today: Props;
     Week: Props;
@@ -27,8 +27,8 @@ const Tab = createMaterialTopTabNavigator<ParamList>();
 function ChoresTabNavigator(props: Props) {
     console.log('choreTab: ' + props.userId);
     return (
-        <Tab.Navigator tabBar={(props) => <CustomHeader {...props} />}>
-            <Tab.Screen name="All" component={AllChoresScreen} initialParams={{ userId: props.userId }} />
+        <Tab.Navigator tabBar={(props) => <CustomHeader {...{ newProps: props, userId: '0' }} />}>
+            <Tab.Screen name="All" component={AllChoresScreen} />
             <Tab.Screen name="Today" component={TodayChoresScreen} initialParams={undefined} />
             <Tab.Screen name="Week" component={WeekChoresScreen} initialParams={undefined} />
             <Tab.Screen name="Month" component={MonthChoresScreen} initialParams={undefined} />

@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { CustomPlusButton } from '../component/CustomPlusButton';
 import HamburgerMenu from '../component/HamburgerMenu';
-import { ProfileHeader } from '../component/ProfileHeader';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 import { useAppSelector } from '../store/store';
 import { ChoreButton } from '../component/choreComponent/ChoreButton';
@@ -49,11 +48,6 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                     householdID={currentHousehold.id}
                     currentMember={userMemberInfo}
                 />
-                <ProfileHeader
-                    household={currentHousehold}
-                    userInformation={{ user: route.params.user, member: userMemberInfo }}
-                    openMenu={setIsShowingModal}
-                />
                 <Text style={[{ color: colors.text }]}>{currentHousehold.name}</Text>
                 <FlatList
                     data={houseHoldChores}
@@ -82,7 +76,6 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                     toggleIsShowing={setIsShowingModal}
                     rootStackProps={{ navigation, route }}
                 />
-                <ProfileHeader userInformation={{ user: route.params.user }} openMenu={setIsShowingModal} />
                 <FlatList
                     data={userHousehold}
                     renderItem={({ item }) => (
@@ -127,7 +120,6 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                     toggleIsShowing={setIsShowingModal}
                     rootStackProps={{ navigation, route }}
                 />
-                <ProfileHeader userInformation={{ user: route.params.user }} openMenu={setIsShowingModal} />
                 <View style={styles.conatiner}>
                     <Text style={[{ color: colors.text }, styles.simplifyText]}>Förenkla din vardag </Text>
                     <Text style={[{ color: colors.text }, styles.pitchText]}>
