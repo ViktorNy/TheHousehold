@@ -1,7 +1,6 @@
 import { useTheme } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { CustomNavigateButton } from '../component/CustomNavigateButton';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { CustomPlusButton } from '../component/CustomPlusButton';
 import { CustomPopupBox } from '../component/customPopupBox/CustomPopupBox';
 import HamburgerMenu from '../component/HamburgerMenu';
@@ -10,6 +9,10 @@ import SelectHouseholdMenu from '../component/SelectHouseholdMenu';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 import { getAllHouseholdsByUserIdSelector } from '../store/household/householdSelectors';
 import { useAppSelector } from '../store/store';
+import { ChoreButton } from '../component/ChoreButton';
+import { Chore } from '../data/data';
+import moment from 'moment';
+import { getAllHouseholdsByUserIdSelector } from '../store/household/householdSelectors';
 
 export default function HouseholdScreen({ navigation, route }: RootStackScreenProps<'Household'>) {
     const { colors } = useTheme();
@@ -25,10 +28,24 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
         state.member.memberList.find((m) => m.userId === route.params.user.id && m.householdId === currentHousehold?.id)
     );
 
+    function getAvatarIdList(chore: Chore) {
+        const result: string[] = [];
+        for (const db of chore.doneBy) {
+            const member = members.find((m) => m.id === db.memberId);
+            if (member && db.date === moment(new Date()).format('YYYY-MM-DD')) {
+                result.push(member.avatar);
+            }
+        }
+        return result;
+    }
+
+    const members = useAppSelector((state) => state.member.memberList);
+
     if (currentHousehold) {
         const houseHoldChores = currentHousehold.chores.filter((item) =>
             item.signedToUserId.filter((item) => item === route.params.user.id)
         );
+
         return (
             <View>
                 <HamburgerMenu
@@ -58,8 +75,10 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                 <FlatList
                     data={houseHoldChores}
                     renderItem={({ item }) => (
-                        <CustomNavigateButton
-                            buttonText={item.name}
+                        <ChoreButton
+                            key={item.id}
+                            chore={item}
+                            avatarIdList={getAvatarIdList(item)}
                             goto={() =>
                                 navigation.navigate('ChoreDetail', {
                                     choreId: item.id,
@@ -73,7 +92,8 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                 <CustomPopupBox id={route.params.user.id} modalCase={'CH'} isShowing={isShowJoinHouseholdModal} toggleModal={setIsShowJoinHouseholdModal}/>
             </View>
         );
-    } else {
+    } else if (userHousehold.length > 0) {
+        // present active user all housholds + chores
         return (
             <View>
                 <HamburgerMenu
@@ -95,6 +115,49 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                     openMainMenu={setIsShowingMainMenuModal}
                     openHouseholdMenu={setIsShowingHouseholdModal}
                 />
+                <Text style={[{ color: colors.text }]}>Welcome {route.params.user.username}</Text>
+                <FlatList
+                    data={userHousehold}
+                    renderItem={({ item }) => (
+                        <View>
+                            <TouchableOpacity
+                                onPress={() =>
+                                    navigation.push('Household', { user: route.params.user, householdId: item.id })
+                                }
+                            >
+                                <Text style={[{ color: colors.text }]}>{item.name}</Text>
+                            </TouchableOpacity>
+
+                            {item.chores.map((chore) => {
+                                return (
+                                    <ChoreButton
+                                        key={chore.id}
+                                        chore={chore}
+                                        avatarIdList={getAvatarIdList(chore)}
+                                        goto={() =>
+                                            navigation.navigate('ChoreDetail', {
+                                                choreId: chore.id,
+                                                householdId: item.id
+                                            })
+                                        }
+                                    />
+                                );
+                            })}
+                        </View>
+                    )}
+                />
+            </View>
+        );
+    } else {
+        // present info for user with no household
+        return (
+            <View>
+                <HamburgerMenu
+                    isShowingMenu={isShowingModal}
+                    toggleIsShowing={setIsShowingModal}
+                    rootStackProps={{ navigation, route }}
+                />
+                <ProfileHeader userInformation={{ user: route.params.user }} openMenu={setIsShowingModal} />
                 <View style={styles.conatiner}>
                     <Text style={[{ color: colors.text }, styles.simplifyText]}>Förenkla din vardag </Text>
                     <Text style={[{ color: colors.text }, styles.pitchText]}>

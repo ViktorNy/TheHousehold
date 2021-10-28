@@ -4,14 +4,12 @@ export interface User {
     email: string,
     username: string,
     password: string,
-    // households: Household[], //tom array i början
 }
 
 export interface Household {
     id: string,
     name: string,
     codeToJoin: string,
-    // members: Member[],
     chores: Chore[],
 }
 
@@ -22,7 +20,7 @@ export interface Member {
     householdId: string,
     userId: string,
     memberType: MemberType,
-    avatar: string, // format?
+    avatar: string,
     joinData: string,
     pausedHistory: PausedMember[],
 }
@@ -48,6 +46,7 @@ export interface Chore {
     description: string,
     frequency: number,
     lastDone?: string,
+    createdDate: string, // lagt till / emelie
     doneBy: ChoreDoneBy[],
     score: ChoreScore,
     signedToUserId: string[],
@@ -55,7 +54,8 @@ export interface Chore {
 
 export interface ChoreDoneBy {
     choreId: string,
-    userId: string,
+    // userId: string,
+    memberId: string,
     date: string,
     score: number, // spara score här  ifall men justerar det senare
 }
@@ -127,15 +127,26 @@ export const mockedHouseholdData: Household[] = [
                 id: '1',
                 name: 'Städa',
                 description: 'Copy pasta lorem ipsum städa då snälla hjälp mig',
-                frequency: 1,
+                frequency: 3,
                 score: 4,
                 signedToUserId: ['1'],
-                lastDone: '2021-09-12',
+                createdDate: '2021-10-01',
+                lastDone: '2021-10-26',
                 doneBy: [
                     {
                         choreId: '1',
-                        userId: '1',
-                        date: '2021-09-12',
+                        memberId: '1',
+                        date: '2021-10-12',
+                        score: 4
+                    }, {
+                        choreId: '1',
+                        memberId: '1',
+                        date: '2021-10-26',
+                        score: 4
+                    }, {
+                        choreId: '1',
+                        memberId: '2',
+                        date: '2021-10-26',
                         score: 4
                     }]
             },
@@ -146,7 +157,40 @@ export const mockedHouseholdData: Household[] = [
                 frequency: 2,
                 doneBy: [],
                 score: 8,
-                signedToUserId: []
+                signedToUserId: [],
+                createdDate: '2021-10-20'
+            },
+            {
+                id: '3',
+                name: 'Baka bröd',
+                description: 'Kolla först i frysan och skafferiet vad som finns. Baka sedan valfri sort som räcker till veckan.',
+                frequency: 7,
+                doneBy: [],
+                score: 8,
+                signedToUserId: [],
+                createdDate: '2021-10-24'
+            },
+            {
+                id: '4',
+                name: 'Byta sängkläder',
+                description: 'Copy pasta lorem ipsum städa då snälla hjälp mig',
+                frequency: 7,
+                score: 4,
+                signedToUserId: ['2'],
+                createdDate: '2021-10-13',
+                lastDone: '2021-10-19',
+                doneBy: [
+                    {
+                        choreId: '1',
+                        memberId: '2',
+                        date: '2021-10-12',
+                        score: 4
+                    }, {
+                        choreId: '1',
+                        memberId: '2',
+                        date: '2021-10-19',
+                        score: 4
+                    }]
             }]
     },
     {
@@ -161,7 +205,8 @@ export const mockedHouseholdData: Household[] = [
                 frequency: 2,
                 doneBy: [],
                 score: 8,
-                signedToUserId: []
+                signedToUserId: [],
+                createdDate: '2021-10-23'
             }
         ]
     },
@@ -187,8 +232,8 @@ export const mockedUserData: User[] = [
     {
         id: '1',
         email: 'svensson@mail.com',
-        username: 'SvenSvensson',
-        password: 'Svensson'
+        username: 's',
+        password: 's'
     },
     {
         id: '2',

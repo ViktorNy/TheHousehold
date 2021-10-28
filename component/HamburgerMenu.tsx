@@ -1,4 +1,4 @@
-import { useTheme } from '@react-navigation/native';
+import { useTheme } from 'react-native-paper';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Member } from '../data/data';
@@ -30,9 +30,9 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
             >
                 <View style={[styles.centeredView]}>
                     <View style={[styles.modalView, { backgroundColor: colors.primary }]}>
-
                         {currentMember?.memberType === 'owner' && (
-                            <Text style={[styles.modalText, { color: colors.text }]}>Bjud in medlem, kod: 1337</Text>)}
+                            <Text style={[styles.modalText, { color: colors.text }]}>Bjud in medlem, kod: 1337</Text>
+                        )}
 
                         <Text style={[styles.modalText, { color: colors.text }]}>Byt avatar</Text>
 
@@ -40,7 +40,8 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
                             onPress={() => {
                                 toggleIsShowing(!isShowingMenu);
                                 rootStackProps.navigation.navigate('Member', { householdId: householdID });
-                            }}>
+                            }}
+                        >
                             <Text style={[styles.modalText, { color: colors.text }]}>Visa medlemmar</Text>
                         </TouchableOpacity>
 
@@ -48,7 +49,8 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
                             onPress={() => {
                                 toggleIsShowing(!isShowingMenu);
                                 rootStackProps.navigation.navigate('HouseholdChores', { householdId: householdID });
-                            }}>
+                            }}
+                        >
                             <Text style={[styles.modalText, { color: colors.text }]}>Visa sysslor</Text>
                         </TouchableOpacity>
 
@@ -56,8 +58,7 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
 
                         <Text style={[styles.modalText, { color: colors.text }]}>Lämna hushållet</Text>
 
-                        {currentMember?.memberType === 'owner' && (
-                            <Text style={[styles.modalText, { color: colors.text }]}>Visa förfrågningar</Text>)}
+                        {currentMember?.memberType === 'owner' && <Text style={[styles.modalText, { color: colors.text }]}>Visa förfrågningar</Text>}
 
                         <Text style={[styles.modalText, { color: colors.text }]}>Logga ut</Text>
                     </View>
@@ -79,7 +80,6 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
             >
                 <View style={[styles.centeredView]}>
                     <View style={[styles.modalView, { backgroundColor: colors.primary }]}>
-
                         <Text style={[styles.modalText, { color: colors.text }]}>Logga ut</Text>
                     </View>
                 </View>

@@ -1,4 +1,4 @@
-import { useTheme } from '@react-navigation/native';
+import { useTheme } from 'react-native-paper';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Household, Member, User } from '../data/data';
@@ -47,6 +47,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
             return (
                 <TouchableOpacity style={styles.row}
                     onPress={() => { openHouseholdMenu && openHouseholdMenu(true); }}>
+                <TouchableOpacity style={styles.row} onPress={() => openMenu && openMenu(true)}>
                     <Text style={[styles.title, { color: colors.text }]}>Min sida</Text>
                     <Entypo name="chevron-small-down" size={24} color={colors.text} />
                 </TouchableOpacity>
@@ -73,9 +74,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
             return (
                 <View style={styles.user}>
                     <View style={[styles.circle]}>
-                        {visitMember.member && (
-                            <Avatar avatarId={visitMember.member.avatar} showCircle={true} avatarSize={22} />
-                        )}
+                        {visitMember.member && <Avatar avatarId={visitMember.member.avatar} showCircle={true} avatarSize={22} />}
                     </View>
                     <Text style={{ color: colors.text }}>{visitMember.member?.memberType}</Text>
                 </View>
@@ -86,9 +85,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
             return (
                 <View style={styles.user}>
                     <View style={[styles.circle]}>
-                        {userInformation?.member && (
-                            <Avatar avatarId={userInformation.member.avatar} showCircle={true} avatarSize={22} />
-                        )}
+                        {userInformation?.member && <Avatar avatarId={userInformation.member.avatar} showCircle={true} avatarSize={22} />}
                     </View>
                     <Text style={{ color: colors.text }}>{userInformation?.user.username}</Text>
                     <Text style={{ color: colors.text }}>{userInformation?.member?.memberType}</Text>
@@ -99,9 +96,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
             // TODO: Hämta rätt info
             return (
                 <View style={styles.user}>
-                    <View style={[styles.circle, { borderColor: colors.text }]}>
-                        {/* <Text style={{ color: colors.text }}></Text> */}
-                    </View>
+                    <View style={[styles.circle, { borderColor: colors.text }]}>{/* <Text style={{ color: colors.text }}></Text> */}</View>
                     <Text style={{ color: colors.text }}>{userInformation?.user.username}</Text>
                 </View>
             );

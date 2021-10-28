@@ -5,6 +5,6 @@ export const getMembersOfHouseholdSelector = (state: RootState, householdId: str
     return memberList;
 };
 
-export const getMemeberByIdSelector = (state: RootState, memberId: string) => {
+export const getMemberByIdSelector = (state: RootState, memberId: string) => {
     return state.member.memberList.find(m => m.id === memberId);
 };
