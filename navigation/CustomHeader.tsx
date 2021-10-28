@@ -10,7 +10,7 @@ interface Props {
     userId?: 'string'
 }
 
-export default function CustomHeader({ newProps, userId } : Props) {
+export default function CustomHeader({ newProps, userId }: Props) {
     const currentRoute = newProps.state.routes[newProps.state.index];
     const nextRoute = newProps.state.routes[newProps.state.index + 1];
     const previousRoute = newProps.state.routes[newProps.state.index - 1];
@@ -19,17 +19,14 @@ export default function CustomHeader({ newProps, userId } : Props) {
     const label = options.tabBarLabel || options.title || currentRoute.name;
 
     // const [isShowingModal, setIsShowingModal] = useState(false);
-
-    console.log('user id in custom header: ' + userId);
-
     return (
         <View>
-            <ProfileHeader userInformation={{ user: {} as User }} openMenu={() => {}} />
+            <ProfileHeader userInformation={{ user: {} as User }} openMenu={() => { }} />
             <ChoresSlider
                 label={label}
                 headline={'Sysslor'}
-                onLeftPress={() => newProps.navigation.navigate(previousRoute.name)}
-                onRightPress={() => newProps.navigation.navigate(nextRoute.name)}
+                onLeftPress={() => newProps.navigation.navigate(previousRoute.name, { userId: '2' })}
+                onRightPress={() => newProps.navigation.navigate(nextRoute.name, { userId: '2' })}
             />
             {/* <HamburgerMenu
                 isShowingMenu={isShowingModal}

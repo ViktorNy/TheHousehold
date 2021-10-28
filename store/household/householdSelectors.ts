@@ -1,7 +1,10 @@
 import { RootState } from '../store';
 
-export const getAllHouseholdsByUserIdSelector = (state: RootState, userId: string) => {
+export const getAllHouseholdsByUserIdSelector = (state: RootState, userId?: string) => {
+    console.log('userid in selector ' + userId);
+    if (!userId) return [];
     const memberShipList = state.member.memberList.filter(m => m.userId === userId);
+    console.log('found members ' + memberShipList.length);
     const userHouseholds = state.household.householdList.filter(h => memberShipList.find(m => m.householdId === h.id));
     return userHouseholds;
 };

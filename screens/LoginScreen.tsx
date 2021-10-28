@@ -11,7 +11,7 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'
     const [userText, onUserTextChange] = useState('');
     const [userPassword, onUserPasswordChange] = useState('');
 
-    const user = mockedUserData[0];
+    const user = mockedUserData[1];
 
     // Needs to be revised. Now only works if you log in with user info:
     // Username: s
@@ -19,7 +19,6 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'
     // Otherwise logs out 'faulty user' in console
     function checkUserInfo() {
         if (user.email === userText || (user.username === userText && user.password === userPassword)) {
-            console.log('login user id: ' + user.id);
             navigation.navigate('Household', { screen: 'All', params: { userId: user.id } });
         } else {
             console.log('Faulty user');
