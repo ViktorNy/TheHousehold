@@ -4,12 +4,11 @@ import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 import { useAppSelector } from '../store/store';
 import { getChoreByIdSelector } from '../store/household/householdSelectors';
 import { useTheme } from '@react-navigation/native';
+import { CustomNavigateButton } from '../component/CustomNavigateButton';
 
 export default function ChoreDetailScreen({ navigation, route }: RootStackScreenProps<'ChoreDetail'>) {
     const { colors } = useTheme();
-    const chore = useAppSelector((state) =>
-        getChoreByIdSelector(state, route.params.choreId, route.params.householdId)
-    );
+    const chore = useAppSelector((state) => getChoreByIdSelector(state, route.params.choreId, route.params.householdId));
 
     // Update page title to chore name
     useEffect(() => {
@@ -19,20 +18,33 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
     return (
         <View style={[{ backgroundColor: colors.border }, styles.root]}>
             <Text
-                style={[{
-                    color: colors.text,
-                    backgroundColor: colors.background
-                },
-                styles.descriptionContainer,
-                styles.bottomMargin]}>
+                style={[
+                    {
+                        color: colors.text,
+                        backgroundColor: colors.background
+                    },
+                    styles.descriptionContainer,
+                    styles.bottomMargin
+                ]}
+            >
                 {chore?.description}
             </Text>
 
             <View style={[{ backgroundColor: colors.background }, styles.frequencyContainer]}>
-                <Text style={[{ color: colors.text }, styles.text]}>Återkommer: </Text>
-                <Text style={[{ color: colors.text }, styles.frequencyText]}>
-                    var <View style={styles.freqNrContainer}><Text style={styles.frequencyNumberText}>{chore?.frequency}</Text></View> dag
-                </Text>
+                <View style={styles.testContainer}>
+                    <View>
+                        <Text style={[{ color: colors.text }, styles.testText]}>Återkommer: </Text>
+                    </View>
+                    <View>
+                        <Text style={[{ color: colors.text }]}> var </Text>
+                    </View>
+                    <View style={styles.freqNrContainer}>
+                        <Text style={styles.frequencyNumberText}>{chore?.frequency}</Text>
+                    </View>
+                    <View>
+                        <Text style={[{ color: colors.text }, styles.dayPadding]}> dag </Text>
+                    </View>
+                </View>
             </View>
 
             <View style={[{ backgroundColor: colors.background }, styles.energyContainer]}>
@@ -54,6 +66,22 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    testContainer: {
+        width: '95%',
+        borderRadius: 10,
+        margin: 10,
+        justifyContent: 'center',
+        flexDirection: 'row',
+        elevation: 20,
+        alignContent: 'center',
+        alignItems: 'center'
+    },
+    testText: {
+        margin: 5,
+        fontSize: 20,
+        fontWeight: 'bold',
+        paddingRight: '41%'
+    },
     descriptionContainer: {
         width: '95%',
         height: '20%',
@@ -66,7 +94,7 @@ const styles = StyleSheet.create({
         width: '95%',
         borderRadius: 10,
         justifyContent: 'space-between',
-        alignItems: 'center',
+        alignItems: 'baseline',
         flexDirection: 'row',
         elevation: 20,
         marginBottom: 15
@@ -131,5 +159,8 @@ const styles = StyleSheet.create({
     columnStyle: {
         justifyContent: 'center',
         flexDirection: 'column'
+    },
+    dayPadding: {
+        paddingRight: 10
     }
 });
