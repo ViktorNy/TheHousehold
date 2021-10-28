@@ -1,14 +1,14 @@
-import { AntDesign } from "@expo/vector-icons";
-import React, { useState } from "react";
-import { Pressable, Text, TextInput, TouchableOpacity, View } from "react-native";
-import Modal from "react-native-modal";
-import { Member, mockAvatarData } from "../../data/data";
-import { getMemberByIdSelector, getMembersOfHouseholdSelector } from "../../store/member/memberSelector";
-import { useAppSelector } from "../../store/store";
-import { modalStyles } from "../../style/modalStyle";
-import Avatar from "../Avatar";
-import { LayoutChoice } from "./popupLayoutChoice";
-import { useTheme } from "react-native-paper";
+import { AntDesign } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import { Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import Modal from 'react-native-modal';
+import { Member, mockAvatarData } from '../../data/data';
+import { getMemberByIdSelector, getMembersOfHouseholdSelector } from '../../store/member/memberSelector';
+import { useAppSelector } from '../../store/store';
+import { modalStyles } from '../../style/modalStyle';
+import Avatar from '../Avatar';
+import { LayoutChoice } from './popupLayoutChoice';
+import { useTheme } from 'react-native-paper';
 
 interface Props {
     memberId: string;
@@ -17,7 +17,7 @@ interface Props {
 
 export function CustomPopupBox({ memberId, modalCase }: Props) {
     const [modalVisible, setModalVisible] = useState(true);
-    const [userInput, onUserInputChange] = useState("");
+    const [userInput, onUserInputChange] = useState('');
     const layoutChoices = LayoutChoice(modalCase, memberId);
     const { colors } = useTheme();
     const iconColor = colors.text;
@@ -30,7 +30,7 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
     // Kolla om det finns ett snyggare sätt för if-satsen - Nils
     const [currentlyChosenAvatar, setCurrentlyChosenAvatar] = useState(() => {
         if (memberId) return memberId;
-        else return "";
+        else return '';
     });
 
     const onAvatarPress = (avatar: string) => {
@@ -76,8 +76,8 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                                                     modalStyles.avatarStyle,
                                                     {
                                                         backgroundColor: avatar?.backgroundColor,
-                                                        borderColor: colors.avatarOutline,
-                                                    },
+                                                        borderColor: colors.avatarOutline
+                                                    }
                                                 ]}
                                             >
                                                 <Avatar avatarId={avatar.id} avatarSize={32} showCircle={false} />
@@ -129,7 +129,7 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                                         modalStyles.rowStyle,
                                         modalStyles.button,
                                         { backgroundColor: colors.popupOverlayColor },
-                                        modalStyles.centeredView,
+                                        modalStyles.centeredView
                                     ]}
                                     onPress={() => setModalVisible(false)}
                                 >
@@ -142,7 +142,7 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                                         modalStyles.button,
                                         modalStyles.buttonRightStyle,
                                         { backgroundColor: colors.popupOverlayColor },
-                                        modalStyles.centeredView,
+                                        modalStyles.centeredView
                                     ]}
                                     onPress={() => setModalVisible(false)}
                                 >

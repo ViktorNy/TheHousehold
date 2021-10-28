@@ -7,11 +7,11 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import RootStackNavigator from './navigation/RootStackNavigator';
 import { store } from './store/store';
-// eslint-disable-next-line no-use-before-define
+
 declare global {
-    // eslint-disable-next-line no-use-before-define
+    // eslint-disable-next-line no-unused-vars
     namespace ReactNativePaper {
-        // eslint-disable-next-line no-use-before-define
+        // eslint-disable-next-line no-unused-vars
         interface ThemeColors {
             popupBackground: string;
             popupOverlayColor: string;
