@@ -30,15 +30,19 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
 
             <View style={[{ backgroundColor: colors.background }, styles.frequencyContainer]}>
                 <Text style={[{ color: colors.text }, styles.text]}>Återkommer: </Text>
-                <Text style={[{ color: colors.text }, styles.frequencyText]}>var {chore?.frequency} dag</Text>
+                <Text style={[{ color: colors.text }, styles.frequencyText]}>
+                    var <View style={styles.freqNrContainer}><Text style={styles.frequencyNumberText}>{chore?.frequency}</Text></View> dag
+                </Text>
             </View>
 
-            <View style={[{ backgroundColor: colors.background }, styles.frequencyContainer]}>
+            <View style={[{ backgroundColor: colors.background }, styles.energyContainer]}>
                 <View style={styles.columnStyle}>
                     <Text style={[{ color: colors.text }, styles.text]}>Värde: </Text>
                     <Text style={[styles.valueDescription]}>Hur energikrävande är sysslan?</Text>
                 </View>
-                <Text style={[{ color: colors.text }, styles.frequencyText]}>var {chore?.frequency} dag</Text>
+                <View style={styles.energyNrContainer}>
+                    <Text style={[{ color: colors.text }, styles.energyText]}>{chore?.frequency}</Text>
+                </View>
             </View>
         </View>
     );
@@ -53,17 +57,27 @@ const styles = StyleSheet.create({
     descriptionContainer: {
         width: '95%',
         height: '20%',
-        borderRadius: 5,
+        borderRadius: 10,
         padding: 5,
         elevation: 20,
         fontSize: 20
     },
     frequencyContainer: {
         width: '95%',
-        borderRadius: 5,
+        borderRadius: 10,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'row',
+        elevation: 20,
+        marginBottom: 15
+    },
+    energyContainer: {
+        width: '95%',
+        borderRadius: 10,
         justifyContent: 'space-between',
         flexDirection: 'row',
-        elevation: 20
+        elevation: 20,
+        marginBottom: 15
     },
     text: {
         margin: 5,
@@ -77,6 +91,33 @@ const styles = StyleSheet.create({
         margin: 5,
         fontSize: 20,
         padding: 4
+    },
+    frequencyNumberText: {
+        fontSize: 20
+    },
+    freqNrContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 4,
+        borderRadius: 100,
+        backgroundColor: 'red',
+        width: 30,
+        height: 30
+    },
+    energyText: {
+        fontSize: 15
+    },
+    energyNrContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 5,
+        marginRight: 15,
+        alignSelf: 'center',
+        padding: 4,
+        borderRadius: 100,
+        backgroundColor: 'red',
+        width: 30,
+        height: 30
     },
     bottomMargin: {
         marginBottom: 60
