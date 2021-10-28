@@ -15,21 +15,21 @@ import StartScreen from '../screens/StartScreen';
 import ChoresTabNavigator from './ChoresTabNavigator';
 
 type RootStackParamList = {
-  Start: undefined; // Tar inte in några parametrerar
-  Login: undefined; // Tar inte in några parametrerar
-  Register: undefined; // Tar inte in några parametrerar
-  RegisterUserName: { email: string, password: string };
-  Household: { user: User, householdId?: string };
-  DistributeChore: undefined;
-  ChoreDetail: { choreId: string, householdId: string };
-  Member: { householdId: string };
-  HouseholdChores: { householdId: string };
-  MemeberDetailScreen: { memberId: string };
+    Start: undefined; // Tar inte in några parametrerar
+    Login: undefined; // Tar inte in några parametrerar
+    Register: undefined; // Tar inte in några parametrerar
+    RegisterUserName: { email: string; password: string };
+    Household: { user: User; householdId?: string }; // TODO: replace user with userId insted and refector code
+    DistributeChore: undefined;
+    ChoreDetail: { choreId: string; householdId: string };
+    Member: { householdId: string };
+    HouseholdChores: { householdId: string };
+    MemeberDetailScreen: { memberId: string };
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
-  RootStackParamList,
-  Screen
+    RootStackParamList,
+    Screen
 >;
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -56,17 +56,13 @@ function RootStackNavigator() {
         }
     };
 
-    const theme = (colorScheme === 'dark') ? DarkCustomTheme : DefaultCustomTheme;
+    const theme = colorScheme === 'dark' ? DarkCustomTheme : DefaultCustomTheme;
     const colors = theme.colors;
 
     return (
         <NavigationContainer theme={theme}>
             <Stack.Navigator>
-                <Stack.Screen
-                    name="Start"
-                    options={{ headerShown: false }}
-                    component={StartScreen}
-                />
+                <Stack.Screen name="Start" options={{ headerShown: false }} component={StartScreen} />
                 <Stack.Screen
                     name="Login"
                     component={LoginScreen}
@@ -94,19 +90,9 @@ function RootStackNavigator() {
                         headerShadowVisible: false
                     }}
                 />
-                <Stack.Screen
-                    name="Household"
-                    component={ChoresTabNavigator}
-
-                />
-                <Stack.Screen
-                    name="DistributeChore"
-                    component={DistributeChoreScreen}
-                />
-                <Stack.Screen
-                    name="ChoreDetail"
-                    component={ChoreDetailScreen}
-                />
+                <Stack.Screen name="Household" component={ChoresTabNavigator} />
+                <Stack.Screen name="DistributeChore" component={DistributeChoreScreen} />
+                <Stack.Screen name="ChoreDetail" component={ChoreDetailScreen} />
                 <Stack.Screen
                     name="Member"
                     component={MemberScreen}
@@ -114,14 +100,8 @@ function RootStackNavigator() {
                         headerTitle: 'Medlemmar'
                     }}
                 />
-                <Stack.Screen
-                    name="HouseholdChores"
-                    component={HouseholdChoresScreen}
-                />
-                <Stack.Screen
-                    name="MemeberDetailScreen"
-                    component={MemberDetailScreen}
-                />
+                <Stack.Screen name="HouseholdChores" component={HouseholdChoresScreen} />
+                <Stack.Screen name="MemeberDetailScreen" component={MemberDetailScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

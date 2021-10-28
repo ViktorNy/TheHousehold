@@ -1,30 +1,58 @@
+/* eslint-disable indent */
 import { AntDesign } from '@expo/vector-icons';
 import { useTheme } from '@react-navigation/native';
 import React, { ReactNode } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 interface Props {
-    label: string | ((props: { focused: boolean; color: string; }) => ReactNode);
+    // TODO: Fråga David om det går att få med typer för label ('All' | 'Today' | 'Week' | 'Month')
+    label: string | ((props: { focused: boolean; color: string }) => ReactNode);
+    headline: string;
     onLeftPress: () => void;
     onRightPress: () => void;
 }
 
-export type displayChoreSelection = 'Alla'| 'Idag' | 'Denna vecka' | 'Denna månad';
-export function ChoresSlider({ label, onLeftPress, onRightPress }: Props) {
+export function ChoresSlider({ headline, label, onLeftPress, onRightPress }: Props) {
     const { colors } = useTheme();
 
-    return <View style={[styles.root, { backgroundColor: colors.primary }]}>
-        <Text style={{ color: colors.text }}>Sysslor</Text>
-        <View style={styles.selectionRow}>
-            <TouchableOpacity onPress= { onLeftPress }>
-                <AntDesign name="left" size={18} color={colors.text} />
-            </TouchableOpacity>
-            <Text style={{ color: colors.text, fontWeight: 'bold' }}>{label}</Text>
-            <TouchableOpacity onPress= {onRightPress}>
-                <AntDesign name="right" size={18} color={colors.text} />
-            </TouchableOpacity>
+    let name = '';
+    switch (label) {
+        case 'All':
+            name = 'Alla';
+            break;
+        case 'Today':
+            name = 'Idag';
+            break;
+        case 'Week':
+            name = 'Vecka';
+            break;
+        case 'Month':
+            name = 'Månad';
+            break;
+    }
+
+    return (
+        <View style={[styles.root, { backgroundColor: colors.primary }]}>
+            <Text style={{ color: colors.text }}>{headline}</Text>
+            <View style={styles.selectionRow}>
+                <View>
+                    {label !== 'All' && (
+                        <TouchableOpacity onPress={onLeftPress}>
+                            <AntDesign name="left" size={18} color={colors.text} />
+                        </TouchableOpacity>
+                    )}
+                </View>
+                <Text style={{ color: colors.text, fontWeight: 'bold' }}>{name}</Text>
+                <View>
+                    {label !== 'Month' && (
+                        <TouchableOpacity onPress={onRightPress}>
+                            <AntDesign name="right" size={18} color={colors.text} />
+                        </TouchableOpacity>
+                    )}
+                </View>
+            </View>
         </View>
-    </View>;
+    );
 }
 
 const styles = StyleSheet.create({
