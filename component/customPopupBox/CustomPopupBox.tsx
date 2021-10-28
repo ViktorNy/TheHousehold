@@ -8,10 +8,11 @@ import { StyleSheet, Text, Pressable, View, TextInput } from 'react-native';
 interface Props {
   id: string
   modalCase: string
+  isShowing: boolean
+  toggleModal: (toggle: boolean) => void
 }
 
-export function CustomPopupBox({ id, modalCase }: Props) {
-    const [modalVisible, setModalVisible] = useState(true);
+export function CustomPopupBox({ id, modalCase, isShowing, toggleModal }: Props) {
     const [userInput, onUserInputChange] = useState('');
     const layoutChoices = LayoutChoice(modalCase, id);
     const { colors } = useTheme();
@@ -23,10 +24,10 @@ export function CustomPopupBox({ id, modalCase }: Props) {
                 animationIn='fadeIn'
                 backdropColor='#181818'
                 coverScreen={true}
-                isVisible={modalVisible}
+                isVisible={isShowing}
                 statusBarTranslucent={true}
                 onBackButtonPress={() => {
-                    setModalVisible(false);
+                    toggleModal(false);
                 }}>
                 <View style={styles.centeredView}>
                     <View style={[styles.modalView, { backgroundColor: colors.background }, styles.centeredView]}>
@@ -48,14 +49,14 @@ export function CustomPopupBox({ id, modalCase }: Props) {
                         <View style={[styles.rowStyle, { backgroundColor: colors.primary }]}>
                             <Pressable
                                 style={[styles.rowStyle, styles.button, { backgroundColor: colors.primary }, styles.centeredView]}
-                                onPress={() => setModalVisible(false)}
+                                onPress={() => toggleModal(false)}
                             >
                                 <AntDesign name='pluscircleo' size={24} color={iconColor} />
                                 <Text style={[styles.textStyle, { color: colors.text }]}>  {layoutChoices.ModalLeft}</Text>
                             </Pressable>
                             <Pressable
                                 style={[styles.rowStyle, styles.button, styles.buttonRightStyle, { backgroundColor: colors.primary }, styles.centeredView]}
-                                onPress={() => setModalVisible(false)}
+                                onPress={() => toggleModal(false)}
                             >
                                 <AntDesign name='closecircleo' size={24} color={iconColor} />
                                 <Text style={[styles.textStyle, { color: colors.text }]}>  {layoutChoices.modalRight}</Text>

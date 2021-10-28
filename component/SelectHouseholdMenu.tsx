@@ -1,11 +1,11 @@
 import { useTheme } from '@react-navigation/native';
+import moment from 'moment';
 import React from 'react';
-import { TouchableOpacity, StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Modal from 'react-native-modal';
 import { Household, Member, User } from '../data/data';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 import Avatar from './Avatar';
-import moment from 'moment';
-import Modal from 'react-native-modal';
 
 interface Props {
     isShowingMenu: boolean,
@@ -15,16 +15,14 @@ interface Props {
     memberList: Member[],
     user: User
     isHouseholdSelected: boolean
+    toggleExternalModal: (toggle: boolean) => void;
 }
 
-export default function SelectHouseholdMenu({ isShowingMenu, toggleIsShowing, rootStackProps, householdList, memberList: memberListConnectedToUser, user, isHouseholdSelected }: Props) {
+export default function SelectHouseholdMenu({ isShowingMenu, toggleIsShowing, rootStackProps, householdList, memberList: memberListConnectedToUser, user, isHouseholdSelected, toggleExternalModal }: Props) {
     const { colors } = useTheme();
     return (
         <Modal
-            // animationType="slide"
-            // transparent={true}
-            // visible={isShowingMenu}
-            animationIn="fadeIn"
+            animationIn="slideInUp"
             backdropColor="#181818"
             coverScreen={true}
             isVisible={isShowingMenu}
@@ -32,10 +30,10 @@ export default function SelectHouseholdMenu({ isShowingMenu, toggleIsShowing, ro
             onBackButtonPress={() => {
                 toggleIsShowing(false);
             }}
+            onBackdropPress={() => toggleIsShowing(false)}
         >
-            <TouchableOpacity
+            <View
                 style={[styles.centeredView]}
-                onPressOut={() => { toggleIsShowing(false); }}
             >
                 <View style={[styles.modalView, { backgroundColor: colors.primary }]}>
                     <TouchableOpacity
@@ -85,7 +83,7 @@ export default function SelectHouseholdMenu({ isShowingMenu, toggleIsShowing, ro
                     <TouchableOpacity
                         onPress={() => {
                             toggleIsShowing(!isShowingMenu);
-                            // Should open modal here
+                            toggleExternalModal(true);
                         }
                         }>
                         <View style={styles.householdRow}>
@@ -96,7 +94,7 @@ export default function SelectHouseholdMenu({ isShowingMenu, toggleIsShowing, ro
                         </View>
                     </TouchableOpacity>
                 </View>
-            </TouchableOpacity>
+            </View>
         </Modal>
     );
 }

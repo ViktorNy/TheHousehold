@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { CustomNavigateButton } from '../component/CustomNavigateButton';
 import { CustomPlusButton } from '../component/CustomPlusButton';
+import { CustomPopupBox } from '../component/customPopupBox/CustomPopupBox';
 import HamburgerMenu from '../component/HamburgerMenu';
 import { ProfileHeader } from '../component/ProfileHeader';
 import SelectHouseholdMenu from '../component/SelectHouseholdMenu';
@@ -12,6 +13,7 @@ import { useAppSelector } from '../store/store';
 
 export default function HouseholdScreen({ navigation, route }: RootStackScreenProps<'Household'>) {
     const { colors } = useTheme();
+    const [isShowJoinHouseholdModal, setIsShowJoinHouseholdModal] = useState(false);
     const [isShowingMenuModal, setIsShowingMainMenuModal] = useState(false);
     const [isShowingHouseholdModal, setIsShowingHouseholdModal] = useState(false);
     const allHouseholdsConnectedToUser = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, route.params.user.id));
@@ -44,6 +46,7 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                     user={route.params.user}
                     memberList={allMemberInfoOnUser}
                     isHouseholdSelected={true}
+                    toggleExternalModal={setIsShowJoinHouseholdModal}
                 />
                 <ProfileHeader
                     household={currentHousehold}
@@ -66,6 +69,8 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                         />
                     )}
                 />
+                {/* Should be changed for correct madol */}
+                <CustomPopupBox id={route.params.user.id} modalCase={'CH'} isShowing={isShowJoinHouseholdModal} toggleModal={setIsShowJoinHouseholdModal}/>
             </View>
         );
     } else {
@@ -84,6 +89,7 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                     user={route.params.user}
                     memberList={allMemberInfoOnUser}
                     isHouseholdSelected={false}
+                    toggleExternalModal={setIsShowJoinHouseholdModal}
                 />
                 <ProfileHeader userInformation={{ user: route.params.user }}
                     openMainMenu={setIsShowingMainMenuModal}
@@ -102,6 +108,8 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                         <CustomPlusButton buttonText="Gå med i" goto={() => { }} />
                     </View>
                 </View>
+                {/* Should be changed for correct madol */}
+                <CustomPopupBox id={route.params.user.id} modalCase={'CH'} isShowing={isShowJoinHouseholdModal} toggleModal={setIsShowJoinHouseholdModal} />
             </View>
         );
     }
