@@ -89,7 +89,7 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                     )}
                 />
                 {/* Should be changed for correct madol */}
-                <CustomPopupBox memberId={route.params.user.id} modalCase={'CH'} isShowing={isShowJoinHouseholdModal} toggleModal={setIsShowJoinHouseholdModal}/>
+                <CustomPopupBox memberId={route.params.user.id} modalCase={'CH'} isShowing={isShowJoinHouseholdModal} toggleModal={setIsShowJoinHouseholdModal} />
             </View>
         );
     } else if (userHousehold.length > 0) {
@@ -146,6 +146,7 @@ export default function HouseholdScreen({ navigation, route }: RootStackScreenPr
                         </View>
                     )}
                 />
+                <CustomPopupBox memberId={route.params.user.id} modalCase={'CH'} isShowing={isShowJoinHouseholdModal} toggleModal={setIsShowJoinHouseholdModal} />
             </View>
         );
     } else {
