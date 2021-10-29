@@ -6,8 +6,6 @@ import { FlatList, Text, View } from 'react-native';
 import { Chore, Household, Member } from '../../data/data';
 import { ParamList } from '../../navigation/ChoresTabNavigator';
 import { RootStackScreenProps } from '../../navigation/RootStackNavigator';
-import { getAllHouseholdsByUserIdSelector } from '../../store/household/householdSelectors';
-import { useAppSelector } from '../../store/store';
 import { ChoreButton } from './ChoreButton';
 
 interface Props{
