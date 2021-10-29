@@ -7,15 +7,18 @@ import { Chore, Household, Member } from '../../data/data';
 import { ParamList } from '../../navigation/ChoresTabNavigator';
 import { RootStackScreenProps } from '../../navigation/RootStackNavigator';
 import { ChoreButton } from './ChoreButton';
+import { labelCaseChoreSlider } from './ChoresSlider';
+import displayChore from './displayChore';
 
 interface Props{
     prop : CompositeScreenProps<MaterialTopTabScreenProps<ParamList, keyof ParamList>, RootStackScreenProps>;
-    userHousehold: Household[];
+    userHousehold?: Household[];
     currentHousehold?: Household;
     members: Member[];
+    label: labelCaseChoreSlider;
 }
 
-export default function RenderChores({ prop, userHousehold, currentHousehold, members }: Props) {
+export default function RenderChores({ prop, userHousehold, currentHousehold, members, label }: Props) {
     const { colors } = useTheme();
     // const userHousehold = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, prop.route.params.userId));
     // const currentHousehold = useAppSelector((state) =>
@@ -71,21 +74,23 @@ export default function RenderChores({ prop, userHousehold, currentHousehold, me
                             <Text style={[{ color: colors.text }]}>{item.name}</Text>
 
                             {item.chores.map((chore) => {
-                                return (
-                                    <ChoreButton
-                                        key={chore.id}
-                                        chore={chore}
-                                        avatarIdList={getAvatarIdList(chore)}
-                                        goto={
-                                            () => {
-                                                prop.navigation.navigate('ChoreDetail', {
-                                                    choreId: chore.id,
-                                                    householdId: item.id
-                                                });
+                                if (displayChore(label, chore)) {
+                                    return (
+                                        <ChoreButton
+                                            key={chore.id}
+                                            chore={chore}
+                                            avatarIdList={getAvatarIdList(chore)}
+                                            goto={
+                                                () => {
+                                                    prop.navigation.navigate('ChoreDetail', {
+                                                        choreId: chore.id,
+                                                        householdId: item.id
+                                                    });
+                                                }
                                             }
-                                        }
-                                    />
-                                );
+                                        />
+                                    );
+                                } else return null;
                             })}
                         </View>
                     )}

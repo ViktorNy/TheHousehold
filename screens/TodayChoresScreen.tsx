@@ -15,10 +15,10 @@ export default function TodayChoresScreen({ navigation, route }: Props) {
 
     const userHousehold = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, user?.id));
     const currentHousehold = useAppSelector((state) =>
-        state.household.householdList.find((h) => h.id === route.params.householdId)
+        state.household.householdList.find((h) => h.id === user?.id)
     );
     const members = useAppSelector((state) => state.member.memberList);
     return (
-        <RenderChores prop={{ navigation, route }} userHousehold={userHousehold} currentHousehold={currentHousehold} members={members} />
+        <RenderChores label={'Today'} prop={{ navigation, route }} userHousehold={userHousehold} currentHousehold={currentHousehold} members={members} />
     );
 }
