@@ -28,8 +28,8 @@ export interface Member {
 export interface PausedMember {
     householdId: string,
     userId: string,
-    fromDate: Date, // ta med år, månad och datum
-    toDate: Date
+    fromDate: string, // ta med år, månad och datum
+    toDate: string
 }
 
 export interface MemberAvatar {
@@ -89,6 +89,31 @@ export const mockedMemberData: Member[] = [
         joinData: '2021-01-02',
         pausedHistory: [],
         householdId: '2'
+    },
+    {
+        id: '4',
+        userId: '2',
+        memberType: 'owner',
+        avatar: '9',
+        joinData: '2021-01-02',
+        pausedHistory: [
+            {
+                householdId: '3',
+                userId: '3',
+                fromDate: '2021-01-02', // ta med år, månad och datum
+                toDate: '2023-01-02'
+            }
+        ],
+        householdId: '3'
+    },
+    {
+        id: '5',
+        userId: '3',
+        memberType: 'member',
+        avatar: '4',
+        joinData: '2021-01-02',
+        pausedHistory: [],
+        householdId: '3'
     }
 ];
 
@@ -184,6 +209,22 @@ export const mockedHouseholdData: Household[] = [
                 createdDate: '2021-10-23'
             }
         ]
+    },
+    {
+        id: '3',
+        name: 'Garaget',
+        codeToJoin: '112358',
+        chores: [
+            {
+                id: '4',
+                name: 'Skrota bilen',
+                description: 'Vill inte se den mer!',
+                frequency: 1,
+                doneBy: [],
+                score: 8,
+                signedToUserId: []
+            }
+        ]
     }
 ];
 
@@ -197,8 +238,8 @@ export const mockedUserData: User[] = [
     {
         id: '2',
         email: 'johansson@mail.com',
-        username: 'JohanJohansson',
-        password: 'Johansson'
+        username: 'j',
+        password: 'j'
     },
     {
         id: '3',
