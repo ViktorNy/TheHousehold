@@ -7,10 +7,11 @@ let modalRight = '';
 let modalPlaceholder = '';
 let modalInputActive = true;
 let avatar = false;
+let createChore = false;
 
 export function LayoutChoice(modalCase: string, id?: string) {
     const allUsers = useAppSelector(getAllUsersSelector);
-    const username = allUsers.find(u => u.id === id)?.username;
+    const username = allUsers.find((u) => u.id === id)?.username;
 
     if (modalCase === 'JH') {
         modalTitle = 'Gå med i Hushåll';
@@ -19,6 +20,7 @@ export function LayoutChoice(modalCase: string, id?: string) {
         modalPlaceholder = 'Hushållskod';
         modalInputActive = true;
         avatar = false;
+        createChore = false;
     } else if (modalCase === 'CH') {
         modalTitle = 'Skapa Hushåll';
         ModalLeft = 'Skapa';
@@ -26,6 +28,7 @@ export function LayoutChoice(modalCase: string, id?: string) {
         modalPlaceholder = 'Namn';
         modalInputActive = true;
         avatar = false;
+        createChore = false;
     } else if (modalCase === 'MO') {
         modalTitle = 'Gör till ägare';
         ModalLeft = 'Acceptera';
@@ -33,6 +36,7 @@ export function LayoutChoice(modalCase: string, id?: string) {
         modalPlaceholder = 'Gör ' + username + ' till ägare';
         modalInputActive = false;
         avatar = false;
+        createChore = false;
     } else if (modalCase === 'RUFH') {
         modalTitle = 'Ta bort från hushåll';
         ModalLeft = 'Ja';
@@ -40,6 +44,7 @@ export function LayoutChoice(modalCase: string, id?: string) {
         modalPlaceholder = 'Vill du verkligen ta bort ' + username + '?';
         modalInputActive = false;
         avatar = false;
+        createChore = false;
     } else if (modalCase === 'AR') {
         modalTitle = 'Besvara förfrågan';
         ModalLeft = 'Acceptera';
@@ -47,9 +52,19 @@ export function LayoutChoice(modalCase: string, id?: string) {
         modalPlaceholder = username + ' vill gå med';
         modalInputActive = false;
         avatar = false;
+        createChore = false;
     } else if (modalCase === 'AI') {
         modalTitle = 'Välj avatar';
         avatar = true;
+        createChore = false;
+    } else if (modalCase === 'CC') {
+        modalTitle = 'Skapa en ny syssla';
+        ModalLeft = 'Spara';
+        modalRight = 'Stäng';
+        modalPlaceholder = '';
+        modalInputActive = true;
+        avatar = false;
+        createChore = true;
     }
-    return { modalTitle, ModalLeft, modalRight, modalPlaceholder, modalInputActive, avatar };
+    return { modalTitle, ModalLeft, modalRight, modalPlaceholder, modalInputActive, avatar, createChore };
 }

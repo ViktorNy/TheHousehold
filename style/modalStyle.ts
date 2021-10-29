@@ -78,5 +78,44 @@ export const modalStyles = StyleSheet.create({
     },
     avatarOpacity: {
         opacity: 0.15
+    },
+    choreContainer: {
+        flexDirection: 'row',
+        height: '80%',
+        width: '100%',
+        flexWrap: 'wrap',
+        alignContent: 'center',
+        justifyContent: 'center'
+    },
+    choreStyle: {
+        margin: '2%',
+        width: '95%',
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignContent: 'center',
+        borderRadius: 10
+    },
+    choreDescStyle: {
+        margin: '2%',
+        width: '95%',
+        height: 150,
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignContent: 'center',
+        borderRadius: 10
+    },
+    choreContainerPosition: {
+        alignContent: 'flex-end',
+        justifyContent: 'flex-end'
+    },
+    choreHeaderStyle: {
+        elevation: 2,
+        width: '100%',
+        height: '12%'
+    },
+    choreRowStyle: {
+        height: '12%',
+        flexDirection: 'row'
     }
 });
