@@ -1,8 +1,7 @@
 import { DarkTheme, DefaultTheme, NavigationContainer, ParamListBase } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { Component } from 'react';
+import React from 'react';
 import { useColorScheme } from 'react-native';
-import { User } from '../data/data';
 import ChoreDetailScreen from '../screens/ChoreDetailScreen';
 import DistributeChoreScreen from '../screens/DistributeChoreScreen';
 import HouseholdChoresScreen from '../screens/HouseholdChoresScreen';

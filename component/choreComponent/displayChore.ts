@@ -14,7 +14,6 @@ export default function displayChore(data: labelCaseChoreSlider, chore: Chore) {
 
     switch (data) {
     case 'All':
-        console.log('Alla');
         return true;
 
     case 'Today':

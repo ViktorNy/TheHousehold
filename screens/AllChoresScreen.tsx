@@ -10,7 +10,6 @@ type Props = CompositeScreenProps<ChoreTabScreenProps<'All'>, RootStackScreenPro
 
 export default function AllChoresScreen({ navigation, route }: Props) {
     const user = useAppSelector((state) => state.user.user);
-
     const userHousehold = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, user?.id));
     const currentHousehold = useAppSelector((state) =>
         state.household.householdList.find((h) => h.id === route.params.householdId)
