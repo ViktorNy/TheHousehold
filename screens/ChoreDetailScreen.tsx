@@ -63,7 +63,7 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
                             return (
                                 <View key={avatar.id} style={[{ flexDirection: 'row' }, { alignItems: 'center' }, { margin: 5 }]}>
                                     <Avatar key={avatar.id} avatarId={avatar.id} avatarSize={14} showCircle={true} />
-                                    <Text style={{ marginLeft: 5 }}>{memberName?.username}</Text>
+                                    <Text style={[{ color: colors.text }, { marginLeft: 5 }]}>{memberName?.username}</Text>
                                 </View>
                             );
                         }
