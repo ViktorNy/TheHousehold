@@ -27,8 +27,8 @@
 ### Krav för G
 
 - [ ] En logga, splashscreen och appikon ska designas och användas. *
-- [ ] Applikationen ska byggas med RN, Expo & TS. *
-- [ ] Designen av appen ska utgå ifrån befintliga skisser, undantag kan ges men ska diskuteras
+- [x] Applikationen ska byggas med RN, Expo & TS. *
+- [x] Designen av appen ska utgå ifrån befintliga skisser, undantag kan ges men ska diskuteras
 med produktägare, godkännas och dokumenteras. *
 
 ### Krav för VG
@@ -44,7 +44,7 @@ namnet ska gå att ändra. *
 
 ### Krav för VG
 
-- [ ] Alla användare i ett hushåll ska kunna se vilka som tillhör ett hushåll.
+- [x] Alla användare i ett hushåll ska kunna se vilka som tillhör ett hushåll.
 - [ ] En ägare av ett hushåll ska kunna se förfrågningar om att gå med i hushållet.
 - [ ] En ägare ska kunna acceptera eller neka förfrågningar.
 - [ ] En ägare ska kunna göra andra till ägare.
@@ -55,7 +55,7 @@ namnet ska gå att ändra. *
 
 ### Krav för G
 
-- [ ] En användare ska kunna logga in sig. *
+- [x] En användare ska kunna logga in sig. *
 - [ ] En användare ska kunna skapa ett nytt hushåll. *
 - [ ] En användare ska kunna gå med i ett hushåll genom att ange hushållets kod. *
 - [ ] När en användare har valt att gå med i ett hushåll behöver en ägare av hushållet först
@@ -71,17 +71,17 @@ godkänna användaren.
 
 - [ ] En användare ska kunna ange sitt namn. *
 - [ ] En användare ska kunna välja en avatar (emoji-djur + färg) från en fördefinierad lista. *
-- [ ] Valda avatarer ska inte kunna väljas av andra användare i hushållet. *
-- [ ] Avataren ska användas i appen för att visa vad användaren har gjort. *
+- [x] Valda avatarer ska inte kunna väljas av andra användare i hushållet. *
+- [x] Avataren ska användas i appen för att visa vad användaren har gjort. *
 - [ ] En användare ska kunna ställa in appens utseende (mörkt, ljust, auto).
-- [ ] Om en användare tillhör två eller fler hushåll ska denne kunna välja att byta mellan de olika hushållen.
+- [x] Om en användare tillhör två eller fler hushåll ska denne kunna välja att byta mellan de olika hushållen.
 
 # Sysslor (6)
 
 ### Krav för G
 
 - [ ] En ägare ska kunna lägga till sysslor att göra i hemmet. *
-- [ ] En syssla ska ha ett namn, en beskrivning (text), hur ofta den ska göras (dagar), och en vikt som beskriver hur energikrävande den är. *
+- [x] En syssla ska ha ett namn, en beskrivning (text), hur ofta den ska göras (dagar), och en vikt som beskriver hur energikrävande den är. *
 - [ ] En ägare ska kunna redigera en syssla. *
 - [ ] En ägare ska kunna ta bort en syssla. *
 
@@ -94,8 +94,8 @@ godkänna användaren.
 
 ### Krav för G
 
-- [ ] Alla sysslor ska listas i en dagsvy och ge en översikt kring vad som behöver göras. *
-- [ ] Utöver sysslans namn ska även vem/vilka som har gjort sysslan visas, hur många dagar sedan sysslan gjordes senast samt om den är försenad. *
+- [x] Alla sysslor ska listas i en dagsvy och ge en översikt kring vad som behöver göras. *
+- [x] Utöver sysslans namn ska även vem/vilka som har gjort sysslan visas, hur många dagar sedan sysslan gjordes senast samt om den är försenad. *
 - [ ] När en användare väljer en syssla ska beskrivningen av sysslan visas och det ska även med ett enkelt tryck gå att markera sysslan som gjord. *
 
 # Statistik (6)
