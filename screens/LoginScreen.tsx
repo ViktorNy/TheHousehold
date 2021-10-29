@@ -1,8 +1,9 @@
 import { useTheme } from '@react-navigation/native';
-import React, { Children, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomNavigateButton } from '../component/CustomNavigateButton';
+import { useUser } from '../context/userContext';
 import { mockedUserData } from '../data/data';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 
@@ -10,6 +11,7 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'
     const { colors } = useTheme();
     const [userText, onUserTextChange] = useState('');
     const [userPassword, onUserPasswordChange] = useState('');
+    const { dispatch } = useUser();
 
     const user = mockedUserData[1];
 
@@ -19,6 +21,7 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'
     // Otherwise logs out 'faulty user' in console
     function checkUserInfo() {
         if (user.email === userText || (user.username === userText && user.password === userPassword)) {
+            dispatch({ type: 'GET', payload: user.id });
             navigation.navigate('Household', { screen: 'All', params: { userId: user.id } });
         } else {
             console.log('Faulty user');

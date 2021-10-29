@@ -9,3 +9,10 @@ export interface EditUserAction {
     type: 'EDIT';
     payload: User;
 }
+
+export interface GetUserAction {
+    type: 'GET';
+    payload: string;
+}
+
+export type UserAction = CreateUserAction | EditUserAction | GetUserAction;

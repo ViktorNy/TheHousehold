@@ -3,6 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { ChoresSlider } from '../component/choreComponent/ChoresSlider';
 import { ProfileHeader } from '../component/ProfileHeader';
+import { useUser } from '../context/userContext';
 import { User } from '../data/data';
 
 interface Props {
@@ -18,15 +19,17 @@ export default function CustomHeader({ newProps, userId }: Props) {
 
     const label = options.tabBarLabel || options.title || currentRoute.name;
 
+    const { user } = useUser();
+
     // const [isShowingModal, setIsShowingModal] = useState(false);
     return (
         <View>
-            <ProfileHeader userInformation={{ user: {} as User }} openMenu={() => { }} />
+            <ProfileHeader userInformation={{ user: user }} openMenu={() => { }} />
             <ChoresSlider
                 label={label}
                 headline={'Sysslor'}
-                onLeftPress={() => newProps.navigation.navigate(previousRoute.name, { userId: '2' })}
-                onRightPress={() => newProps.navigation.navigate(nextRoute.name, { userId: '2' })}
+                onLeftPress={() => newProps.navigation.navigate(previousRoute.name, { userId: user.id })}
+                onRightPress={() => newProps.navigation.navigate(nextRoute.name, { userId: user.id })}
             />
             {/* <HamburgerMenu
                 isShowingMenu={isShowingModal}
