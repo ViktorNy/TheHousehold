@@ -1,13 +1,16 @@
 import { useTheme } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
+import { Button, Menu } from 'react-native-paper';
+import Avatar from '../component/Avatar';
 import { CustomNavigateButton } from '../component/CustomNavigateButton';
+import { mockAvatarData } from '../data/data';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 import { getChoreByIdSelector } from '../store/household/householdSelectors';
+import { getMemberByIdSelector } from '../store/member/memberSelector';
 import { useAppSelector } from '../store/store';
+import { getUserByIdSelector } from '../store/user/userSelector';
 import { choreStyles } from '../style/choreDetailStyle';
-import { Menu, Button } from 'react-native-paper';
-import { mockAvatarData } from '../data/data';
 
 export default function ChoreDetailScreen({ navigation, route }: RootStackScreenProps<'ChoreDetail'>) {
     const [menuVisible, setMenuVisible] = useState(false);
@@ -23,23 +26,48 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
         navigation.setOptions({ title: chore?.name });
     }, []);
 
-    // const texts: string[] = ['titel 1', 'titel 2', 'titel 3'];
-
     const avatars = mockAvatarData;
 
     return (
         <View style={[{ backgroundColor: colors.background }, choreStyles.root]}>
-            <View style={[{ width: '95%' }, { top: 0 }, { position: 'absolute' }, { borderRadius: 10 }]}>
+            <View style={[{ width: '95%' }, { top: 0 }, { position: 'absolute' }]}>
                 <Text style={[{ color: colors.text }, { margin: 5 }]}>Tilldelade</Text>
                 <Menu
-                    style={[{ width: '95%' }, { borderRadius: 10 }]}
+                    style={{ width: '95%' }}
                     visible={menuVisible}
                     onDismiss={closeMenu}
-                    anchor={<Button onPress={openMenu} style={[{ backgroundColor: 'green' }, { width: '100%' }, { borderRadius: 10 }]}>Show menu</Button>}>
-                    {avatars.map((avatar) => {
-                        return <Menu.Item key={avatar.id} style={{ backgroundColor: avatar.backgroundColor }} title={avatar.avatar} />;
+                    anchor={
+                        <Button onPress={openMenu} style={[{ backgroundColor: colors.card }, { width: '100%' }, { borderRadius: 10 }]}>
+                            {/* eslint-disable-next-line array-callback-return */}
+                            {avatars.map((avatar) => {
+                                const userId = chore?.signedToUserId.map((signed) => {
+                                    return signed;
+                                });
+                                const activeMember = useAppSelector((state) => getMemberByIdSelector(state, userId!.toString()));
+                                if (activeMember?.avatar === avatar.id) {
+                                    return <Avatar key={avatar.id} avatarId={avatar.id} avatarSize={22} />;
+                                }
+                            })}
+                        </Button>
                     }
-                    )}
+                >
+                    {/* eslint-disable-next-line array-callback-return */}
+                    {avatars.map((avatar) => {
+                        const userId = chore?.signedToUserId.map((signed) => {
+                            return signed;
+                        });
+
+                        const activeMember = useAppSelector((state) => getMemberByIdSelector(state, userId!.toString()));
+                        const memberName = useAppSelector((state) => getUserByIdSelector(state, activeMember?.userId));
+                        if (activeMember?.avatar === avatar.id) {
+                            return (
+                                <View key={avatar.id} style={[{ flexDirection: 'row' }, { alignItems: 'center' }, { margin: 5 }]}>
+                                    <Avatar key={avatar.id} avatarId={avatar.id} avatarSize={14} showCircle={true} />
+                                    <Text style={{ marginLeft: 5 }}>{memberName?.username}</Text>
+                                </View>
+                            );
+                        }
+                    })}
                 </Menu>
             </View>
 
@@ -81,11 +109,11 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
                     <Text style={[choreStyles.valueDescription]}>Hur energikrävande är sysslan?</Text>
                 </View>
                 <View style={choreStyles.energyNrContainer}>
-                    <Text style={[{ color: colors.text }, choreStyles.energyText]}>{chore?.frequency}</Text>
+                    <Text style={choreStyles.energyText}>{chore?.frequency}</Text>
                 </View>
             </View>
             <View style={choreStyles.buttonContainer}>
-                <CustomNavigateButton goto={() => navigation.goBack()} buttonText='Klar' />
+                <CustomNavigateButton goto={() => navigation.goBack()} buttonText="Klar" />
             </View>
         </View>
     );

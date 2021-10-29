@@ -27,7 +27,7 @@ export const choreStyles = StyleSheet.create({
         padding: 5,
         elevation: 10,
         fontSize: 20,
-        marginTop: 80
+        marginTop: 90
     },
     frequencyContainer: {
         width: '95%',
@@ -71,7 +71,8 @@ export const choreStyles = StyleSheet.create({
         height: 30
     },
     energyText: {
-        fontSize: 15
+        fontSize: 15,
+        color: 'black'
     },
     energyNrContainer: {
         justifyContent: 'center',
