@@ -3,15 +3,15 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomNavigateButton } from '../component/CustomNavigateButton';
-import { useUser } from '../context/userContext';
 import { mockedUserData } from '../data/data';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
+import { useAppDispatch } from '../store/store';
 
 export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'>) {
     const { colors } = useTheme();
     const [userText, onUserTextChange] = useState('');
     const [userPassword, onUserPasswordChange] = useState('');
-    const { dispatch } = useUser();
+    const dispatch = useAppDispatch();
 
     const user = mockedUserData[1];
 

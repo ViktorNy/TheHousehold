@@ -1,8 +1,7 @@
 import { CompositeScreenProps } from '@react-navigation/native';
 import React from 'react';
-import { View } from 'react-native';
 import RenderChores from '../component/choreComponent/RenderChores';
-import { useUser } from '../context/userContext';
+import { User } from '../data/data';
 import { ChoreTabScreenProps } from '../navigation/ChoresTabNavigator';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 import { getAllHouseholdsByUserIdSelector } from '../store/household/householdSelectors';
@@ -11,7 +10,9 @@ import { useAppSelector } from '../store/store';
 type Props = CompositeScreenProps<ChoreTabScreenProps<'Today'>, RootStackScreenProps>;
 
 export default function TodayChoresScreen({ navigation, route }: Props) {
-    const { user } = useUser();
+    // const { user } = useUser();
+    // Vet inte om rätt
+    const user = useAppSelector(state => state.user.user) as User;
 
     const userHousehold = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, user.id));
     const currentHousehold = useAppSelector((state) =>

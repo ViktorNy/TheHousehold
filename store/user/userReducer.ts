@@ -25,7 +25,6 @@ function userReducer(state: UserState = initialState, action: KnownAction): User
     }
     case 'GET': {
         const loggedinUser = mockedUserData.find(u => u.id === action.payload);
-        console.log('user id in reducer' + loggedinUser?.id);
         if (loggedinUser) {
             return {
                 ...{ user: loggedinUser }

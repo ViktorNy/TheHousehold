@@ -3,8 +3,8 @@ import React from 'react';
 import { View } from 'react-native';
 import { ChoresSlider } from '../component/choreComponent/ChoresSlider';
 import { ProfileHeader } from '../component/ProfileHeader';
-import { useUser } from '../context/userContext';
 import { User } from '../data/data';
+import { useAppSelector } from '../store/store';
 
 interface Props {
     newProps: MaterialTopTabBarProps,
@@ -19,7 +19,7 @@ export default function CustomHeader({ newProps, userId }: Props) {
 
     const label = options.tabBarLabel || options.title || currentRoute.name;
 
-    const { user } = useUser();
+    const user = useAppSelector(state => state.user.user) as User;
 
     // const [isShowingModal, setIsShowingModal] = useState(false);
     return (
