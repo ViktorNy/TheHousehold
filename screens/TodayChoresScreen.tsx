@@ -11,22 +11,14 @@ type Props = CompositeScreenProps<ChoreTabScreenProps<'Today'>, RootStackScreenP
 export default function TodayChoresScreen({ navigation, route }: Props) {
     // const { user } = useUser();
     // Vet inte om rätt
-    const user = useAppSelector((state) => state.user.user);
-    console.log('household:' + route.params);
-    const userHousehold = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, user?.id));
-    const currentHousehold = route.params
-        ? useAppSelector((state) =>
+    const user = useAppSelector(state => state.user.user);
 
-            state.household.householdList.find((h) => h.id === route.params.householdId))
-        : undefined;
+    const userHousehold = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, user?.id));
+    const currentHousehold = useAppSelector((state) =>
+        state.household.householdList.find((h) => h.id === route.params.householdId)
+    );
     const members = useAppSelector((state) => state.member.memberList);
     return (
-        <RenderChores
-            label={'Today'}
-            prop={{ navigation, route }}
-            userHousehold={userHousehold}
-            currentHousehold={currentHousehold}
-            members={members}
-        />
+        <RenderChores label={'Today'} prop={{ navigation, route }} userHousehold={userHousehold} currentHousehold={currentHousehold} members={members} />
     );
 }

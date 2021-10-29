@@ -15,11 +15,9 @@ export default function WeekChoresScreen({ navigation, route }: Props) {
 
     const userHousehold = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, user?.id));
     // console.log(route.params);
-    const currentHousehold = route.params
-        ? useAppSelector((state) =>
-
-            state.household.householdList.find((h) => h.id === route.params.householdId))
-        : undefined;
+    const currentHousehold = useAppSelector((state) =>
+        state.household.householdList.find((h) => h.id === route.params.householdId)
+    );
     const members = useAppSelector((state) => state.member.memberList);
     return (
         <RenderChores

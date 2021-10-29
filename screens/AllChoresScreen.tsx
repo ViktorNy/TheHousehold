@@ -12,11 +12,9 @@ export default function AllChoresScreen({ navigation, route }: Props) {
     const user = useAppSelector((state) => state.user.user);
 
     const userHousehold = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, user?.id));
-    const currentHousehold = route.params
-        ? useAppSelector((state) =>
-
-            state.household.householdList.find((h) => h.id === route.params.householdId))
-        : undefined;
+    const currentHousehold = useAppSelector((state) =>
+        state.household.householdList.find((h) => h.id === route.params.householdId)
+    );
     const members = useAppSelector((state) => state.member.memberList);
     return (
         <RenderChores

@@ -28,9 +28,9 @@ function ChoresTabNavigator(props: Props) {
     return (
         <Tab.Navigator tabBar={(props) => <CustomHeader {...{ newProps: props, userId: '1' }} />}>
             <Tab.Screen name="All" component={AllChoresScreen} />
-            <Tab.Screen name="Today" component={TodayChoresScreen} initialParams={undefined} />
-            <Tab.Screen name="Week" component={WeekChoresScreen} initialParams={undefined} />
-            <Tab.Screen name="Month" component={MonthChoresScreen} initialParams={undefined} />
+            <Tab.Screen name="Today" component={TodayChoresScreen} initialParams={{ memberId: undefined, householdId: undefined }} />
+            <Tab.Screen name="Week" component={WeekChoresScreen} initialParams={{ memberId: undefined, householdId: undefined }} />
+            <Tab.Screen name="Month" component={MonthChoresScreen} initialParams={{ memberId: undefined, householdId: undefined }} />
         </Tab.Navigator>
     );
 }
