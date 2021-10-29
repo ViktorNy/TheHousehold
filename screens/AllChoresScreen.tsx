@@ -9,14 +9,22 @@ import { useAppSelector } from '../store/store';
 type Props = CompositeScreenProps<ChoreTabScreenProps<'All'>, RootStackScreenProps>;
 
 export default function AllChoresScreen({ navigation, route }: Props) {
-    const user = useAppSelector(state => state.user.user);
+    const user = useAppSelector((state) => state.user.user);
 
     const userHousehold = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, user?.id));
-    const currentHousehold = useAppSelector((state) =>
-        state.household.householdList.find((h) => h.id === user?.id)
-    );
+    const currentHousehold = route.params
+        ? useAppSelector((state) =>
+
+            state.household.householdList.find((h) => h.id === route.params.householdId))
+        : undefined;
     const members = useAppSelector((state) => state.member.memberList);
     return (
-        <RenderChores label={'All'} prop={{ navigation, route }} userHousehold={userHousehold} currentHousehold={currentHousehold} members={members} />
+        <RenderChores
+            label={'All'}
+            prop={{ navigation, route }}
+            userHousehold={userHousehold}
+            currentHousehold={currentHousehold}
+            members={members}
+        />
     );
 }

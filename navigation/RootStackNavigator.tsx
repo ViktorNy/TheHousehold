@@ -25,7 +25,7 @@ export interface RootStackParamList extends ParamListBase{
     Login: undefined; // Tar inte in några parametrerar
     Register: undefined; // Tar inte in några parametrerar
     RegisterUserName: { email: string; password: string };
-    Household: { screen: string, params: { userId: string; householdId?: string; memberId?: string }};
+    Household: { screen: string, params: { householdId?: string; memberId?: string }};
     DistributeChore: undefined;
     ChoreDetail: { choreId: string; householdId: string };
     Member: { householdId: string };

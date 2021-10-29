@@ -11,14 +11,23 @@ type Props = CompositeScreenProps<ChoreTabScreenProps<'Week'>, RootStackScreenPr
 export default function WeekChoresScreen({ navigation, route }: Props) {
     // const { user } = useUser();r
     // Vet inte om rätt
-    const user = useAppSelector(state => state.user.user);
+    const user = useAppSelector((state) => state.user.user);
 
     const userHousehold = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, user?.id));
-    const currentHousehold = useAppSelector((state) =>
-        state.household.householdList.find((h) => h.id === user?.id)
-    );
+    // console.log(route.params);
+    const currentHousehold = route.params
+        ? useAppSelector((state) =>
+
+            state.household.householdList.find((h) => h.id === route.params.householdId))
+        : undefined;
     const members = useAppSelector((state) => state.member.memberList);
     return (
-        <RenderChores label={'Week'} prop={{ navigation, route }} userHousehold={userHousehold} currentHousehold={currentHousehold} members={members} />
+        <RenderChores
+            label={'Week'}
+            prop={{ navigation, route }}
+            userHousehold={userHousehold}
+            currentHousehold={currentHousehold}
+            members={members}
+        />
     );
 }

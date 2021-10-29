@@ -22,7 +22,7 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'
     function checkUserInfo() {
         if (user.email === userText || (user.username === userText && user.password === userPassword)) {
             dispatch({ type: 'GET', payload: user.id });
-            navigation.navigate('Household', { screen: 'All', params: { userId: user.id } });
+            navigation.navigate('Household', { screen: 'All', params: { } });
         } else {
             console.log('Faulty user');
         }
