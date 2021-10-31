@@ -99,7 +99,10 @@ function RootStackNavigator() {
                 />
                 <Stack.Screen name="Household" component={ChoresTabNavigator} />
                 <Stack.Screen name="DistributeChore" component={DistributeChoreScreen} />
-                <Stack.Screen name="ChoreDetail" component={ChoreDetailScreen} />
+                <Stack.Screen
+                    name="ChoreDetail"
+                    component={ChoreDetailScreen}
+                />
                 <Stack.Screen
                     name="Member"
                     component={MemberScreen}

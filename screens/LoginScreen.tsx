@@ -16,7 +16,7 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'
     // REMOVE THIS LATER
     const households = useAppSelector(state => state.household.householdList);
     const members = useAppSelector(state => state.member.memberList);
-
+    
     const user = mockedUserData[1];
 
     // Needs to be revised. Now only works if you log in with user info:

@@ -11,17 +11,17 @@ import { LayoutChoice } from './popupLayoutChoice';
 import { useTheme } from 'react-native-paper';
 
 interface Props {
-    memberId: string;
-    modalCase: string;
+    memberId: string
+    modalCase: string
+    isShowing: boolean
+    toggleModal: (toggle: boolean) => void
 }
 
-export function CustomPopupBox({ memberId, modalCase }: Props) {
-    const [modalVisible, setModalVisible] = useState(true);
+export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: Props) {
     const [userInput, onUserInputChange] = useState('');
     const layoutChoices = LayoutChoice(modalCase, memberId);
     const { colors } = useTheme();
     const iconColor = colors.text;
-
     let memberObject: Member | undefined;
     const avatarArray = mockAvatarData;
     const activeMember = useAppSelector((state) => getMemberByIdSelector(state, memberId));
@@ -44,11 +44,12 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                     animationIn="fadeIn"
                     backdropColor="#181818"
                     coverScreen={true}
-                    isVisible={modalVisible}
+                    isVisible={isShowing}
                     statusBarTranslucent={true}
                     onBackButtonPress={() => {
-                        setModalVisible(false);
-                    }}
+                        toggleModal(false);
+                    }
+                    }
                     style={modalStyles.avatarContainerPosition}
                 >
                     <View style={modalStyles.avatarContainerPosition}>
@@ -89,7 +90,7 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                         </View>
                     </View>
                 </Modal>
-            </View>
+            </View >
         );
     } else {
         return (
@@ -98,11 +99,12 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                     animationIn="fadeIn"
                     backdropColor="#181818"
                     coverScreen={true}
-                    isVisible={modalVisible}
+                    isVisible={isShowing}
                     statusBarTranslucent={true}
                     onBackButtonPress={() => {
-                        setModalVisible(false);
-                    }}
+                        toggleModal(false);
+                    }
+                    }
                 >
                     <View style={modalStyles.centeredView}>
                         <View style={[modalStyles.modalView, { backgroundColor: colors.popupBackground }, modalStyles.centeredView]}>
@@ -131,7 +133,7 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                                         { backgroundColor: colors.popupOverlayColor },
                                         modalStyles.centeredView
                                     ]}
-                                    onPress={() => setModalVisible(false)}
+                                    onPress={() => toggleModal(false)}
                                 >
                                     <AntDesign name="pluscircleo" size={24} color={iconColor} />
                                     <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.ModalLeft}</Text>
@@ -144,16 +146,16 @@ export function CustomPopupBox({ memberId, modalCase }: Props) {
                                         { backgroundColor: colors.popupOverlayColor },
                                         modalStyles.centeredView
                                     ]}
-                                    onPress={() => setModalVisible(false)}
+                                    onPress={() => toggleModal(false)}
                                 >
                                     <AntDesign name="closecircleo" size={24} color={iconColor} />
                                     <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.modalRight}</Text>
                                 </Pressable>
-                            </View>
-                        </View>
-                    </View>
-                </Modal>
-            </View>
+                            </View >
+                        </View >
+                    </View >
+                </Modal >
+            </View >
         );
     }
 }

@@ -1,28 +1,34 @@
 import { useTheme } from 'react-native-paper';
 import React from 'react';
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Member } from '../data/data';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
+import Modal from 'react-native-modal';
 
 interface Props {
-    isShowingMenu: boolean;
-    toggleIsShowing: (toggleValue: boolean) => void;
-    rootStackProps: RootStackScreenProps<'Household'>;
-    householdID?: string;
-    currentMember?: Member;
+    isShowingMenu: boolean,
+    toggleIsShowing: (toggleValue: boolean) => void,
+    rootStackProps: RootStackScreenProps<'Household'>,
+    householdID?: string,
+    currentMember?: Member
 }
 
 export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStackProps, householdID, currentMember }: Props) {
     const { colors } = useTheme();
     if (householdID) {
         return (
-            <Modal animationType="slide" transparent={true} visible={isShowingMenu}>
-                <TouchableOpacity
-                    style={[styles.centeredView]}
-                    onPressOut={() => {
-                        toggleIsShowing(!isShowingMenu);
-                    }}
-                >
+            <Modal
+                animationIn="slideInUp"
+                backdropColor="#181818"
+                coverScreen={true}
+                isVisible={isShowingMenu}
+                statusBarTranslucent={true}
+                onBackButtonPress={() => {
+                    toggleIsShowing(false);
+                }}
+                onBackdropPress={() => toggleIsShowing(false)}
+            >
+                <View style={[styles.centeredView]}>
                     <View style={[styles.modalView, { backgroundColor: colors.primary }]}>
                         {currentMember?.memberType === 'owner' && (
                             <Text style={[styles.modalText, { color: colors.text }]}>Bjud in medlem, kod: 1337</Text>
@@ -56,22 +62,27 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
 
                         <Text style={[styles.modalText, { color: colors.text }]}>Logga ut</Text>
                     </View>
-                </TouchableOpacity>
+                </View>
             </Modal>
         );
     } else {
         return (
-            <Modal animationType="slide" transparent={true} visible={isShowingMenu}>
-                <TouchableOpacity
-                    style={[styles.centeredView]}
-                    onPressOut={() => {
-                        toggleIsShowing(!isShowingMenu);
-                    }}
-                >
+            <Modal
+                animationIn="slideInUp"
+                backdropColor="#181818"
+                coverScreen={true}
+                isVisible={isShowingMenu}
+                statusBarTranslucent={true}
+                onBackButtonPress={() => {
+                    toggleIsShowing(false);
+                }}
+                onBackdropPress={() => toggleIsShowing(false)}
+            >
+                <View style={[styles.centeredView]}>
                     <View style={[styles.modalView, { backgroundColor: colors.primary }]}>
                         <Text style={[styles.modalText, { color: colors.text }]}>Logga ut</Text>
                     </View>
-                </TouchableOpacity>
+                </View>
             </Modal>
         );
     }
