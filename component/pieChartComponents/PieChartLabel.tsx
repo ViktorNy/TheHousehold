@@ -27,7 +27,7 @@ export default function PieChartLabel({ slices }: PieSlices) {
                 alignmentBaseline={'middle'}
                 fontSize={24}
             >
-                {data.key}
+                {(data.value) && data.key}
             </Text>
         );
     });

@@ -13,16 +13,15 @@ export default function CustomHeader(props: MaterialTopTabBarProps) {
     const { options } = props.descriptors[currentRoute.key];
 
     const label = options.tabBarLabel || options.title || currentRoute.name;
-    console.log(label);
 
     const user = useAppSelector(state => state.user.user) as User;
 
     // const [isShowingModal, setIsShowingModal] = useState(false);
     return (
         <View>
-            {/* <ProfileHeader userInformation={{ user: user }} openMenu={() => { }} /> */}
+            <ProfileHeader userInformation={{ user: user }} openMenu={() => { }} />
             <ChoresSlider
-                label={'label'}
+                label={label}
                 headline={'Sysslor'}
                 onLeftPress={() => props.navigation.navigate(previousRoute.name, { userId: user.id })}
                 onRightPress={() => props.navigation.navigate(nextRoute.name, { userId: user.id })}

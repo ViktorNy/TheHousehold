@@ -6,7 +6,7 @@ import ChoresPieCharts from '../../component/pieChartComponents/ChoresPieCharts'
 import { Chore } from '../../data/data';
 import { useAppSelector } from '../../store/store';
 
-export default function PieChartToday() {
+export default function PieChartWeek() {
     const currentHousehold = useAppSelector(state => state.household.currentHousehold);
     const memberList = useAppSelector(state => state.member.memberList.filter(m => m.householdId === currentHousehold?.id));
     const chores = currentHousehold?.chores.map(chore => {

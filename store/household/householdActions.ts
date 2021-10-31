@@ -9,6 +9,10 @@ export interface EditHouseholdAction {
     type: 'EDIT';
     payload: Household;
 }
+export interface SetHouseholdAction{
+    type: 'SETHOUSEHOLD';
+    payload: string;
+}
 
 // ----------------------------------------------
 

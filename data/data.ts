@@ -106,7 +106,7 @@ export const mockedHouseholdData: Household[] = [
                 score: 4,
                 signedToUserId: ['1'],
                 createdDate: '2021-10-01',
-                lastDone: '2021-10-26',
+                lastDone: '2021-10-31',
                 doneBy: [
                     {
                         choreId: '1',
@@ -116,7 +116,7 @@ export const mockedHouseholdData: Household[] = [
                     }, {
                         choreId: '1',
                         memberId: '1',
-                        date: '2021-10-26',
+                        date: '2021-10-31',
                         score: 4
                     }, {
                         choreId: '1',
@@ -153,7 +153,7 @@ export const mockedHouseholdData: Household[] = [
                 score: 4,
                 signedToUserId: ['2'],
                 createdDate: '2021-10-13',
-                lastDone: '2021-10-20',
+                lastDone: '2021-10-25',
                 doneBy: [
                     {
                         choreId: '1',
@@ -163,7 +163,7 @@ export const mockedHouseholdData: Household[] = [
                     }, {
                         choreId: '1',
                         memberId: '2',
-                        date: '2021-10-20',
+                        date: '2021-10-25',
                         score: 4
                     }]
             }]

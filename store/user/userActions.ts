@@ -11,7 +11,7 @@ export interface EditUserAction {
 }
 
 export interface GetUserAction {
-    type: 'GET';
+    type: 'GETUSER';
     payload: string;
 }
 

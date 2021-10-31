@@ -25,13 +25,14 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'
     // Otherwise logs out 'faulty user' in console
     function checkUserInfo() {
         if (user.email === userText || (user.username === userText && user.password === userPassword)) {
-            dispatch({ type: 'GET', payload: user.id });
+            dispatch({ type: 'GETUSER', payload: user.id });
             navigation.navigate('Household', { screen: 'All', params: { userId: user.id } });
 
             // JUST FOR TESTING PURPOSES
             const chosenMember = members.find(m => m.userId === user.id);
             const choseHousehold = households.find(h => h.id === chosenMember?.householdId);
-            navigation.navigate('PieChart', { screen: 'PieAll', params: { householdId: choseHousehold?.id, memberid: chosenMember?.id } });
+            chosenMember && dispatch({ type: 'SETHOUSEHOLD', payload: chosenMember.householdId });
+            navigation.navigate('PieChart', { screen: 'PieAll', params: { householdId: choseHousehold?.id } });
         } else {
             console.log('Faulty user');
         }
