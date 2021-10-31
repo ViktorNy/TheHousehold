@@ -1,8 +1,7 @@
 import { DarkTheme, DefaultTheme, NavigationContainer, ParamListBase } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { Component } from 'react';
+import React from 'react';
 import { useColorScheme } from 'react-native';
-import { User } from '../data/data';
 import ChoreDetailScreen from '../screens/ChoreDetailScreen';
 import DistributeChoreScreen from '../screens/DistributeChoreScreen';
 import HouseholdChoresScreen from '../screens/HouseholdChoresScreen';
@@ -13,6 +12,7 @@ import RegisterScreen from '../screens/RegisterScreen';
 import RegisterUserNameScreen from '../screens/RegisterUserNameScreen';
 import StartScreen from '../screens/StartScreen';
 import ChoresTabNavigator from './ChoresTabNavigator';
+import PieChartTabNavigator from './PieChartTabNavigator';
 
 // declare global {
 //     namespace ReactNavigation {
@@ -31,6 +31,7 @@ export interface RootStackParamList extends ParamListBase{
     Member: { householdId: string };
     HouseholdChores: { householdId: string };
     MemeberDetailScreen: { memberId: string };
+    PieChart: { screen: string, params: { householdId?: string; memberId?: string } };
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList = string> = NativeStackScreenProps<
@@ -108,6 +109,7 @@ function RootStackNavigator() {
                 />
                 <Stack.Screen name="HouseholdChores" component={HouseholdChoresScreen} />
                 <Stack.Screen name="MemeberDetailScreen" component={MemberDetailScreen} />
+                <Stack.Screen name="PieChart" component={PieChartTabNavigator} />
             </Stack.Navigator>
         </NavigationContainer>
     );
