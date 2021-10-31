@@ -67,7 +67,7 @@ function RootStackNavigator() {
     const colors = theme.colors;
 
     return (
-        <NavigationContainer theme={theme}>
+        <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
             <Stack.Navigator>
                 <Stack.Screen name="Start" options={{ headerShown: false }} component={StartScreen} />
                 <Stack.Screen

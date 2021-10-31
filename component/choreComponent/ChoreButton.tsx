@@ -1,4 +1,4 @@
-import { useTheme } from '@react-navigation/native';
+import { useTheme } from 'react-native-paper';
 import moment from 'moment';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -57,12 +57,7 @@ export function ChoreButton({ goto, chore, avatarIdList }: Props) {
     }
     return (
         <TouchableOpacity
-            style={[
-                styles.root,
-                { backgroundColor: colors.primary },
-                { borderColor: colors.border },
-                { borderWidth: 1 }
-            ]}
+            style={[styles.root, { backgroundColor: colors.primary }, { borderColor: colors.border }, { borderWidth: 1 }]}
             onPress={goto}
         >
             <Text style={[{ color: colors.text }]}>{chore.name}</Text>

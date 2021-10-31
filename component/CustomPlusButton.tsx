@@ -1,4 +1,4 @@
-import { useTheme } from '@react-navigation/native';
+import { useTheme } from 'react-native-paper';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
@@ -16,15 +16,9 @@ export function CustomPlusButton({ goto, buttonText }: Props) {
 
     return (
         <TouchableOpacity
-            style={[
-                styles.root,
-                { backgroundColor: colors.primary },
-                { borderColor: colors.border },
-                { borderWidth: 1 }
-            ]}
+            style={[styles.root, { backgroundColor: colors.primary }, { borderColor: colors.border }, { borderWidth: 1 }]}
             onPress={goto}
         >
-
             <AntDesign name="pluscircleo" size={24} color={iconColor} />
             <Text style={[styles.buttonText, { color: colors.text }]}>{buttonText}</Text>
         </TouchableOpacity>

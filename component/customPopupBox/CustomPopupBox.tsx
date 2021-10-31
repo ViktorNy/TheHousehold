@@ -1,121 +1,159 @@
-import Modal from 'react-native-modal';
-import React, { useState } from 'react';
-import { LayoutChoice } from './popupLayoutChoice';
 import { AntDesign } from '@expo/vector-icons';
-import { useTheme } from '@react-navigation/native';
-import { StyleSheet, Text, Pressable, View, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import { Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import Modal from 'react-native-modal';
+import { Member, mockAvatarData } from '../../data/data';
+import { getMemberByIdSelector, getMembersOfHouseholdSelector } from '../../store/member/memberSelector';
+import { useAppSelector } from '../../store/store';
+import { modalStyles } from '../../style/modalStyle';
+import Avatar from '../Avatar';
+import { LayoutChoice } from './popupLayoutChoice';
+import { useTheme } from 'react-native-paper';
 
 interface Props {
-  id: string
-  modalCase: string
+    memberId: string;
+    modalCase: string;
 }
 
-export function CustomPopupBox({ id, modalCase }: Props) {
+export function CustomPopupBox({ memberId, modalCase }: Props) {
     const [modalVisible, setModalVisible] = useState(true);
     const [userInput, onUserInputChange] = useState('');
-    const layoutChoices = LayoutChoice(modalCase, id);
+    const layoutChoices = LayoutChoice(modalCase, memberId);
     const { colors } = useTheme();
     const iconColor = colors.text;
 
-    return (
-        <View>
-            <Modal
-                animationIn='fadeIn'
-                backdropColor='#181818'
-                coverScreen={true}
-                isVisible={modalVisible}
-                statusBarTranslucent={true}
-                onBackButtonPress={() => {
-                    setModalVisible(false);
-                }}>
-                <View style={styles.centeredView}>
-                    <View style={[styles.modalView, { backgroundColor: colors.background }, styles.centeredView]}>
-                        <View style={[styles.headerStyle, { backgroundColor: colors.primary }, styles.centeredView]}>
-                            <Text style={[styles.textStyle, styles.headerTextStyle, { color: colors.text }]}>{layoutChoices.modalTitle}</Text>
-                        </View>
-                        <View style={[{ backgroundColor: colors.primary }, styles.inputInfoStyle]}>
-                            <TextInput
-                                onChangeText={onUserInputChange}
-                                style={[styles.middleTextStyle, { color: colors.text }]}
-                                value={userInput}
-                                placeholder={layoutChoices.modalPlaceholder}
-                                placeholderTextColor={colors.notification}
-                                selectionColor={iconColor}
-                                editable={layoutChoices.modalInputActive}
-                                multiline={true}
-                            />
-                        </View>
-                        <View style={[styles.rowStyle, { backgroundColor: colors.primary }]}>
-                            <Pressable
-                                style={[styles.rowStyle, styles.button, { backgroundColor: colors.primary }, styles.centeredView]}
-                                onPress={() => setModalVisible(false)}
-                            >
-                                <AntDesign name='pluscircleo' size={24} color={iconColor} />
-                                <Text style={[styles.textStyle, { color: colors.text }]}>  {layoutChoices.ModalLeft}</Text>
-                            </Pressable>
-                            <Pressable
-                                style={[styles.rowStyle, styles.button, styles.buttonRightStyle, { backgroundColor: colors.primary }, styles.centeredView]}
-                                onPress={() => setModalVisible(false)}
-                            >
-                                <AntDesign name='closecircleo' size={24} color={iconColor} />
-                                <Text style={[styles.textStyle, { color: colors.text }]}>  {layoutChoices.modalRight}</Text>
-                            </Pressable>
+    let memberObject: Member | undefined;
+    const avatarArray = mockAvatarData;
+    const activeMember = useAppSelector((state) => getMemberByIdSelector(state, memberId));
+    const allMembersOfCurrentHousehold: Member[] = useAppSelector((state) => getMembersOfHouseholdSelector(state, activeMember!.householdId));
+
+    // Kolla om det finns ett snyggare sätt för if-satsen - Nils
+    const [currentlyChosenAvatar, setCurrentlyChosenAvatar] = useState(() => {
+        if (memberId) return memberId;
+        else return '';
+    });
+
+    const onAvatarPress = (avatar: string) => {
+        setCurrentlyChosenAvatar(avatar);
+    };
+
+    if (layoutChoices.avatar === true) {
+        return (
+            <View>
+                <Modal
+                    animationIn="fadeIn"
+                    backdropColor="#181818"
+                    coverScreen={true}
+                    isVisible={modalVisible}
+                    statusBarTranslucent={true}
+                    onBackButtonPress={() => {
+                        setModalVisible(false);
+                    }}
+                    style={modalStyles.avatarContainerPosition}
+                >
+                    <View style={modalStyles.avatarContainerPosition}>
+                        <View style={[modalStyles.modalView, { backgroundColor: colors.popupBackground }, modalStyles.centeredView]}>
+                            <View style={[modalStyles.headerStyle, { backgroundColor: colors.popupOverlayColor }, modalStyles.centeredView]}>
+                                <Text style={[modalStyles.textStyle, modalStyles.headerTextStyle, { color: colors.text }]}>
+                                    {layoutChoices.modalTitle}
+                                </Text>
+                            </View>
+                            <View style={modalStyles.avatarContainerStyle}>
+                                {avatarArray.map(
+                                    (avatar) => (
+                                        // eslint-disable-next-line no-sequences
+                                        (memberObject = allMembersOfCurrentHousehold.find((member) => member.avatar === avatar.id)),
+                                        (
+                                            <TouchableOpacity
+                                                disabled={avatar.id === memberObject?.avatar && avatar.id !== activeMember?.avatar}
+                                                key={avatar.id}
+                                                onPress={() => onAvatarPress(avatar.id)}
+                                                style={[
+                                                    avatar.id === memberObject?.avatar && avatar.id !== activeMember?.avatar
+                                                        ? modalStyles.avatarOpacity
+                                                        : {},
+                                                    currentlyChosenAvatar === avatar.id ? modalStyles.chosenAvatar : {},
+                                                    modalStyles.avatarStyle,
+                                                    {
+                                                        backgroundColor: avatar?.backgroundColor,
+                                                        borderColor: colors.avatarOutline
+                                                    }
+                                                ]}
+                                            >
+                                                <Avatar avatarId={avatar.id} avatarSize={32} showCircle={false} />
+                                            </TouchableOpacity>
+                                        )
+                                    )
+                                )}
+                            </View>
                         </View>
                     </View>
-                </View>
-            </Modal>
-        </View>
-    );
-};
-
-const styles = StyleSheet.create({
-    centeredView: {
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    textStyle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        textAlign: 'center'
-    },
-    modalView: {
-        height: '55%',
-        width: '100%',
-        maxWidth: 380,
-        maxHeight: 240,
-        borderRadius: 20,
-        overflow: 'hidden'
-    },
-    headerStyle: {
-        elevation: 2,
-        width: '100%',
-        height: '30%'
-    },
-    headerTextStyle: {
-        fontSize: 24
-    },
-    inputInfoStyle: {
-        margin: '4%',
-        elevation: 5,
-        height: '28%',
-        minWidth: '93%',
-        borderRadius: 10,
-        justifyContent: 'center'
-    },
-    middleTextStyle: {
-        fontSize: 20,
-        marginLeft: 20
-    },
-    rowStyle: {
-        height: '30%',
-        flexDirection: 'row'
-    },
-    button: {
-        elevation: 2,
-        width: '50%',
-        height: '100%'
-    },
-    buttonRightStyle: {
-        elevation: 5
+                </Modal>
+            </View>
+        );
+    } else {
+        return (
+            <View>
+                <Modal
+                    animationIn="fadeIn"
+                    backdropColor="#181818"
+                    coverScreen={true}
+                    isVisible={modalVisible}
+                    statusBarTranslucent={true}
+                    onBackButtonPress={() => {
+                        setModalVisible(false);
+                    }}
+                >
+                    <View style={modalStyles.centeredView}>
+                        <View style={[modalStyles.modalView, { backgroundColor: colors.popupBackground }, modalStyles.centeredView]}>
+                            <View style={[modalStyles.headerStyle, { backgroundColor: colors.popupOverlayColor }, modalStyles.centeredView]}>
+                                <Text style={[modalStyles.textStyle, modalStyles.headerTextStyle, { color: colors.text }]}>
+                                    {layoutChoices.modalTitle}
+                                </Text>
+                            </View>
+                            <View style={[{ backgroundColor: colors.popupOverlayColor }, modalStyles.inputInfoStyle]}>
+                                <TextInput
+                                    onChangeText={onUserInputChange}
+                                    style={[modalStyles.middleTextStyle, { color: colors.text }]}
+                                    value={userInput}
+                                    placeholder={layoutChoices.modalPlaceholder}
+                                    placeholderTextColor={colors.grayedOutText}
+                                    selectionColor={iconColor}
+                                    editable={layoutChoices.modalInputActive}
+                                    multiline={true}
+                                />
+                            </View>
+                            <View style={[modalStyles.rowStyle, { backgroundColor: colors.popupOverlayColor }]}>
+                                <Pressable
+                                    style={[
+                                        modalStyles.rowStyle,
+                                        modalStyles.button,
+                                        { backgroundColor: colors.popupOverlayColor },
+                                        modalStyles.centeredView
+                                    ]}
+                                    onPress={() => setModalVisible(false)}
+                                >
+                                    <AntDesign name="pluscircleo" size={24} color={iconColor} />
+                                    <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.ModalLeft}</Text>
+                                </Pressable>
+                                <Pressable
+                                    style={[
+                                        modalStyles.rowStyle,
+                                        modalStyles.button,
+                                        modalStyles.buttonRightStyle,
+                                        { backgroundColor: colors.popupOverlayColor },
+                                        modalStyles.centeredView
+                                    ]}
+                                    onPress={() => setModalVisible(false)}
+                                >
+                                    <AntDesign name="closecircleo" size={24} color={iconColor} />
+                                    <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.modalRight}</Text>
+                                </Pressable>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+            </View>
+        );
     }
-});
+}

@@ -1,4 +1,4 @@
-import { useTheme } from '@react-navigation/native';
+import { useTheme } from 'react-native-paper';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Avatar from './Avatar';
@@ -15,12 +15,7 @@ export function CustomNavigateButton({ goto, buttonText, avatarIdList, singleAva
     if (singleAvatarId) {
         return (
             <TouchableOpacity
-                style={[
-                    styles.rootAvatar,
-                    { backgroundColor: colors.primary },
-                    { borderColor: colors.border },
-                    { borderWidth: 1 }
-                ]}
+                style={[styles.rootAvatar, { backgroundColor: colors.primary }, { borderColor: colors.border }, { borderWidth: 1 }]}
                 onPress={goto}
             >
                 <Avatar avatarId={singleAvatarId} showCircle={true} avatarSize={22} />
@@ -30,12 +25,7 @@ export function CustomNavigateButton({ goto, buttonText, avatarIdList, singleAva
     } else {
         return (
             <TouchableOpacity
-                style={[
-                    styles.root,
-                    { backgroundColor: colors.primary },
-                    { borderColor: colors.border },
-                    { borderWidth: 1 }
-                ]}
+                style={[styles.root, { backgroundColor: colors.primary }, { borderColor: colors.border }, { borderWidth: 1 }]}
                 onPress={goto}
             >
                 <Text style={[styles.buttonText, { color: colors.text }]}>{buttonText}</Text>
