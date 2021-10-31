@@ -111,7 +111,7 @@ export const mockedHouseholdData: Household[] = [
                     {
                         choreId: '1',
                         memberId: '1',
-                        date: '2021-10-12',
+                        date: '2021-09-12',
                         score: 4
                     }, {
                         choreId: '1',
@@ -164,6 +164,11 @@ export const mockedHouseholdData: Household[] = [
                         choreId: '1',
                         memberId: '2',
                         date: '2021-10-25',
+                        score: 4
+                    }, {
+                        choreId: '1',
+                        memberId: '1',
+                        date: '2021-10-15',
                         score: 4
                     }]
             }]

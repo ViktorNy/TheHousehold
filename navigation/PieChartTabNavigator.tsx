@@ -1,9 +1,9 @@
 import { createMaterialTopTabNavigator, MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import React from 'react';
-import MonthChoresScreen from '../screens/MonthChoresScreen';
-import PieChartAll from '../screens/pieChart/PieChartAll';
-import PieChartToday from '../screens/pieChart/PieChartToday';
-import WeekChoresScreen from '../screens/WeekChoresScreen';
+import PieChartAllScreen from '../screens/pieChart/PieChartAllScreen';
+import PieChartMonthScreen from '../screens/pieChart/PieChartMonthScreen';
+import PieChartTodayScreen from '../screens/pieChart/PieChartTodayScreen';
+import PieChartWeekScreen from '../screens/pieChart/PieChartWeekScreen';
 import StatisticsHeader from './StatisticsHeader';
 
 interface Props {
@@ -25,10 +25,10 @@ const Tab = createMaterialTopTabNavigator<PieParamList>();
 function PieChartTabNavigator() {
     return (
         <Tab.Navigator tabBar={(props) => <StatisticsHeader {...props} />}>
-            <Tab.Screen name="PieAll" component={PieChartAll} initialParams={{ householdId: undefined }} />
-            <Tab.Screen name="PieToday" component={PieChartToday} initialParams={{ householdId: undefined }}/>
-            <Tab.Screen name="PieWeek" component={WeekChoresScreen} initialParams={undefined} />
-            <Tab.Screen name="PieMonth" component={MonthChoresScreen} initialParams={undefined} />
+            <Tab.Screen name="PieAll" component={PieChartAllScreen} initialParams={{ householdId: undefined }} />
+            <Tab.Screen name="PieToday" component={PieChartTodayScreen} initialParams={{ householdId: undefined }}/>
+            <Tab.Screen name="PieWeek" component={PieChartWeekScreen} initialParams={undefined} />
+            <Tab.Screen name="PieMonth" component={PieChartMonthScreen} initialParams={undefined} />
         </Tab.Navigator>
     );
 }
