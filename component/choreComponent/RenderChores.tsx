@@ -11,8 +11,8 @@ import { ChoreButton } from './ChoreButton';
 import { labelCaseChoreSlider } from './ChoresSlider';
 import displayChore from './displayChore';
 
-interface Props{
-    prop : CompositeScreenProps<MaterialTopTabScreenProps<ParamList, keyof ParamList>, RootStackScreenProps>;
+interface Props {
+    prop: CompositeScreenProps<MaterialTopTabScreenProps<ParamList, keyof ParamList>, RootStackScreenProps>;
     userHousehold?: Household[];
     currentHousehold?: Household;
     members: Member[];
@@ -32,7 +32,9 @@ export default function RenderChores({ prop, userHousehold, currentHousehold, me
         for (const db of chore.doneBy) {
             const member = members.find((m) => m.id === db.memberId);
             if (member && db.date === moment(new Date()).format('YYYY-MM-DD')) {
-                result.push(member.avatar);
+                if (!result.find((r) => r === member.avatar)) {
+                    result.push(member.avatar);
+                }
             }
         }
         return result;

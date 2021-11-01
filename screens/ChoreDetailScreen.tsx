@@ -1,32 +1,54 @@
 import { useTheme } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Button, Menu } from 'react-native-paper';
 import Avatar from '../component/Avatar';
-import { CustomNavigateButton } from '../component/CustomNavigateButton';
 import { mockAvatarData } from '../data/data';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 import { getChoreByIdSelector } from '../store/household/householdSelectors';
-import { getMemberByIdSelector } from '../store/member/memberSelector';
-import { useAppSelector } from '../store/store';
-import { getUserByIdSelector } from '../store/user/userSelector';
+import { getMembersOfHouseholdSelector } from '../store/member/memberSelector';
+import { useAppSelector, useAppDispatch } from '../store/store';
 import { choreStyles } from '../style/choreDetailStyle';
+import moment from 'moment';
+import deepcopy from 'ts-deepcopy';
 
 export default function ChoreDetailScreen({ navigation, route }: RootStackScreenProps<'ChoreDetail'>) {
     const [menuVisible, setMenuVisible] = useState(false);
-
     const openMenu = () => setMenuVisible(true);
     const closeMenu = () => setMenuVisible(false);
 
     const { colors } = useTheme();
+    const dispatch = useAppDispatch();
 
     const chore = useAppSelector((state) => getChoreByIdSelector(state, route.params.choreId, route.params.householdId));
+
+    const allMembers = useAppSelector((state) => getMembersOfHouseholdSelector(state, route.params.householdId));
+    const user = useAppSelector((state) => state.user.user);
+    const currentMember = useAppSelector((state) => state.member.memberList.find((m) => m.userId === user?.id));
+
+    const avatars = mockAvatarData;
 
     useEffect(() => {
         navigation.setOptions({ title: chore?.name });
     }, []);
 
-    const avatars = mockAvatarData;
+    const setChoreAsDone = () => {
+        const newChoreLastDoneDate = moment(new Date()).format('YYYY-MM-DD');
+
+        const newChore = deepcopy(chore);
+
+        newChore!.lastDone = newChoreLastDoneDate;
+
+        newChore!.doneBy = [...newChore!.doneBy, {
+            choreId: newChore!.id,
+            memberId: currentMember!.id,
+            date: newChoreLastDoneDate,
+            score: newChore!.score
+        }];
+
+        dispatch({ type: 'EDIT_CHORELIST_IN_HOUSEHOLD', payload: { chore: newChore!, householdId: route.params.householdId } });
+        navigation.goBack();
+    };
 
     return (
         <View style={[{ backgroundColor: colors.background }, choreStyles.root]}>
@@ -40,10 +62,12 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
                         <Button onPress={openMenu} style={[{ backgroundColor: colors.card }, { width: '100%' }, { borderRadius: 10 }]}>
                             {/* eslint-disable-next-line array-callback-return */}
                             {avatars.map((avatar) => {
-                                const userId = chore?.signedToUserId.map((signed) => {
-                                    return signed;
+                                const usersSignedToChore = chore?.signedToUserId.map((signedId) => {
+                                    return allMembers.find((m) => m.userId === signedId);
                                 });
-                                const activeMember = useAppSelector((state) => getMemberByIdSelector(state, userId!.toString()));
+
+                                const activeMember = usersSignedToChore?.find((usc) => usc?.avatar === avatar.id);
+
                                 if (activeMember?.avatar === avatar.id) {
                                     return <Avatar key={avatar.id} avatarId={avatar.id} avatarSize={22} />;
                                 }
@@ -53,17 +77,17 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
                 >
                     {/* eslint-disable-next-line array-callback-return */}
                     {avatars.map((avatar) => {
-                        const userId = chore?.signedToUserId.map((signed) => {
-                            return signed;
+                        const usersSignedToChore = chore?.signedToUserId.map((signedId) => {
+                            return allMembers.find((m) => m.userId === signedId);
                         });
 
-                        const activeMember = useAppSelector((state) => getMemberByIdSelector(state, userId!.toString()));
-                        const memberName = useAppSelector((state) => getUserByIdSelector(state, activeMember?.userId));
+                        const activeMember = usersSignedToChore?.find((usc) => usc?.avatar === avatar.id);
+
                         if (activeMember?.avatar === avatar.id) {
                             return (
                                 <View key={avatar.id} style={[{ flexDirection: 'row' }, { alignItems: 'center' }, { margin: 5 }]}>
                                     <Avatar key={avatar.id} avatarId={avatar.id} avatarSize={14} showCircle={true} />
-                                    <Text style={[{ color: colors.text }, { marginLeft: 5 }]}>{memberName?.username}</Text>
+                                    <Text style={[{ color: colors.text }, { marginLeft: 5 }]}>{activeMember.memberName}</Text>
                                 </View>
                             );
                         }
@@ -113,8 +137,26 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
                 </View>
             </View>
             <View style={choreStyles.buttonContainer}>
-                <CustomNavigateButton goto={() => navigation.goBack()} buttonText="Klar" />
+                {/* Problem here is: we know that chore is always defined, TS does not know this however */}
+                <TouchableOpacity
+                    style={[styles.root, { backgroundColor: colors.card }, { borderColor: colors.border }, { borderWidth: 1 }]}
+                    onPress={() => setChoreAsDone}
+                >
+                    <Text style={[styles.buttonText, { color: colors.text }]}>Klarmarkera syssla</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    root: {
+        height: 50,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    buttonText: {
+        fontWeight: 'bold'
+    }
+});
