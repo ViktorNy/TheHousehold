@@ -1,8 +1,8 @@
 import moment from 'moment';
 import { Chore } from '../../data/data';
-import { displayChoreSelection } from './ChoresSlider';
+import { labelCaseChoreSlider } from './ChoresSlider';
 
-export default function displayChore(data: displayChoreSelection, chore: Chore) {
+export default function displayChore(data: labelCaseChoreSlider, chore: Chore) {
     const today = moment(new Date()).format('YYYY-MM-DD');
     const lastDoneDate = chore.lastDone
         ? moment(new Date(chore.lastDone)).format('YYYY-MM-DD')
@@ -13,17 +13,17 @@ export default function displayChore(data: displayChoreSelection, chore: Chore) 
     const differenceInDays = (new Date(today).getTime() - new Date(doneNextByDate).getTime()) / (1000 * 3600 * 24);
 
     switch (data) {
-    case 'Alla':
+    case 'All':
         console.log('Alla');
         return true;
 
-    case 'Idag':
+    case 'Today':
         // Case will return chores that will be done today or is late
         moment().format('YYYY-MM-DD');
         console.log('Idag', moment().format('YYYY-MM-DD'));
         break;
 
-    case 'Denna vecka':
+    case 'Week':
         // moment().endOf('isoWeek').format('YYYY-MM-DD');
         if (doneNextByDate >= moment().startOf('isoWeek').format('YYYY-MM-DD') &&
         doneNextByDate <= moment().endOf('isoWeek').format('YYYY-MM-DD') || differenceInDays > 0) {
@@ -34,7 +34,7 @@ export default function displayChore(data: displayChoreSelection, chore: Chore) 
         }
         break;
 
-    case 'Denna månad':
+    case 'Month':
         // moment().endOf('month').format('YYYY-MM-DD');
         if (doneNextByDate >= moment().startOf('month').format('YYYY-MM-DD') &&
         doneNextByDate <= moment().endOf('month').format('YYYY-MM-DD') || differenceInDays > 0) {

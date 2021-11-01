@@ -12,6 +12,8 @@ interface Props {
     onRightPress: () => void;
 }
 
+export type labelCaseChoreSlider = 'All' | 'Today' | 'Week' | 'Month';
+
 export function ChoresSlider({ headline, label, onLeftPress, onRightPress }: Props) {
     const { colors } = useTheme();
 
