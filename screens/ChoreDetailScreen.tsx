@@ -10,6 +10,7 @@ import { getMembersOfHouseholdSelector } from '../store/member/memberSelector';
 import { useAppSelector, useAppDispatch } from '../store/store';
 import { choreStyles } from '../style/choreDetailStyle';
 import moment from 'moment';
+import deepcopy from 'ts-deepcopy';
 
 export default function ChoreDetailScreen({ navigation, route }: RootStackScreenProps<'ChoreDetail'>) {
     const [menuVisible, setMenuVisible] = useState(false);
@@ -22,19 +23,34 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
     const chore = useAppSelector((state) => getChoreByIdSelector(state, route.params.choreId, route.params.householdId));
 
     const allMembers = useAppSelector((state) => getMembersOfHouseholdSelector(state, route.params.householdId));
+    const user = useAppSelector((state) => state.user.user);
+    const currentMember = useAppSelector((state) => state.member.memberList.find((m) => m.userId === user?.id));
+
+    const avatars = mockAvatarData;
+
+    console.log(chore?.doneBy);
 
     useEffect(() => {
         navigation.setOptions({ title: chore?.name });
     }, []);
 
     const setChoreAsDone = () => {
-        const newMoment = moment(new Date()).format('YYYY-MM-DD');
-        chore!.lastDone = newMoment;
-        dispatch({ type: 'EDIT_CHORE', payload: chore! });
+        const newChoreLastDoneDate = moment(new Date()).format('YYYY-MM-DD');
+
+        const newChore = deepcopy(chore);
+
+        newChore!.lastDone = newChoreLastDoneDate;
+
+        newChore!.doneBy = [...newChore!.doneBy, {
+            choreId: newChore!.id,
+            memberId: currentMember!.id,
+            date: newChoreLastDoneDate,
+            score: newChore!.score
+        }];
+
+        dispatch({ type: 'EDIT_CHORELIST_IN_HOUSEHOLD', payload: { chore: newChore!, householdId: route.params.householdId } });
         navigation.goBack();
     };
-
-    const avatars = mockAvatarData;
 
     return (
         <View style={[{ backgroundColor: colors.background }, choreStyles.root]}>
