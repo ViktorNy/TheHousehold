@@ -48,6 +48,9 @@ export function LayoutChoice(modalCase: string, id?: string) {
     } else if (modalCase === 'AI') {
         modalTitle = 'Välj avatar';
         avatar = true;
+    } else {
+        modalTitle = 'Ajdå, här blev det fel';
+        modalRight = 'Tillbaka';
     }
     return { modalTitle, ModalLeft, modalRight, modalPlaceholder, modalInputActive, avatar };
 }

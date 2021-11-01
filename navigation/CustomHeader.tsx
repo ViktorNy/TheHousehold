@@ -26,9 +26,15 @@ export default function CustomHeader(props: MaterialTopTabBarProps) {
         state.member.memberList.find((m) => m.userId === user.id && m.householdId === currentHousehold?.id)
     );
 
+    const [modalCase, setModalCase] = useState('JH');
     const [isShowingModal, setIsShowingModal] = useState(false);
     const [isShowingHouseholdModal, setIsShowingHouseholdModal] = useState(false);
-    const [isShowJoinHouseholdModal, setIsShowJoinHouseholdModal] = useState(false);
+    const [isShowModalCaseModal, setIsShowMoadCaseModal] = useState(false);
+
+    const toggleModalAndSetModalCase = (toggle: boolean, modalCase?: string) => {
+        setIsShowMoadCaseModal(toggle);
+        modalCase ? setModalCase(modalCase) : setModalCase('JH');
+    };
 
     return (
         <View>
@@ -36,7 +42,7 @@ export default function CustomHeader(props: MaterialTopTabBarProps) {
                 isShowingMenu={isShowingModal}
                 toggleIsShowing={setIsShowingModal}
                 rootStackProps={props}
-                householdID={currentHousehold?.id}
+                currentHousehold={currentHousehold}
                 currentMember={userMemberInfo}
             />
             <SelectHouseholdMenu
@@ -47,7 +53,7 @@ export default function CustomHeader(props: MaterialTopTabBarProps) {
                 user={user}
                 memberList={allMemberInfoOnUser}
                 isHouseholdSelected={!!currentHousehold}
-                toggleExternalModal={setIsShowJoinHouseholdModal}
+                toggleExternalModal={toggleModalAndSetModalCase}
             />
             <ProfileHeader household={currentHousehold} userInformation={{ user: user, member: userMemberInfo }} openMainMenu={setIsShowingModal} openHouseholdMenu={setIsShowingHouseholdModal} />
             <ChoresSlider
@@ -56,7 +62,7 @@ export default function CustomHeader(props: MaterialTopTabBarProps) {
                 onLeftPress={() => props.navigation.navigate(previousRoute.name, { userId: user.id })}
                 onRightPress={() => props.navigation.navigate(nextRoute.name, { userId: user.id })}
             />
-            <CustomPopupBox modalCase={'CH'} isShowing={isShowJoinHouseholdModal} toggleModal={setIsShowJoinHouseholdModal} />
+            <CustomPopupBox modalCase={modalCase} isShowing={isShowModalCaseModal} toggleModal={toggleModalAndSetModalCase} />
         </View>
     );
 }

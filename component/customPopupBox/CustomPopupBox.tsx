@@ -15,7 +15,7 @@ interface Props {
     memberId?: string
     modalCase: string
     isShowing: boolean
-    toggleModal: (toggle: boolean) => void
+    toggleModal: (toggle: boolean, modalCase?: string) => void
 }
 
 export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: Props) {

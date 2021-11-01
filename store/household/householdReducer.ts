@@ -2,6 +2,7 @@ import { CreateHouseholdAction, EditHouseholdAction, SetHouseholdAction } from '
 import { HouseholdState, initialState } from './householdState';
 import deepcopy from 'ts-deepcopy';
 import { Household } from '../../data/data';
+import uuid from 'react-native-uuid';
 
 type KnownAction = CreateHouseholdAction | EditHouseholdAction | SetHouseholdAction;
 
@@ -11,7 +12,7 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
         const newHousehold: Household = {
             name: action.payload.householdName,
             chores: [],
-            codeToJoin: (Math.random() * (9999 - 1000) + 1000).toString(),
+            codeToJoin: uuid.v4().toString().substring(0, 6).toUpperCase(),
             id: action.payload.householdId
         };
         return {

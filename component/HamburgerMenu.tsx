@@ -3,19 +3,19 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { useTheme } from 'react-native-paper';
-import { Member } from '../data/data';
+import { Household, Member } from '../data/data';
 
 interface Props {
     isShowingMenu: boolean,
     toggleIsShowing: (toggleValue: boolean) => void,
     rootStackProps: MaterialTopTabBarProps,
-    householdID?: string,
+    currentHousehold?: Household,
     currentMember?: Member
 }
 
-export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStackProps, householdID, currentMember }: Props) {
+export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStackProps, currentHousehold, currentMember }: Props) {
     const { colors } = useTheme();
-    if (householdID) {
+    if (currentHousehold) {
         return (
             <Modal
                 animationIn="slideInUp"
@@ -31,7 +31,7 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
                 <View style={[styles.centeredView]}>
                     <View style={[styles.modalView, { backgroundColor: colors.primary }]}>
                         {currentMember?.memberType === 'owner' && (
-                            <Text style={[styles.modalText, { color: colors.text }]}>Bjud in medlem, kod: 1337</Text>
+                            <Text style={[styles.modalText, { color: colors.text }]}>Bjud in medlem, kod: {currentHousehold?.codeToJoin}</Text>
                         )}
 
                         <Text style={[styles.modalText, { color: colors.text }]}>Byt avatar</Text>
@@ -39,7 +39,7 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
                         <TouchableOpacity
                             onPress={() => {
                                 toggleIsShowing(!isShowingMenu);
-                                rootStackProps.navigation.navigate('Member', { householdId: householdID });
+                                rootStackProps.navigation.navigate('Member', { householdId: currentHousehold.id });
                             }}
                         >
                             <Text style={[styles.modalText, { color: colors.text }]}>Visa medlemmar</Text>
@@ -48,7 +48,7 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
                         <TouchableOpacity
                             onPress={() => {
                                 toggleIsShowing(!isShowingMenu);
-                                rootStackProps.navigation.navigate('HouseholdChores', { householdId: householdID });
+                                rootStackProps.navigation.navigate('HouseholdChores', { householdId: currentHousehold.id });
                             }}
                         >
                             <Text style={[styles.modalText, { color: colors.text }]}>Visa sysslor</Text>
@@ -57,7 +57,7 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
                         <TouchableOpacity
                             onPress={() => {
                                 toggleIsShowing(!isShowingMenu);
-                                rootStackProps.navigation.navigate('PieChart', { householdId: householdID });
+                                rootStackProps.navigation.navigate('PieChart', { householdId: currentHousehold.id });
                             }}
                         >
                             <Text style={[styles.modalText, { color: colors.text }]}>Visa statestik</Text>
