@@ -6,7 +6,7 @@ export interface CreateChoreAction {
 }
 
 export interface EditChoreAction {
-    type: 'EDIT';
+    type: 'EDIT_CHORE';
     payload: Chore;
 }
 
