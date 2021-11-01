@@ -6,7 +6,7 @@ export interface CreateMemberAction {
         userId: string,
         householdId: string,
         memberType: MemberType,
-        memberName: string
+        memberName: string,
     };
 }
 
