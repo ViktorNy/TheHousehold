@@ -10,10 +10,11 @@ interface Props {
     toggleIsShowing: (toggleValue: boolean) => void,
     rootStackProps: MaterialTopTabBarProps,
     currentHousehold?: Household,
-    currentMember?: Member
+    currentMember?: Member,
+    toggleExternalModal: (toggle: boolean, modalCase?: string) => void;
 }
 
-export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStackProps, currentHousehold, currentMember }: Props) {
+export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStackProps, currentHousehold, currentMember, toggleExternalModal }: Props) {
     const { colors } = useTheme();
     if (currentHousehold) {
         return (
@@ -33,6 +34,17 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
                         {currentMember?.memberType === 'owner' && (
                             <Text style={[styles.modalText, { color: colors.text }]}>Bjud in medlem, kod: {currentHousehold?.codeToJoin}</Text>
                         )}
+                        {currentMember?.memberType === 'owner' &&
+                            <TouchableOpacity
+                                onPress={() => {
+                                    toggleIsShowing(!isShowingMenu);
+                                    toggleExternalModal(true, 'CHN');
+                                }}
+                            >
+
+                                <Text style={[styles.modalText, { color: colors.text }]}>Byt namn på hushållet</Text>
+                            </TouchableOpacity>
+                        }
 
                         <Text style={[styles.modalText, { color: colors.text }]}>Byt avatar</Text>
 

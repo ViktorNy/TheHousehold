@@ -44,6 +44,7 @@ export default function CustomHeader(props: MaterialTopTabBarProps) {
                 rootStackProps={props}
                 currentHousehold={currentHousehold}
                 currentMember={userMemberInfo}
+                toggleExternalModal={toggleModalAndSetModalCase}
             />
             <SelectHouseholdMenu
                 isShowingMenu={isShowingHouseholdModal}

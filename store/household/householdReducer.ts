@@ -20,11 +20,11 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
             householdList: [...state.householdList, newHousehold]
         };
     }
-    case 'EDIT': {
+    case 'EDIT_HOUSEHOLD': {
         // Edit can be used for: add member, remove member, pause mamber, change member type
-        const nextHouseholdList = [...state.householdList];
+        const nextHouseholdList = deepcopy(state.householdList);
         const household = action.payload;
-        const index = state.householdList.findIndex((item) => item.id === household.id);
+        const index = state.householdList.findIndex((oldHousehold) => oldHousehold.id === household.id);
         if (index) nextHouseholdList.splice(index, 1, household);
         return {
             ...state,

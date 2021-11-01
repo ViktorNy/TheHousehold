@@ -10,6 +10,7 @@ import Avatar from '../Avatar';
 import { LayoutChoice } from './popupLayoutChoice';
 import { useTheme } from 'react-native-paper';
 import uuid from 'react-native-uuid';
+import deepcopy from 'ts-deepcopy';
 
 interface Props {
     memberId?: string
@@ -20,6 +21,7 @@ interface Props {
 
 export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: Props) {
     const user = useAppSelector(state => state.user.user) as User;
+    const currentHousehold = useAppSelector(state => state.household.currentHousehold);
     const [userInput, onUserInputChange] = useState('');
     const layoutChoices = LayoutChoice(modalCase, memberId);
     const { colors } = useTheme();
@@ -146,7 +148,13 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                                             dispatch({ type: 'CREATE_HOUSEHOLD', payload: { householdName: userInput, householdId: newHouseholdId } });
                                             dispatch({ type: 'CREATE_MEMBER', payload: { householdId: newHouseholdId, memberName: user.username, userId: user.id, memberType: 'owner' } });
                                             break;
-
+                                        case 'CHN':
+                                            if (userInput && currentHousehold) {
+                                                const newHousehold = deepcopy(currentHousehold);
+                                                newHousehold.name = userInput;
+                                                dispatch({ type: 'EDIT_HOUSEHOLD', payload: newHousehold });
+                                            }
+                                            break;
                                         default:
                                             break;
                                         }
