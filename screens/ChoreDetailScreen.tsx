@@ -3,28 +3,36 @@ import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { Button, Menu } from 'react-native-paper';
 import Avatar from '../component/Avatar';
-import { CustomNavigateButton } from '../component/CustomNavigateButton';
 import { mockAvatarData } from '../data/data';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 import { getChoreByIdSelector } from '../store/household/householdSelectors';
-import { getMemberByIdSelector } from '../store/member/memberSelector';
-import { useAppSelector } from '../store/store';
-import { getUserByIdSelector } from '../store/user/userSelector';
+import { getMembersOfHouseholdSelector } from '../store/member/memberSelector';
+import { useAppSelector, useAppDispatch } from '../store/store';
 import { choreStyles } from '../style/choreDetailStyle';
+import moment from 'moment';
 
 export default function ChoreDetailScreen({ navigation, route }: RootStackScreenProps<'ChoreDetail'>) {
     const [menuVisible, setMenuVisible] = useState(false);
-
     const openMenu = () => setMenuVisible(true);
     const closeMenu = () => setMenuVisible(false);
 
     const { colors } = useTheme();
+    const dispatch = useAppDispatch();
 
     const chore = useAppSelector((state) => getChoreByIdSelector(state, route.params.choreId, route.params.householdId));
+
+    const allMembers = useAppSelector((state) => getMembersOfHouseholdSelector(state, route.params.householdId));
 
     useEffect(() => {
         navigation.setOptions({ title: chore?.name });
     }, []);
+
+    const setChoreAsDone = () => {
+        const newMoment = moment(new Date()).format('YYYY-MM-DD');
+        chore!.lastDone = newMoment;
+        dispatch({ type: 'EDIT_CHORE', payload: chore! });
+        navigation.goBack();
+    };
 
     const avatars = mockAvatarData;
 
@@ -40,10 +48,12 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
                         <Button onPress={openMenu} style={[{ backgroundColor: colors.card }, { width: '100%' }, { borderRadius: 10 }]}>
                             {/* eslint-disable-next-line array-callback-return */}
                             {avatars.map((avatar) => {
-                                const userId = chore?.signedToUserId.map((signed) => {
-                                    return signed;
+                                const usersSignedToChore = chore?.signedToUserId.map((signedId) => {
+                                    return allMembers.find((m) => m.userId === signedId);
                                 });
-                                const activeMember = useAppSelector((state) => getMemberByIdSelector(state, userId!.toString()));
+
+                                const activeMember = usersSignedToChore?.find((usc) => usc?.avatar === avatar.id);
+
                                 if (activeMember?.avatar === avatar.id) {
                                     return <Avatar key={avatar.id} avatarId={avatar.id} avatarSize={22} />;
                                 }
@@ -53,17 +63,17 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
                 >
                     {/* eslint-disable-next-line array-callback-return */}
                     {avatars.map((avatar) => {
-                        const userId = chore?.signedToUserId.map((signed) => {
-                            return signed;
+                        const usersSignedToChore = chore?.signedToUserId.map((signedId) => {
+                            return allMembers.find((m) => m.userId === signedId);
                         });
 
-                        const activeMember = useAppSelector((state) => getMemberByIdSelector(state, userId!.toString()));
-                        const memberName = useAppSelector((state) => getUserByIdSelector(state, activeMember?.userId));
+                        const activeMember = usersSignedToChore?.find((usc) => usc?.avatar === avatar.id);
+
                         if (activeMember?.avatar === avatar.id) {
                             return (
                                 <View key={avatar.id} style={[{ flexDirection: 'row' }, { alignItems: 'center' }, { margin: 5 }]}>
                                     <Avatar key={avatar.id} avatarId={avatar.id} avatarSize={14} showCircle={true} />
-                                    <Text style={[{ color: colors.text }, { marginLeft: 5 }]}>{memberName?.username}</Text>
+                                    <Text style={[{ color: colors.text }, { marginLeft: 5 }]}>{activeMember.memberName}</Text>
                                 </View>
                             );
                         }
@@ -113,7 +123,8 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
                 </View>
             </View>
             <View style={choreStyles.buttonContainer}>
-                <CustomNavigateButton goto={() => navigation.goBack()} buttonText="Klar" />
+                {/* Problem here is: we know that chore is always defined, TS does not know this however */}
+                <Button onPress={() => setChoreAsDone()} > Klarmarkera syssla </Button>
             </View>
         </View>
     );

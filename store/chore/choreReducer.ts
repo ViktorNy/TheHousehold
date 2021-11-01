@@ -11,7 +11,7 @@ function choreReducer(state: ChoreState = initialState, action: KnownAction): Ch
             choreList: [...state.choreList, action.payload]
         };
     }
-    case 'EDIT': {
+    case 'EDIT_CHORE': {
         // Edit used for editing chore
         const nextChoreList = [...state.choreList];
         const chore = action.payload;
