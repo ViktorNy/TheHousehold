@@ -12,7 +12,8 @@ import { labelCaseChoreSlider } from './ChoresSlider';
 import displayChore from './displayChore';
 
 interface Props {
-    prop: CompositeScreenProps<MaterialTopTabScreenProps<ParamList, keyof ParamList>, RootStackScreenProps>;
+    prop?: CompositeScreenProps<MaterialTopTabScreenProps<ParamList, keyof ParamList>, RootStackScreenProps>;
+    // | CompositeScreenProps<PieTabScreenProx<keyof PieParamList>, RootStackScreenProps>;
     userHousehold?: Household[];
     currentHousehold?: Household;
     members: Member[];
@@ -51,22 +52,24 @@ export default function RenderChores({ prop, userHousehold, currentHousehold, me
                 <Text style={[{ color: colors.text }]}>{currentHousehold.name}</Text>
                 <FlatList
                     data={houseHoldChores}
-                    renderItem={({ item }) =>
-                        displayChore(label, item) && (
-                            <ChoreButton
-                                key={item.id}
-                                chore={item}
-                                avatarIdList={getAvatarIdList(item)}
-                                goto={() =>
-                                    prop.navigation.navigate('ChoreDetail', {
-                                        choreId: item.id,
-                                        householdId: currentHousehold.id
-                                    })
-                                }
-                                editChore={editChore}
-                            />
-                        )
-                    }
+                    renderItem={({ item }) => {
+                        if (displayChore(label, item)) {
+                            return (
+                                <ChoreButton
+                                    key={item.id}
+                                    chore={item}
+                                    avatarIdList={getAvatarIdList(item)}
+                                    goto={() =>
+                                        prop?.navigation.navigate('ChoreDetail', {
+                                            choreId: item.id,
+                                            householdId: currentHousehold.id
+                                        })
+                                    }
+                                    editChore={editChore}
+                                />
+                            );
+                        } else return null;
+                    }}
                 />
             </View>
         );
@@ -87,7 +90,7 @@ export default function RenderChores({ prop, userHousehold, currentHousehold, me
                                             chore={chore}
                                             avatarIdList={getAvatarIdList(chore)}
                                             goto={() => {
-                                                prop.navigation.navigate('ChoreDetail', {
+                                                prop?.navigation.navigate('ChoreDetail', {
                                                     choreId: chore.id,
                                                     householdId: item.id
                                                 });

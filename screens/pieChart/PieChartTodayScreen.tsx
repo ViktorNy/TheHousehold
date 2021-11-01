@@ -1,21 +1,11 @@
-import { CompositeScreenProps } from '@react-navigation/native';
-import moment from 'moment';
-import React, { Props, useState } from 'react';
-import { FlatList, View, Text, TouchableOpacity } from 'react-native';
-import deepcopy from 'ts-deepcopy';
-import { ChoreButton, EditChore } from '../../component/choreComponent/ChoreButton';
-import displayChore from '../../component/choreComponent/displayChore';
+import React, { useState } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
 import RenderChores from '../../component/choreComponent/RenderChores';
-import ChoresPieCharts from '../../component/pieChartComponents/ChoresPieCharts';
-import { Chore } from '../../data/data';
-import { ChoreTabScreenProps } from '../../navigation/ChoresTabNavigator';
-import { RootStackScreenProps } from '../../navigation/RootStackNavigator';
 import { useAppSelector } from '../../store/store';
 
-// EJ RÄTT, ngt likanade behlvs !
-type Props = CompositeScreenProps<ChoreTabScreenProps<'Today'>, RootStackScreenProps>;
+// type Props = CompositeScreenProps<PieTabScreenProx<'PieToday'>, RootStackScreenProps>;
 
-export default function PieChartTodayScreen({ navigation, route }: Props) {
+export default function PieChartTodayScreen() {
     const currentHousehold = useAppSelector((state) => state.household.currentHousehold);
     const memberList = useAppSelector((state) => state.member.memberList.filter((m) => m.householdId === currentHousehold?.id));
     // const chores = currentHousehold?.chores.map((chore) => {
@@ -34,16 +24,9 @@ export default function PieChartTodayScreen({ navigation, route }: Props) {
 
     if (currentHousehold && houseHoldChores) {
         // return <ChoresPieCharts memberList={memberList} currentHouseholdChores={filteredChores} />;
-        // return <RenderChores label={'Today'} prop={{ navigation, route }} currentHousehold={currentHousehold} members={memberList} />;
         return (
             <View>
-                <RenderChores
-                    label={'Today'}
-                    prop={{ navigation, route }}
-                    currentHousehold={currentHousehold}
-                    members={memberList}
-                    editChore={toggleEdit}
-                />
+                <RenderChores label={'Today'} currentHousehold={currentHousehold} members={memberList} editChore={toggleEdit} />
                 {!toggleEdit && (
                     <View>
                         <TouchableOpacity>
