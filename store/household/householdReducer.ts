@@ -1,9 +1,9 @@
-import { CreateHouseholdAction, EditHouseholdAction, SetHouseholdAction } from './householdActions';
+import { CreateHouseholdAction, EditHouseholdAction, SetHouseholdAction, EditChoreAction } from './householdActions';
 import { HouseholdState, initialState } from './householdState';
 import deepcopy from 'ts-deepcopy';
 import { Household } from '../../data/data';
 
-type KnownAction = CreateHouseholdAction | EditHouseholdAction | SetHouseholdAction;
+type KnownAction = CreateHouseholdAction | EditHouseholdAction | SetHouseholdAction | EditChoreAction;
 
 function householdReducer(state: HouseholdState = initialState, action: KnownAction): HouseholdState {
     switch (action.type) {
@@ -43,6 +43,24 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
                 currentHousehold: undefined
             };
         }
+    }
+    case 'EDIT_CHORELIST_IN_HOUSEHOLD': {
+        const allHouseholds = deepcopy(state.householdList);
+
+        // Edit used for editing chore
+        const nextHousehold = deepcopy(allHouseholds.find((h) => h.id === action.payload.householdId));
+
+        const householdIndex = allHouseholds.findIndex((h) => h.id === nextHousehold?.id);
+
+        const chore = action.payload.chore;
+        const index = nextHousehold!.chores.findIndex((oldChore) => oldChore.id === chore.id);
+
+        if (index !== -1) nextHousehold?.chores.splice(index!, 1, chore);
+        if (householdIndex !== -1) allHouseholds.splice(householdIndex, 1, nextHousehold!);
+        return {
+            ...state,
+            householdList: allHouseholds
+        };
     }
     default: return state;
     }
