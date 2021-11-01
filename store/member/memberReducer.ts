@@ -39,7 +39,6 @@ function memberReducer(state: MemberState = initialState, action: KnownAction): 
         // Edit used for editing member
         const nextMemberList = deepcopy(state.memberList);
         const member = action.payload;
-        console.log(member.avatar);
         const index = state.memberList.findIndex((oldMember) => oldMember.id === member.id);
         if (index > -1) nextMemberList.splice(index, 1, member);
         return {
