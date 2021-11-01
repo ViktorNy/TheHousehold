@@ -25,7 +25,7 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
         const nextHouseholdList = deepcopy(state.householdList);
         const household = action.payload;
         const index = state.householdList.findIndex((oldHousehold) => oldHousehold.id === household.id);
-        if (index) nextHouseholdList.splice(index, 1, household);
+        if (index > -1) nextHouseholdList.splice(index, 1, household);
         return {
             ...state,
             householdList: nextHouseholdList
