@@ -1,7 +1,10 @@
-import { useTheme } from 'react-native-paper';
 import React, { useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import RenderChores from '../component/choreComponent/RenderChores';
+import { CustomEditButton } from '../component/CustomEditButton';
+import { CustomPlusButton } from '../component/CustomPlusButton';
+import { CustomWideButton } from '../component/CustomWideButton';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 import { useAppSelector } from '../store/store';
 
@@ -16,25 +19,20 @@ export default function HouseholdChoresScreen({ navigation, route }: RootStackSc
 
     if (currentHousehold) {
         return (
-            <View>
+            <View style={styles.root}>
                 {/* TODO: route and navigation may be pased as props to RenderChores -> ChoreButton */}
                 {/* TODO: For more view in choreSlider, only rename label for those screens */}
                 <RenderChores label={'All'} currentHousehold={currentHousehold} members={memberList} editChore={toggleEdit} />
                 {!toggleEdit && (
-                    <View>
-                        <TouchableOpacity onPress={() => console.log('Lägg till en syssla')}>
-                            <Text>Lägg till</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => setToggleEdit(!toggleEdit)}>
-                            <Text>Ändra</Text>
-                        </TouchableOpacity>
+                    <View style={[styles.buttons, { justifyContent: 'space-between' }]}>
+                        <CustomPlusButton goto={() => console.log('Lägg till en syssla')} buttonText={'Lägg till'} />
+                        <CustomEditButton goto={() => setToggleEdit(!toggleEdit)} buttonText={'Ändra'} />
                     </View>
                 )}
                 {toggleEdit && (
-                    <View>
-                        <TouchableOpacity onPress={() => setToggleEdit(!toggleEdit)}>
-                            <Text>Avbryt</Text>
-                        </TouchableOpacity>
+                    <View style={[styles.buttons, { justifyContent: 'center' }]}>
+                        <CustomWideButton goto={() => setToggleEdit(!toggleEdit)} buttonText={'Avbryt'} />
+                        {/* <CustomNavigateButton goto={() => setToggleEdit(!toggleEdit)} buttonText={'Avbryt'} /> */}
                     </View>
                 )}
             </View>
@@ -46,3 +44,16 @@ export default function HouseholdChoresScreen({ navigation, route }: RootStackSc
         </View>
     );
 }
+const styles = StyleSheet.create({
+    root: {
+        height: '100%'
+    },
+    buttons: {
+        width: '100%',
+        position: 'absolute',
+        padding: 10,
+        bottom: 5,
+        alignItems: 'center',
+        flexDirection: 'row'
+    }
+});
