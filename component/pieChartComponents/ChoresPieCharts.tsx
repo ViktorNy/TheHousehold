@@ -62,7 +62,7 @@ export default function ChoresPieCharts({ currentHouseholdChores, memberList }: 
         <View>
             <View>
                 <PieChart style={{ height: 180 }} data={graphicDataForChoresList.renderDataAllChores} innerRadius={0} padAngle={0}>
-                    <PieChartLabel />
+                    {PieChartLabel}
                 </PieChart>
                 <Text style={{ alignSelf: 'center' }}>Totalt</Text>
             </View>
