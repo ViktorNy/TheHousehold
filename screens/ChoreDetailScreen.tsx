@@ -1,6 +1,6 @@
 import { useTheme } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Button, Menu } from 'react-native-paper';
 import Avatar from '../component/Avatar';
 import { mockAvatarData } from '../data/data';
@@ -27,8 +27,6 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
     const currentMember = useAppSelector((state) => state.member.memberList.find((m) => m.userId === user?.id));
 
     const avatars = mockAvatarData;
-
-    console.log(chore?.doneBy);
 
     useEffect(() => {
         navigation.setOptions({ title: chore?.name });
@@ -140,8 +138,25 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
             </View>
             <View style={choreStyles.buttonContainer}>
                 {/* Problem here is: we know that chore is always defined, TS does not know this however */}
-                <Button onPress={() => setChoreAsDone()} > Klarmarkera syssla </Button>
+                <TouchableOpacity
+                    style={[styles.root, { backgroundColor: colors.card }, { borderColor: colors.border }, { borderWidth: 1 }]}
+                    onPress={() => setChoreAsDone}
+                >
+                    <Text style={[styles.buttonText, { color: colors.text }]}>Klarmarkera syssla</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    root: {
+        height: 50,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    buttonText: {
+        fontWeight: 'bold'
+    }
+});
