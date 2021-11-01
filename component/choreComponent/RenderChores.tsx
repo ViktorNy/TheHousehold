@@ -34,7 +34,9 @@ export default function RenderChores({ prop, userHousehold, currentHousehold, me
         for (const db of chore.doneBy) {
             const member = members.find((m) => m.id === db.memberId);
             if (member && db.date === moment(new Date()).format('YYYY-MM-DD')) {
-                result.push(member.avatar);
+                if (!result.find((r) => r === member.avatar)) {
+                    result.push(member.avatar);
+                }
             }
         }
         return result;
