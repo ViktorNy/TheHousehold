@@ -11,7 +11,7 @@ export interface CreateMemberAction {
 }
 
 export interface EditMemberAction {
-    type: 'EDIT';
+    type: 'EDIT_MEMBER';
     payload: Member;
 }
 
