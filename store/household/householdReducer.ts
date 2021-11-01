@@ -1,15 +1,22 @@
 import { CreateHouseholdAction, EditHouseholdAction, SetHouseholdAction } from './householdActions';
 import { HouseholdState, initialState } from './householdState';
 import deepcopy from 'ts-deepcopy';
+import { Household } from '../../data/data';
 
 type KnownAction = CreateHouseholdAction | EditHouseholdAction | SetHouseholdAction;
 
 function householdReducer(state: HouseholdState = initialState, action: KnownAction): HouseholdState {
     switch (action.type) {
-    case 'CREATE': {
+    case 'CREATE_HOUSEHOLD': {
+        const newHousehold: Household = {
+            name: action.payload.householdName,
+            chores: [],
+            codeToJoin: (Math.random() * (9999 - 1000) + 1000).toString(),
+            id: action.payload.householdId
+        };
         return {
             ...state,
-            householdList: [...state.householdList, action.payload]
+            householdList: [...state.householdList, newHousehold]
         };
     }
     case 'EDIT': {

@@ -1,8 +1,8 @@
 import { Household } from '../../data/data';
 
 export interface CreateHouseholdAction {
-    type: 'CREATE';
-    payload: Household; // Rätt! Wow!
+    type: 'CREATE_HOUSEHOLD';
+    payload: {householdName: string, householdId: string}; // Rätt! Wow!
 }
 
 export interface EditHouseholdAction {

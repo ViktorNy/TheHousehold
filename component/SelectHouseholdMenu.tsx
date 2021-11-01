@@ -1,16 +1,17 @@
-import { useTheme } from 'react-native-paper';
+import { MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
 import moment from 'moment';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
+import { useTheme } from 'react-native-paper';
 import { Household, Member, User } from '../data/data';
-import { RootStackScreenProps } from '../navigation/RootStackNavigator';
+import { useAppDispatch } from '../store/store';
 import Avatar from './Avatar';
 
 interface Props {
     isShowingMenu: boolean,
     toggleIsShowing: (toggleValue: boolean) => void,
-    rootStackProps: RootStackScreenProps<'Household'>,
+    rootStackProps: MaterialTopTabBarProps,
     householdList: Household[],
     memberList: Member[],
     user: User
@@ -20,6 +21,7 @@ interface Props {
 
 export default function SelectHouseholdMenu({ isShowingMenu, toggleIsShowing, rootStackProps, householdList, memberList: memberListConnectedToUser, user, isHouseholdSelected, toggleExternalModal }: Props) {
     const { colors } = useTheme();
+    const dispatch = useAppDispatch();
     return (
         <Modal
             animationIn="slideInUp"
@@ -39,9 +41,8 @@ export default function SelectHouseholdMenu({ isShowingMenu, toggleIsShowing, ro
                     <TouchableOpacity
                         onPress={() => {
                             toggleIsShowing(!isShowingMenu);
-                            isHouseholdSelected
-                                ? rootStackProps.navigation.pop(1)
-                                : rootStackProps.navigation.navigate('Household', { user: user });
+                            dispatch({ type: 'SETHOUSEHOLD', payload: '' });
+                            rootStackProps.navigation.navigate('Household');
                         }
                         }>
                         <View style={styles.householdRow}>
@@ -67,9 +68,8 @@ export default function SelectHouseholdMenu({ isShowingMenu, toggleIsShowing, ro
                                 disabled={isDisabled}
                                 onPress={() => {
                                     toggleIsShowing(!isShowingMenu);
-                                    isHouseholdSelected
-                                        ? rootStackProps.navigation.navigate('Household', { user: user, householdId: household.id })
-                                        : rootStackProps.navigation.push('Household', { user: user, householdId: household.id });
+                                    dispatch({ type: 'SETHOUSEHOLD', payload: household.id });
+                                    rootStackProps.navigation.navigate('Household', { householdId: household.id });
                                 }
                                 }>
                                 <View style={[styles.householdRow, isDisabled ? { opacity: 0.2 } : { opacity: 1 }]}>
@@ -95,7 +95,7 @@ export default function SelectHouseholdMenu({ isShowingMenu, toggleIsShowing, ro
                     </TouchableOpacity>
                 </View>
             </View>
-        </Modal>
+        </Modal >
     );
 }
 

@@ -2,22 +2,24 @@ import { AntDesign } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
-import { Member, mockAvatarData } from '../../data/data';
+import { Member, mockAvatarData, User } from '../../data/data';
 import { getMemberByIdSelector, getMembersOfHouseholdSelector } from '../../store/member/memberSelector';
-import { useAppSelector } from '../../store/store';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 import { modalStyles } from '../../style/modalStyle';
 import Avatar from '../Avatar';
 import { LayoutChoice } from './popupLayoutChoice';
 import { useTheme } from 'react-native-paper';
+import uuid from 'react-native-uuid';
 
 interface Props {
-    memberId: string
+    memberId?: string
     modalCase: string
     isShowing: boolean
     toggleModal: (toggle: boolean) => void
 }
 
 export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: Props) {
+    const user = useAppSelector(state => state.user.user) as User;
     const [userInput, onUserInputChange] = useState('');
     const layoutChoices = LayoutChoice(modalCase, memberId);
     const { colors } = useTheme();
@@ -25,7 +27,7 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
     let memberObject: Member | undefined;
     const avatarArray = mockAvatarData;
     const activeMember = useAppSelector((state) => getMemberByIdSelector(state, memberId));
-    const allMembersOfCurrentHousehold: Member[] = useAppSelector((state) => getMembersOfHouseholdSelector(state, activeMember!.householdId));
+    const allMembersOfCurrentHousehold: Member[] = useAppSelector((state) => getMembersOfHouseholdSelector(state, activeMember?.householdId));
 
     // Kolla om det finns ett snyggare sätt för if-satsen - Nils
     const [currentlyChosenAvatar, setCurrentlyChosenAvatar] = useState(() => {
@@ -36,6 +38,8 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
     const onAvatarPress = (avatar: string) => {
         setCurrentlyChosenAvatar(avatar);
     };
+
+    const dispatch = useAppDispatch();
 
     if (layoutChoices.avatar === true) {
         return (
@@ -133,7 +137,20 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                                         { backgroundColor: colors.popupOverlayColor },
                                         modalStyles.centeredView
                                     ]}
-                                    onPress={() => toggleModal(false)}
+                                    onPress={() => {
+                                        toggleModal(false);
+                                        switch (modalCase) {
+                                        case 'CH':
+                                            // eslint-disable-next-line no-case-declarations
+                                            const newHouseholdId = uuid.v4().toString();
+                                            dispatch({ type: 'CREATE_HOUSEHOLD', payload: { householdName: userInput, householdId: newHouseholdId } });
+                                            dispatch({ type: 'CREATE_MEMBER', payload: { householdId: newHouseholdId, memberName: user.username, userId: user.id, memberType: 'owner' } });
+                                            break;
+
+                                        default:
+                                            break;
+                                        }
+                                    }}
                                 >
                                     <AntDesign name="pluscircleo" size={24} color={iconColor} />
                                     <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.ModalLeft}</Text>
