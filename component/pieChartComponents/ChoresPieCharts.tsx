@@ -57,6 +57,7 @@ export default function ChoresPieCharts({ currentHouseholdChores, memberList }: 
                 if (memberAvatar && pieData.key === memberAvatar.avatar) totalCount += Number(pieData.value);
             }
         }
+        // Should be fixed
         if (memberAvatar) graphicDataForChoresList.renderDataAllChores = [...graphicDataForChoresList.renderDataAllChores, { value: totalCount, key: memberAvatar.avatar, svg: { fill: memberAvatar.backgroundColor } }];
     }
 
