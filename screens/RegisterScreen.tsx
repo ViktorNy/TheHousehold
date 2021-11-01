@@ -14,7 +14,7 @@ export default function RegisterScreen({ navigation }: RootStackScreenProps<'Reg
         <SafeAreaView style={[{ backgroundColor: colors.background }]}>
             <Text style={[styles.loginText, { color: colors.text }]}>Registrera</Text>
             <TextInput
-                style={[styles.input, { backgroundColor: colors.primary, color: colors.text }]}
+                style={[styles.input, { color: colors.text }]}
                 value={userEmail}
                 onChangeText={onUserEmailChange}
                 placeholder='E-mail'
@@ -22,7 +22,7 @@ export default function RegisterScreen({ navigation }: RootStackScreenProps<'Reg
                 placeholderTextColor={colors.text}
             />
             <TextInput
-                style={[styles.input, { marginTop: 0, backgroundColor: colors.primary, color: colors.text }]}
+                style={[styles.input, { marginTop: 0, color: colors.text }]}
                 value={userPassword}
                 onChangeText={onUserPasswordChange}
                 secureTextEntry={true}
