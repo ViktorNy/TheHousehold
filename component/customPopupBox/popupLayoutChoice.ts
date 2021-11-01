@@ -8,6 +8,7 @@ let modalPlaceholder = '';
 let modalInputActive = true;
 let avatar = false;
 let createChore = false;
+let modalSecondaryPlaceholder = '';
 
 export function LayoutChoice(modalCase: string, id?: string) {
     const allUsers = useAppSelector(getAllUsersSelector);
@@ -61,10 +62,11 @@ export function LayoutChoice(modalCase: string, id?: string) {
         modalTitle = 'Skapa en ny syssla';
         ModalLeft = 'Spara';
         modalRight = 'Stäng';
-        modalPlaceholder = 'description';
+        modalPlaceholder = 'Titel';
+        modalSecondaryPlaceholder = 'Beskrivning';
         modalInputActive = true;
         avatar = false;
         createChore = true;
     }
-    return { modalTitle, ModalLeft, modalRight, modalPlaceholder, modalInputActive, avatar, createChore };
+    return { modalTitle, ModalLeft, modalRight, modalPlaceholder, modalInputActive, avatar, createChore, modalSecondaryPlaceholder };
 }

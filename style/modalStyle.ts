@@ -97,13 +97,10 @@ export const modalStyles = StyleSheet.create({
         borderRadius: 10
     },
     choreDescStyle: {
-        margin: '2%',
         width: '95%',
         height: 150,
-        alignItems: 'center',
-        justifyContent: 'center',
-        alignContent: 'center',
-        borderRadius: 10
+        borderRadius: 10,
+        marginBottom: 15
     },
     choreContainerPosition: {
         alignContent: 'flex-end',
