@@ -61,7 +61,7 @@ export function LayoutChoice(modalCase: string, id?: string) {
         modalTitle = 'Skapa en ny syssla';
         ModalLeft = 'Spara';
         modalRight = 'Stäng';
-        modalPlaceholder = '';
+        modalPlaceholder = 'description';
         modalInputActive = true;
         avatar = false;
         createChore = true;

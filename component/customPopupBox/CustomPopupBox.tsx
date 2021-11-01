@@ -1,6 +1,6 @@
 import { AntDesign } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import { Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Pressable, TextInput, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { Member, mockAvatarData } from '../../data/data';
 import { getMemberByIdSelector, getMembersOfHouseholdSelector } from '../../store/member/memberSelector';
@@ -8,7 +8,8 @@ import { useAppSelector } from '../../store/store';
 import { modalStyles } from '../../style/modalStyle';
 import Avatar from '../Avatar';
 import { LayoutChoice } from './popupLayoutChoice';
-import { Button, Menu, useTheme } from 'react-native-paper';
+import { Button, Text, Menu, useTheme } from 'react-native-paper';
+import { choreStyles } from '../../style/choreDetailStyle';
 
 interface Props {
     memberId: string;
@@ -108,8 +109,24 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                     }}
                 >
                     <View style={modalStyles.choreContainer}>
-                        <View style={[modalStyles.choreContainer, { backgroundColor: colors.popupBackground }, modalStyles.centeredView]}>
-                            <View style={[modalStyles.choreHeaderStyle, { backgroundColor: colors.popupOverlayColor }, modalStyles.centeredView]}>
+                        <View
+                            style={[
+                                modalStyles.choreContainer,
+                                { backgroundColor: colors.popupBackground },
+                                modalStyles.centeredView,
+                                { borderRadius: 20 },
+                                { overflow: 'hidden' }
+                            ]}
+                        >
+                            <View
+                                style={[
+                                    modalStyles.choreHeaderStyle,
+                                    { backgroundColor: colors.popupOverlayColor },
+                                    modalStyles.centeredView,
+                                    { top: 0 },
+                                    { position: 'absolute' }
+                                ]}
+                            >
                                 <Text style={[modalStyles.textStyle, modalStyles.headerTextStyle, { color: colors.text }]}>
                                     {layoutChoices.modalTitle}
                                 </Text>
@@ -138,7 +155,7 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                                     multiline={true}
                                 />
                             </View>
-                            <View style={[{ width: '95%' }, { marginBottom: 55 }, { zIndex: 100 }]}>
+                            <View style={[{ width: '95%' }]}>
                                 <Menu
                                     style={{ width: '95%' }}
                                     visible={menuVisible}
@@ -150,7 +167,7 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                                                 { backgroundColor: colors.popupOverlayColor },
                                                 { width: '100%' },
                                                 { borderRadius: 10 },
-                                                { position: 'absolute', zIndex: 1 }
+                                                { height: 50 }
                                             ]}
                                         >
                                             <Text style={{ color: 'white' }}>hej hej</Text>
@@ -160,7 +177,42 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                                     <Menu.Item icon="redo" onPress={() => {}} title="Redo" style={{ elevation: 20 }} />
                                 </Menu>
                             </View>
-                            <View style={[modalStyles.choreRowStyle, { backgroundColor: colors.popupOverlayColor }]}>
+                            <View style={[{ width: '95%' }, { marginBottom: 30 }, choreStyles.columnStyle]}>
+                                <Menu
+                                    style={{ width: '95%' }}
+                                    visible={menuVisible}
+                                    onDismiss={closeMenu}
+                                    anchor={
+                                        <Button
+                                            onPress={openMenu}
+                                            labelStyle={choreStyles.columnStyle}
+                                            style={[
+                                                { backgroundColor: colors.popupOverlayColor },
+                                                { width: '100%' },
+                                                { borderRadius: 10 },
+                                                { height: 60 },
+                                                choreStyles.columnStyle
+                                            ]}
+                                        >
+                                            <Text style={choreStyles.columnStyle}>
+                                                <Text style={[{ color: colors.text }]}>Värde: </Text>
+                                                <Text style={[choreStyles.valueDescription]}>Hur energikrävande är sysslan?</Text>
+                                            </Text>
+                                        </Button>
+                                    }
+                                >
+                                    <Text>hej</Text>
+                                </Menu>
+                            </View>
+                            <View
+                                style={[
+                                    modalStyles.choreRowStyle,
+                                    { backgroundColor: colors.popupOverlayColor },
+                                    { bottom: 0 },
+                                    { position: 'absolute' },
+                                    { width: '100%' }
+                                ]}
+                            >
                                 <Pressable
                                     style={[
                                         modalStyles.rowStyle,
