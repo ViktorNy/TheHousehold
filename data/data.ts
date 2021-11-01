@@ -164,7 +164,7 @@ export const mockedHouseholdData: Household[] = [
                 id: '3',
                 name: 'Baka bröd',
                 description: 'Kolla först i frysan och skafferiet vad som finns. Baka sedan valfri sort som räcker till veckan.',
-                frequency: 14,
+                frequency: 20,
                 doneBy: [],
                 score: 8,
                 signedToUserId: [],
@@ -227,7 +227,8 @@ export const mockedHouseholdData: Household[] = [
                 frequency: 1,
                 doneBy: [],
                 score: 8,
-                signedToUserId: []
+                signedToUserId: [],
+                createdDate: '2021-10-25'
             }
         ]
     }

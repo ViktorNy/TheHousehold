@@ -31,7 +31,7 @@ export function StatisticsSlider({ headline, label, onLeftPress, onRightPress }:
     }
 
     return (
-        <View style={[styles.root, { backgroundColor: colors.card }]}>
+        <View style={[styles.root, { backgroundColor: colors.primary }]}>
             <Text style={{ color: colors.text }}>{headline}</Text>
             <View style={styles.selectionRow}>
                 <View>

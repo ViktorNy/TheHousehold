@@ -27,8 +27,8 @@ function PieChartTabNavigator() {
         <Tab.Navigator tabBar={(props) => <StatisticsHeader {...props} />}>
             <Tab.Screen name="PieAll" component={PieChartAllScreen} initialParams={{ householdId: undefined }} />
             <Tab.Screen name="PieToday" component={PieChartTodayScreen} initialParams={{ householdId: undefined }}/>
-            <Tab.Screen name="PieWeek" component={PieChartWeekScreen} initialParams={undefined} />
-            <Tab.Screen name="PieMonth" component={PieChartMonthScreen} initialParams={undefined} />
+            <Tab.Screen name="PieWeek" component={PieChartWeekScreen} initialParams={{ householdId: undefined }} />
+            <Tab.Screen name="PieMonth" component={PieChartMonthScreen} initialParams={{ householdId: undefined }} />
         </Tab.Navigator>
     );
 }

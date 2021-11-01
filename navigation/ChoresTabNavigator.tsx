@@ -7,10 +7,8 @@ import WeekChoresScreen from '../screens/WeekChoresScreen';
 import CustomHeader from './CustomHeader';
 
 interface Props {
-    // userId: string;
     householdId?: string;
     memberId?: string;
-    // ?? det som behövs inne på screen för rätt info..
 }
 
 export type ParamList = {
@@ -24,11 +22,11 @@ export type ChoreTabScreenProps<Screen extends keyof ParamList> = MaterialTopTab
 
 const Tab = createMaterialTopTabNavigator<ParamList>();
 
-function ChoresTabNavigator(props: Props) {
+function ChoresTabNavigator() {
     return (
         <Tab.Navigator tabBar={(props) => <CustomHeader {...props} />}>
-            <Tab.Screen name="All" component={AllChoresScreen} />
             <Tab.Screen name="Today" component={TodayChoresScreen} initialParams={{ memberId: undefined, householdId: undefined }} />
+            <Tab.Screen name="All" component={AllChoresScreen} initialParams={{ memberId: undefined, householdId: undefined }}/>
             <Tab.Screen name="Week" component={WeekChoresScreen} initialParams={{ memberId: undefined, householdId: undefined }} />
             <Tab.Screen name="Month" component={MonthChoresScreen} initialParams={{ memberId: undefined, householdId: undefined }} />
         </Tab.Navigator>

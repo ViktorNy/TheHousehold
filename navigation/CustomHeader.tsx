@@ -19,7 +19,7 @@ export default function CustomHeader(props: MaterialTopTabBarProps) {
     // const [isShowingModal, setIsShowingModal] = useState(false);
     return (
         <View>
-            <ProfileHeader userInformation={{ user: user }} openMenu={() => { }} />
+            <ProfileHeader userInformation={{ user: user }} openMainMenu={() => { }} />
             <ChoresSlider
                 label={label}
                 headline={'Sysslor'}

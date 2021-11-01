@@ -38,7 +38,7 @@ export function ChoresSlider({ headline, label, onLeftPress, onRightPress }: Pro
             <Text style={{ color: colors.text }}>{headline}</Text>
             <View style={styles.selectionRow}>
                 <View>
-                    {label !== 'All' && (
+                    {label !== 'Today' && (
                         <TouchableOpacity onPress={onLeftPress}>
                             <AntDesign name="left" size={18} color={colors.text} />
                         </TouchableOpacity>

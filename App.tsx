@@ -62,7 +62,7 @@ export default function App() {
         <Provider store={store}>
             <PaperProvider theme={scheme === 'dark' ? CustomDarkTheme : CustomDefaultTheme}>
                 <SafeAreaProvider>
-                    <RootStackNavigator colorScheme={scheme} />
+                    <RootStackNavigator />
                     <StatusBar style="auto" />
                 </SafeAreaProvider>
             </PaperProvider>
