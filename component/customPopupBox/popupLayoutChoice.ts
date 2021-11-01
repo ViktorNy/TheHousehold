@@ -1,5 +1,4 @@
 import { useAppSelector } from '../../store/store';
-import { getAllUsersSelector } from '../../store/user/userSelector';
 
 let modalTitle = '';
 let ModalLeft = '';
@@ -9,8 +8,7 @@ let modalInputActive = true;
 let avatar = false;
 
 export function LayoutChoice(modalCase: string, id?: string) {
-    const allUsers = useAppSelector(getAllUsersSelector);
-    const username = allUsers.find(u => u.id === id)?.username;
+    const username = useAppSelector(state => state.member.memberList.find(m => m.userId === id))?.memberName;
 
     if (modalCase === 'JH') {
         modalTitle = 'Gå med i Hushåll';
