@@ -57,8 +57,7 @@ export default function ChoresPieCharts({ currentHouseholdChores, memberList }: 
                 if (memberAvatar && pieData.key === memberAvatar.avatar) totalCount += Number(pieData.value);
             }
         }
-        if (memberAvatar && graphicDataForChoresList.renderDataAllChores.length > 0) graphicDataForChoresList.renderDataAllChores = [...graphicDataForChoresList.renderDataAllChores, { value: totalCount, key: memberAvatar.avatar, svg: { fill: memberAvatar.backgroundColor } }];
-        else graphicDataForChoresList.renderDataAllChores = [{ value: 1, key: '', svg: { fill: '#ACE1AF' } }];
+        if (memberAvatar) graphicDataForChoresList.renderDataAllChores = [...graphicDataForChoresList.renderDataAllChores, { value: totalCount, key: memberAvatar.avatar, svg: { fill: memberAvatar.backgroundColor } }];
     }
 
     return (
