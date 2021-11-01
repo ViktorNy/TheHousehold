@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTheme } from 'react-native-paper';
 import { Text, View } from 'react-native';
 import { PieChart, PieChartData } from 'react-native-svg-charts';
 import PieChartLabel from '../../component/pieChartComponents/PieChartLabel';
@@ -19,6 +20,7 @@ interface Props {
 export default function ChoresPieCharts({ currentHouseholdChores, memberList }: Props) {
     const avtarList = mockAvatarData;
     const graphicDataForChoresList: allGraphicData = { renderDataAllChores: [], subChores: [] };
+    const { colors } = useTheme();
 
     for (const chore of currentHouseholdChores) {
         let renderData: PieChartData[] = [];
@@ -55,6 +57,7 @@ export default function ChoresPieCharts({ currentHouseholdChores, memberList }: 
                 if (memberAvatar && pieData.key === memberAvatar.avatar) totalCount += Number(pieData.value);
             }
         }
+        // Should be fixed
         if (memberAvatar) graphicDataForChoresList.renderDataAllChores = [...graphicDataForChoresList.renderDataAllChores, { value: totalCount, key: memberAvatar.avatar, svg: { fill: memberAvatar.backgroundColor } }];
     }
 
@@ -64,14 +67,14 @@ export default function ChoresPieCharts({ currentHouseholdChores, memberList }: 
                 <PieChart style={{ height: 180 }} data={graphicDataForChoresList.renderDataAllChores} innerRadius={0} padAngle={0}>
                     <PieChartLabel />
                 </PieChart>
-                <Text style={{ alignSelf: 'center' }}>Totalt</Text>
+                <Text style={{ alignSelf: 'center', color: colors.text }}>Totalt</Text>
             </View>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                 {graphicDataForChoresList.subChores.map(subChore => {
                     return (
                         <View key={subChore.choreName} style={{ width: '33%' }}>
                             <PieChart style={{ height: 100 }} data={subChore.renderDataListChore} innerRadius={0} padAngle={0} />
-                            <Text style={{ alignSelf: 'center' }}>{subChore.choreName}</Text>
+                            <Text style={{ alignSelf: 'center', color: colors.text }}>{subChore.choreName}</Text>
                         </View>
                     );
                 })}

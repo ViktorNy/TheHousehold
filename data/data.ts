@@ -96,6 +96,7 @@ export const mockedMemberData: Member[] = [
     },
     {
         id: '4',
+        memberName: 'j',
         userId: '2',
         memberName: 'j',
         memberType: 'owner',

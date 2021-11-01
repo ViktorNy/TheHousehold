@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomNavigateButton } from '../component/CustomNavigateButton';
 import { mockedUserData } from '../data/data';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
-import { useAppDispatch, useAppSelector } from '../store/store';
+import { useAppDispatch } from '../store/store';
 
 export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'>) {
     const { colors } = useTheme();
@@ -15,7 +15,6 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'
 
     // REMOVE THIS LATER
     // const households = useAppSelector(state => state.household.householdList);
-    const members = useAppSelector(state => state.member.memberList);
 
     const user = mockedUserData[1];
 
@@ -29,9 +28,9 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'
             navigation.navigate('Household');
 
             // JUST FOR TESTING PURPOSES
-            const chosenMember = members.find(m => m.userId === user.id);
+            // const chosenMember = members.find(m => m.userId === user.id);
             // const choseHousehold = households.find(h => h.id === chosenMember?.householdId);
-            chosenMember && dispatch({ type: 'SETHOUSEHOLD', payload: chosenMember.householdId });
+            // chosenMember && dispatch({ type: 'SETHOUSEHOLD', payload: chosenMember.householdId });
             // navigation.navigate('PieChart', { screen: 'PieAll', params: { householdId: choseHousehold?.id } });
         } else {
             console.log('Faulty user');
