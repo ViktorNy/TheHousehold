@@ -1,5 +1,5 @@
 import { AntDesign } from '@expo/vector-icons';
-import { useTheme } from '@react-navigation/native';
+import { useTheme } from 'react-native-paper';
 import React, { ReactNode } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
