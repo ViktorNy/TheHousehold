@@ -6,24 +6,28 @@ import { FlatList, Text, View } from 'react-native';
 import { Chore, Household, Member } from '../../data/data';
 import { ParamList } from '../../navigation/ChoresTabNavigator';
 import { RootStackScreenProps } from '../../navigation/RootStackNavigator';
+import { useAppSelector } from '../../store/store';
 import { ChoreButton } from './ChoreButton';
 import { labelCaseChoreSlider } from './ChoresSlider';
 import displayChore from './displayChore';
 
-interface Props{
-    prop : CompositeScreenProps<MaterialTopTabScreenProps<ParamList, keyof ParamList>, RootStackScreenProps>;
+interface Props {
+    prop: CompositeScreenProps<MaterialTopTabScreenProps<ParamList, keyof ParamList>, RootStackScreenProps>;
     userHousehold?: Household[];
     currentHousehold?: Household;
     members: Member[];
     label: labelCaseChoreSlider;
+    editChore?: boolean;
 }
 
-export default function RenderChores({ prop, userHousehold, currentHousehold, members, label }: Props) {
+export default function RenderChores({ prop, userHousehold, currentHousehold, members, label, editChore }: Props) {
     const { colors } = useTheme();
     // const userHousehold = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, prop.route.params.userId));
     // const currentHousehold = useAppSelector((state) =>
     //     state.household.householdList.find((h) => h.id === prop.route.params.householdId)
     // );
+
+    const user = useAppSelector((state) => state.user.user);
 
     function getAvatarIdList(chore: Chore) {
         const result: string[] = [];
@@ -39,28 +43,30 @@ export default function RenderChores({ prop, userHousehold, currentHousehold, me
     // const members = useAppSelector((state) => state.member.memberList);
 
     if (currentHousehold) {
-        const houseHoldChores = currentHousehold.chores.filter((item) =>
-            item.signedToUserId.filter((item) => item === prop.route.params.userId)
+        const houseHoldChores = currentHousehold.chores.filter(
+            (item) => item.signedToUserId.filter((item) => item === user?.id) // fel med userid ?
         );
-
         return (
             <View>
                 <Text style={[{ color: colors.text }]}>{currentHousehold.name}</Text>
                 <FlatList
                     data={houseHoldChores}
-                    renderItem={({ item }) => (
-                        <ChoreButton
-                            key={item.id}
-                            chore={item}
-                            avatarIdList={getAvatarIdList(item)}
-                            goto={() =>
-                                prop.navigation.navigate('ChoreDetail', {
-                                    choreId: item.id,
-                                    householdId: currentHousehold.id
-                                })
-                            }
-                        />
-                    )}
+                    renderItem={({ item }) =>
+                        displayChore(label, item) && (
+                            <ChoreButton
+                                key={item.id}
+                                chore={item}
+                                avatarIdList={getAvatarIdList(item)}
+                                goto={() =>
+                                    prop.navigation.navigate('ChoreDetail', {
+                                        choreId: item.id,
+                                        householdId: currentHousehold.id
+                                    })
+                                }
+                                editChore={editChore}
+                            />
+                        )
+                    }
                 />
             </View>
         );
@@ -80,14 +86,12 @@ export default function RenderChores({ prop, userHousehold, currentHousehold, me
                                             key={chore.id}
                                             chore={chore}
                                             avatarIdList={getAvatarIdList(chore)}
-                                            goto={
-                                                () => {
-                                                    prop.navigation.navigate('ChoreDetail', {
-                                                        choreId: chore.id,
-                                                        householdId: item.id
-                                                    });
-                                                }
-                                            }
+                                            goto={() => {
+                                                prop.navigation.navigate('ChoreDetail', {
+                                                    choreId: chore.id,
+                                                    householdId: item.id
+                                                });
+                                            }}
                                         />
                                     );
                                 } else return null;
