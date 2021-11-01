@@ -31,7 +31,7 @@ export default function RegisterScreen({ navigation }: RootStackScreenProps<'Reg
                 placeholderTextColor={colors.text}
             />
             <View style={styles.viewStyle}>
-                <CustomNavigateButton buttonText="Spara" goto={() => navigation.navigate('RegisterUserName', { email: userEmail, password: userPassword })} />
+                <CustomNavigateButton buttonText="Spara" goto={() => navigation.navigate('NoHousehold', { email: userEmail, password: userPassword })} />
             </View>
         </SafeAreaView>
     );

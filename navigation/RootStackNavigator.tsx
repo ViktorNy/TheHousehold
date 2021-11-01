@@ -8,8 +8,8 @@ import HouseholdChoresScreen from '../screens/HouseholdChoresScreen';
 import LoginScreen from '../screens/LoginScreen';
 import MemberDetailScreen from '../screens/MemberDetailScreen';
 import MemberScreen from '../screens/MemberScreen';
+import NoHouseholdScreen from '../screens/NoHouseholdScreen';
 import RegisterScreen from '../screens/RegisterScreen';
-import RegisterUserNameScreen from '../screens/RegisterUserNameScreen';
 import StartScreen from '../screens/StartScreen';
 import ChoresTabNavigator from './ChoresTabNavigator';
 import PieChartTabNavigator from './PieChartTabNavigator';
@@ -24,7 +24,7 @@ export interface RootStackParamList extends ParamListBase{
     Start: undefined; // Tar inte in några parametrerar
     Login: undefined; // Tar inte in några parametrerar
     Register: undefined; // Tar inte in några parametrerar
-    RegisterUserName: { email: string; password: string };
+    NoHousehold: { email: string; password: string };
     Household: undefined;
     DistributeChore: undefined;
     ChoreDetail: { choreId: string; householdId: string };
@@ -89,8 +89,8 @@ function RootStackNavigator() {
                     }}
                 />
                 <Stack.Screen
-                    name="RegisterUserName"
-                    component={RegisterUserNameScreen}
+                    name="NoHousehold"
+                    component={NoHouseholdScreen}
                     options={{
                         title: '',
                         headerStyle: { backgroundColor: colors.background },
