@@ -19,6 +19,6 @@ export default function TodayChoresScreen({ navigation, route }: Props) {
     );
     const members = useAppSelector((state) => state.member.memberList);
     return (
-        <RenderChores prop={{ navigation, route }} userHousehold={userHousehold} currentHousehold={currentHousehold} members={members} />
+        <RenderChores label={'Today'} prop={{ navigation, route }} userHousehold={userHousehold} currentHousehold={currentHousehold} members={members} />
     );
 }

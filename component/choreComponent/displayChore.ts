@@ -14,34 +14,23 @@ export default function displayChore(data: labelCaseChoreSlider, chore: Chore) {
 
     switch (data) {
     case 'All':
-        console.log('Alla');
         return true;
 
     case 'Today':
-        // Case will return chores that will be done today or is late
-        moment().format('YYYY-MM-DD');
-        console.log('Idag', moment().format('YYYY-MM-DD'));
-        break;
+        if (differenceInDays >= 0) return true;
+        else return false;
 
     case 'Week':
-        // moment().endOf('isoWeek').format('YYYY-MM-DD');
         if (doneNextByDate >= moment().startOf('isoWeek').format('YYYY-MM-DD') &&
         doneNextByDate <= moment().endOf('isoWeek').format('YYYY-MM-DD') || differenceInDays > 0) {
-            console.log(chore.name);
-            // console.log('Denna vecka start', moment().startOf('isoWeek').format('YYYY-MM-DD'));
-            // console.log('Denna vecka slut', moment().endOf('isoWeek').format('YYYY-MM-DD'));
             return true;
-        }
-        break;
+        } else return false;
 
     case 'Month':
-        // moment().endOf('month').format('YYYY-MM-DD');
         if (doneNextByDate >= moment().startOf('month').format('YYYY-MM-DD') &&
         doneNextByDate <= moment().endOf('month').format('YYYY-MM-DD') || differenceInDays > 0) {
-            console.log(chore.name);
+            return true;
         }
-        // console.log('Denna månad start', moment().startOf('month').format('YYYY-MM-DD'));
-        // console.log('Denna månad slut', moment().endOf('month').format('YYYY-MM-DD'));
         break;
     }
 }
