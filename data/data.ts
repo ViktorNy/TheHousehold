@@ -17,6 +17,7 @@ export type MemberType = 'member' | 'owner';
 
 export interface Member {
     id: string,
+    memberName: string,
     householdId: string,
     userId: string,
     memberType: MemberType,
@@ -65,6 +66,7 @@ export interface ChoreDoneBy {
 export const mockedMemberData: Member[] = [
     {
         id: '1',
+        memberName: 's',
         userId: '1',
         memberType: 'owner',
         avatar: '1',
@@ -74,6 +76,7 @@ export const mockedMemberData: Member[] = [
     },
     {
         id: '2',
+        memberName: 'j',
         userId: '2',
         memberType: 'member',
         avatar: '2',
@@ -83,6 +86,7 @@ export const mockedMemberData: Member[] = [
     },
     {
         id: '3',
+        memberName: 'j',
         userId: '2',
         memberType: 'owner',
         avatar: '7',
@@ -92,6 +96,7 @@ export const mockedMemberData: Member[] = [
     },
     {
         id: '4',
+        memberName: 'j',
         userId: '2',
         memberType: 'owner',
         avatar: '9',
@@ -108,6 +113,7 @@ export const mockedMemberData: Member[] = [
     },
     {
         id: '5',
+        memberName: 'p',
         userId: '3',
         memberType: 'member',
         avatar: '4',
