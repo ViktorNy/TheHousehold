@@ -1,34 +1,48 @@
-import { useTheme } from '@react-navigation/native';
-import React from 'react';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { useTheme } from 'react-native-paper';
+import React, { useState } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import RenderChores from '../component/choreComponent/RenderChores';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
-import { getHouseholdByIdSelector } from '../store/household/householdSelectors';
 import { useAppSelector } from '../store/store';
 
 export default function HouseholdChoresScreen({ navigation, route }: RootStackScreenProps<'HouseholdChores'>) {
     const { colors } = useTheme();
-    const household = useAppSelector((state) => getHouseholdByIdSelector(state, route.params.householdId));
-    if (household) {
+    const currentHousehold = useAppSelector((state) => state.household.currentHousehold);
+    const memberList = useAppSelector((state) => state.member.memberList.filter((m) => m.householdId === currentHousehold?.id));
+
+    const [toggleEdit, setToggleEdit] = useState<boolean>(false);
+
+    console.log('toggleEdit: ' + toggleEdit);
+
+    if (currentHousehold) {
         return (
             <View>
-                <Text style={[{ color: colors.text }]}>Chores for: {household.name}</Text>
-                <FlatList
-                    data={household.chores}
-                    renderItem={({ item }) => (
-                        <View>
-                            <TouchableOpacity
-                                onPress={() =>
-                                    navigation.navigate('ChoreDetail', { choreId: item.id, householdId: household.id })
-                                }
-                            >
-                                <Text style={[{ color: colors.text }]}>{item.name}</Text>
-                            </TouchableOpacity>
-                        </View>
-                    )}
-                />
+                {/* TODO: route and navigation may be pased as props to RenderChores -> ChoreButton */}
+                {/* TODO: For more view in choreSlider, only rename label for those screens */}
+                <RenderChores label={'All'} currentHousehold={currentHousehold} members={memberList} editChore={toggleEdit} />
+                {!toggleEdit && (
+                    <View>
+                        <TouchableOpacity onPress={() => console.log('Lägg till en syssla')}>
+                            <Text>Lägg till</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => setToggleEdit(!toggleEdit)}>
+                            <Text>Ändra</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
+                {toggleEdit && (
+                    <View>
+                        <TouchableOpacity onPress={() => setToggleEdit(!toggleEdit)}>
+                            <Text>Avbryt</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
             </View>
         );
-    } else {
-        return <Text style={[{ color: colors.text }]}>Nothing here!</Text>;
     }
+    return (
+        <View>
+            <Text style={[{ color: colors.text }]}>Något gick fel! Inget hushåll hittades.</Text>
+        </View>
+    );
 }
