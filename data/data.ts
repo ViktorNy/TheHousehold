@@ -131,17 +131,17 @@ export const mockedHouseholdData: Household[] = [
                 score: 4,
                 signedToUserId: ['1'],
                 createdDate: '2021-10-01',
-                lastDone: '2021-10-26',
+                lastDone: '2021-10-31',
                 doneBy: [
                     {
                         choreId: '1',
                         memberId: '1',
-                        date: '2021-10-12',
+                        date: '2021-11-01',
                         score: 4
                     }, {
                         choreId: '1',
                         memberId: '1',
-                        date: '2021-10-26',
+                        date: '2021-10-31',
                         score: 4
                     }, {
                         choreId: '1',
@@ -164,7 +164,7 @@ export const mockedHouseholdData: Household[] = [
                 id: '3',
                 name: 'Baka bröd',
                 description: 'Kolla först i frysan och skafferiet vad som finns. Baka sedan valfri sort som räcker till veckan.',
-                frequency: 7,
+                frequency: 20,
                 doneBy: [],
                 score: 8,
                 signedToUserId: [],
@@ -178,7 +178,7 @@ export const mockedHouseholdData: Household[] = [
                 score: 4,
                 signedToUserId: ['2'],
                 createdDate: '2021-10-13',
-                lastDone: '2021-10-19',
+                lastDone: '2021-10-25',
                 doneBy: [
                     {
                         choreId: '1',
@@ -188,7 +188,12 @@ export const mockedHouseholdData: Household[] = [
                     }, {
                         choreId: '1',
                         memberId: '2',
-                        date: '2021-10-19',
+                        date: '2021-10-25',
+                        score: 4
+                    }, {
+                        choreId: '1',
+                        memberId: '1',
+                        date: '2021-10-15',
                         score: 4
                     }]
             }]
@@ -222,7 +227,8 @@ export const mockedHouseholdData: Household[] = [
                 frequency: 1,
                 doneBy: [],
                 score: 8,
-                signedToUserId: []
+                signedToUserId: [],
+                createdDate: '2021-10-25'
             }
         ]
     }
@@ -244,8 +250,8 @@ export const mockedUserData: User[] = [
     {
         id: '3',
         email: 'pettersson@mail.com',
-        username: 'petter',
-        password: 'pettersson'
+        username: 'p',
+        password: 'p'
     }
 ];
 

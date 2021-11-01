@@ -1,7 +1,8 @@
-import { CreateHouseholdAction, EditHouseholdAction } from './householdActions';
+import { CreateHouseholdAction, EditHouseholdAction, SetHouseholdAction } from './householdActions';
 import { HouseholdState, initialState } from './householdState';
+import deepcopy from 'ts-deepcopy';
 
-type KnownAction = CreateHouseholdAction | EditHouseholdAction;
+type KnownAction = CreateHouseholdAction | EditHouseholdAction | SetHouseholdAction;
 
 function householdReducer(state: HouseholdState = initialState, action: KnownAction): HouseholdState {
     switch (action.type) {
@@ -21,6 +22,20 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
             ...state,
             householdList: nextHouseholdList
         };
+    }
+    case 'SETHOUSEHOLD': {
+        const selectedHousehold = deepcopy(state.householdList.find(h => h.id === action.payload));
+        if (selectedHousehold) {
+            return {
+                ...state,
+                currentHousehold: selectedHousehold
+            };
+        } else {
+            return {
+                ...state,
+                currentHousehold: undefined
+            };
+        }
     }
     default: return state;
     }
