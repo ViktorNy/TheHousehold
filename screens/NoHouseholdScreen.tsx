@@ -1,12 +1,9 @@
 import { useTheme } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { ToggleButton } from 'react-native-paper';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { CustomPlusButton } from '../component/CustomPlusButton';
 import { CustomPopupBox } from '../component/customPopupBox/CustomPopupBox';
-import { Member } from '../data/data';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
-import userReducer from '../store/user/userReducer';
 
 export default function NoHouseholdScreen({ navigation, route }: RootStackScreenProps<'NoHousehold'>) {
     const { colors } = useTheme();
