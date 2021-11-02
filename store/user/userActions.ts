@@ -11,10 +11,9 @@ export interface EditUserAction {
 }
 
 export interface GetUserAction {
-    type: 'GETUSER';
+    type: 'SET_USER';
     payload: string;
 }
-
 export interface ChangeAppearanceAction {
     type: 'CHANGE_APPEARANCE',
     payload: string
