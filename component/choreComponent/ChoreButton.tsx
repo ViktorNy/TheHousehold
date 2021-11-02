@@ -4,19 +4,20 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Chore } from '../../data/data';
 import Avatar from '../Avatar';
+import { AntDesign } from '@expo/vector-icons';
 
 interface Props {
     goto: () => void;
     chore: Chore;
     avatarIdList: string[];
+    editChore?: boolean;
 }
 
-export function ChoreButton({ goto, chore, avatarIdList }: Props) {
-    // TODO: Imporve theme colos to be used for this component ?
+export function ChoreButton({ goto, chore, avatarIdList, editChore }: Props) {
     const { colors } = useTheme();
     const today = moment(new Date()).format('YYYY-MM-DD');
 
-    function setIconLastDone(chore: Chore, avatarIdList: string[]) {
+    function setIconLastDone(chore: Chore, avatarIdList: string[], editChore?: boolean) {
         const lastDoneDate = chore.lastDone
             ? moment(new Date(chore.lastDone)).format('YYYY-MM-DD')
             : moment(new Date(chore.createdDate)).format('YYYY-MM-DD');
@@ -24,8 +25,19 @@ export function ChoreButton({ goto, chore, avatarIdList }: Props) {
         const doneNextByDate = moment(lastDoneDate).add(chore.frequency, 'day').format('YYYY-MM-DD');
 
         const differenceInDays = (new Date(today).getTime() - new Date(doneNextByDate).getTime()) / (1000 * 3600 * 24);
-
-        if (today === lastDoneDate && avatarIdList) {
+        if (editChore) {
+            // TODO: on press need to lead to right popup by chore.id...
+            return (
+                <View style={[{ flexDirection: 'row' }]}>
+                    <TouchableOpacity style={styles.icon} onPress={() => {}}>
+                        <AntDesign name="delete" size={20} color={colors.text} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={(styles.icon, { paddingLeft: 10 })} onPress={() => {}}>
+                        <AntDesign name="edit" size={20} color={colors.text} />
+                    </TouchableOpacity>
+                </View>
+            );
+        } else if (today === lastDoneDate && avatarIdList) {
             return (
                 <View style={{ flexDirection: 'row' }}>
                     {avatarIdList.map((id) => {
@@ -42,6 +54,7 @@ export function ChoreButton({ goto, chore, avatarIdList }: Props) {
                 );
             } else if (differenceInDays > 0) {
                 return (
+                    // TODO: use theme colors for red + text should be white in both light and dark theme
                     <View style={[styles.circle, { backgroundColor: 'red' }]}>
                         <Text style={{ color: colors.text }}>{differenceInDays}</Text>
                     </View>
@@ -59,9 +72,10 @@ export function ChoreButton({ goto, chore, avatarIdList }: Props) {
         <TouchableOpacity
             style={[styles.root, { backgroundColor: colors.primary }, { borderColor: colors.border }, { borderWidth: 1 }]}
             onPress={goto}
+            disabled={editChore}
         >
             <Text style={[{ color: colors.text }]}>{chore.name}</Text>
-            {setIconLastDone(chore, avatarIdList)}
+            {setIconLastDone(chore, avatarIdList, editChore)}
         </TouchableOpacity>
     );
 }
@@ -85,5 +99,8 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         height: 30,
         width: 30
+    },
+    icon: {
+        justifyContent: 'center'
     }
 });

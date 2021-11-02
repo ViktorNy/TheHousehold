@@ -4,7 +4,7 @@ import PieChartAllScreen from '../screens/pieChart/PieChartAllScreen';
 import PieChartMonthScreen from '../screens/pieChart/PieChartMonthScreen';
 import PieChartTodayScreen from '../screens/pieChart/PieChartTodayScreen';
 import PieChartWeekScreen from '../screens/pieChart/PieChartWeekScreen';
-import StatisticsHeader from './StatisticsHeader';
+import StatisticsHeader from './TabDateHeader';
 
 interface Props {
     householdId?: string;
@@ -24,9 +24,9 @@ const Tab = createMaterialTopTabNavigator<PieParamList>();
 
 function PieChartTabNavigator() {
     return (
-        <Tab.Navigator tabBar={(props) => <StatisticsHeader {...props} />}>
+        <Tab.Navigator tabBar={(props) => <StatisticsHeader props={{ ...props }} headline={'Statestik Sysslor'} />}>
             <Tab.Screen name="PieAll" component={PieChartAllScreen} initialParams={{ householdId: undefined }} />
-            <Tab.Screen name="PieToday" component={PieChartTodayScreen} initialParams={{ householdId: undefined }}/>
+            <Tab.Screen name="PieToday" component={PieChartTodayScreen} initialParams={{ householdId: undefined }} />
             <Tab.Screen name="PieWeek" component={PieChartWeekScreen} initialParams={{ householdId: undefined }} />
             <Tab.Screen name="PieMonth" component={PieChartMonthScreen} initialParams={{ householdId: undefined }} />
         </Tab.Navigator>
