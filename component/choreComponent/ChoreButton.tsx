@@ -5,6 +5,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Chore } from '../../data/data';
 import Avatar from '../Avatar';
 import { AntDesign } from '@expo/vector-icons';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 
 interface Props {
     goto: () => void;
@@ -16,6 +17,8 @@ interface Props {
 export function ChoreButton({ goto, chore, avatarIdList, editChore }: Props) {
     const { colors } = useTheme();
     const today = moment(new Date()).format('YYYY-MM-DD');
+    const currentHouseholdId = useAppSelector(state => state.household.currentHouseholdId);
+    const dispatch = useAppDispatch();
 
     function setIconLastDone(chore: Chore, avatarIdList: string[], editChore?: boolean) {
         const lastDoneDate = chore.lastDone
@@ -23,16 +26,20 @@ export function ChoreButton({ goto, chore, avatarIdList, editChore }: Props) {
             : moment(new Date(chore.createdDate)).format('YYYY-MM-DD');
 
         const doneNextByDate = moment(lastDoneDate).add(chore.frequency, 'day').format('YYYY-MM-DD');
-
+        console.log();
         const differenceInDays = (new Date(today).getTime() - new Date(doneNextByDate).getTime()) / (1000 * 3600 * 24);
         if (editChore) {
             // TODO: on press need to lead to right popup by chore.id...
             return (
                 <View style={[{ flexDirection: 'row' }]}>
-                    <TouchableOpacity style={styles.icon} onPress={() => {}}>
+                    <TouchableOpacity style={styles.icon}
+                        onPress={() => {
+                            dispatch({ type: 'REMOVE_CHORE_FROM_HOUSEHOLD', payload: { chore: chore, householdId: currentHouseholdId! } });
+                        }}
+                    >
                         <AntDesign name="delete" size={20} color={colors.text} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={(styles.icon, { paddingLeft: 10 })} onPress={() => {}}>
+                    <TouchableOpacity style={(styles.icon, { paddingLeft: 10 })} onPress={() => { }}>
                         <AntDesign name="edit" size={20} color={colors.text} />
                     </TouchableOpacity>
                 </View>

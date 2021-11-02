@@ -14,12 +14,11 @@ type Props = CompositeScreenProps<HouseholdChoresTabScreenProx<'HouseholdChoresW
 
 export default function HouseholdChoresWeekScreen(props: Props) {
     const { colors } = useTheme();
-    const currentHousehold = useAppSelector((state) => state.household.currentHousehold);
+    const currentHousehold = useAppSelector((state) => state.household.householdList.find(h => h.id === state.household.currentHouseholdId));
     const memberList = useAppSelector((state) => state.member.memberList.filter((m) => m.householdId === currentHousehold?.id));
 
     const [toggleEdit, setToggleEdit] = useState<boolean>(false);
 
-    console.log('toggleEdit Week: ' + toggleEdit);
     if (currentHousehold) {
         return (
             <View style={styles.root}>

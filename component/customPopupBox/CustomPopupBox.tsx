@@ -22,7 +22,7 @@ interface Props {
 export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: Props) {
     const user = useAppSelector(state => state.user.user) as User;
     const allHouseHolds = useAppSelector(state => state.household.householdList);
-    const currentHousehold = useAppSelector(state => state.household.currentHousehold);
+    const currentHousehold = useAppSelector((state) => state.household.householdList.find(h => h.id === state.household.currentHouseholdId));
     const [userInput, onUserInputChange] = useState('');
     const layoutChoices = LayoutChoice(modalCase, memberId);
     const { colors } = useTheme();
