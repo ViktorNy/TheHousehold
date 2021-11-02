@@ -81,7 +81,7 @@ export const modalStyles = StyleSheet.create({
     },
     choreContainer: {
         flexDirection: 'row',
-        height: '80%',
+        height: 500,
         width: '100%',
         flexWrap: 'wrap',
         alignContent: 'center',
@@ -113,6 +113,28 @@ export const modalStyles = StyleSheet.create({
     },
     choreRowStyle: {
         height: '12%',
+        flexDirection: 'row'
+    },
+    middleContainer: {
+        borderRadius: 10,
+        height: 30,
+        width: 30,
+        margin: 5,
+        marginTop: 13,
+        marginBottom: 13,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
+    valueContainer: {
+        borderRadius: 10,
+        height: 30,
+        width: 30,
+        margin: 5,
+        marginTop: 13,
+        marginBottom: 13,
+        justifyContent: 'center',
+        alignItems: 'center',
         flexDirection: 'row'
     }
 });
