@@ -60,8 +60,7 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                     statusBarTranslucent={true}
                     onBackButtonPress={() => {
                         toggleModal(false);
-                    }
-                    }
+                    }}
                     style={modalStyles.avatarContainerPosition}
                 >
                     <View style={modalStyles.avatarContainerPosition}>
@@ -102,7 +101,7 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                         </View>
                     </View>
                 </Modal>
-            </View >
+            </View>
         );
     } else {
         return (
@@ -115,8 +114,7 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                     statusBarTranslucent={true}
                     onBackButtonPress={() => {
                         toggleModal(false);
-                    }
-                    }
+                    }}
                 >
                     <View style={modalStyles.centeredView}>
                         <View style={[modalStyles.modalView, { backgroundColor: colors.popupBackground }, modalStyles.centeredView]}>
@@ -175,7 +173,7 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                                     }}
                                 >
                                     <AntDesign name="pluscircleo" size={24} color={iconColor} />
-                                    <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.ModalLeft}</Text>
+                                    <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.modalLeft}</Text>
                                 </Pressable>
                                 <Pressable
                                     style={[
@@ -190,11 +188,11 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                                     <AntDesign name="closecircleo" size={24} color={iconColor} />
                                     <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.modalRight}</Text>
                                 </Pressable>
-                            </View >
-                        </View >
-                    </View >
-                </Modal >
-            </View >
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+            </View>
         );
     }
 }

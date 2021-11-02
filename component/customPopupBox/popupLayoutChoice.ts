@@ -1,9 +1,10 @@
 import { useAppSelector } from '../../store/store';
 
 let modalTitle = '';
-let ModalLeft = '';
+let modalLeft = '';
 let modalRight = '';
 let modalPlaceholder = '';
+let modalSecondaryPlaceholder = '';
 let modalInputActive = true;
 let avatar = false;
 
@@ -13,42 +14,44 @@ export function LayoutChoice(modalCase: string, id?: string) {
 
     if (modalCase === 'JH') {
         modalTitle = 'Gå med i Hushåll';
-        ModalLeft = 'Gå med';
+        modalLeft = 'Gå med';
         modalRight = 'Avbryt';
         modalPlaceholder = 'Hushållskod';
+        modalSecondaryPlaceholder = 'Användarnamn';
         modalInputActive = true;
         avatar = false;
     } else if (modalCase === 'CH') {
         modalTitle = 'Skapa Hushåll';
-        ModalLeft = 'Skapa';
+        modalLeft = 'Skapa';
         modalRight = 'Avbryt';
-        modalPlaceholder = 'Namn';
+        modalPlaceholder = 'Hushållsnamn';
+        modalSecondaryPlaceholder = 'Användarnamn';
         modalInputActive = true;
         avatar = false;
     } else if (modalCase === 'MO') {
         modalTitle = 'Gör till ägare';
-        ModalLeft = 'Acceptera';
+        modalLeft = 'Acceptera';
         modalRight = 'Avbryt';
         modalPlaceholder = 'Gör ' + username + ' till ägare';
         modalInputActive = false;
         avatar = false;
     } else if (modalCase === 'RUFH') {
         modalTitle = 'Ta bort från hushåll';
-        ModalLeft = 'Ja';
+        modalLeft = 'Ja';
         modalRight = 'Avbryt';
         modalPlaceholder = 'Vill du verkligen ta bort ' + username + '?';
         modalInputActive = false;
         avatar = false;
     } else if (modalCase === 'AR') {
         modalTitle = 'Besvara förfrågan';
-        ModalLeft = 'Acceptera';
+        modalLeft = 'Acceptera';
         modalRight = 'Avslå';
         modalPlaceholder = username + ' vill gå med';
         modalInputActive = false;
         avatar = false;
     } else if (modalCase === 'CHN') {
         modalTitle = 'Byt Hushållsnamn';
-        ModalLeft = 'Byt namn';
+        modalLeft = 'Byt namn';
         modalRight = 'Avbryt';
         modalPlaceholder = currentHousehold!.name;
         modalInputActive = true;
@@ -60,5 +63,5 @@ export function LayoutChoice(modalCase: string, id?: string) {
         modalTitle = 'Ajdå, här blev det fel';
         modalRight = 'Tillbaka';
     }
-    return { modalTitle, ModalLeft, modalRight, modalPlaceholder, modalInputActive, avatar };
+    return { modalTitle, modalLeft, modalRight, modalPlaceholder, modalInputActive, avatar, modalSecondaryPlaceholder };
 }
