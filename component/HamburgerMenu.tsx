@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { useTheme } from 'react-native-paper';
+import { useAppDispatch, useAppSelector } from '../store/store';
 import { Household, Member } from '../data/data';
 
 interface Props {
@@ -16,6 +17,13 @@ interface Props {
 
 export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStackProps, currentHousehold, currentMember, toggleExternalModal }: Props) {
     const { colors } = useTheme();
+
+    const currentChoice = useAppSelector((state) => state.user.appearance);
+    const dispatch = useAppDispatch();
+
+    const setAppearance = (appearance: string) => {
+        dispatch({ type: 'CHANGE_APPEARANCE', payload: appearance });
+    };
     if (currentHousehold) {
         return (
             <Modal
@@ -87,6 +95,29 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
                         {currentMember?.memberType === 'owner' && <Text style={[styles.modalText, { color: colors.text }]}>Visa förfrågningar</Text>}
 
                         <Text style={[styles.modalText, { color: colors.text }]}>Logga ut</Text>
+                        <View style={[styles.appearanceChoiceContainer, { backgroundColor: colors.appearanceSwithContainer }]}>
+                            <TouchableOpacity
+                                style={[styles.appearanceChoice, currentChoice === 'auto' ? { backgroundColor: colors.appearanceSwitchButton } : { backgroundColor: colors.notSelectedAppearance }]}
+                                onPress={() => setAppearance('auto')
+                                }
+                            >
+                                <Text style={[currentChoice === 'auto' ? { color: colors.appearanceButtonText } : { color: colors.text }]}>Auto</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={[styles.appearanceChoice, currentChoice === 'light' ? { backgroundColor: colors.appearanceSwitchButton } : { backgroundColor: colors.notSelectedAppearance }]}
+                                onPress={() => setAppearance('light')}
+                            >
+                                <Text style={[currentChoice === 'light' ? { color: colors.appearanceButtonText } : { color: colors.text }]}>Light</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={[styles.appearanceChoice, currentChoice === 'dark' ? { backgroundColor: colors.appearanceSwitchButton } : { backgroundColor: colors.notSelectedAppearance }]}
+                                onPress={() => setAppearance('dark')}
+                            >
+                                <Text style={[currentChoice === 'dark' ? { color: colors.appearanceButtonText } : { color: colors.text }]}>Dark</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
             </Modal>
@@ -107,6 +138,29 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
                 <View style={[styles.centeredView]}>
                     <View style={[styles.modalView, { backgroundColor: colors.primary }]}>
                         <Text style={[styles.modalText, { color: colors.text }]}>Logga ut</Text>
+                        <View style={[styles.appearanceChoiceContainer, { backgroundColor: colors.appearanceSwithContainer }]}>
+                            <TouchableOpacity
+                                style={[styles.appearanceChoice, currentChoice === 'auto' ? { backgroundColor: colors.appearanceSwitchButton } : { backgroundColor: colors.notSelectedAppearance }]}
+                                onPress={() => setAppearance('auto')
+                                }
+                            >
+                                <Text style={[currentChoice === 'auto' ? { color: colors.appearanceButtonText } : { color: colors.text }]}>Auto</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={[styles.appearanceChoice, currentChoice === 'light' ? { backgroundColor: colors.appearanceSwitchButton } : { backgroundColor: colors.notSelectedAppearance }]}
+                                onPress={() => setAppearance('light')}
+                            >
+                                <Text style={[currentChoice === 'light' ? { color: colors.appearanceButtonText } : { color: colors.text }]}>Light</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={[styles.appearanceChoice, currentChoice === 'dark' ? { backgroundColor: colors.appearanceSwitchButton } : { backgroundColor: colors.notSelectedAppearance }]}
+                                onPress={() => setAppearance('dark')}
+                            >
+                                <Text style={[currentChoice === 'dark' ? { color: colors.appearanceButtonText } : { color: colors.text }]}>Dark</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
             </Modal>
@@ -132,5 +186,25 @@ const styles = StyleSheet.create({
     modalText: {
         marginBottom: 15,
         textAlign: 'center'
+    },
+    appearanceChoiceContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignSelf: 'center',
+        backgroundColor: '#f2f2f2',
+        borderRadius: 100
+    },
+    appearanceChoice: {
+        width: '30%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 100
+    },
+    appearanceChosenColor: {
+        borderColor: 'black'
+    },
+    appearanceNotChosenColor: {
+        borderColor: 'red'
     }
 });

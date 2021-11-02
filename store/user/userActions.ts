@@ -15,4 +15,9 @@ export interface GetUserAction {
     payload: string;
 }
 
-export type UserAction = CreateUserAction | EditUserAction | GetUserAction;
+export interface ChangeAppearanceAction {
+    type: 'CHANGE_APPEARANCE',
+    payload: string
+}
+
+export type UserAction = CreateUserAction | EditUserAction | GetUserAction | ChangeAppearanceAction;
