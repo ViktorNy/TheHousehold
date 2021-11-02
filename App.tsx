@@ -1,4 +1,4 @@
-import { DarkTheme as NavigationDarkTheme, DefaultTheme as NavigationDefaultTheme } from '@react-navigation/native';
+import { DarkTheme as NavigationDarkTheme, DefaultTheme as NavigationDefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useColorScheme } from 'react-native';
@@ -6,7 +6,7 @@ import { DarkTheme as PaperDarkTheme, DefaultTheme as PaperDefaultTheme, Provide
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import RootStackNavigator from './navigation/RootStackNavigator';
-import { store } from './store/store';
+import { store, useAppSelector } from './store/store';
 
 declare global {
     // eslint-disable-next-line no-unused-vars
@@ -57,15 +57,33 @@ const CustomDarkTheme = {
 };
 
 export default function App() {
-    const scheme = useColorScheme();
     return (
         <Provider store={store}>
-            <PaperProvider theme={scheme === 'dark' ? CustomDarkTheme : CustomDefaultTheme}>
+            <AppInside />
+        </Provider>
+    );
+}
+
+function AppInside() {
+    const scheme = useColorScheme();
+    const appearance = useAppSelector((state) => state.user.appearance);
+
+    let theme = scheme === 'dark' ? CustomDarkTheme : CustomDefaultTheme;
+
+    if (appearance === 'light') {
+        theme = CustomDefaultTheme;
+    } else if (appearance === 'dark') {
+        theme = CustomDarkTheme;
+    }
+
+    return (
+        <NavigationContainer theme={theme}>
+            <PaperProvider theme={theme}>
                 <SafeAreaProvider>
                     <RootStackNavigator />
                     <StatusBar style="auto" />
                 </SafeAreaProvider>
             </PaperProvider>
-        </Provider>
+        </NavigationContainer>
     );
 }

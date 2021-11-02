@@ -27,7 +27,10 @@ function userReducer(state: UserState = initialState, action: KnownAction): User
         const loggedinUser = mockedUserData.find(u => u.id === action.payload);
         if (loggedinUser) {
             return {
-                ...{ user: loggedinUser }
+                ...{
+                    user: loggedinUser,
+                    appearance: initialState.appearance // Appearance ska sättas till initialstate i början av appen?
+                }
                 // userList: nextUserList
             };
         } else {
