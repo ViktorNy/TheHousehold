@@ -6,23 +6,23 @@ import { CustomEditButton } from '../component/CustomEditButton';
 import { CustomPlusButton } from '../component/CustomPlusButton';
 import { CustomWideButton } from '../component/CustomWideButton';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
+import { getHouseholdByIdSelector } from '../store/household/householdSelectors';
 import { useAppSelector } from '../store/store';
 
 export default function HouseholdChoresScreen({ navigation, route }: RootStackScreenProps<'HouseholdChores'>) {
     const { colors } = useTheme();
-    const currentHousehold = useAppSelector((state) => state.household.currentHousehold);
-    const memberList = useAppSelector((state) => state.member.memberList.filter((m) => m.householdId === currentHousehold?.id));
+    const household = useAppSelector((state) => getHouseholdByIdSelector(state, route.params.householdId));
+    const memberList = useAppSelector((state) => state.member.memberList.filter((m) => m.householdId === household?.id));
 
     const [toggleEdit, setToggleEdit] = useState<boolean>(false);
 
     console.log('toggleEdit: ' + toggleEdit);
-
-    if (currentHousehold) {
+    if (household) {
         return (
             <View style={styles.root}>
                 {/* TODO: route and navigation may be pased as props to RenderChores -> ChoreButton */}
                 {/* TODO: For more view in choreSlider, only rename label for those screens */}
-                <RenderChores label={'All'} currentHousehold={currentHousehold} members={memberList} editChore={toggleEdit} />
+                <RenderChores label={'All'} currentHousehold={household} members={memberList} editChore={toggleEdit} />
                 {!toggleEdit && (
                     <View style={[styles.buttons, { justifyContent: 'space-between' }]}>
                         <CustomPlusButton goto={() => console.log('Lägg till en syssla')} buttonText={'Lägg till'} />
@@ -37,13 +37,15 @@ export default function HouseholdChoresScreen({ navigation, route }: RootStackSc
                 )}
             </View>
         );
+    } else {
+        return (
+            <View>
+                <Text style={[{ color: colors.text }]}>Något gick fel! Inget hushåll hittades.</Text>
+            </View>
+        );
     }
-    return (
-        <View>
-            <Text style={[{ color: colors.text }]}>Något gick fel! Inget hushåll hittades.</Text>
-        </View>
-    );
 }
+
 const styles = StyleSheet.create({
     root: {
         height: '100%'
