@@ -1,14 +1,14 @@
 import { AntDesign } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import { Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Pressable, TextInput, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
+import { Text, useTheme } from 'react-native-paper';
 import { Member, mockAvatarData, User } from '../../data/data';
 import { getMemberByIdSelector, getMembersOfHouseholdSelector } from '../../store/member/memberSelector';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { modalStyles } from '../../style/modalStyle';
 import Avatar from '../Avatar';
 import { LayoutChoice } from './popupLayoutChoice';
-import { useTheme } from 'react-native-paper';
 import uuid from 'react-native-uuid';
 import deepcopy from 'ts-deepcopy';
 
