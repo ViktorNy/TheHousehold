@@ -5,15 +5,22 @@ import React from 'react';
 import { FlatList, Text, View } from 'react-native';
 import { Chore, Household, Member, User } from '../../data/data';
 import { ParamList } from '../../navigation/ChoresTabNavigator';
+import { HouseholdChoresParamList, HouseholdChoresTabScreenProx } from '../../navigation/HouseholdChoresTabNavigator';
 import { RootStackScreenProps } from '../../navigation/RootStackNavigator';
 import { useAppSelector } from '../../store/store';
 import { ChoreButton } from './ChoreButton';
 import { labelCaseChoreSlider } from './ChoresSlider';
 import displayChore from './displayChore';
 
+// type combinedProps = CompositeScreenProps<
+//     CompositeScreenProps<MaterialTopTabScreenProps<ParamList, keyof ParamList>, RootStackScreenProps>,
+//     HouseholdChoresTabScreenProx<keyof HouseholdChoresParamList>
+// >;
+
 interface Props {
-    prop?: CompositeScreenProps<MaterialTopTabScreenProps<ParamList, keyof ParamList>, RootStackScreenProps>;
-    // | CompositeScreenProps<PieTabScreenProx<keyof PieParamList>, RootStackScreenProps>;
+    prop:
+        | CompositeScreenProps<MaterialTopTabScreenProps<ParamList, keyof ParamList>, RootStackScreenProps>
+        | CompositeScreenProps<HouseholdChoresTabScreenProx<keyof HouseholdChoresParamList>, RootStackScreenProps>;
     userHousehold?: Household[];
     currentHousehold?: Household;
     members: Member[];
@@ -59,7 +66,7 @@ export default function RenderChores({ prop, userHousehold, currentHousehold, me
                                     chore={item}
                                     avatarIdList={getAvatarIdList(item)}
                                     goto={() =>
-                                        prop?.navigation.navigate('ChoreDetail', {
+                                        prop.navigation.navigate('ChoreDetail', {
                                             choreId: item.id,
                                             householdId: currentHousehold.id
                                         })
@@ -89,7 +96,7 @@ export default function RenderChores({ prop, userHousehold, currentHousehold, me
                                             chore={chore}
                                             avatarIdList={getAvatarIdList(chore)}
                                             goto={() => {
-                                                prop?.navigation.navigate('ChoreDetail', {
+                                                prop.navigation.navigate('ChoreDetail', {
                                                     choreId: chore.id,
                                                     householdId: item.id
                                                 });

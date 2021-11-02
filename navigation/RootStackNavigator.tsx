@@ -4,7 +4,6 @@ import React from 'react';
 import { useColorScheme } from 'react-native';
 import ChoreDetailScreen from '../screens/ChoreDetailScreen';
 import DistributeChoreScreen from '../screens/DistributeChoreScreen';
-import HouseholdChoresScreen from '../screens/householdChores/HouseholdChoresAllScreen';
 import LoginScreen from '../screens/LoginScreen';
 import MemberDetailScreen from '../screens/MemberDetailScreen';
 import MemberScreen from '../screens/MemberScreen';
@@ -12,6 +11,7 @@ import RegisterScreen from '../screens/RegisterScreen';
 import RegisterUserNameScreen from '../screens/RegisterUserNameScreen';
 import StartScreen from '../screens/StartScreen';
 import ChoresTabNavigator from './ChoresTabNavigator';
+import HouseholdChoresTabNavigator from './HouseholdChoresTabNavigator';
 import PieChartTabNavigator from './PieChartTabNavigator';
 
 // declare global {
@@ -104,7 +104,7 @@ function RootStackNavigator() {
                         headerTitle: 'Medlemmar'
                     }}
                 />
-                <Stack.Screen name="HouseholdChores" component={HouseholdChoresScreen} />
+                <Stack.Screen name="HouseholdChores" component={HouseholdChoresTabNavigator} />
                 <Stack.Screen name="MemeberDetailScreen" component={MemberDetailScreen} />
                 <Stack.Screen name="PieChart" component={PieChartTabNavigator} />
             </Stack.Navigator>

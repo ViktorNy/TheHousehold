@@ -4,7 +4,7 @@ import HouseholdChoresAllScreen from '../screens/householdChores/HouseholdChores
 import HouseholdChoresMonthScreen from '../screens/householdChores/HouseholdChoresMonthScreen';
 import HouseholdChoresTodayScreen from '../screens/householdChores/HouseholdChoresTodayScreen';
 import HouseholdChoresWeekScreen from '../screens/householdChores/HouseholdChoresWeekScreen';
-import StatisticsHeader from './StatisticsHeader';
+import StatisticsHeader from './TabDateHeader';
 
 interface Props {
     householdId?: string;
@@ -18,16 +18,13 @@ export type HouseholdChoresParamList = {
     HouseholdChoresMonth: Props;
 };
 
-// export type PieTabScreenProx<Screen extends keyof PieParamList> = MaterialTopTabScreenProps<PieParamList, Screen>;
 export type HouseholdChoresTabScreenProx<Screen extends keyof HouseholdChoresParamList> = MaterialTopTabScreenProps<HouseholdChoresParamList, Screen>;
 
 const Tab = createMaterialTopTabNavigator<HouseholdChoresParamList>();
 
-// TODO: Ersätt StatisticsHeader with new file or refactor code to work at both senarios
-
 function HouseholdChoresTabNavigator() {
     return (
-        <Tab.Navigator tabBar={(props) => <StatisticsHeader {...props} />}>
+        <Tab.Navigator tabBar={(props) => <StatisticsHeader props={{ ...props }} headline={'Alla sysslor'} />}>
             <Tab.Screen name="HouseholdChoresAll" component={HouseholdChoresAllScreen} initialParams={{ householdId: undefined }} />
             <Tab.Screen name="HouseholdChoresToday" component={HouseholdChoresTodayScreen} initialParams={{ householdId: undefined }} />
             <Tab.Screen name="HouseholdChoresWeek" component={HouseholdChoresWeekScreen} initialParams={{ householdId: undefined }} />
