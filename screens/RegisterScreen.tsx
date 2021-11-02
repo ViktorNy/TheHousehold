@@ -4,11 +4,15 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomNavigateButton } from '../component/CustomNavigateButton';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
+import { useAppDispatch } from '../store/store';
+import uuid from 'react-native-uuid';
 
 export default function RegisterScreen({ navigation }: RootStackScreenProps<'Register'>) {
     const { colors } = useTheme();
     const [userEmail, onUserEmailChange] = useState('');
     const [userPassword, onUserPasswordChange] = useState('');
+    const dispatch = useAppDispatch();
+    const newUserId = uuid.v4().toString();
 
     return (
         <SafeAreaView style={[{ backgroundColor: colors.background }]}>
@@ -31,7 +35,13 @@ export default function RegisterScreen({ navigation }: RootStackScreenProps<'Reg
                 placeholderTextColor={colors.text}
             />
             <View style={styles.viewStyle}>
-                <CustomNavigateButton buttonText="Spara" goto={() => navigation.navigate('NoHousehold', { email: userEmail, password: userPassword })} />
+                <CustomNavigateButton buttonText="Spara" goto={() => {
+                    dispatch({ type: 'CREATE_USER', payload: { id: newUserId, email: userEmail, password: userPassword } }),
+                    navigation.navigate('NoHousehold');
+                    console.log(userEmail, userPassword);
+                }
+
+                }/>
             </View>
         </SafeAreaView>
     );

@@ -1,9 +1,9 @@
-import { useTheme } from 'react-native-paper';
+import { Entypo } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import { Household, Member, User } from '../data/data';
 import Avatar from './Avatar';
-import { Entypo } from '@expo/vector-icons';
 
 interface Props {
     household?: Household;
@@ -96,7 +96,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
             return (
                 <View style={styles.user}>
                     <View style={[styles.circle, { borderColor: colors.text }]}>{/* <Text style={{ color: colors.text }}></Text> */}</View>
-                    <Text style={{ color: colors.text }}>{userInformation?.user.username}</Text>
+                    <Text style={{ color: colors.text }}>{userInformation?.member?.memberName}</Text>
                 </View>
             );
         }
