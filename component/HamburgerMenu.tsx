@@ -46,7 +46,14 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
                             </TouchableOpacity>
                         }
 
-                        <Text style={[styles.modalText, { color: colors.text }]}>Byt avatar</Text>
+                        <TouchableOpacity
+                            onPress={() => {
+                                toggleIsShowing(!isShowingMenu);
+                                toggleExternalModal(true, 'AI');
+                            }}
+                        >
+                            <Text style={[styles.modalText, { color: colors.text }]}>Byt avatar</Text>
+                        </TouchableOpacity>
 
                         <TouchableOpacity
                             onPress={() => {

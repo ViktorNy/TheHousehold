@@ -63,7 +63,7 @@ export default function CustomHeader(props: MaterialTopTabBarProps) {
                 onLeftPress={() => props.navigation.navigate(previousRoute.name, { userId: user.id })}
                 onRightPress={() => props.navigation.navigate(nextRoute.name, { userId: user.id })}
             />
-            <CustomPopupBox modalCase={modalCase} isShowing={isShowModalCaseModal} toggleModal={toggleModalAndSetModalCase} />
+            <CustomPopupBox memberId={userMemberInfo?.id} modalCase={modalCase} isShowing={isShowModalCaseModal} toggleModal={toggleModalAndSetModalCase} />
         </View>
     );
 }

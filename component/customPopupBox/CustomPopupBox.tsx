@@ -39,7 +39,12 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
     });
 
     const onAvatarPress = (avatar: string) => {
+        // needed?
         setCurrentlyChosenAvatar(avatar);
+        const updatedMember = deepcopy(activeMember);
+        updatedMember!.avatar = avatar;
+        dispatch({ type: 'EDIT_MEMBER', payload: updatedMember! });
+        toggleModal(false);
     };
 
     const dispatch = useAppDispatch();

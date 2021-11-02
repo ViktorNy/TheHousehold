@@ -1,6 +1,7 @@
 import { Member } from '../../data/data';
 import { CreateMemberAction, EditMemberAction, RemoveMemberAction } from './memberActions';
 import { initialState, MemberState } from './memberState';
+import deepcopy from 'ts-deepcopy';
 import uuid from 'react-native-uuid';
 import moment from 'moment';
 
@@ -34,12 +35,12 @@ function memberReducer(state: MemberState = initialState, action: KnownAction): 
             memberList: [...state.memberList, newMember]
         };
     }
-    case 'EDIT': {
+    case 'EDIT_MEMBER': {
         // Edit used for editing member
-        const nextMemberList = [...state.memberList];
+        const nextMemberList = deepcopy(state.memberList);
         const member = action.payload;
-        const index = state.memberList.findIndex((item) => item.id === member.id);
-        if (index) nextMemberList.splice(index, 1, member);
+        const index = state.memberList.findIndex((oldMember) => oldMember.id === member.id);
+        if (index > -1) nextMemberList.splice(index, 1, member);
         return {
             ...state,
             memberList: nextMemberList
