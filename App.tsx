@@ -19,6 +19,10 @@ declare global {
             avatarOutline: string;
             passedDueBy: string;
             border: string;
+            lightModeButton: string;
+            lightModeButtonText: string;
+            appearanceSwithContainer: string;
+            notSelectedAppearance: string;
         }
     }
 }
@@ -35,7 +39,11 @@ const CustomDefaultTheme = {
         grayedOutText: 'rgb(100, 100, 100)',
         avatarOutline: '#001f3f',
         passedDueBy: 'black', // för Emelie
-        border: 'rgb(200, 200, 200)'
+        border: 'rgb(200, 200, 200)',
+        lightModeButton: 'rgb(210, 210, 210)',
+        lightModeButtonText: 'rgb(0, 0, 0)',
+        appearanceSwithContainer: 'rgb(150, 150, 150)',
+        notSelectedAppearance: 'rgb(180, 180, 180)'
     }
 };
 
@@ -52,7 +60,11 @@ const CustomDarkTheme = {
         grayedOutText: 'rgb(130, 130, 130)',
         avatarOutline: '#B10DC9',
         passedDueBy: 'white', // för Emelie
-        border: 'rgb(20, 20, 20)'
+        border: 'rgb(20, 20, 20)',
+        lightModeButton: 'rgb(40, 40, 40)',
+        lightModeButtonText: 'rgb(210, 210, 210)',
+        appearanceSwithContainer: 'rgb(0, 0, 0)',
+        notSelectedAppearance: 'rgb(20, 20, 20)'
     }
 };
 

@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { useTheme } from 'react-native-paper';
 import { Member } from '../data/data';
-import { useAppDispatch } from '../store/store';
+import { useAppDispatch, useAppSelector } from '../store/store';
 
 interface Props {
     isShowingMenu: boolean,
@@ -17,12 +17,11 @@ interface Props {
 export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStackProps, householdID, currentMember }: Props) {
     const { colors } = useTheme();
 
-    // const currentChoice = useAppSelector((state) => state.user.appearance);
+    const currentChoice = useAppSelector((state) => state.user.appearance);
     const dispatch = useAppDispatch();
 
     const setAppearance = (appearance: string) => {
         dispatch({ type: 'CHANGE_APPEARANCE', payload: appearance });
-        console.log(appearance);
     };
 
     if (householdID) {
@@ -98,26 +97,27 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
                 <View style={[styles.centeredView]}>
                     <View style={[styles.modalView, { backgroundColor: colors.primary }]}>
                         <Text style={[styles.modalText, { color: colors.text }]}>Logga ut</Text>
-                        <View style={styles.appearanceChoiceContainer}>
+                        <View style={[styles.appearanceChoiceContainer, { backgroundColor: colors.appearanceSwithContainer }]}>
                             <TouchableOpacity
-                                style={styles.appearanceChoice}
-                                onPress={() => setAppearance('auto')}
+                                style={[styles.appearanceChoice, currentChoice === 'auto' ? { backgroundColor: colors.lightModeButton } : { backgroundColor: colors.notSelectedAppearance }]}
+                                onPress={() => setAppearance('auto')
+                                }
                             >
-                                <Text>Auto</Text>
+                                <Text style={[currentChoice === 'auto' ? { color: colors.lightModeButtonText } : { color: colors.text }]}>Auto</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
-                                style={styles.appearanceChoice}
+                                style={[styles.appearanceChoice, currentChoice === 'light' ? { backgroundColor: colors.lightModeButton } : { backgroundColor: colors.notSelectedAppearance }]}
                                 onPress={() => setAppearance('light')}
                             >
-                                <Text>Light</Text>
+                                <Text style={[currentChoice === 'light' ? { color: colors.lightModeButtonText } : { color: colors.text }]}>Light</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
-                                style={styles.appearanceChoice}
+                                style={[styles.appearanceChoice, currentChoice === 'dark' ? { backgroundColor: colors.lightModeButton } : { backgroundColor: colors.notSelectedAppearance }]}
                                 onPress={() => setAppearance('dark')}
                             >
-                                <Text>Dark</Text>
+                                <Text style={[currentChoice === 'dark' ? { color: colors.lightModeButtonText } : { color: colors.text }]}>Dark</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -150,14 +150,20 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        backgroundColor: '#f2f2f2',
+        borderRadius: 100
     },
     appearanceChoice: {
         width: '30%',
         justifyContent: 'center',
         alignItems: 'center',
-        borderColor: 'black', // färg ska ändras
-        borderWidth: 2,
         borderRadius: 100
+    },
+    appearanceChosenColor: {
+        borderColor: 'black'
+    },
+    appearanceNotChosenColor: {
+        borderColor: 'red'
     }
 });

@@ -43,10 +43,8 @@ function userReducer(state: UserState = initialState, action: KnownAction): User
     case 'CHANGE_APPEARANCE': {
         let currentAppearance = deepcopy(state.appearance);
 
-        if (action.payload === 'dark') {
-            currentAppearance = 'dark';
-        } else if (action.payload === 'light') {
-            currentAppearance = 'light';
+        if (action.payload === 'dark' || action.payload === 'light') {
+            currentAppearance = action.payload;
         } else {
             currentAppearance = 'auto';
         }
