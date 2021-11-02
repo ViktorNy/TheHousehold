@@ -11,7 +11,7 @@ interface Props {
     goto: () => void;
     chore: Chore;
     avatarIdList: string[];
-    editChore?: boolean;
+    editChore?: boolean | undefined;
 }
 
 export function ChoreButton({ goto, chore, avatarIdList, editChore }: Props) {
