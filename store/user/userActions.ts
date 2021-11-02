@@ -10,7 +10,7 @@ export interface EditUserAction {
     payload: User;
 }
 
-export interface GetUserAction {
+export interface SetUserAction {
     type: 'SET_USER';
     payload: string;
 }
@@ -19,4 +19,4 @@ export interface ChangeAppearanceAction {
     payload: string
 }
 
-export type UserAction = CreateUserAction | EditUserAction | GetUserAction | ChangeAppearanceAction;
+export type UserAction = CreateUserAction | EditUserAction | SetUserAction | ChangeAppearanceAction;
