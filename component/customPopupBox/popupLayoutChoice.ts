@@ -8,11 +8,10 @@ let modalSecondaryPlaceholder = '';
 let modalInputActive = true;
 let avatar = false;
 let createChore = false;
-let modalSecondaryPlaceholder = '';
 
 export function LayoutChoice(modalCase: string, id?: string) {
-    const username = useAppSelector(state => state.member.memberList.find(m => m.userId === id))?.memberName;
-    const currentHousehold = useAppSelector((state) => state.household.householdList.find(h => h.id === state.household.currentHouseholdId));
+    const username = useAppSelector((state) => state.member.memberList.find((m) => m.userId === id))?.memberName;
+    const currentHousehold = useAppSelector((state) => state.household.householdList.find((h) => h.id === state.household.currentHouseholdId));
 
     if (modalCase === 'JH') {
         modalTitle = 'Gå med i Hushåll';
@@ -62,7 +61,7 @@ export function LayoutChoice(modalCase: string, id?: string) {
         createChore = false;
     } else if (modalCase === 'CC') {
         modalTitle = 'Skapa en ny syssla';
-        ModalLeft = 'Spara';
+        modalLeft = 'Spara';
         modalRight = 'Stäng';
         modalPlaceholder = 'Titel';
         modalSecondaryPlaceholder = 'Beskrivning';
@@ -80,5 +79,5 @@ export function LayoutChoice(modalCase: string, id?: string) {
         modalTitle = 'Ajdå, här blev det fel';
         modalRight = 'Tillbaka';
     }
-    return { modalTitle, modalLeft, modalRight, modalPlaceholder, modalInputActive, avatar, modalSecondaryPlaceholder };
+    return { modalTitle, modalLeft, modalRight, modalPlaceholder, modalInputActive, avatar, modalSecondaryPlaceholder, createChore };
 }
