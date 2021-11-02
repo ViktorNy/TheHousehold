@@ -4,7 +4,6 @@ import React from 'react';
 // import { useTheme } from 'react-native-paper';
 import ChoreDetailScreen from '../screens/ChoreDetailScreen';
 import DistributeChoreScreen from '../screens/DistributeChoreScreen';
-import HouseholdChoresScreen from '../screens/HouseholdChoresScreen';
 import LoginScreen from '../screens/LoginScreen';
 import MemberDetailScreen from '../screens/MemberDetailScreen';
 import MemberScreen from '../screens/MemberScreen';
@@ -12,6 +11,7 @@ import RegisterScreen from '../screens/RegisterScreen';
 import RegisterUserNameScreen from '../screens/RegisterUserNameScreen';
 import StartScreen from '../screens/StartScreen';
 import ChoresTabNavigator from './ChoresTabNavigator';
+import HouseholdChoresTabNavigator from './HouseholdChoresTabNavigator';
 import PieChartTabNavigator from './PieChartTabNavigator';
 
 // declare global {
@@ -31,13 +31,10 @@ export interface RootStackParamList extends ParamListBase {
     Member: { householdId: string };
     HouseholdChores: { householdId: string };
     MemeberDetailScreen: { memberId: string };
-    PieChart: { screen: string, params: { householdId?: string; memberId?: string } };
-};
+    PieChart: { screen: string; params: { householdId?: string; memberId?: string } };
+}
 
-export type RootStackScreenProps<Screen extends keyof RootStackParamList = string> = NativeStackScreenProps<
-    RootStackParamList,
-    Screen
->;
+export type RootStackScreenProps<Screen extends keyof RootStackParamList = string> = NativeStackScreenProps<RootStackParamList, Screen>;
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

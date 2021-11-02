@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { AntDesign } from '@expo/vector-icons';
 import { useTheme } from 'react-native-paper';
 import React, { ReactNode } from 'react';
@@ -11,23 +12,36 @@ interface Props {
     onRightPress: () => void;
 }
 
-export function StatisticsSlider({ headline, label, onLeftPress, onRightPress }: Props) {
+export function TabDateSlider({ headline, label, onLeftPress, onRightPress }: Props) {
     const { colors } = useTheme();
 
     let name = '';
+    console.log('label name: ' + label);
     switch (label) {
-    case 'PieAll':
-        name = 'Alla';
-        break;
-    case 'PieToday':
-        name = 'Idag';
-        break;
-    case 'PieWeek':
-        name = 'Vecka';
-        break;
-    case 'PieMonth':
-        name = 'Månad';
-        break;
+        case 'PieAll':
+            name = 'Alla';
+            break;
+        case 'PieToday':
+            name = 'Idag';
+            break;
+        case 'PieWeek':
+            name = 'Vecka';
+            break;
+        case 'PieMonth':
+            name = 'Månad';
+            break;
+        case 'HouseholdChoresAll':
+            name = 'Alla';
+            break;
+        case 'HouseholdChoresToday':
+            name = 'Idag';
+            break;
+        case 'HouseholdChoresWeek':
+            name = 'Vecka';
+            break;
+        case 'HouseholdChoresMonth':
+            name = 'Månad';
+            break;
     }
 
     return (
@@ -35,7 +49,7 @@ export function StatisticsSlider({ headline, label, onLeftPress, onRightPress }:
             <Text style={{ color: colors.text }}>{headline}</Text>
             <View style={styles.selectionRow}>
                 <View>
-                    {label !== 'PieAll' && (
+                    {label !== 'PieAll' && label !== 'HouseholdChoresAll' && (
                         <TouchableOpacity onPress={onLeftPress}>
                             <AntDesign name="left" size={18} color={colors.text} />
                         </TouchableOpacity>
@@ -43,7 +57,7 @@ export function StatisticsSlider({ headline, label, onLeftPress, onRightPress }:
                 </View>
                 <Text style={{ color: colors.text, fontWeight: 'bold' }}>{name}</Text>
                 <View>
-                    {label !== 'PieMonth' && (
+                    {label !== 'PieMonth' && label !== 'HouseholdChoresMonth' && (
                         <TouchableOpacity onPress={onRightPress}>
                             <AntDesign name="right" size={18} color={colors.text} />
                         </TouchableOpacity>
