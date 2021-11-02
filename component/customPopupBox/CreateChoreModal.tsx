@@ -191,7 +191,7 @@ export function CreateChoreModal({ memberId, modalCase, isShowing, toggleModal }
                                 }}
                             >
                                 <AntDesign name="pluscircleo" size={24} color={iconColor} />
-                                <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.ModalLeft}</Text>
+                                <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.modalLeft}</Text>
                             </Pressable>
                             <Pressable
                                 style={[
