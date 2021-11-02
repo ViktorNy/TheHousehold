@@ -4,7 +4,7 @@ import React from 'react';
 import { useColorScheme } from 'react-native';
 import ChoreDetailScreen from '../screens/ChoreDetailScreen';
 import DistributeChoreScreen from '../screens/DistributeChoreScreen';
-import HouseholdChoresScreen from '../screens/HouseholdChoresScreen';
+import HouseholdChoresScreen from '../screens/householdChores/HouseholdChoresAllScreen';
 import LoginScreen from '../screens/LoginScreen';
 import MemberDetailScreen from '../screens/MemberDetailScreen';
 import MemberScreen from '../screens/MemberScreen';
@@ -20,7 +20,7 @@ import PieChartTabNavigator from './PieChartTabNavigator';
 //     }
 // }
 
-export interface RootStackParamList extends ParamListBase{
+export interface RootStackParamList extends ParamListBase {
     Start: undefined; // Tar inte in några parametrerar
     Login: undefined; // Tar inte in några parametrerar
     Register: undefined; // Tar inte in några parametrerar
@@ -31,13 +31,10 @@ export interface RootStackParamList extends ParamListBase{
     Member: { householdId: string };
     HouseholdChores: { householdId: string };
     MemeberDetailScreen: { memberId: string };
-    PieChart: { screen: string, params: { householdId?: string; memberId?: string } };
-};
+    PieChart: { screen: string; params: { householdId?: string; memberId?: string } };
+}
 
-export type RootStackScreenProps<Screen extends keyof RootStackParamList = string> = NativeStackScreenProps<
-    RootStackParamList,
-    Screen
->;
+export type RootStackScreenProps<Screen extends keyof RootStackParamList = string> = NativeStackScreenProps<RootStackParamList, Screen>;
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -99,10 +96,7 @@ function RootStackNavigator() {
                 />
                 <Stack.Screen name="Household" component={ChoresTabNavigator} />
                 <Stack.Screen name="DistributeChore" component={DistributeChoreScreen} />
-                <Stack.Screen
-                    name="ChoreDetail"
-                    component={ChoreDetailScreen}
-                />
+                <Stack.Screen name="ChoreDetail" component={ChoreDetailScreen} />
                 <Stack.Screen
                     name="Member"
                     component={MemberScreen}
