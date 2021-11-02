@@ -3,15 +3,16 @@ import { CompositeScreenProps, useTheme } from '@react-navigation/native';
 import moment from 'moment';
 import React from 'react';
 import { FlatList, Text, View } from 'react-native';
-import { Chore, Household, Member } from '../../data/data';
+import { Chore, Household, Member, User } from '../../data/data';
 import { ParamList } from '../../navigation/ChoresTabNavigator';
 import { RootStackScreenProps } from '../../navigation/RootStackNavigator';
+import { useAppSelector } from '../../store/store';
 import { ChoreButton } from './ChoreButton';
 import { labelCaseChoreSlider } from './ChoresSlider';
 import displayChore from './displayChore';
 
-interface Props{
-    prop : CompositeScreenProps<MaterialTopTabScreenProps<ParamList, keyof ParamList>, RootStackScreenProps>;
+interface Props {
+    prop: CompositeScreenProps<MaterialTopTabScreenProps<ParamList, keyof ParamList>, RootStackScreenProps>;
     userHousehold?: Household[];
     currentHousehold?: Household;
     members: Member[];
@@ -20,6 +21,7 @@ interface Props{
 
 export default function RenderChores({ prop, userHousehold, currentHousehold, members, label }: Props) {
     const { colors } = useTheme();
+    const user = useAppSelector(state => state.user.user) as User;
     // const userHousehold = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, prop.route.params.userId));
     // const currentHousehold = useAppSelector((state) =>
     //     state.household.householdList.find((h) => h.id === prop.route.params.householdId)
@@ -30,7 +32,9 @@ export default function RenderChores({ prop, userHousehold, currentHousehold, me
         for (const db of chore.doneBy) {
             const member = members.find((m) => m.id === db.memberId);
             if (member && db.date === moment(new Date()).format('YYYY-MM-DD')) {
-                result.push(member.avatar);
+                if (!result.find((r) => r === member.avatar)) {
+                    result.push(member.avatar);
+                }
             }
         }
         return result;
@@ -40,7 +44,7 @@ export default function RenderChores({ prop, userHousehold, currentHousehold, me
 
     if (currentHousehold) {
         const houseHoldChores = currentHousehold.chores.filter((item) =>
-            item.signedToUserId.filter((item) => item === prop.route.params.userId)
+            item.signedToUserId.filter((item) => item === user.id)
         );
 
         return (
