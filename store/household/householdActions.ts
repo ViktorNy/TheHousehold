@@ -13,7 +13,6 @@ export interface SetHouseholdAction{
     type: 'SETHOUSEHOLD';
     payload: string;
 }
-
 export interface EditChoreAction{
     type: 'EDIT_CHORELIST_IN_HOUSEHOLD';
     payload: {
@@ -21,7 +20,13 @@ export interface EditChoreAction{
         householdId: string
     };
 }
-
+export interface RemoveChoreAction{
+    type: 'REMOVE_CHORE_FROM_HOUSEHOLD';
+    payload: {
+        chore: Chore,
+        householdId: string
+    };
+}
 // ----------------------------------------------
 
 // export interface JoinHouseholdAction {

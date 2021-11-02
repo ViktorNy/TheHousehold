@@ -16,7 +16,6 @@ export function TabDateSlider({ headline, label, onLeftPress, onRightPress }: Pr
     const { colors } = useTheme();
 
     let name = '';
-    console.log('label name: ' + label);
     switch (label) {
         case 'PieAll':
             name = 'Alla';

@@ -7,7 +7,7 @@ import { Chore } from '../../data/data';
 import { useAppSelector } from '../../store/store';
 
 export default function PieChartMonthScreen() {
-    const currentHousehold = useAppSelector(state => state.household.currentHousehold);
+    const currentHousehold = useAppSelector((state) => state.household.householdList.find(h => h.id === state.household.currentHouseholdId));
     const memberList = useAppSelector(state => state.member.memberList.filter(m => m.householdId === currentHousehold?.id));
     const chores = currentHousehold?.chores.map(chore => {
         const thisMonth = moment(new Date()).format('YYYY-MM');

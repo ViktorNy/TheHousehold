@@ -1,10 +1,10 @@
-import { CreateHouseholdAction, EditHouseholdAction, SetHouseholdAction, EditChoreAction } from './householdActions';
+import { CreateHouseholdAction, EditHouseholdAction, SetHouseholdAction, EditChoreAction, RemoveChoreAction } from './householdActions';
 import { HouseholdState, initialState } from './householdState';
 import deepcopy from 'ts-deepcopy';
 import { Household } from '../../data/data';
 import uuid from 'react-native-uuid';
 
-type KnownAction = CreateHouseholdAction | EditHouseholdAction | SetHouseholdAction | EditChoreAction;
+type KnownAction = CreateHouseholdAction | EditHouseholdAction | SetHouseholdAction | EditChoreAction | RemoveChoreAction;
 
 function householdReducer(state: HouseholdState = initialState, action: KnownAction): HouseholdState {
     switch (action.type) {
@@ -32,18 +32,10 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
         };
     }
     case 'SETHOUSEHOLD': {
-        const selectedHousehold = deepcopy(state.householdList.find(h => h.id === action.payload));
-        if (selectedHousehold) {
-            return {
-                ...state,
-                currentHousehold: selectedHousehold
-            };
-        } else {
-            return {
-                ...state,
-                currentHousehold: undefined
-            };
-        }
+        return {
+            ...state,
+            currentHouseholdId: action.payload
+        };
     }
     case 'EDIT_CHORELIST_IN_HOUSEHOLD': {
         const allHouseholds = deepcopy(state.householdList);
@@ -58,6 +50,20 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
 
         if (index !== -1) nextHousehold?.chores.splice(index!, 1, chore);
         if (householdIndex !== -1) allHouseholds.splice(householdIndex, 1, nextHousehold!);
+        return {
+            ...state,
+            householdList: allHouseholds
+        };
+    }
+    case 'REMOVE_CHORE_FROM_HOUSEHOLD': {
+        const allHouseholds = deepcopy(state.householdList);
+        const updatedHousehold = allHouseholds.find((h) => h.id === action.payload.householdId);
+        const householdIndex = allHouseholds.findIndex((h) => h.id === updatedHousehold?.id);
+        const chore = deepcopy(action.payload.chore);
+        const choreIndex = updatedHousehold!.chores.findIndex((oldChore) => oldChore.id === chore.id);
+
+        if (choreIndex !== -1) updatedHousehold?.chores.splice(choreIndex!, 1);
+        if (householdIndex !== -1) allHouseholds.splice(householdIndex, 1, updatedHousehold!);
         return {
             ...state,
             householdList: allHouseholds

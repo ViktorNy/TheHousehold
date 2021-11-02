@@ -22,9 +22,9 @@ function choreReducer(state: ChoreState = initialState, action: KnownAction): Ch
             choreList: nextChoreList
         };
     }
-    case 'REMOVE': {
+    case 'REMOVE_CHORE': {
         const nextChoreList = [...state.choreList];
-        const chore = action.payload;
+        const chore = deepcopy(action.payload);
         return {
             ...state,
             choreList: nextChoreList.filter((item) => item.id !== chore.id)

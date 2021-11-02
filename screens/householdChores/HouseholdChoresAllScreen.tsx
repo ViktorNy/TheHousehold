@@ -14,12 +14,11 @@ type Props = CompositeScreenProps<HouseholdChoresTabScreenProx<'HouseholdChoresA
 
 export default function HouseholdChoresAllScreen(props: Props) {
     const { colors } = useTheme();
-    const currentHousehold = useAppSelector((state) => state.household.currentHousehold);
+    const currentHousehold = useAppSelector((state) => state.household.householdList.find(h => h.id === state.household.currentHouseholdId));
     const memberList = useAppSelector((state) => state.member.memberList.filter((m) => m.householdId === currentHousehold?.id));
 
     const [toggleEdit, setToggleEdit] = useState<boolean>(false);
 
-    console.log('toggleEdit All: ' + toggleEdit);
     if (currentHousehold) {
         return (
             <View style={styles.root}>
