@@ -1,15 +1,21 @@
-import { mockedUserData } from '../../data/data';
 import { UserAction } from './userActions';
 import { initialState, UserState } from './userState';
+import { mockedUserData, User } from '../../data/data';
+import uuid from 'react-native-uuid';
 
 type KnownAction = UserAction;
 
 function userReducer(state: UserState = initialState, action: KnownAction): UserState {
     switch (action.type) {
-    case 'CREATE': {
+    case 'CREATE_USER': {
+        const newUser: User = {
+            id: uuid.v4().toString(),
+            userName: action.payload.userName,
+            email: action.payload.email,
+            password: action.payload.password
+        };
         return {
-            ...state
-            /// userList: [...state.userList, action.payload]
+            ...{ user: newUser }
         };
     }
     case 'EDIT': {

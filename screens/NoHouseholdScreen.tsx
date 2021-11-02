@@ -27,12 +27,13 @@ export default function NoHouseholdScreen({ navigation, route }: RootStackScreen
                 </Text>
                 <View style={styles.buttonContainer}>
                     <CustomPlusButton buttonText="Skapa nytt" goto={() => { setIsShowJoinHouseholdModal(!isShowJoinHouseholdModal); }} />
-                    <CustomPlusButton buttonText="Gå med i" goto={() => { }} />
+                    <CustomPlusButton buttonText="Gå med i" goto={() => { setIsShowJoinHouseholdModal(!isShowJoinHouseholdModal); }} />
 
                 </View>
             </View>
             {/* Should be changed for correct madol */}
             <CustomPopupBox modalCase={'CH'} isShowing={isShowJoinHouseholdModal} toggleModal={setIsShowJoinHouseholdModal} />
+            <CustomPopupBox modalCase={'JH'} isShowing={isShowJoinHouseholdModal} toggleModal={setIsShowJoinHouseholdModal} />
         </SafeAreaView>
     );
 }

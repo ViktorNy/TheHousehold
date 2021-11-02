@@ -1,8 +1,13 @@
 import { User } from '../../data/data';
 
 export interface CreateUserAction {
-    type: 'CREATE';
-    payload: User;
+    type: 'CREATE_USER';
+    payload: {
+        id: string,
+        userName: string,
+        email: string,
+        password: string
+    };
 }
 
 export interface EditUserAction {
