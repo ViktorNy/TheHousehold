@@ -86,7 +86,7 @@ function RootStackNavigator() {
                     headerTitle: 'Medlemmar'
                 }}
             />
-            <Stack.Screen name="HouseholdChores" component={HouseholdChoresScreen} />
+            <Stack.Screen name="HouseholdChores" component={HouseholdChoresTabNavigator} />
             <Stack.Screen name="MemeberDetailScreen" component={MemberDetailScreen} />
             <Stack.Screen name="PieChart" component={PieChartTabNavigator} />
         </Stack.Navigator>
