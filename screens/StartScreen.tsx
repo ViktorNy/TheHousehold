@@ -4,7 +4,7 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomNavigateButton } from '../component/CustomNavigateButton';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
-import CreateHouseholdModal from '../component/customPopupBox/CreateHouseholdModal';
+import HouseholdModal from '../component/customPopupBox/HouseholdModal';
 
 export default function StartScreen({ navigation }: RootStackScreenProps<'Start'>) {
     const { colors } = useTheme();
@@ -23,7 +23,6 @@ export default function StartScreen({ navigation }: RootStackScreenProps<'Start'
                 <Text style={[styles.notMemberText, { color: colors.text }]}>Är du inte medlem?</Text>
                 <CustomNavigateButton buttonText="Registrera" goto={() => navigation.navigate('Register')} />
             </View>
-            <CreateHouseholdModal modalCase={'CH'} isShowing={true} toggleModal={() => {}} />
         </SafeAreaView>
     );
 }

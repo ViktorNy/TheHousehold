@@ -17,6 +17,7 @@ export function LayoutChoice(modalCase: string, id?: string) {
         modalLeft = 'Gå med';
         modalRight = 'Avbryt';
         modalPlaceholder = 'Hushållskod';
+        modalSecondaryPlaceholder = 'Användarnamn';
         modalInputActive = true;
         avatar = false;
     } else if (modalCase === 'CH') {

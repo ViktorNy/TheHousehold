@@ -13,7 +13,7 @@ interface Props {
     toggleModal: (toggle: boolean) => void;
 }
 
-export default function CreateHouseholdModal({ memberId, modalCase, isShowing, toggleModal }: Props) {
+export default function HouseholdModal({ memberId, modalCase, isShowing, toggleModal }: Props) {
     const [userInput, onUserInputChange] = useState('');
     const [secondaryUserInput, onSecondaryUserInputChange] = useState('');
     const layoutChoices = LayoutChoice(modalCase, memberId);
@@ -48,7 +48,6 @@ export default function CreateHouseholdModal({ memberId, modalCase, isShowing, t
                                 placeholderTextColor={colors.grayedOutText}
                                 selectionColor={iconColor}
                                 editable={layoutChoices.modalInputActive}
-                                multiline={true}
                             />
                         </View>
                         <View style={[{ backgroundColor: colors.popupOverlayColor }, modalStyles.inputInfoHouseholdStyle]}>
@@ -60,7 +59,6 @@ export default function CreateHouseholdModal({ memberId, modalCase, isShowing, t
                                 placeholderTextColor={colors.grayedOutText}
                                 selectionColor={iconColor}
                                 editable={layoutChoices.modalInputActive}
-                                multiline={true}
                             />
                         </View>
                         <View style={[modalStyles.rowHouseholdStyle, { backgroundColor: colors.popupOverlayColor }]}>
