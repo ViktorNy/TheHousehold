@@ -20,7 +20,7 @@ export default function CustomHeader(props: MaterialTopTabBarProps) {
     const label = options.tabBarLabel || options.title || currentRoute.name;
 
     const user = useAppSelector(state => state.user.user) as User;
-    const currentHousehold = useAppSelector(state => state.household.currentHousehold);
+    const currentHousehold = useAppSelector(state => state.household.householdList.find(h => h.id === state.household.currentHouseholdId));
     const allHouseholdsConnectedToUser = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, user.id));
     const allMemberInfoOnUser = useAppSelector((state) => state.member.memberList.filter(m => m.userId === user.id));
     const userMemberInfo = useAppSelector((state) =>

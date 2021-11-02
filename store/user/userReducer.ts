@@ -10,7 +10,7 @@ function userReducer(state: UserState = initialState, action: KnownAction): User
     case 'CREATE_USER': {
         const newUser: User = {
             id: uuid.v4().toString(),
-            userName: action.payload.userName,
+            username: action.payload.userName,
             email: action.payload.email,
             password: action.payload.password
         };

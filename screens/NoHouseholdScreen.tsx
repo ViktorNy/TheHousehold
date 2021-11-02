@@ -2,7 +2,6 @@ import { useTheme } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { CustomPlusButton } from '../component/CustomPlusButton';
-import { CustomPopupBox } from '../component/customPopupBox/CustomPopupBox';
 import HouseholdModal from '../component/customPopupBox/HouseholdModal';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 

@@ -32,18 +32,10 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
         };
     }
     case 'SETHOUSEHOLD': {
-        const selectedHousehold = deepcopy(state.householdList.find(h => h.id === action.payload));
-        if (selectedHousehold) {
-            return {
-                ...state,
-                currentHousehold: selectedHousehold
-            };
-        } else {
-            return {
-                ...state,
-                currentHousehold: undefined
-            };
-        }
+        return {
+            ...state,
+            currentHouseholdId: action.payload
+        };
     }
     case 'EDIT_CHORELIST_IN_HOUSEHOLD': {
         const allHouseholds = deepcopy(state.householdList);

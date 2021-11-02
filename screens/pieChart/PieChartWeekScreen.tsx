@@ -6,7 +6,7 @@ import { Chore } from '../../data/data';
 import { useAppSelector } from '../../store/store';
 
 export default function PieChartWeekScreen() {
-    const currentHousehold = useAppSelector(state => state.household.currentHousehold);
+    const currentHousehold = useAppSelector(state => state.household.householdList.find(h => h.id === state.household.currentHouseholdId));
     const memberList = useAppSelector(state => state.member.memberList.filter(m => m.householdId === currentHousehold?.id));
     const today = new Date();
     const weekday = (today.getDay() === 0) ? 7 : today.getDay();
