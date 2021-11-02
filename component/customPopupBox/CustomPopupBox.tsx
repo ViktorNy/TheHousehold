@@ -21,6 +21,7 @@ interface Props {
 
 export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: Props) {
     const user = useAppSelector(state => state.user.user) as User;
+    const allHouseHolds = useAppSelector(state => state.household.householdList);
     const currentHousehold = useAppSelector(state => state.household.currentHousehold);
     const [userInput, onUserInputChange] = useState('');
     const layoutChoices = LayoutChoice(modalCase, memberId);
@@ -153,6 +154,14 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                                                 const newHousehold = deepcopy(currentHousehold);
                                                 newHousehold.name = userInput;
                                                 dispatch({ type: 'EDIT_HOUSEHOLD', payload: newHousehold });
+                                            }
+                                            break;
+                                        case 'JH':
+                                            if (userInput) {
+                                                const householdToJoid = deepcopy(allHouseHolds.find(h => h.codeToJoin === userInput));
+                                                if (householdToJoid) {
+                                                    dispatch({ type: 'CREATE_MEMBER', payload: { householdId: householdToJoid.id, memberName: user.username, userId: user.id, memberType: 'member' } });
+                                                }
                                             }
                                             break;
                                         default:

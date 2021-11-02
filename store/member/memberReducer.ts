@@ -9,8 +9,18 @@ type KnownAction = CreateMemberAction | EditMemberAction | RemoveMemberAction;
 function memberReducer(state: MemberState = initialState, action: KnownAction): MemberState {
     switch (action.type) {
     case 'CREATE_MEMBER': {
+        // Code to find select random free avatar
+        const allHouseholdmembers = state.memberList.filter(m => m.householdId === action.payload.householdId);
+        const freeAvatars: string[] = [];
+        for (let i = 1; i < 11; i++) {
+            if (!allHouseholdmembers.find(m => m.avatar === i.toString())) {
+                freeAvatars.push(i.toString());
+            }
+        }
+        const randomFreeAvatar = freeAvatars[Math.floor(Math.random() * freeAvatars.length)];
+
         const newMember: Member = {
-            avatar: '1',
+            avatar: randomFreeAvatar,
             id: uuid.v4().toString(),
             householdId: action.payload.householdId,
             joinData: moment(new Date()).format('YYYY-MM-DD'),
