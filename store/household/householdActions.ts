@@ -1,4 +1,4 @@
-import { Household } from '../../data/data';
+import { Chore, Household } from '../../data/data';
 
 export interface CreateHouseholdAction {
     type: 'CREATE_HOUSEHOLD';
@@ -6,12 +6,20 @@ export interface CreateHouseholdAction {
 }
 
 export interface EditHouseholdAction {
-    type: 'EDIT';
+    type: 'EDIT_HOUSEHOLD';
     payload: Household;
 }
 export interface SetHouseholdAction{
     type: 'SETHOUSEHOLD';
     payload: string;
+}
+
+export interface EditChoreAction{
+    type: 'EDIT_CHORELIST_IN_HOUSEHOLD';
+    payload: {
+        chore: Chore,
+        householdId: string
+    };
 }
 
 // ----------------------------------------------

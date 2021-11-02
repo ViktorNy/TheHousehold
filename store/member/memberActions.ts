@@ -6,12 +6,12 @@ export interface CreateMemberAction {
         userId: string,
         householdId: string,
         memberType: MemberType,
-        memberName: string
+        memberName: string,
     };
 }
 
 export interface EditMemberAction {
-    type: 'EDIT';
+    type: 'EDIT_MEMBER';
     payload: Member;
 }
 

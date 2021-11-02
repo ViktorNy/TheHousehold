@@ -135,7 +135,7 @@ export const mockedHouseholdData: Household[] = [
                 description: 'Copy pasta lorem ipsum städa då snälla hjälp mig',
                 frequency: 3,
                 score: 4,
-                signedToUserId: ['1'],
+                signedToUserId: ['1', '2'],
                 createdDate: '2021-10-01',
                 lastDone: '2021-10-31',
                 doneBy: [
