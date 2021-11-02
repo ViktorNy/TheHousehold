@@ -1,5 +1,4 @@
 import { useAppSelector } from '../../store/store';
-import { getUserByIdSelector } from '../../store/user/userSelector';
 
 let modalTitle = '';
 let modalLeft = '';
@@ -12,7 +11,6 @@ let avatar = false;
 export function LayoutChoice(modalCase: string, id?: string) {
     const username = useAppSelector(state => state.member.memberList.find(m => m.userId === id))?.memberName;
     const currentHousehold = useAppSelector(state => state.household.currentHousehold);
-
 
     if (modalCase === 'JH') {
         modalTitle = 'Gå med i Hushåll';
@@ -53,7 +51,7 @@ export function LayoutChoice(modalCase: string, id?: string) {
         avatar = false;
     } else if (modalCase === 'CHN') {
         modalTitle = 'Byt Hushållsnamn';
-        ModalLeft = 'Byt namn';
+        modalLeft = 'Byt namn';
         modalRight = 'Avbryt';
         modalPlaceholder = currentHousehold!.name;
         modalInputActive = true;
