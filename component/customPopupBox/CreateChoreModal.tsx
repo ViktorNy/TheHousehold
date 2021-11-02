@@ -3,29 +3,37 @@ import React, { useState } from 'react';
 import { Pressable, ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { Text, useTheme } from 'react-native-paper';
+import { Chore, ChoreScore } from '../../data/data';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 import { choreStyles } from '../../style/choreDetailStyle';
 import { modalStyles } from '../../style/modalStyle';
 import { LayoutChoice } from './popupLayoutChoice';
 
 interface Props {
-    memberId: string;
+    chore?: Chore;
     modalCase: string;
     isShowing: boolean;
     toggleModal: (toggle: boolean) => void;
 }
 
-export function CreateChoreModal({ memberId, modalCase, isShowing, toggleModal }: Props) {
+export function CreateChoreModal({ modalCase, isShowing, toggleModal, chore }: Props) {
     const [userInput, onUserInputChange] = useState('');
+    const currentHousehold = useAppSelector((state) => state.household.householdList.find((h) => h.id === state.household.currentHouseholdId));
     const [userSecondaryInput, onUserSecondaryInputChange] = useState('');
     const [recurringPressed, onRecurringPressedChange] = useState(false);
     const [chosenDay, setChosenDay] = useState(Number);
     const [valuePressed, onValuePressedChange] = useState(false);
-    const [chosenValue, setChosenValue] = useState(Number);
-    const layoutChoices = LayoutChoice(modalCase, memberId);
+    const layoutChoices = LayoutChoice(modalCase);
     const { colors } = useTheme();
     const iconColor = colors.text;
     const days = new Array(31).fill(null).map((_, i) => i + 1);
-    const values = [1, 2, 4, 6, 8];
+    const values: ChoreScore[] = [1, 2, 4, 6, 8];
+    const dispatch = useAppDispatch();
+    const [chosenValue, setChosenValue] = useState<ChoreScore>(1);
+    const [choreName, onChoreNameChange] = useState(chore?.name);
+    const [choreDesc, onChoreDescChange] = useState(chore?.description);
+    const [choreDays, setChosenChoreDay] = useState(chore?.frequency);
+    const [choreValue, setChosenChoreValue] = useState(chore?.score);
 
     return (
         <View>
@@ -64,9 +72,9 @@ export function CreateChoreModal({ memberId, modalCase, isShowing, toggleModal }
                         </View>
                         <View style={[{ backgroundColor: colors.popupOverlayColor }, modalStyles.choreStyle]}>
                             <TextInput
-                                onChangeText={onUserInputChange}
-                                style={[modalStyles.middleTextStyle, { color: colors.text }]}
-                                value={userInput}
+                                onChangeText={chore ? onChoreNameChange : onUserInputChange}
+                                style={[modalStyles.titleTextStyle, { color: colors.text }]}
+                                value={chore ? choreName : userInput}
                                 placeholder={layoutChoices.modalPlaceholder}
                                 placeholderTextColor={colors.grayedOutText}
                                 selectionColor={iconColor}
@@ -76,9 +84,9 @@ export function CreateChoreModal({ memberId, modalCase, isShowing, toggleModal }
                         </View>
                         <View style={[{ backgroundColor: colors.popupOverlayColor }, modalStyles.choreDescStyle]}>
                             <TextInput
-                                onChangeText={onUserSecondaryInputChange}
+                                onChangeText={chore ? onChoreDescChange : onUserSecondaryInputChange}
                                 style={[modalStyles.middleTextStyle, { color: colors.text }, { margin: 10 }]}
-                                value={userSecondaryInput}
+                                value={chore ? choreDesc : userSecondaryInput}
                                 placeholder={layoutChoices.modalSecondaryPlaceholder}
                                 placeholderTextColor={colors.grayedOutText}
                                 selectionColor={iconColor}
@@ -101,7 +109,7 @@ export function CreateChoreModal({ memberId, modalCase, isShowing, toggleModal }
                                             ]}
                                             onPress={() => {
                                                 onRecurringPressedChange(!recurringPressed);
-                                                setChosenDay(day);
+                                                chore ? setChosenChoreDay(day) : setChosenDay(day);
                                             }}
                                         >
                                             <Text>{day}</Text>
@@ -123,7 +131,9 @@ export function CreateChoreModal({ memberId, modalCase, isShowing, toggleModal }
                                             <Text style={[{ color: colors.text }]}> var </Text>
                                         </View>
                                         <View style={choreStyles.freqNrContainer}>
-                                            <Text style={[choreStyles.frequencyNumberText, { color: colors.text }]}>{chosenDay}</Text>
+                                            <Text style={[choreStyles.frequencyNumberText, { color: colors.text }]}>
+                                                {chore ? choreDays : chosenDay}
+                                            </Text>
                                         </View>
                                         <View>
                                             <Text style={[{ color: colors.text }]}> dag </Text>
@@ -147,7 +157,7 @@ export function CreateChoreModal({ memberId, modalCase, isShowing, toggleModal }
                                             ]}
                                             onPress={() => {
                                                 onValuePressedChange(!valuePressed);
-                                                setChosenValue(value);
+                                                chore ? setChosenChoreValue(value) : setChosenValue(value);
                                             }}
                                         >
                                             <Text style={{ color: colors.text }}>{value}</Text>
@@ -165,7 +175,7 @@ export function CreateChoreModal({ memberId, modalCase, isShowing, toggleModal }
                                     <Text style={[choreStyles.valueDescription]}>Hur energikrävande är sysslan?</Text>
                                 </View>
                                 <View style={[choreStyles.energyNrContainer, { backgroundColor: colors.border }]}>
-                                    <Text style={[choreStyles.energyText, { color: colors.text }]}>{chosenValue}</Text>
+                                    <Text style={[choreStyles.energyText, { color: colors.text }]}>{chore ? choreValue : chosenValue}</Text>
                                 </View>
                             </TouchableOpacity>
                         )}
@@ -188,6 +198,38 @@ export function CreateChoreModal({ memberId, modalCase, isShowing, toggleModal }
                                 ]}
                                 onPress={() => {
                                     toggleModal(false);
+                                    if (chore) {
+                                        dispatch({
+                                            type: 'EDIT_CHORE_IN_HOUSEHOLD',
+                                            payload: {
+                                                chore: {
+                                                    id: chore.id,
+                                                    name: choreName!,
+                                                    description: choreDesc!,
+                                                    frequency: choreValue!,
+                                                    lastDone: chore.lastDone,
+                                                    createdDate: chore.createdDate,
+                                                    doneBy: chore.doneBy,
+                                                    score: choreValue!,
+                                                    signedToUserId: chore.signedToUserId
+                                                },
+                                                householdId: currentHousehold!.id
+                                            }
+                                        });
+                                    } else {
+                                        dispatch({
+                                            type: 'CREATE_CHORE_IN_HOUSEHOLD',
+                                            payload: {
+                                                chore: {
+                                                    name: userInput,
+                                                    description: userSecondaryInput,
+                                                    frequency: chosenDay,
+                                                    score: chosenValue
+                                                },
+                                                householdId: currentHousehold!.id
+                                            }
+                                        });
+                                    }
                                 }}
                             >
                                 <AntDesign name="pluscircleo" size={24} color={iconColor} />

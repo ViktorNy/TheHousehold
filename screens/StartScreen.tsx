@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     viewStyle: {
-        marginTop: 50,
         margin: 10
     },
     imageStyle: {

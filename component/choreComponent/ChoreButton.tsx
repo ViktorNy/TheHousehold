@@ -1,11 +1,12 @@
 import { useTheme } from 'react-native-paper';
 import moment from 'moment';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Chore } from '../../data/data';
 import Avatar from '../Avatar';
 import { AntDesign } from '@expo/vector-icons';
 import { useAppDispatch, useAppSelector } from '../../store/store';
+import { CreateChoreModal } from '../customPopupBox/CreateChoreModal';
 
 interface Props {
     goto: () => void;
@@ -17,8 +18,9 @@ interface Props {
 export function ChoreButton({ goto, chore, avatarIdList, editChore }: Props) {
     const { colors } = useTheme();
     const today = moment(new Date()).format('YYYY-MM-DD');
-    const currentHouseholdId = useAppSelector(state => state.household.currentHouseholdId);
+    const currentHouseholdId = useAppSelector((state) => state.household.currentHouseholdId);
     const dispatch = useAppDispatch();
+    const [isShowingEditModal, setIsShowingEditModal] = useState(false);
 
     function setIconLastDone(chore: Chore, avatarIdList: string[], editChore?: boolean) {
         const lastDoneDate = chore.lastDone
@@ -32,16 +34,23 @@ export function ChoreButton({ goto, chore, avatarIdList, editChore }: Props) {
             // TODO: on press need to lead to right popup by chore.id...
             return (
                 <View style={[{ flexDirection: 'row' }]}>
-                    <TouchableOpacity style={styles.icon}
+                    <TouchableOpacity
+                        style={styles.icon}
                         onPress={() => {
                             dispatch({ type: 'REMOVE_CHORE_FROM_HOUSEHOLD', payload: { chore: chore, householdId: currentHouseholdId! } });
                         }}
                     >
                         <AntDesign name="delete" size={20} color={colors.text} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={(styles.icon, { paddingLeft: 10 })} onPress={() => { }}>
+                    <TouchableOpacity style={(styles.icon, { paddingLeft: 10 })} onPress={() => setIsShowingEditModal(!isShowingEditModal)}>
                         <AntDesign name="edit" size={20} color={colors.text} />
                     </TouchableOpacity>
+                    <CreateChoreModal
+                        modalCase={'CC'}
+                        isShowing={isShowingEditModal}
+                        toggleModal={() => setIsShowingEditModal(!isShowingEditModal)}
+                        chore={chore}
+                    />
                 </View>
             );
         } else if (today === lastDoneDate && avatarIdList) {

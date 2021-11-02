@@ -165,5 +165,11 @@ export const modalStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row'
+    },
+    titleTextStyle: {
+        fontSize: 20,
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center'
     }
 });
