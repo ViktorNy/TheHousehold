@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { CustomPlusButton } from '../component/CustomPlusButton';
 import { CustomPopupBox } from '../component/customPopupBox/CustomPopupBox';
+import HouseholdModal from '../component/customPopupBox/HouseholdModal';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 
 export default function NoHouseholdScreen({ navigation, route }: RootStackScreenProps<'NoHousehold'>) {
@@ -24,13 +25,13 @@ export default function NoHouseholdScreen({ navigation, route }: RootStackScreen
                 </Text>
                 <View style={styles.buttonContainer}>
                     <CustomPlusButton buttonText="Skapa nytt" goto={() => { setIsShowJoinHouseholdModal(!isShowJoinHouseholdModal); }} />
-                    <CustomPlusButton buttonText="Gå med i" goto={() => { setIsShowJoinHouseholdModal(!isShowJoinHouseholdModal); }} />
+                    <CustomPlusButton buttonText="Gå med i" goto={() => { }} />
 
                 </View>
             </View>
             {/* Should be changed for correct madol */}
-            <CustomPopupBox modalCase={'CH'} isShowing={isShowJoinHouseholdModal} toggleModal={setIsShowJoinHouseholdModal} />
-            <CustomPopupBox modalCase={'JH'} isShowing={isShowJoinHouseholdModal} toggleModal={setIsShowJoinHouseholdModal} />
+            <HouseholdModal modalCase={'CH'} isShowing={isShowJoinHouseholdModal} toggleModal={setIsShowJoinHouseholdModal} />
+
         </SafeAreaView>
     );
 }

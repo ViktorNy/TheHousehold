@@ -86,7 +86,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
                     <View style={[styles.circle]}>
                         {userInformation?.member && <Avatar avatarId={userInformation.member.avatar} showCircle={true} avatarSize={22} />}
                     </View>
-                    <Text style={{ color: colors.text }}>{userInformation?.user.username}</Text>
+                    <Text style={{ color: colors.text }}>{userInformation?.member?.memberName}</Text>
                     <Text style={{ color: colors.text }}>{userInformation?.member?.memberType}</Text>
                 </View>
             );

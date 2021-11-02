@@ -3,8 +3,12 @@ import React, { useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { useTheme } from 'react-native-paper';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 import { modalStyles } from '../../style/modalStyle';
 import { LayoutChoice } from './popupLayoutChoice';
+import uuid from 'react-native-uuid';
+import { User } from '../../data/data';
+import deepcopy from 'ts-deepcopy';
 
 interface Props {
     memberId?: string;
@@ -19,6 +23,9 @@ export default function HouseholdModal({ memberId, modalCase, isShowing, toggleM
     const layoutChoices = LayoutChoice(modalCase, memberId);
     const { colors } = useTheme();
     const iconColor = colors.text;
+    const dispatch = useAppDispatch();
+    const user = useAppSelector(state => state.user.user) as User;
+    const allHouseHolds = useAppSelector(state => state.household.householdList);
 
     return (
         <View>
@@ -69,8 +76,27 @@ export default function HouseholdModal({ memberId, modalCase, isShowing, toggleM
                                     { backgroundColor: colors.popupOverlayColor },
                                     modalStyles.centeredView
                                 ]}
-                                onPress={() => toggleModal(false)}
-                            >
+                                onPress={() => {
+                                    toggleModal(false);
+                                    switch (modalCase) {
+                                    case 'CH':
+                                        // eslint-disable-next-line no-case-declarations
+                                        const newHouseholdId = uuid.v4().toString();
+                                        dispatch({ type: 'CREATE_HOUSEHOLD', payload: { householdName: userInput, householdId: newHouseholdId } });
+                                        dispatch({ type: 'CREATE_MEMBER', payload: { householdId: newHouseholdId, memberName: secondaryUserInput, userId: user.id, memberType: 'owner' } });
+                                        break;
+                                    case 'JH':
+                                        if (userInput) {
+                                            const householdToJoid = deepcopy(allHouseHolds.find(h => h.codeToJoin === userInput));
+                                            if (householdToJoid) {
+                                                dispatch({ type: 'CREATE_MEMBER', payload: { householdId: householdToJoid.id, memberName: secondaryUserInput, userId: user.id, memberType: 'member' } });
+                                            }
+                                        }
+                                        break;
+                                    default: break;
+                                    }
+                                }
+                                }>
                                 <AntDesign name="pluscircleo" size={24} color={iconColor} />
                                 <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.modalLeft}</Text>
                             </Pressable>

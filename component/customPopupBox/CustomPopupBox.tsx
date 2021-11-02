@@ -2,15 +2,14 @@ import { AntDesign } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
+import { useTheme } from 'react-native-paper';
+import deepcopy from 'ts-deepcopy';
 import { Member, mockAvatarData, User } from '../../data/data';
 import { getMemberByIdSelector, getMembersOfHouseholdSelector } from '../../store/member/memberSelector';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { modalStyles } from '../../style/modalStyle';
 import Avatar from '../Avatar';
 import { LayoutChoice } from './popupLayoutChoice';
-import { useTheme } from 'react-native-paper';
-import uuid from 'react-native-uuid';
-import deepcopy from 'ts-deepcopy';
 
 interface Props {
     memberId?: string
@@ -146,12 +145,6 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                                     onPress={() => {
                                         toggleModal(false);
                                         switch (modalCase) {
-                                        case 'CH':
-                                            // eslint-disable-next-line no-case-declarations
-                                            const newHouseholdId = uuid.v4().toString();
-                                            dispatch({ type: 'CREATE_HOUSEHOLD', payload: { householdName: userInput, householdId: newHouseholdId } });
-                                            dispatch({ type: 'CREATE_MEMBER', payload: { householdId: newHouseholdId, memberName: user.username, userId: user.id, memberType: 'owner' } });
-                                            break;
                                         case 'CHN':
                                             if (userInput && currentHousehold) {
                                                 const newHousehold = deepcopy(currentHousehold);

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import { ChoresSlider } from '../component/choreComponent/ChoresSlider';
 import { CustomPopupBox } from '../component/customPopupBox/CustomPopupBox';
+import HouseholdModal from '../component/customPopupBox/HouseholdModal';
 import HamburgerMenu from '../component/HamburgerMenu';
 import { ProfileHeader } from '../component/ProfileHeader';
 import SelectHouseholdMenu from '../component/SelectHouseholdMenu';
@@ -63,7 +64,11 @@ export default function CustomHeader(props: MaterialTopTabBarProps) {
                 onLeftPress={() => props.navigation.navigate(previousRoute.name, { userId: user.id })}
                 onRightPress={() => props.navigation.navigate(nextRoute.name, { userId: user.id })}
             />
-            <CustomPopupBox memberId={userMemberInfo?.id} modalCase={modalCase} isShowing={isShowModalCaseModal} toggleModal={toggleModalAndSetModalCase} />
+            { (modalCase !== 'CH' && modalCase !== 'JH')
+                ? <CustomPopupBox memberId={userMemberInfo?.id} modalCase={modalCase} isShowing={isShowModalCaseModal} toggleModal={toggleModalAndSetModalCase} />
+                : <HouseholdModal memberId={userMemberInfo?.id} modalCase={modalCase} isShowing={isShowModalCaseModal} toggleModal={toggleModalAndSetModalCase} />
+            }
+
         </View>
     );
 }
