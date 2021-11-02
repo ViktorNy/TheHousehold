@@ -1,11 +1,11 @@
-import { useTheme } from 'react-native-paper';
 import React, { useState } from 'react';
 import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomNavigateButton } from '../component/CustomNavigateButton';
 import { mockedUserData } from '../data/data';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
-import { useAppDispatch, useAppSelector } from '../store/store';
+import { useAppDispatch } from '../store/store';
 
 export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'>) {
     const { colors } = useTheme();
