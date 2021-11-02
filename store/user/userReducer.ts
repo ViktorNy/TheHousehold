@@ -1,6 +1,7 @@
 import { mockedUserData } from '../../data/data';
 import { UserAction } from './userActions';
 import { initialState, UserState } from './userState';
+import deepcopy from 'ts-deepcopy';
 
 type KnownAction = UserAction;
 
@@ -38,6 +39,22 @@ function userReducer(state: UserState = initialState, action: KnownAction): User
                 ...state
             };
         }
+    }
+    case 'CHANGE_APPEARANCE': {
+        let currentAppearance = deepcopy(state.appearance);
+
+        if (action.payload === 'dark') {
+            currentAppearance = 'dark';
+        } else if (action.payload === 'light') {
+            currentAppearance = 'light';
+        } else {
+            currentAppearance = 'auto';
+        }
+
+        return {
+            ...state,
+            appearance: currentAppearance
+        };
     }
     default: return state;
     }
