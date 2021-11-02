@@ -16,7 +16,7 @@ interface Props {
     memberList: Member[],
     user: User
     isHouseholdSelected: boolean
-    toggleExternalModal: (toggle: boolean) => void;
+    toggleExternalModal: (toggle: boolean, modalCase?: string) => void;
 }
 
 export default function SelectHouseholdMenu({ isShowingMenu, toggleIsShowing, rootStackProps, householdList, memberList: memberListConnectedToUser, user, isHouseholdSelected, toggleExternalModal }: Props) {
@@ -83,14 +83,27 @@ export default function SelectHouseholdMenu({ isShowingMenu, toggleIsShowing, ro
                     <TouchableOpacity
                         onPress={() => {
                             toggleIsShowing(!isShowingMenu);
-                            toggleExternalModal(true);
+                            toggleExternalModal(true, 'CH');
                         }
                         }>
                         <View style={styles.householdRow}>
                             <View style={[styles.circle, { borderColor: colors.text }]}>
                                 <Text style={[{ color: colors.text }]}>+</Text>
                             </View>
-                            <Text style={[styles.modalText, { color: colors.text }]}>Skapa/Gå med i hushåll</Text>
+                            <Text style={[styles.modalText, { color: colors.text }]}>Skapa nytt hushåll</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {
+                            toggleIsShowing(!isShowingMenu);
+                            toggleExternalModal(true, 'JH');
+                        }
+                        }>
+                        <View style={styles.householdRow}>
+                            <View style={[styles.circle, { borderColor: colors.text }]}>
+                                <Text style={[{ color: colors.text }]}>+</Text>
+                            </View>
+                            <Text style={[styles.modalText, { color: colors.text }]}>Gå med i hushåll</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
