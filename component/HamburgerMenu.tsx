@@ -41,6 +41,7 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
                                     toggleExternalModal(true, 'CHN');
                                 }}
                             >
+
                                 <Text style={[styles.modalText, { color: colors.text }]}>Byt namn på hushållet</Text>
                             </TouchableOpacity>
                         }
