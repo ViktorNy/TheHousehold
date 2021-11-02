@@ -9,6 +9,7 @@ let avatar = false;
 
 export function LayoutChoice(modalCase: string, id?: string) {
     const username = useAppSelector(state => state.member.memberList.find(m => m.userId === id))?.memberName;
+    const currentHousehold = useAppSelector(state => state.household.currentHousehold);
 
     if (modalCase === 'JH') {
         modalTitle = 'Gå med i Hushåll';
@@ -45,9 +46,19 @@ export function LayoutChoice(modalCase: string, id?: string) {
         modalPlaceholder = username + ' vill gå med';
         modalInputActive = false;
         avatar = false;
+    } else if (modalCase === 'CHN') {
+        modalTitle = 'Byt Hushållsnamn';
+        ModalLeft = 'Byt namn';
+        modalRight = 'Avbryt';
+        modalPlaceholder = currentHousehold!.name;
+        modalInputActive = true;
+        avatar = false;
     } else if (modalCase === 'AI') {
         modalTitle = 'Välj avatar';
         avatar = true;
+    } else {
+        modalTitle = 'Ajdå, här blev det fel';
+        modalRight = 'Tillbaka';
     }
     return { modalTitle, ModalLeft, modalRight, modalPlaceholder, modalInputActive, avatar };
 }

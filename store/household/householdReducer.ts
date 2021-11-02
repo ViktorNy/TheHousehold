@@ -2,6 +2,7 @@ import { CreateHouseholdAction, EditHouseholdAction, SetHouseholdAction, EditCho
 import { HouseholdState, initialState } from './householdState';
 import deepcopy from 'ts-deepcopy';
 import { Household } from '../../data/data';
+import uuid from 'react-native-uuid';
 
 type KnownAction = CreateHouseholdAction | EditHouseholdAction | SetHouseholdAction | EditChoreAction;
 
@@ -11,7 +12,7 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
         const newHousehold: Household = {
             name: action.payload.householdName,
             chores: [],
-            codeToJoin: (Math.random() * (9999 - 1000) + 1000).toString(),
+            codeToJoin: uuid.v4().toString().substring(0, 6).toUpperCase(),
             id: action.payload.householdId
         };
         return {
@@ -19,11 +20,11 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
             householdList: [...state.householdList, newHousehold]
         };
     }
-    case 'EDIT': {
+    case 'EDIT_HOUSEHOLD': {
         // Edit can be used for: add member, remove member, pause mamber, change member type
-        const nextHouseholdList = [...state.householdList];
+        const nextHouseholdList = deepcopy(state.householdList);
         const household = action.payload;
-        const index = state.householdList.findIndex((item) => item.id === household.id);
+        const index = state.householdList.findIndex((oldHousehold) => oldHousehold.id === household.id);
         if (index) nextHouseholdList.splice(index, 1, household);
         return {
             ...state,
