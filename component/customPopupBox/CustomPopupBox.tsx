@@ -3,21 +3,26 @@ import React, { useState } from 'react';
 import { Pressable, TextInput, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { Text, useTheme } from 'react-native-paper';
-import { Member, mockAvatarData } from '../../data/data';
+import { Member, mockAvatarData, User } from '../../data/data';
 import { getMemberByIdSelector, getMembersOfHouseholdSelector } from '../../store/member/memberSelector';
-import { useAppSelector } from '../../store/store';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 import { modalStyles } from '../../style/modalStyle';
 import Avatar from '../Avatar';
 import { LayoutChoice } from './popupLayoutChoice';
+import uuid from 'react-native-uuid';
+import deepcopy from 'ts-deepcopy';
 
 interface Props {
-    memberId: string;
-    modalCase: string;
-    isShowing: boolean;
-    toggleModal: (toggle: boolean) => void;
+    memberId?: string
+    modalCase: string
+    isShowing: boolean
+    toggleModal: (toggle: boolean, modalCase?: string) => void
 }
 
 export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: Props) {
+    const user = useAppSelector(state => state.user.user) as User;
+    const allHouseHolds = useAppSelector(state => state.household.householdList);
+    const currentHousehold = useAppSelector((state) => state.household.householdList.find(h => h.id === state.household.currentHouseholdId));
     const [userInput, onUserInputChange] = useState('');
     const layoutChoices = LayoutChoice(modalCase, memberId);
     const { colors } = useTheme();
@@ -25,7 +30,7 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
     let memberObject: Member | undefined;
     const avatarArray = mockAvatarData;
     const activeMember = useAppSelector((state) => getMemberByIdSelector(state, memberId));
-    const allMembersOfCurrentHousehold: Member[] = useAppSelector((state) => getMembersOfHouseholdSelector(state, activeMember!.householdId));
+    const allMembersOfCurrentHousehold: Member[] = useAppSelector((state) => getMembersOfHouseholdSelector(state, activeMember?.householdId));
 
     // Kolla om det finns ett snyggare sätt för if-satsen - Nils
     const [currentlyChosenAvatar, setCurrentlyChosenAvatar] = useState(() => {
@@ -34,8 +39,15 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
     });
 
     const onAvatarPress = (avatar: string) => {
+        // needed?
         setCurrentlyChosenAvatar(avatar);
+        const updatedMember = deepcopy(activeMember);
+        updatedMember!.avatar = avatar;
+        dispatch({ type: 'EDIT_MEMBER', payload: updatedMember! });
+        toggleModal(false);
     };
+
+    const dispatch = useAppDispatch();
 
     if (layoutChoices.avatar === true) {
         return (
@@ -131,10 +143,37 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                                         { backgroundColor: colors.popupOverlayColor },
                                         modalStyles.centeredView
                                     ]}
-                                    onPress={() => toggleModal(false)}
+                                    onPress={() => {
+                                        toggleModal(false);
+                                        switch (modalCase) {
+                                        case 'CH':
+                                            // eslint-disable-next-line no-case-declarations
+                                            const newHouseholdId = uuid.v4().toString();
+                                            dispatch({ type: 'CREATE_HOUSEHOLD', payload: { householdName: userInput, householdId: newHouseholdId } });
+                                            dispatch({ type: 'CREATE_MEMBER', payload: { householdId: newHouseholdId, memberName: user.username, userId: user.id, memberType: 'owner' } });
+                                            break;
+                                        case 'CHN':
+                                            if (userInput && currentHousehold) {
+                                                const newHousehold = deepcopy(currentHousehold);
+                                                newHousehold.name = userInput;
+                                                dispatch({ type: 'EDIT_HOUSEHOLD', payload: newHousehold });
+                                            }
+                                            break;
+                                        case 'JH':
+                                            if (userInput) {
+                                                const householdToJoid = deepcopy(allHouseHolds.find(h => h.codeToJoin === userInput));
+                                                if (householdToJoid) {
+                                                    dispatch({ type: 'CREATE_MEMBER', payload: { householdId: householdToJoid.id, memberName: user.username, userId: user.id, memberType: 'member' } });
+                                                }
+                                            }
+                                            break;
+                                        default:
+                                            break;
+                                        }
+                                    }}
                                 >
                                     <AntDesign name="pluscircleo" size={24} color={iconColor} />
-                                    <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.ModalLeft}</Text>
+                                    <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.modalLeft}</Text>
                                 </Pressable>
                                 <Pressable
                                     style={[

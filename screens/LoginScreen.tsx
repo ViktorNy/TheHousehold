@@ -5,13 +5,18 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomNavigateButton } from '../component/CustomNavigateButton';
 import { mockedUserData } from '../data/data';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
+import { useAppDispatch } from '../store/store';
 
 export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'>) {
     const { colors } = useTheme();
     const [userText, onUserTextChange] = useState('');
     const [userPassword, onUserPasswordChange] = useState('');
+    const dispatch = useAppDispatch();
 
-    const user = mockedUserData[1];
+    // REMOVE THIS LATER
+    // const households = useAppSelector(state => state.household.householdList);
+
+    const user = mockedUserData[0];
 
     // Needs to be revised. Now only works if you log in with user info:
     // Username: s
@@ -19,7 +24,14 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'
     // Otherwise logs out 'faulty user' in console
     function checkUserInfo() {
         if (user.email === userText || (user.username === userText && user.password === userPassword)) {
-            navigation.navigate('Household', { user });
+            dispatch({ type: 'GETUSER', payload: user.id });
+            navigation.navigate('Household');
+
+            // JUST FOR TESTING PURPOSES
+            // const chosenMember = members.find(m => m.userId === user.id);
+            // const choseHousehold = households.find(h => h.id === chosenMember?.householdId);
+            // chosenMember && dispatch({ type: 'SETHOUSEHOLD', payload: chosenMember.householdId });
+            // navigation.navigate('PieChart', { screen: 'PieAll', params: { householdId: choseHousehold?.id } });
         } else {
             console.log('Faulty user');
         }

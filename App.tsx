@@ -1,4 +1,4 @@
-import { DarkTheme as NavigationDarkTheme, DefaultTheme as NavigationDefaultTheme } from '@react-navigation/native';
+import { DarkTheme as NavigationDarkTheme, DefaultTheme as NavigationDefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useColorScheme } from 'react-native';
@@ -6,7 +6,7 @@ import { DarkTheme as PaperDarkTheme, DefaultTheme as PaperDefaultTheme, Provide
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import RootStackNavigator from './navigation/RootStackNavigator';
-import { store } from './store/store';
+import { store, useAppSelector } from './store/store';
 
 declare global {
     // eslint-disable-next-line no-unused-vars
@@ -19,6 +19,10 @@ declare global {
             avatarOutline: string;
             passedDueBy: string;
             border: string;
+            appearanceSwitchButton: string;
+            appearanceButtonText: string;
+            appearanceSwithContainer: string;
+            notSelectedAppearance: string;
         }
     }
 }
@@ -35,7 +39,11 @@ const CustomDefaultTheme = {
         grayedOutText: 'rgb(100, 100, 100)',
         avatarOutline: '#001f3f',
         passedDueBy: 'black', // för Emelie
-        border: 'rgb(200, 200, 200)'
+        border: 'rgb(200, 200, 200)',
+        appearanceSwitchButton: 'rgb(210, 210, 210)',
+        appearanceButtonText: 'rgb(0, 0, 0)',
+        appearanceSwithContainer: 'rgb(150, 150, 150)',
+        notSelectedAppearance: 'rgb(180, 180, 180)'
     }
 };
 
@@ -52,20 +60,42 @@ const CustomDarkTheme = {
         grayedOutText: 'rgb(130, 130, 130)',
         avatarOutline: '#B10DC9',
         passedDueBy: 'white', // för Emelie
-        border: 'rgb(20, 20, 20)'
+        border: 'rgb(20, 20, 20)',
+        appearanceSwitchButton: 'rgb(40, 40, 40)',
+        appearanceButtonText: 'rgb(210, 210, 210)',
+        appearanceSwithContainer: 'rgb(0, 0, 0)',
+        notSelectedAppearance: 'rgb(20, 20, 20)'
     }
 };
 
 export default function App() {
-    const scheme = useColorScheme();
     return (
         <Provider store={store}>
-            <PaperProvider theme={scheme === 'dark' ? CustomDarkTheme : CustomDefaultTheme}>
+            <AppInside />
+        </Provider>
+    );
+}
+
+function AppInside() {
+    const scheme = useColorScheme();
+    const appearance = useAppSelector((state) => state.user.appearance);
+
+    let theme = scheme === 'dark' ? CustomDarkTheme : CustomDefaultTheme;
+
+    if (appearance === 'light') {
+        theme = CustomDefaultTheme;
+    } else if (appearance === 'dark') {
+        theme = CustomDarkTheme;
+    }
+
+    return (
+        <NavigationContainer theme={theme}>
+            <PaperProvider theme={theme}>
                 <SafeAreaProvider>
-                    <RootStackNavigator colorScheme={scheme} />
+                    <RootStackNavigator />
                     <StatusBar style="auto" />
                 </SafeAreaProvider>
             </PaperProvider>
-        </Provider>
+        </NavigationContainer>
     );
 }

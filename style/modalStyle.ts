@@ -18,10 +18,25 @@ export const modalStyles = StyleSheet.create({
         borderRadius: 20,
         overflow: 'hidden'
     },
+    modalHouseholdView: {
+        height: '100%',
+        width: '100%',
+        maxWidth: 380,
+        maxHeight: 300,
+        borderRadius: 20,
+        overflow: 'hidden'
+    },
     headerStyle: {
         elevation: 2,
         width: '100%',
         height: '30%'
+    },
+    headerHouseholdStyle: {
+        elevation: 2,
+        width: '100%',
+        height: '23%',
+        top: 0,
+        position: 'absolute'
     },
     headerTextStyle: {
         fontSize: 24
@@ -34,6 +49,14 @@ export const modalStyles = StyleSheet.create({
         borderRadius: 10,
         justifyContent: 'center'
     },
+    inputInfoHouseholdStyle: {
+        margin: 4,
+        elevation: 5,
+        height: '23%',
+        minWidth: '93%',
+        borderRadius: 10,
+        justifyContent: 'center'
+    },
     middleTextStyle: {
         fontSize: 20,
         marginLeft: 20
@@ -41,6 +64,12 @@ export const modalStyles = StyleSheet.create({
     rowStyle: {
         height: '30%',
         flexDirection: 'row'
+    },
+    rowHouseholdStyle: {
+        height: '23%',
+        flexDirection: 'row',
+        bottom: 0,
+        position: 'absolute'
     },
     button: {
         elevation: 2,

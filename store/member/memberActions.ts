@@ -1,12 +1,17 @@
-import { Member } from '../../data/data';
+import { Member, MemberType } from '../../data/data';
 
 export interface CreateMemberAction {
-    type: 'CREATE';
-    payload: Member;
+    type: 'CREATE_MEMBER';
+    payload: {
+        userId: string,
+        householdId: string,
+        memberType: MemberType,
+        memberName: string,
+    };
 }
 
 export interface EditMemberAction {
-    type: 'EDIT';
+    type: 'EDIT_MEMBER';
     payload: Member;
 }
 

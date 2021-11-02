@@ -6,11 +6,11 @@ export interface CreateChoreAction {
 }
 
 export interface EditChoreAction {
-    type: 'EDIT';
+    type: 'EDIT_CHORE';
     payload: Chore;
 }
 
 export interface RemoveChoreAction {
-    type: 'REMOVE';
+    type: 'REMOVE_CHORE';
     payload: Chore;
 }
