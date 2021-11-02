@@ -6,7 +6,7 @@ export interface CreateHouseholdAction {
 }
 
 export interface EditHouseholdAction {
-    type: 'EDIT';
+    type: 'EDIT_HOUSEHOLD';
     payload: Household;
 }
 export interface SetHouseholdAction{
