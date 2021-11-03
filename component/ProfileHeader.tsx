@@ -136,9 +136,11 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
             {/* Row 1: household + menu */}
             <View style={[styles.row, styles.spaceBetween]}>
                 {ShowProfile(household)}
-                <TouchableOpacity onPress={() => openMainMenu && openMainMenu(true)}>
-                    <Entypo name="menu" size={24} color={colors.text} />
-                </TouchableOpacity>
+                {!visitMember && (
+                    <TouchableOpacity onPress={() => openMainMenu && openMainMenu(true)}>
+                        <Entypo name="menu" size={24} color={colors.text} />
+                    </TouchableOpacity>
+                )}
             </View>
             {/* Row 2: circles + text */}
             <View style={styles.rowTwo}>
