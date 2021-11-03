@@ -19,3 +19,5 @@ export interface RemoveMemberAction {
     type: 'REMOVE';
     payload: Member;
 }
+
+export type MemberAction = CreateMemberAction | EditMemberAction | RemoveMemberAction;

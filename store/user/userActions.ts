@@ -1,4 +1,5 @@
 import { User } from '../../data/data';
+import { AppThunk } from '../store';
 
 export interface CreateUserAction {
     type: 'CREATE';
@@ -20,3 +21,8 @@ export interface ChangeAppearanceAction {
 }
 
 export type UserAction = CreateUserAction | EditUserAction | SetUserAction | ChangeAppearanceAction;
+
+export const loginUser = (name: string, password: string): AppThunk =>
+    async (dispatch, getState) => {
+        dispatch({ type: 'SET_USER', payload: name });
+    };

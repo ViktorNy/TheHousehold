@@ -41,27 +41,12 @@ export interface EditChoreAction {
         householdId: string;
     };
 }
-// ----------------------------------------------
 
-// export interface JoinHouseholdAction {
-//     type: 'JOIN';
-//     payload: {
-//         householdId: string,
-//         member: Member
-//     }; // Kanske rätt?
-// }
-
-// export interface LeaveHouseholdAction {
-//     type: 'LEAVE';
-//     payload: any; // Fel
-// }
-
-// export interface PauseHouseholdMemberAction {
-//     type: 'PAUSE';
-//     payload: any; // Fel
-// }
-
-// export interface ChangeMemberTypeAction {
-//     type: 'CHANGE_TYPE';
-//     payload: any; // Fel
-// }
+export type HouseholdAction =
+    | CreateHouseholdAction
+    | EditHouseholdAction
+    | SetHouseholdAction
+    | EditChoreAction
+    | EditChoreListAction
+    | RemoveChoreAction
+    | CreateChoreAction;
