@@ -24,6 +24,11 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
     const setAppearance = (appearance: string) => {
         dispatch({ type: 'CHANGE_APPEARANCE', payload: appearance });
     };
+
+    const unselectCurrentHousehold = () => {
+        dispatch({ type: 'SETHOUSEHOLD', payload: '' });
+    };
+
     if (currentHousehold) {
         return (
             <Modal
@@ -75,7 +80,7 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
                         <TouchableOpacity
                             onPress={() => {
                                 toggleIsShowing(!isShowingMenu);
-                                rootStackProps.navigation.navigate('HouseholdChores', { householdId: currentHousehold.id });
+                                rootStackProps.navigation.navigate('HouseholdChores');
                             }}
                         >
                             <Text style={[styles.modalText, { color: colors.text }]}>Visa sysslor</Text>
@@ -84,7 +89,7 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
                         <TouchableOpacity
                             onPress={() => {
                                 toggleIsShowing(!isShowingMenu);
-                                rootStackProps.navigation.navigate('PieChart', { householdId: currentHousehold.id });
+                                rootStackProps.navigation.navigate('PieChart');
                             }}
                         >
                             <Text style={[styles.modalText, { color: colors.text }]}>Visa statestik</Text>
@@ -94,7 +99,15 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
 
                         {currentMember?.memberType === 'owner' && <Text style={[styles.modalText, { color: colors.text }]}>Visa förfrågningar</Text>}
 
-                        <Text style={[styles.modalText, { color: colors.text }]}>Logga ut</Text>
+                        <TouchableOpacity
+                            onPress={() => {
+                                unselectCurrentHousehold();
+                                rootStackProps.navigation.navigate('Start');
+                            }}
+                        >
+                            <Text style={[styles.modalText, { color: colors.text }]}>Logga ut</Text>
+                        </TouchableOpacity>
+
                         <View style={[styles.appearanceChoiceContainer, { backgroundColor: colors.appearanceSwithContainer }]}>
                             <TouchableOpacity
                                 style={[styles.appearanceChoice, currentChoice === 'auto' ? { backgroundColor: colors.appearanceSwitchButton } : { backgroundColor: colors.notSelectedAppearance }]}
@@ -137,7 +150,14 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
             >
                 <View style={[styles.centeredView]}>
                     <View style={[styles.modalView, { backgroundColor: colors.primary }]}>
-                        <Text style={[styles.modalText, { color: colors.text }]}>Logga ut</Text>
+                        <TouchableOpacity
+                            onPress={() => {
+                                toggleIsShowing(!isShowingMenu);
+                                rootStackProps.navigation.navigate('Start');
+                            }}
+                        >
+                            <Text style={[styles.modalText, { color: colors.text }]}>Logga ut</Text>
+                        </TouchableOpacity>
                         <View style={[styles.appearanceChoiceContainer, { backgroundColor: colors.appearanceSwithContainer }]}>
                             <TouchableOpacity
                                 style={[styles.appearanceChoice, currentChoice === 'auto' ? { backgroundColor: colors.appearanceSwitchButton } : { backgroundColor: colors.notSelectedAppearance }]}

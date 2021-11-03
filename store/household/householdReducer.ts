@@ -32,10 +32,18 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
         };
     }
     case 'SETHOUSEHOLD': {
-        return {
-            ...state,
-            currentHouseholdId: action.payload
-        };
+        const householdIndex = state.householdList.findIndex(h => h.id === action.payload);
+        if (householdIndex > -1) {
+            return {
+                ...state,
+                currentHouseholdId: action.payload
+            };
+        } else {
+            return {
+                ...state,
+                currentHouseholdId: undefined
+            };
+        }
     }
     case 'EDIT_CHORELIST_IN_HOUSEHOLD': {
         const allHouseholds = deepcopy(state.householdList);
