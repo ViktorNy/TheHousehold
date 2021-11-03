@@ -29,12 +29,12 @@ export default function MemberDetailScreen({ route }: RootStackScreenProps<'Meme
                 <Text style={[{ color: colors.text }]}>Medlem: {memberData?.memberName}</Text>
                 <Text style={[{ color: colors.text }]}>Medlem sedan: {memberData?.joinData}</Text>
                 <Text style={[{ color: colors.text }]}>Medlemstyp: {memberData?.memberType}</Text>
-                <Text style={[styles.headline, { color: colors.text }]}>{currentHousehold?.name}</Text>
+                <Text style={[styles.headline, { color: colors.text }]}>Utförda sysslor:</Text>
                 <FlatList
                     data={choresDone}
                     renderItem={({ item, index }) => (
                         <Text key={index} style={[{ color: colors.text }]}>
-                            Syssla utförd: {item.name} | {item.date} | {item.score}
+                            {item.date} | {item.score} | {item.name}
                         </Text>
                     )}
                 />
