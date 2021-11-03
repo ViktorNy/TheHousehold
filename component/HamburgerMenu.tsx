@@ -7,15 +7,22 @@ import { useAppDispatch, useAppSelector } from '../store/store';
 import { Household, Member } from '../data/data';
 
 interface Props {
-    isShowingMenu: boolean,
-    toggleIsShowing: (toggleValue: boolean) => void,
-    rootStackProps: MaterialTopTabBarProps,
-    currentHousehold?: Household,
-    currentMember?: Member,
+    isShowingMenu: boolean;
+    toggleIsShowing: (toggleValue: boolean) => void;
+    rootStackProps: MaterialTopTabBarProps;
+    currentHousehold?: Household;
+    currentMember?: Member;
     toggleExternalModal: (toggle: boolean, modalCase?: string) => void;
 }
 
-export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStackProps, currentHousehold, currentMember, toggleExternalModal }: Props) {
+export default function HamburgerMenu({
+    isShowingMenu,
+    toggleIsShowing,
+    rootStackProps,
+    currentHousehold,
+    currentMember,
+    toggleExternalModal
+}: Props) {
     const { colors } = useTheme();
 
     const currentChoice = useAppSelector((state) => state.user.appearance);
@@ -35,6 +42,7 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
                 animationIn="slideInUp"
                 backdropColor="#181818"
                 coverScreen={true}
+                deviceHeight={10000}
                 isVisible={isShowingMenu}
                 statusBarTranslucent={true}
                 onBackButtonPress={() => {
@@ -47,17 +55,16 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
                         {currentMember?.memberType === 'owner' && (
                             <Text style={[styles.modalText, { color: colors.text }]}>Bjud in medlem, kod: {currentHousehold?.codeToJoin}</Text>
                         )}
-                        {currentMember?.memberType === 'owner' &&
+                        {currentMember?.memberType === 'owner' && (
                             <TouchableOpacity
                                 onPress={() => {
                                     toggleIsShowing(!isShowingMenu);
                                     toggleExternalModal(true, 'CHN');
                                 }}
                             >
-
                                 <Text style={[styles.modalText, { color: colors.text }]}>Byt namn på hushållet</Text>
                             </TouchableOpacity>
-                        }
+                        )}
 
                         <TouchableOpacity
                             onPress={() => {
@@ -110,22 +117,38 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
 
                         <View style={[styles.appearanceChoiceContainer, { backgroundColor: colors.appearanceSwithContainer }]}>
                             <TouchableOpacity
-                                style={[styles.appearanceChoice, currentChoice === 'auto' ? { backgroundColor: colors.appearanceSwitchButton } : { backgroundColor: colors.notSelectedAppearance }]}
-                                onPress={() => setAppearance('auto')
-                                }
+                                style={[
+                                    styles.appearanceChoice,
+                                    currentChoice === 'auto'
+                                        ? { backgroundColor: colors.appearanceSwitchButton }
+                                        : { backgroundColor: colors.notSelectedAppearance }
+                                ]}
+                                onPress={() => setAppearance('auto')}
                             >
                                 <Text style={[currentChoice === 'auto' ? { color: colors.appearanceButtonText } : { color: colors.text }]}>Auto</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
-                                style={[styles.appearanceChoice, currentChoice === 'light' ? { backgroundColor: colors.appearanceSwitchButton } : { backgroundColor: colors.notSelectedAppearance }]}
+                                style={[
+                                    styles.appearanceChoice,
+                                    currentChoice === 'light'
+                                        ? { backgroundColor: colors.appearanceSwitchButton }
+                                        : { backgroundColor: colors.notSelectedAppearance }
+                                ]}
                                 onPress={() => setAppearance('light')}
                             >
-                                <Text style={[currentChoice === 'light' ? { color: colors.appearanceButtonText } : { color: colors.text }]}>Light</Text>
+                                <Text style={[currentChoice === 'light' ? { color: colors.appearanceButtonText } : { color: colors.text }]}>
+                                    Light
+                                </Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
-                                style={[styles.appearanceChoice, currentChoice === 'dark' ? { backgroundColor: colors.appearanceSwitchButton } : { backgroundColor: colors.notSelectedAppearance }]}
+                                style={[
+                                    styles.appearanceChoice,
+                                    currentChoice === 'dark'
+                                        ? { backgroundColor: colors.appearanceSwitchButton }
+                                        : { backgroundColor: colors.notSelectedAppearance }
+                                ]}
                                 onPress={() => setAppearance('dark')}
                             >
                                 <Text style={[currentChoice === 'dark' ? { color: colors.appearanceButtonText } : { color: colors.text }]}>Dark</Text>
@@ -160,22 +183,38 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
                         </TouchableOpacity>
                         <View style={[styles.appearanceChoiceContainer, { backgroundColor: colors.appearanceSwithContainer }]}>
                             <TouchableOpacity
-                                style={[styles.appearanceChoice, currentChoice === 'auto' ? { backgroundColor: colors.appearanceSwitchButton } : { backgroundColor: colors.notSelectedAppearance }]}
-                                onPress={() => setAppearance('auto')
-                                }
+                                style={[
+                                    styles.appearanceChoice,
+                                    currentChoice === 'auto'
+                                        ? { backgroundColor: colors.appearanceSwitchButton }
+                                        : { backgroundColor: colors.notSelectedAppearance }
+                                ]}
+                                onPress={() => setAppearance('auto')}
                             >
                                 <Text style={[currentChoice === 'auto' ? { color: colors.appearanceButtonText } : { color: colors.text }]}>Auto</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
-                                style={[styles.appearanceChoice, currentChoice === 'light' ? { backgroundColor: colors.appearanceSwitchButton } : { backgroundColor: colors.notSelectedAppearance }]}
+                                style={[
+                                    styles.appearanceChoice,
+                                    currentChoice === 'light'
+                                        ? { backgroundColor: colors.appearanceSwitchButton }
+                                        : { backgroundColor: colors.notSelectedAppearance }
+                                ]}
                                 onPress={() => setAppearance('light')}
                             >
-                                <Text style={[currentChoice === 'light' ? { color: colors.appearanceButtonText } : { color: colors.text }]}>Light</Text>
+                                <Text style={[currentChoice === 'light' ? { color: colors.appearanceButtonText } : { color: colors.text }]}>
+                                    Light
+                                </Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
-                                style={[styles.appearanceChoice, currentChoice === 'dark' ? { backgroundColor: colors.appearanceSwitchButton } : { backgroundColor: colors.notSelectedAppearance }]}
+                                style={[
+                                    styles.appearanceChoice,
+                                    currentChoice === 'dark'
+                                        ? { backgroundColor: colors.appearanceSwitchButton }
+                                        : { backgroundColor: colors.notSelectedAppearance }
+                                ]}
                                 onPress={() => setAppearance('dark')}
                             >
                                 <Text style={[currentChoice === 'dark' ? { color: colors.appearanceButtonText } : { color: colors.text }]}>Dark</Text>
