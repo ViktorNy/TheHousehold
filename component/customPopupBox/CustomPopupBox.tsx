@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { AntDesign } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { Pressable, TextInput, TouchableOpacity, View } from 'react-native';
@@ -13,16 +14,16 @@ import uuid from 'react-native-uuid';
 import deepcopy from 'ts-deepcopy';
 
 interface Props {
-    memberId?: string
-    modalCase: string
-    isShowing: boolean
-    toggleModal: (toggle: boolean, modalCase?: string) => void
+    memberId?: string;
+    modalCase: string;
+    isShowing: boolean;
+    toggleModal: (toggle: boolean, modalCase?: string) => void;
 }
 
 export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: Props) {
-    const user = useAppSelector(state => state.user.user) as User;
-    const allHouseHolds = useAppSelector(state => state.household.householdList);
-    const currentHousehold = useAppSelector((state) => state.household.householdList.find(h => h.id === state.household.currentHouseholdId));
+    const user = useAppSelector((state) => state.user.user) as User;
+    const allHouseHolds = useAppSelector((state) => state.household.householdList);
+    const currentHousehold = useAppSelector((state) => state.household.householdList.find((h) => h.id === state.household.currentHouseholdId));
     const [userInput, onUserInputChange] = useState('');
     const layoutChoices = LayoutChoice(modalCase, memberId);
     const { colors } = useTheme();
@@ -56,6 +57,7 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                     animationIn="fadeIn"
                     backdropColor="#181818"
                     coverScreen={true}
+                    deviceHeight={10000}
                     isVisible={isShowing}
                     statusBarTranslucent={true}
                     onBackButtonPress={() => {
@@ -110,6 +112,7 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                     animationIn="fadeIn"
                     backdropColor="#181818"
                     coverScreen={true}
+                    deviceHeight={10000}
                     isVisible={isShowing}
                     statusBarTranslucent={true}
                     onBackButtonPress={() => {
@@ -146,29 +149,48 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                                     onPress={() => {
                                         toggleModal(false);
                                         switch (modalCase) {
-                                        case 'CH':
-                                            // eslint-disable-next-line no-case-declarations
-                                            const newHouseholdId = uuid.v4().toString();
-                                            dispatch({ type: 'CREATE_HOUSEHOLD', payload: { householdName: userInput, householdId: newHouseholdId } });
-                                            dispatch({ type: 'CREATE_MEMBER', payload: { householdId: newHouseholdId, memberName: user.username, userId: user.id, memberType: 'owner' } });
-                                            break;
-                                        case 'CHN':
-                                            if (userInput && currentHousehold) {
-                                                const newHousehold = deepcopy(currentHousehold);
-                                                newHousehold.name = userInput;
-                                                dispatch({ type: 'EDIT_HOUSEHOLD', payload: newHousehold });
-                                            }
-                                            break;
-                                        case 'JH':
-                                            if (userInput) {
-                                                const householdToJoid = deepcopy(allHouseHolds.find(h => h.codeToJoin === userInput));
-                                                if (householdToJoid) {
-                                                    dispatch({ type: 'CREATE_MEMBER', payload: { householdId: householdToJoid.id, memberName: user.username, userId: user.id, memberType: 'member' } });
+                                            case 'CH':
+                                                // eslint-disable-next-line no-case-declarations
+                                                const newHouseholdId = uuid.v4().toString();
+                                                dispatch({
+                                                    type: 'CREATE_HOUSEHOLD',
+                                                    payload: { householdName: userInput, householdId: newHouseholdId }
+                                                });
+                                                dispatch({
+                                                    type: 'CREATE_MEMBER',
+                                                    payload: {
+                                                        householdId: newHouseholdId,
+                                                        memberName: user.username,
+                                                        userId: user.id,
+                                                        memberType: 'owner'
+                                                    }
+                                                });
+                                                break;
+                                            case 'CHN':
+                                                if (userInput && currentHousehold) {
+                                                    const newHousehold = deepcopy(currentHousehold);
+                                                    newHousehold.name = userInput;
+                                                    dispatch({ type: 'EDIT_HOUSEHOLD', payload: newHousehold });
                                                 }
-                                            }
-                                            break;
-                                        default:
-                                            break;
+                                                break;
+                                            case 'JH':
+                                                if (userInput) {
+                                                    const householdToJoid = deepcopy(allHouseHolds.find((h) => h.codeToJoin === userInput));
+                                                    if (householdToJoid) {
+                                                        dispatch({
+                                                            type: 'CREATE_MEMBER',
+                                                            payload: {
+                                                                householdId: householdToJoid.id,
+                                                                memberName: user.username,
+                                                                userId: user.id,
+                                                                memberType: 'member'
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                                break;
+                                            default:
+                                                break;
                                         }
                                     }}
                                 >
