@@ -25,7 +25,7 @@ export default function HouseholdChoresMonthScreen(props: Props) {
             <View style={styles.root}>
                 {/* TODO: route and navigation may be pased as props to RenderChores -> ChoreButton */}
                 {/* TODO: For more view in choreSlider, only rename label for those screens */}
-                <RenderChores prop={props} label={'Month'} currentHousehold={currentHousehold} members={memberList} editChore={toggleEdit} />
+                <RenderChores navigation={props} label={'Month'} currentHousehold={currentHousehold} members={memberList} editChore={toggleEdit} />
                 {!toggleEdit && (
                     <View style={[styles.buttons, { justifyContent: 'space-between' }]}>
                         <CustomPlusButton goto={() => console.log('Lägg till en syssla')} buttonText={'Lägg till'} />

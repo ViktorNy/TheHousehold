@@ -25,7 +25,7 @@ export default function HouseholdChoresAllScreen(props: Props) {
             <View style={styles.root}>
                 {/* TODO: route and navigation may be pased as props to RenderChores -> ChoreButton */}
                 {/* TODO: For more view in choreSlider, only rename label for those screens */}
-                <RenderChores prop={props} label={'All'} currentHousehold={currentHousehold} members={memberList} editChore={toggleEdit} />
+                <RenderChores navigation={props} label={'All'} currentHousehold={currentHousehold} members={memberList} editChore={toggleEdit} />
                 {!toggleEdit && (
                     <View style={[styles.buttons, { justifyContent: 'space-between' }]}>
                         <CustomPlusButton goto={() => setIsShowingCreateModal(!isShowingCreateModal)} buttonText={'Lägg till'} />

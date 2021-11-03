@@ -1,11 +1,9 @@
-/* eslint-disable indent */
 import { AntDesign } from '@expo/vector-icons';
 import { useTheme } from 'react-native-paper';
 import React, { ReactNode } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 interface Props {
-    // TODO: Fråga David om det går att få med typer för label ('All' | 'Today' | 'Week' | 'Month')
     label: string | ((props: { focused: boolean; color: string }) => ReactNode);
     headline: string;
     onLeftPress: () => void;
@@ -15,48 +13,20 @@ interface Props {
 export function TabDateSlider({ headline, label, onLeftPress, onRightPress }: Props) {
     const { colors } = useTheme();
 
-    let name = '';
-    switch (label) {
-        case 'PieAll':
-            name = 'Alla';
-            break;
-        case 'PieToday':
-            name = 'Idag';
-            break;
-        case 'PieWeek':
-            name = 'Vecka';
-            break;
-        case 'PieMonth':
-            name = 'Månad';
-            break;
-        case 'HouseholdChoresAll':
-            name = 'Alla';
-            break;
-        case 'HouseholdChoresToday':
-            name = 'Idag';
-            break;
-        case 'HouseholdChoresWeek':
-            name = 'Vecka';
-            break;
-        case 'HouseholdChoresMonth':
-            name = 'Månad';
-            break;
-    }
-
     return (
         <View style={[styles.root, { backgroundColor: colors.primary }]}>
             <Text style={{ color: colors.text }}>{headline}</Text>
             <View style={styles.selectionRow}>
                 <View>
-                    {label !== 'PieAll' && label !== 'HouseholdChoresAll' && (
+                    {label !== 'Alla' && (
                         <TouchableOpacity onPress={onLeftPress}>
                             <AntDesign name="left" size={18} color={colors.text} />
                         </TouchableOpacity>
                     )}
                 </View>
-                <Text style={{ color: colors.text, fontWeight: 'bold' }}>{name}</Text>
+                <Text style={{ color: colors.text, fontWeight: 'bold' }}>{label}</Text>
                 <View>
-                    {label !== 'PieMonth' && label !== 'HouseholdChoresMonth' && (
+                    {label !== 'Denna månad' && (
                         <TouchableOpacity onPress={onRightPress}>
                             <AntDesign name="right" size={18} color={colors.text} />
                         </TouchableOpacity>
