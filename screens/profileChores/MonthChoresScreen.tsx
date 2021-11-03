@@ -20,7 +20,7 @@ export default function MonthChoresScreen({ navigation, route }: Props) {
     return (
         <RenderChores
             label={'Month'}
-            prop={{ navigation, route }}
+            navigation={{ navigation, route }}
             userHousehold={userHousehold}
             currentHousehold={currentHousehold}
             members={members}

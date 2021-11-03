@@ -14,7 +14,7 @@ type Props = CompositeScreenProps<HouseholdChoresTabScreenProx<'HouseholdChoresW
 
 export default function HouseholdChoresWeekScreen(props: Props) {
     const { colors } = useTheme();
-    const currentHousehold = useAppSelector((state) => state.household.householdList.find(h => h.id === state.household.currentHouseholdId));
+    const currentHousehold = useAppSelector((state) => state.household.householdList.find((h) => h.id === state.household.currentHouseholdId));
     const memberList = useAppSelector((state) => state.member.memberList.filter((m) => m.householdId === currentHousehold?.id));
 
     const [toggleEdit, setToggleEdit] = useState<boolean>(false);
@@ -24,7 +24,7 @@ export default function HouseholdChoresWeekScreen(props: Props) {
             <View style={styles.root}>
                 {/* TODO: route and navigation may be pased as props to RenderChores -> ChoreButton */}
                 {/* TODO: For more view in choreSlider, only rename label for those screens */}
-                <RenderChores prop={props} label={'Week'} currentHousehold={currentHousehold} members={memberList} editChore={toggleEdit} />
+                <RenderChores navigation={props} label={'Week'} currentHousehold={currentHousehold} members={memberList} editChore={toggleEdit} />
                 {!toggleEdit && (
                     <View style={[styles.buttons, { justifyContent: 'space-between' }]}>
                         <CustomPlusButton goto={() => console.log('Lägg till en syssla')} buttonText={'Lägg till'} />

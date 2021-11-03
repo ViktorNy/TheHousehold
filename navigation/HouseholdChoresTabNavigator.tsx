@@ -25,7 +25,12 @@ const Tab = createMaterialTopTabNavigator<HouseholdChoresParamList>();
 function HouseholdChoresTabNavigator() {
     return (
         <Tab.Navigator tabBar={(props) => <StatisticsHeader props={{ ...props }} headline={'Alla sysslor'} />}>
-            <Tab.Screen name="HouseholdChoresAll" component={HouseholdChoresAllScreen} initialParams={{ householdId: undefined }} />
+            <Tab.Screen
+                name="HouseholdChoresAll"
+                options={{ title: 'hej hej' }}
+                component={HouseholdChoresAllScreen}
+                initialParams={{ householdId: undefined }}
+            />
             <Tab.Screen name="HouseholdChoresToday" component={HouseholdChoresTodayScreen} initialParams={{ householdId: undefined }} />
             <Tab.Screen name="HouseholdChoresWeek" component={HouseholdChoresWeekScreen} initialParams={{ householdId: undefined }} />
             <Tab.Screen name="HouseholdChoresMonth" component={HouseholdChoresMonthScreen} initialParams={{ householdId: undefined }} />

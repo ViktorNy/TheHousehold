@@ -19,7 +19,7 @@ export default function TodayChoresScreen({ navigation, route }: Props) {
     return (
         <RenderChores
             label={'Today'}
-            prop={{ navigation, route }}
+            navigation={{ navigation, route }}
             userHousehold={userHousehold}
             currentHousehold={currentHousehold}
             members={members}
