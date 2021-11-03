@@ -7,10 +7,11 @@ let modalPlaceholder = '';
 let modalSecondaryPlaceholder = '';
 let modalInputActive = true;
 let avatar = false;
+let createChore = false;
 
 export function LayoutChoice(modalCase: string, id?: string) {
-    const username = useAppSelector(state => state.member.memberList.find(m => m.userId === id))?.memberName;
-    const currentHousehold = useAppSelector(state => state.household.currentHousehold);
+    const username = useAppSelector((state) => state.member.memberList.find((m) => m.userId === id))?.memberName;
+    const currentHousehold = useAppSelector((state) => state.household.currentHousehold);
 
     if (modalCase === 'JH') {
         modalTitle = 'Gå med i Hushåll';
@@ -56,12 +57,27 @@ export function LayoutChoice(modalCase: string, id?: string) {
         modalPlaceholder = currentHousehold!.name;
         modalInputActive = true;
         avatar = false;
-    } else if (modalCase === 'AI') {
-        modalTitle = 'Välj avatar';
-        avatar = true;
+    } else if (modalCase === 'EC') {
+        modalTitle = 'Redigera syssla';
+        modalLeft = 'Spara';
+        modalRight = 'Stäng';
+        modalPlaceholder = 'Titel';
+        modalSecondaryPlaceholder = 'Beskrivning';
+        modalInputActive = true;
+        avatar = false;
+        createChore = true;
+    } else if (modalCase === 'CC') {
+        modalTitle = 'Skapa en ny syssla';
+        modalLeft = 'Spara';
+        modalRight = 'Stäng';
+        modalPlaceholder = 'Titel';
+        modalSecondaryPlaceholder = 'Beskrivning';
+        modalInputActive = true;
+        avatar = false;
+        createChore = true;
     } else {
         modalTitle = 'Ajdå, här blev det fel';
         modalRight = 'Tillbaka';
     }
-    return { modalTitle, modalLeft, modalRight, modalPlaceholder, modalInputActive, avatar, modalSecondaryPlaceholder };
+    return { modalTitle, modalLeft, modalRight, modalPlaceholder, modalInputActive, avatar, modalSecondaryPlaceholder, createChore };
 }

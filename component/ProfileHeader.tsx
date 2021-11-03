@@ -4,6 +4,8 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { Household, Member, User } from '../data/data';
 import Avatar from './Avatar';
+import { Entypo } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface Props {
     household?: Household;
@@ -15,11 +17,12 @@ interface Props {
         member?: Member;
         userName?: string;
     };
-    openMainMenu?: (open: boolean) => void
-    openHouseholdMenu?: (open: boolean) => void
+    openMainMenu?: (open: boolean) => void;
+    openHouseholdMenu?: (open: boolean) => void;
+    onGoBack?: () => void;
 }
 
-export function ProfileHeader({ household, userInformation, visitMember, openMainMenu, openHouseholdMenu }: Props) {
+export function ProfileHeader({ household, userInformation, visitMember, openMainMenu, openHouseholdMenu, onGoBack }: Props) {
     const { colors } = useTheme();
 
     function ShowProfile(household?: Household) {
@@ -27,8 +30,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
             // visit another member profile
             // TODO: namn på member ?
             return (
-                <TouchableOpacity style={styles.row}
-                    onPress={() => { }}>
+                <TouchableOpacity style={styles.row} onPress={() => onGoBack!()}>
                     <Entypo name="arrow-long-left" size={20} color={colors.text} />
                     <Text style={[styles.title, { paddingLeft: 10, color: colors.text }]}>{visitMember.userName}</Text>
                 </TouchableOpacity>
@@ -36,8 +38,12 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
         } else if (household) {
             // visit one of youre households
             return (
-                <TouchableOpacity style={styles.row}
-                    onPress={() => { openHouseholdMenu && openHouseholdMenu(true); }}>
+                <TouchableOpacity
+                    style={styles.row}
+                    onPress={() => {
+                        openHouseholdMenu && openHouseholdMenu(true);
+                    }}
+                >
                     <Text style={[styles.title, { color: colors.text }]}>{household.name}</Text>
                     <Entypo name="chevron-small-down" size={24} color={colors.text} />
                 </TouchableOpacity>
@@ -45,8 +51,12 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
         } else {
             // visit youre page "min sida"
             return (
-                <TouchableOpacity style={styles.row}
-                    onPress={() => { openHouseholdMenu && openHouseholdMenu(true); }}>
+                <TouchableOpacity
+                    style={styles.row}
+                    onPress={() => {
+                        openHouseholdMenu && openHouseholdMenu(true);
+                    }}
+                >
                     <Text style={[styles.title, { color: colors.text }]}>Min sida</Text>
                     <Entypo name="chevron-small-down" size={24} color={colors.text} />
                 </TouchableOpacity>
@@ -103,29 +113,30 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
     }
 
     return (
-        <View style={[styles.root, { backgroundColor: colors.primary }]}>
-            {/* Row 1: household + menu */}
-            <View style={[styles.row, styles.spaceBetween]}>
-                {ShowProfile(household)}
-                <TouchableOpacity
-                    onPress={() => openMainMenu && openMainMenu(true)}>
-                    <Entypo name="menu" size={24} color={colors.text} />
-                </TouchableOpacity>
-            </View>
-            {/* Row 2: circles + text */}
-            <View style={styles.rowTwo}>
-                {/*  */}
-                {DisplayUser({ userInformation, household, visitMember, openMainMenu: openMainMenu })}
-                <View style={{ alignItems: 'center' }}>
-                    <View style={[styles.row, styles.spaceBetween]}>
-                        {DisplayScore('Att göra', 0)}
-                        {DisplayScore('Avklarade', 10)}
-                        {DisplayScore('Poäng')}
+        <SafeAreaView>
+            <View style={[styles.root, { backgroundColor: colors.primary }]}>
+                {/* Row 1: household + menu */}
+                <View style={[styles.row, styles.spaceBetween]}>
+                    {ShowProfile(household)}
+                    <TouchableOpacity onPress={() => openMainMenu && openMainMenu(true)}>
+                        <Entypo name="menu" size={24} color={colors.text} />
+                    </TouchableOpacity>
+                </View>
+                {/* Row 2: circles + text */}
+                <View style={styles.rowTwo}>
+                    {/*  */}
+                    {DisplayUser({ userInformation, household, visitMember, openMainMenu: openMainMenu })}
+                    <View style={{ alignItems: 'center' }}>
+                        <View style={[styles.row, styles.spaceBetween]}>
+                            {DisplayScore('Att göra', 0)}
+                            {DisplayScore('Avklarade', 10)}
+                            {DisplayScore('Poäng')}
+                        </View>
+                        <Text style={{ color: colors.text }}>För nuvarande månad</Text>
                     </View>
-                    <Text style={{ color: colors.text }}>För nuvarande månad</Text>
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 

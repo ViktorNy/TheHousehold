@@ -1,7 +1,7 @@
 import { Chore } from '../../data/data';
 
 export interface CreateChoreAction {
-    type: 'CREATE';
+    type: 'CREATE_CHORE';
     payload: Chore;
 }
 

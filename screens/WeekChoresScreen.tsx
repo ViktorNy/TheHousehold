@@ -22,7 +22,7 @@ export default function WeekChoresScreen({ navigation, route }: Props) {
     return (
         <RenderChores
             label={'Week'}
-            prop={{ navigation, route }}
+            navigation={{ navigation, route }}
             userHousehold={userHousehold}
             currentHousehold={currentHousehold}
             members={members}

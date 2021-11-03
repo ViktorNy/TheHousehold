@@ -18,7 +18,7 @@ export default function AllChoresScreen({ navigation, route }: Props) {
     return (
         <RenderChores
             label={'All'}
-            prop={{ navigation, route }}
+            navigation={{ navigation, route }}
             userHousehold={userHousehold}
             currentHousehold={currentHousehold}
             members={members}

@@ -5,6 +5,7 @@ import { useTheme } from 'react-native-paper';
 import RenderChores from '../../component/choreComponent/RenderChores';
 import { CustomEditButton } from '../../component/CustomEditButton';
 import { CustomPlusButton } from '../../component/CustomPlusButton';
+import { CreateChoreModal } from '../../component/customPopupBox/CreateChoreModal';
 import { CustomWideButton } from '../../component/CustomWideButton';
 import { HouseholdChoresTabScreenProx } from '../../navigation/HouseholdChoresTabNavigator';
 import { RootStackScreenProps } from '../../navigation/RootStackNavigator';
@@ -14,10 +15,15 @@ type Props = CompositeScreenProps<HouseholdChoresTabScreenProx<'HouseholdChoresW
 
 export default function HouseholdChoresWeekScreen(props: Props) {
     const { colors } = useTheme();
-    const currentHousehold = useAppSelector((state) => state.household.currentHousehold);
+
+    const currentHousehold = useAppSelector((state) => state.household.householdList.find((h) => h.id === state.household.currentHouseholdId));
     const memberList = useAppSelector((state) => state.member.memberList.filter((m) => m.householdId === currentHousehold?.id));
 
+    const user = useAppSelector((state) => state.user.user);
+    const currentMember = memberList.find((m) => m.householdId === currentHousehold?.id && m.userId === user?.id);
+
     const [toggleEdit, setToggleEdit] = useState<boolean>(false);
+    const [isShowingCreateModal, setIsShowingCreateModal] = useState(false);
 
     console.log('toggleEdit Week: ' + toggleEdit);
     if (currentHousehold) {
@@ -25,8 +31,8 @@ export default function HouseholdChoresWeekScreen(props: Props) {
             <View style={styles.root}>
                 {/* TODO: route and navigation may be pased as props to RenderChores -> ChoreButton */}
                 {/* TODO: For more view in choreSlider, only rename label for those screens */}
-                <RenderChores prop={props} label={'Week'} currentHousehold={currentHousehold} members={memberList} editChore={toggleEdit} />
-                {!toggleEdit && (
+                <RenderChores navigation={props} label={'Week'} currentHousehold={currentHousehold} members={memberList} editChore={toggleEdit} />
+                {!toggleEdit && currentMember?.memberType === 'owner' && (
                     <View style={[styles.buttons, { justifyContent: 'space-between' }]}>
                         <CustomPlusButton goto={() => console.log('Lägg till en syssla')} buttonText={'Lägg till'} />
                         <CustomEditButton goto={() => setToggleEdit(!toggleEdit)} buttonText={'Ändra'} />
@@ -38,6 +44,11 @@ export default function HouseholdChoresWeekScreen(props: Props) {
                         {/* <CustomNavigateButton goto={() => setToggleEdit(!toggleEdit)} buttonText={'Avbryt'} /> */}
                     </View>
                 )}
+                <CreateChoreModal
+                    modalCase={'CC'}
+                    isShowing={isShowingCreateModal}
+                    toggleModal={() => setIsShowingCreateModal(!isShowingCreateModal)}
+                />
             </View>
         );
     } else {

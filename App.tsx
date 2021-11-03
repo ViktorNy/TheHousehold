@@ -35,7 +35,11 @@ const CustomDefaultTheme = {
         grayedOutText: 'rgb(100, 100, 100)',
         avatarOutline: '#001f3f',
         passedDueBy: 'black', // för Emelie
-        border: 'rgb(200, 200, 200)'
+        border: 'rgb(200, 200, 200)',
+        appearanceSwitchButton: 'rgb(210, 210, 210)',
+        appearanceButtonText: 'rgb(0, 0, 0)',
+        appearanceSwithContainer: 'rgb(150, 150, 150)',
+        notSelectedAppearance: 'rgb(150, 150, 150)'
     }
 };
 
@@ -52,7 +56,11 @@ const CustomDarkTheme = {
         grayedOutText: 'rgb(130, 130, 130)',
         avatarOutline: '#B10DC9',
         passedDueBy: 'white', // för Emelie
-        border: 'rgb(20, 20, 20)'
+        border: 'rgb(20, 20, 20)',
+        appearanceSwitchButton: 'rgb(40, 40, 40)',
+        appearanceButtonText: 'rgb(210, 210, 210)',
+        appearanceSwithContainer: 'rgb(0, 0, 0)',
+        notSelectedAppearance: 'rgb(0, 0, 0)'
     }
 };
 
