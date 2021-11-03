@@ -7,6 +7,7 @@ import DistributeChoreScreen from '../screens/DistributeChoreScreen';
 import LoginScreen from '../screens/LoginScreen';
 import MemberDetailScreen from '../screens/MemberDetailScreen';
 import MemberScreen from '../screens/MemberScreen';
+import NoHouseholdScreen from '../screens/NoHouseholdScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import StartScreen from '../screens/StartScreen';
 import ChoresTabNavigator from './ChoresTabNavigator';
@@ -84,8 +85,8 @@ function RootStackNavigator() {
                 }}
             />
             <Stack.Screen
-                name="RegisterUserName"
-                component={RegisterUserNameScreen}
+                name="NoHousehold"
+                component={NoHouseholdScreen}
                 options={{
                     title: '',
                     headerStyle: { backgroundColor: colors.background },

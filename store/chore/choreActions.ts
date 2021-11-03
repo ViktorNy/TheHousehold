@@ -11,6 +11,6 @@ export interface EditChoreAction {
 }
 
 export interface RemoveChoreAction {
-    type: 'REMOVE';
+    type: 'REMOVE_CHORE';
     payload: Chore;
 }
