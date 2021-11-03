@@ -16,11 +16,11 @@ import displayChore from './displayChore';
 //     CompositeScreenProps<MaterialTopTabScreenProps<ParamList, keyof ParamList>, RootStackScreenProps>,
 //     HouseholdChoresTabScreenProx<keyof HouseholdChoresParamList>
 // >;
+type NavigatorA = CompositeScreenProps<MaterialTopTabScreenProps<ParamList, keyof ParamList>, RootStackScreenProps>;
+type NavigatorB = CompositeScreenProps<HouseholdChoresTabScreenProx<keyof HouseholdChoresParamList>, RootStackScreenProps>;
 
 interface Props {
-    prop:
-        | CompositeScreenProps<MaterialTopTabScreenProps<ParamList, keyof ParamList>, RootStackScreenProps>
-        | CompositeScreenProps<HouseholdChoresTabScreenProx<keyof HouseholdChoresParamList>, RootStackScreenProps>;
+    navigation: NavigatorA | NavigatorB;
     userHousehold?: Household[];
     currentHousehold?: Household;
     members: Member[];
@@ -28,7 +28,7 @@ interface Props {
     editChore?: boolean;
 }
 
-export default function RenderChores({ prop, userHousehold, currentHousehold, members, label, editChore }: Props) {
+export default function RenderChores({ navigation, userHousehold, currentHousehold, members, label, editChore }: Props) {
     const { colors } = useTheme();
     const user = useAppSelector((state) => state.user.user) as User;
     // const userHousehold = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, prop.route.params.userId));
@@ -66,7 +66,8 @@ export default function RenderChores({ prop, userHousehold, currentHousehold, me
                                     chore={item}
                                     avatarIdList={getAvatarIdList(item)}
                                     goto={() =>
-                                        prop.navigation.navigate('ChoreDetail', {
+                                        // todo: refactor/improve types issue #91
+                                        (navigation.navigation as any).navigate('ChoreDetail', {
                                             choreId: item.id,
                                             householdId: currentHousehold.id
                                         })
@@ -96,7 +97,8 @@ export default function RenderChores({ prop, userHousehold, currentHousehold, me
                                             chore={chore}
                                             avatarIdList={getAvatarIdList(chore)}
                                             goto={() => {
-                                                prop.navigation.navigate('ChoreDetail', {
+                                                // todo: refactor/improve types issue #91
+                                                (navigation.navigation as any).navigate('ChoreDetail', {
                                                     choreId: chore.id,
                                                     householdId: item.id
                                                 });

@@ -24,7 +24,7 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
 
     const allMembers = useAppSelector((state) => getMembersOfHouseholdSelector(state, route.params.householdId));
     const user = useAppSelector((state) => state.user.user);
-    const currentMember = useAppSelector((state) => state.member.memberList.find((m) => m.userId === user?.id));
+    const currentMember = useAppSelector((state) => state.member.memberList.find((m) => m.userId === user?.id && m.householdId === route.params.householdId));
 
     const avatars = mockAvatarData;
 
@@ -39,12 +39,15 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
 
         newChore!.lastDone = newChoreLastDoneDate;
 
-        newChore!.doneBy = [...newChore!.doneBy, {
-            choreId: newChore!.id,
-            memberId: currentMember!.id,
-            date: newChoreLastDoneDate,
-            score: newChore!.score
-        }];
+        newChore!.doneBy = [
+            ...newChore!.doneBy,
+            {
+                choreId: newChore!.id,
+                memberId: currentMember!.id,
+                date: newChoreLastDoneDate,
+                score: newChore!.score
+            }
+        ];
 
         dispatch({ type: 'EDIT_CHORELIST_IN_HOUSEHOLD', payload: { chore: newChore!, householdId: route.params.householdId } });
         navigation.goBack();
@@ -59,7 +62,11 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
                     visible={menuVisible}
                     onDismiss={closeMenu}
                     anchor={
-                        <Button onPress={openMenu} style={[{ backgroundColor: colors.card }, { width: '100%' }, { borderRadius: 10 }]}>
+                        <Button
+                            onPress={openMenu}
+                            style={[{ backgroundColor: colors.card }, { width: '100%' }, { borderRadius: 10 }]}
+                            contentStyle={{ alignSelf: 'flex-start' }}
+                        >
                             {/* eslint-disable-next-line array-callback-return */}
                             {avatars.map((avatar) => {
                                 const usersSignedToChore = chore?.signedToUserId.map((signedId) => {
@@ -133,7 +140,7 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
                     <Text style={[choreStyles.valueDescription]}>Hur energikrävande är sysslan?</Text>
                 </View>
                 <View style={choreStyles.energyNrContainer}>
-                    <Text style={choreStyles.energyText}>{chore?.frequency}</Text>
+                    <Text style={choreStyles.energyText}>{chore?.score}</Text>
                 </View>
             </View>
             <View style={choreStyles.buttonContainer}>
