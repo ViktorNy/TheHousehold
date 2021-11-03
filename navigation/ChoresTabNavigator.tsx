@@ -40,6 +40,7 @@ function ChoresTabNavigator() {
     );
 
     return (
+
         <Tab.Navigator tabBar={(props) => <CustomHeader {...props} />}>
             <Tab.Screen name="Today" component={TodayChoresScreen} initialParams={{ memberId: undefined, householdId: undefined }} />
             <Tab.Screen name="All" component={AllChoresScreen} initialParams={{ memberId: undefined, householdId: undefined }} />
