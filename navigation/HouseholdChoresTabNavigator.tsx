@@ -27,13 +27,28 @@ function HouseholdChoresTabNavigator() {
         <Tab.Navigator tabBar={(props) => <StatisticsHeader props={{ ...props }} headline={'Alla sysslor'} />}>
             <Tab.Screen
                 name="HouseholdChoresAll"
-                options={{ title: 'hej hej' }}
+                options={{ title: 'Alla' }}
                 component={HouseholdChoresAllScreen}
                 initialParams={{ householdId: undefined }}
             />
-            <Tab.Screen name="HouseholdChoresToday" component={HouseholdChoresTodayScreen} initialParams={{ householdId: undefined }} />
-            <Tab.Screen name="HouseholdChoresWeek" component={HouseholdChoresWeekScreen} initialParams={{ householdId: undefined }} />
-            <Tab.Screen name="HouseholdChoresMonth" component={HouseholdChoresMonthScreen} initialParams={{ householdId: undefined }} />
+            <Tab.Screen
+                name="HouseholdChoresToday"
+                options={{ title: 'Idag' }}
+                component={HouseholdChoresTodayScreen}
+                initialParams={{ householdId: undefined }}
+            />
+            <Tab.Screen
+                name="HouseholdChoresWeek"
+                options={{ title: 'Denna veckan' }}
+                component={HouseholdChoresWeekScreen}
+                initialParams={{ householdId: undefined }}
+            />
+            <Tab.Screen
+                name="HouseholdChoresMonth"
+                options={{ title: 'Denna månad' }}
+                component={HouseholdChoresMonthScreen}
+                initialParams={{ householdId: undefined }}
+            />
         </Tab.Navigator>
     );
 }
