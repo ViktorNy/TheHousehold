@@ -20,10 +20,13 @@ export default function NoHouseholdScreen({ navigation, route }: RootStackScreen
                         Få koll på era sysslor, fördela och engagera. Att glömma bort blir nu ett minne blott!
                 </Text>
                 <Text style={[{ color: colors.text }, styles.notMemberText]}>
-                        Du är inte medlem i något hushåll, för att komma vidare skapa ett ny eller gå med i ett.{' '}
+                        Du är inte medlem i något hushåll, för att komma vidare skapa ett ny eller gå med i ett.
                 </Text>
                 <View style={styles.buttonContainer}>
-                    <CustomPlusButton buttonText="Skapa nytt" goto={() => { setIsShowJoinHouseholdModal(!isShowJoinHouseholdModal); }} />
+                    <CustomPlusButton buttonText="Skapa nytt" goto={() => {
+                        setIsShowJoinHouseholdModal(!isShowJoinHouseholdModal);
+                        navigation.navigate('Household');
+                    }} />
                     <CustomPlusButton buttonText="Gå med i" goto={() => { }} />
 
                 </View>
