@@ -24,7 +24,7 @@ export interface RootStackParamList extends ParamListBase {
     Start: undefined; // Tar inte in några parametrerar
     Login: undefined; // Tar inte in några parametrerar
     Register: undefined; // Tar inte in några parametrerar
-    NoHousehold: { email: string; password: string };
+    NoHousehold: undefined;
     Household: undefined;
     DistributeChore: undefined;
     ChoreDetail: { choreId: string; householdId: string };
