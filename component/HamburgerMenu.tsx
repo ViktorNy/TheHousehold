@@ -79,7 +79,7 @@ export default function HamburgerMenu({ isShowingMenu, toggleIsShowing, rootStac
                                 rootStackProps.navigation.navigate('PieChart', { householdId: currentHousehold.id });
                             }}
                         >
-                            <Text style={[styles.modalText, { color: colors.text }]}>Visa statestik</Text>
+                            <Text style={[styles.modalText, { color: colors.text }]}>Visa statistik</Text>
                         </TouchableOpacity>
 
                         <Text style={[styles.modalText, { color: colors.text }]}>Lämna hushållet</Text>
