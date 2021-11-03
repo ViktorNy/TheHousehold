@@ -19,10 +19,10 @@ export default function CustomHeader(props: MaterialTopTabBarProps) {
 
     const label = options.tabBarLabel || options.title || currentRoute.name;
 
-    const user = useAppSelector(state => state.user.user) as User;
-    const currentHousehold = useAppSelector(state => state.household.householdList.find(h => h.id === state.household.currentHouseholdId));
+    const user = useAppSelector((state) => state.user.user) as User;
+    const currentHousehold = useAppSelector((state) => state.household.householdList.find((h) => h.id === state.household.currentHouseholdId));
     const allHouseholdsConnectedToUser = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, user.id));
-    const allMemberInfoOnUser = useAppSelector((state) => state.member.memberList.filter(m => m.userId === user.id));
+    const allMemberInfoOnUser = useAppSelector((state) => state.member.memberList.filter((m) => m.userId === user.id));
     const userMemberInfo = useAppSelector((state) =>
         state.member.memberList.find((m) => m.userId === user.id && m.householdId === currentHousehold?.id)
     );
@@ -61,18 +61,34 @@ export default function CustomHeader(props: MaterialTopTabBarProps) {
                 isHouseholdSelected={!!currentHousehold}
                 toggleExternalModal={toggleModalAndSetModalCase}
             />
-            <ProfileHeader household={currentHousehold} userInformation={{ user: user, member: userMemberInfo }} openMainMenu={setIsShowingModal} openHouseholdMenu={setIsShowingHouseholdModal} />
+            <ProfileHeader
+                household={currentHousehold}
+                userInformation={{ user: user, member: userMemberInfo }}
+                openMainMenu={setIsShowingModal}
+                openHouseholdMenu={setIsShowingHouseholdModal}
+            />
             <ChoresSlider
                 label={label}
                 headline={'Sysslor'}
                 onLeftPress={() => props.navigation.navigate(previousRoute.name, { userId: user.id })}
                 onRightPress={() => props.navigation.navigate(nextRoute.name, { userId: user.id })}
             />
-            { (modalCase !== 'CH' && modalCase !== 'JH')
-                ? <CustomPopupBox memberId={userMemberInfo?.id} modalCase={modalCase} isShowing={isShowModalCaseModal} toggleModal={toggleModalAndSetModalCase} />
-                : <HouseholdModal memberId={userMemberInfo?.id} modalCase={modalCase} isShowing={isShowModalCaseModal} toggleModal={toggleModalAndSetModalCase} />
-            }
-
+            {/* eslint-disable-next-line multiline-ternary */}
+            {modalCase !== 'CH' && modalCase !== 'JH' ? (
+                <CustomPopupBox
+                    memberId={userMemberInfo?.id}
+                    modalCase={modalCase}
+                    isShowing={isShowModalCaseModal}
+                    toggleModal={toggleModalAndSetModalCase}
+                />
+            ) : (
+                <HouseholdModal
+                    memberId={userMemberInfo?.id}
+                    modalCase={modalCase}
+                    isShowing={isShowModalCaseModal}
+                    toggleModal={toggleModalAndSetModalCase}
+                />
+            )}
         </View>
     );
 }

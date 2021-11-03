@@ -24,7 +24,7 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'
     // Otherwise logs out 'faulty user' in console
     function checkUserInfo() {
         if (user.email === userText || (user.username === userText && user.password === userPassword)) {
-            dispatch({ type: 'GETUSER', payload: user.id });
+            dispatch({ type: 'SET_USER', payload: user.id });
             navigation.navigate('Household');
 
             // JUST FOR TESTING PURPOSES

@@ -11,7 +11,7 @@ let createChore = false;
 
 export function LayoutChoice(modalCase: string, id?: string) {
     const username = useAppSelector((state) => state.member.memberList.find((m) => m.userId === id))?.memberName;
-    const currentHousehold = useAppSelector((state) => state.household.currentHousehold);
+    const currentHousehold = useAppSelector((state) => state.household.householdList.find((h) => h.id === state.household.currentHouseholdId));
 
     if (modalCase === 'JH') {
         modalTitle = 'Gå med i Hushåll';

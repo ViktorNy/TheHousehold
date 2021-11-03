@@ -3,8 +3,8 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { useTheme } from 'react-native-paper';
-import { Household, Member } from '../data/data';
 import { useAppDispatch, useAppSelector } from '../store/store';
+import { Household, Member } from '../data/data';
 
 interface Props {
     isShowingMenu: boolean;
@@ -245,5 +245,25 @@ const styles = StyleSheet.create({
     modalText: {
         marginBottom: 15,
         textAlign: 'center'
+    },
+    appearanceChoiceContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignSelf: 'center',
+        backgroundColor: '#f2f2f2',
+        borderRadius: 100
+    },
+    appearanceChoice: {
+        width: '30%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 100
+    },
+    appearanceChosenColor: {
+        borderColor: 'black'
+    },
+    appearanceNotChosenColor: {
+        borderColor: 'red'
     }
 });
