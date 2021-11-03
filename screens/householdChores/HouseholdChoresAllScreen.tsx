@@ -5,6 +5,7 @@ import { useTheme } from 'react-native-paper';
 import RenderChores from '../../component/choreComponent/RenderChores';
 import { CustomEditButton } from '../../component/CustomEditButton';
 import { CustomPlusButton } from '../../component/CustomPlusButton';
+import { CreateChoreModal } from '../../component/customPopupBox/CreateChoreModal';
 import { CustomWideButton } from '../../component/CustomWideButton';
 import { HouseholdChoresTabScreenProx } from '../../navigation/HouseholdChoresTabNavigator';
 import { RootStackScreenProps } from '../../navigation/RootStackNavigator';
@@ -14,10 +15,10 @@ type Props = CompositeScreenProps<HouseholdChoresTabScreenProx<'HouseholdChoresA
 
 export default function HouseholdChoresAllScreen(props: Props) {
     const { colors } = useTheme();
-    const currentHousehold = useAppSelector((state) => state.household.householdList.find(h => h.id === state.household.currentHouseholdId));
+    const currentHousehold = useAppSelector((state) => state.household.householdList.find((h) => h.id === state.household.currentHouseholdId));
     const memberList = useAppSelector((state) => state.member.memberList.filter((m) => m.householdId === currentHousehold?.id));
-
     const [toggleEdit, setToggleEdit] = useState<boolean>(false);
+    const [isShowingCreateModal, setIsShowingCreateModal] = useState(false);
 
     if (currentHousehold) {
         return (
@@ -27,7 +28,7 @@ export default function HouseholdChoresAllScreen(props: Props) {
                 <RenderChores prop={props} label={'All'} currentHousehold={currentHousehold} members={memberList} editChore={toggleEdit} />
                 {!toggleEdit && (
                     <View style={[styles.buttons, { justifyContent: 'space-between' }]}>
-                        <CustomPlusButton goto={() => console.log('Lägg till en syssla')} buttonText={'Lägg till'} />
+                        <CustomPlusButton goto={() => setIsShowingCreateModal(!isShowingCreateModal)} buttonText={'Lägg till'} />
                         <CustomEditButton goto={() => setToggleEdit(!toggleEdit)} buttonText={'Ändra'} />
                     </View>
                 )}
@@ -37,6 +38,11 @@ export default function HouseholdChoresAllScreen(props: Props) {
                         {/* <CustomNavigateButton goto={() => setToggleEdit(!toggleEdit)} buttonText={'Avbryt'} /> */}
                     </View>
                 )}
+                <CreateChoreModal
+                    modalCase={'CC'}
+                    isShowing={isShowingCreateModal}
+                    toggleModal={() => setIsShowingCreateModal(!isShowingCreateModal)}
+                />
             </View>
         );
     } else {
