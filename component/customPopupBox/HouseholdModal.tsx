@@ -15,9 +15,10 @@ interface Props {
     modalCase: string;
     isShowing: boolean;
     toggleModal: (toggle: boolean) => void;
+    navigationTo?: () => void;
 }
 
-export default function HouseholdModal({ memberId, modalCase, isShowing, toggleModal }: Props) {
+export default function HouseholdModal({ memberId, modalCase, isShowing, toggleModal, navigationTo }: Props) {
     const [userInput, onUserInputChange] = useState('');
     const [secondaryUserInput, onSecondaryUserInputChange] = useState('');
     const layoutChoices = LayoutChoice(modalCase, memberId);
@@ -82,14 +83,25 @@ export default function HouseholdModal({ memberId, modalCase, isShowing, toggleM
                                     case 'CH':
                                         // eslint-disable-next-line no-case-declarations
                                         const newHouseholdId = uuid.v4().toString();
-                                        dispatch({ type: 'CREATE_HOUSEHOLD', payload: { householdName: userInput, householdId: newHouseholdId } });
-                                        dispatch({ type: 'CREATE_MEMBER', payload: { householdId: newHouseholdId, memberName: secondaryUserInput, userId: user.id, memberType: 'owner' } });
+                                        dispatch({
+                                            type: 'CREATE_HOUSEHOLD',
+                                            payload: { householdName: userInput, householdId: newHouseholdId }
+                                        });
+                                        dispatch({
+                                            type: 'CREATE_MEMBER',
+                                            payload: { householdId: newHouseholdId, memberName: secondaryUserInput, userId: user.id, memberType: 'owner' }
+                                        });
+                                        navigationTo!();
                                         break;
                                     case 'JH':
                                         if (userInput) {
-                                            const householdToJoid = deepcopy(allHouseHolds.find(h => h.codeToJoin === userInput));
-                                            if (householdToJoid) {
-                                                dispatch({ type: 'CREATE_MEMBER', payload: { householdId: householdToJoid.id, memberName: secondaryUserInput, userId: user.id, memberType: 'member' } });
+                                            const householdToJoin = deepcopy(allHouseHolds.find(h => h.codeToJoin === userInput));
+                                            if (householdToJoin) {
+                                                dispatch({
+                                                    type: 'CREATE_MEMBER',
+                                                    payload: { householdId: householdToJoin.id, memberName: secondaryUserInput, userId: user.id, memberType: 'member' }
+                                                });
+                                                navigationTo!();
                                             }
                                         }
                                         break;

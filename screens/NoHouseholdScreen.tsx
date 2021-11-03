@@ -10,6 +10,10 @@ export default function NoHouseholdScreen({ navigation, route }: RootStackScreen
 
     const [isShowJoinHouseholdModal, setIsShowJoinHouseholdModal] = useState(false);
 
+    const navigateToHousehold = () => {
+        navigation.navigate('Household');
+    };
+
     // present info for user with no household
     return (
         <SafeAreaView>
@@ -25,14 +29,14 @@ export default function NoHouseholdScreen({ navigation, route }: RootStackScreen
                 <View style={styles.buttonContainer}>
                     <CustomPlusButton buttonText="Skapa nytt" goto={() => {
                         setIsShowJoinHouseholdModal(!isShowJoinHouseholdModal);
-                        navigation.navigate('Household');
                     }} />
-                    <CustomPlusButton buttonText="Gå med i" goto={() => { }} />
+                    <CustomPlusButton buttonText="Gå med i" goto={() => { setIsShowJoinHouseholdModal(!isShowJoinHouseholdModal); }} />
 
                 </View>
             </View>
             {/* Should be changed for correct madol */}
-            <HouseholdModal modalCase={'CH'} isShowing={isShowJoinHouseholdModal} toggleModal={setIsShowJoinHouseholdModal} />
+            <HouseholdModal modalCase={'CH'} isShowing={isShowJoinHouseholdModal} toggleModal={setIsShowJoinHouseholdModal} navigationTo={navigateToHousehold} />
+            <HouseholdModal modalCase={'JH'} isShowing={isShowJoinHouseholdModal} toggleModal={setIsShowJoinHouseholdModal} navigationTo={navigateToHousehold} />
 
         </SafeAreaView>
     );
