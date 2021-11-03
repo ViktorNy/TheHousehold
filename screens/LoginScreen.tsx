@@ -1,6 +1,6 @@
-import { useTheme } from 'react-native-paper';
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomNavigateButton } from '../component/CustomNavigateButton';
 import { mockedUserData } from '../data/data';
@@ -13,27 +13,13 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'
     const [userPassword, onUserPasswordChange] = useState('');
     const dispatch = useAppDispatch();
 
-    // REMOVE THIS LATER
-    // const households = useAppSelector(state => state.household.householdList);
-
-    const user = mockedUserData[0];
-
-    // Needs to be revised. Now only works if you log in with user info:
-    // Username: s
-    // Password: s
-    // Otherwise logs out 'faulty user' in console
     function checkUserInfo() {
-        if (user.email === userText || (user.username === userText && user.password === userPassword)) {
-            dispatch({ type: 'GETUSER', payload: user.id });
+        const user = mockedUserData.find(mu => mu.email === userText || mu.username === userText && mu.password === userPassword);
+        if (user) {
+            dispatch({ type: 'SET_USER', payload: user.id });
             navigation.navigate('Household');
-
-            // JUST FOR TESTING PURPOSES
-            // const chosenMember = members.find(m => m.userId === user.id);
-            // const choseHousehold = households.find(h => h.id === chosenMember?.householdId);
-            // chosenMember && dispatch({ type: 'SETHOUSEHOLD', payload: chosenMember.householdId });
-            // navigation.navigate('PieChart', { screen: 'PieAll', params: { householdId: choseHousehold?.id } });
         } else {
-            console.log('Faulty user');
+            Alert.alert('Ajdå, något gick fel', 'Felaktigt användarnamn, email eller lösenord');
         }
     }
 
