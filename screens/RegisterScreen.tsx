@@ -10,6 +10,7 @@ import uuid from 'react-native-uuid';
 export default function RegisterScreen({ navigation }: RootStackScreenProps<'Register'>) {
     const { colors } = useTheme();
     const [userEmail, onUserEmailChange] = useState('');
+    const [userName, onUserNameChange] = useState('');
     const [userPassword, onUserPasswordChange] = useState('');
     const dispatch = useAppDispatch();
     const newUserId = uuid.v4().toString();
@@ -17,6 +18,14 @@ export default function RegisterScreen({ navigation }: RootStackScreenProps<'Reg
     return (
         <SafeAreaView style={[{ backgroundColor: colors.background }]}>
             <Text style={[styles.loginText, { color: colors.text }]}>Registrera</Text>
+            <TextInput
+                style={[styles.input, { marginTop: 30, color: colors.text }]}
+                value={userName}
+                onChangeText={onUserNameChange}
+                placeholder='Användarnamn'
+                textAlign='center'
+                placeholderTextColor={colors.text}
+            />
             <TextInput
                 style={[styles.input, { color: colors.text }]}
                 value={userEmail}
@@ -26,7 +35,7 @@ export default function RegisterScreen({ navigation }: RootStackScreenProps<'Reg
                 placeholderTextColor={colors.text}
             />
             <TextInput
-                style={[styles.input, { marginTop: 0, color: colors.text }]}
+                style={[styles.input, { color: colors.text }]}
                 value={userPassword}
                 onChangeText={onUserPasswordChange}
                 secureTextEntry={true}
@@ -36,9 +45,9 @@ export default function RegisterScreen({ navigation }: RootStackScreenProps<'Reg
             />
             <View style={styles.viewStyle}>
                 <CustomNavigateButton buttonText="Spara" goto={() => {
-                    dispatch({ type: 'CREATE_USER', payload: { id: newUserId, email: userEmail, password: userPassword } }),
+                    dispatch({ type: 'CREATE_USER', payload: { id: newUserId, username: userName, email: userEmail, password: userPassword } });
                     navigation.navigate('NoHousehold');
-                    console.log(userEmail, userPassword);
+                    console.log(newUserId, userName, userEmail, userPassword);
                 }
 
                 }/>
@@ -59,7 +68,7 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 50,
-        margin: 12,
+        margin: 5,
         borderWidth: 1,
         padding: 10,
         borderRadius: 10,
