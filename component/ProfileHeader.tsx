@@ -17,9 +17,10 @@ interface Props {
     };
     openMainMenu?: (open: boolean) => void
     openHouseholdMenu?: (open: boolean) => void
+    onGoBack?: () => void
 }
 
-export function ProfileHeader({ household, userInformation, visitMember, openMainMenu, openHouseholdMenu }: Props) {
+export function ProfileHeader({ household, userInformation, visitMember, openMainMenu, openHouseholdMenu, onGoBack }: Props) {
     const { colors } = useTheme();
 
     function ShowProfile(household?: Household) {
@@ -28,7 +29,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
             // TODO: namn på member ?
             return (
                 <TouchableOpacity style={styles.row}
-                    onPress={() => { }}>
+                    onPress={() => onGoBack!() }>
                     <Entypo name="arrow-long-left" size={20} color={colors.text} />
                     <Text style={[styles.title, { paddingLeft: 10, color: colors.text }]}>{visitMember.userName}</Text>
                 </TouchableOpacity>

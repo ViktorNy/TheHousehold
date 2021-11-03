@@ -73,7 +73,7 @@ function RootStackNavigator() {
                     headerShadowVisible: false
                 }}
             />
-            <Stack.Screen name="Household" component={ChoresTabNavigator} />
+            <Stack.Screen name="Household" options={{ headerShown: false }} component={ChoresTabNavigator} />
             <Stack.Screen name="DistributeChore" component={DistributeChoreScreen} />
             <Stack.Screen
                 name="ChoreDetail"
@@ -87,7 +87,7 @@ function RootStackNavigator() {
                 }}
             />
             <Stack.Screen name="HouseholdChores" component={HouseholdChoresTabNavigator} />
-            <Stack.Screen name="MemeberDetailScreen" component={MemberDetailScreen} />
+            <Stack.Screen name="MemeberDetailScreen" options={{ headerShown: false }} component={MemberDetailScreen} />
             <Stack.Screen name="PieChart" component={PieChartTabNavigator} />
         </Stack.Navigator>
     );

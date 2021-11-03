@@ -1,5 +1,6 @@
 import { createMaterialTopTabNavigator, MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import React from 'react';
+import { SafeAreaView } from 'react-native';
 import AllChoresScreen from '../screens/profileChores/AllChoresScreen';
 import MonthChoresScreen from '../screens/profileChores/MonthChoresScreen';
 import TodayChoresScreen from '../screens/profileChores/TodayChoresScreen';
@@ -24,6 +25,7 @@ const Tab = createMaterialTopTabNavigator<ParamList>();
 
 function ChoresTabNavigator() {
     return (
+
         <Tab.Navigator tabBar={(props) => <CustomHeader {...props} />}>
             <Tab.Screen name="Today" component={TodayChoresScreen} initialParams={{ memberId: undefined, householdId: undefined }} />
             <Tab.Screen name="All" component={AllChoresScreen} initialParams={{ memberId: undefined, householdId: undefined }} />
