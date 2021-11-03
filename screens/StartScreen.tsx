@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTheme } from '@react-navigation/native';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomNavigateButton } from '../component/CustomNavigateButton';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
+import { CreateChoreModal } from '../component/customPopupBox/CreateChoreModal';
 
 export default function StartScreen({ navigation }: RootStackScreenProps<'Start'>) {
     const { colors } = useTheme();
+    const [isShowingCreateModal, setIsShowingCreateModal] = useState(false);
 
     return (
-        <SafeAreaView style={[{ backgroundColor: colors.background }]}>
+        <SafeAreaView style={[{ backgroundColor: colors.background }, { height: '100%' }]}>
             <Text style={[styles.homeTextStyle, { color: colors.text }]}>Hemmet</Text>
 
             <Text style={[styles.simplifyText, { color: colors.text }]}>Förenkla din vardag</Text>
@@ -22,6 +24,7 @@ export default function StartScreen({ navigation }: RootStackScreenProps<'Start'
                 <Text style={[styles.notMemberText, { color: colors.text }]}>Är du inte medlem?</Text>
                 <CustomNavigateButton buttonText="Registrera" goto={() => navigation.navigate('Register')} />
             </View>
+            <CreateChoreModal modalCase={'CC'} isShowing={true} toggleModal={() => setIsShowingCreateModal(!isShowingCreateModal)} />
         </SafeAreaView>
     );
 }
