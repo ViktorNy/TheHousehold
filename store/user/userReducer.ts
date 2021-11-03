@@ -24,7 +24,7 @@ function userReducer(state: UserState = initialState, action: KnownAction): User
             // userList: nextUserList
         };
     }
-    case 'GETUSER': {
+    case 'SET_USER': {
         const loggedinUser = mockedUserData.find(u => u.id === action.payload);
         if (loggedinUser) {
             return {

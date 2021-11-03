@@ -10,14 +10,13 @@ export interface EditUserAction {
     payload: User;
 }
 
-export interface GetUserAction {
-    type: 'GETUSER';
+export interface SetUserAction {
+    type: 'SET_USER';
     payload: string;
 }
-
 export interface ChangeAppearanceAction {
     type: 'CHANGE_APPEARANCE',
     payload: string
 }
 
-export type UserAction = CreateUserAction | EditUserAction | GetUserAction | ChangeAppearanceAction;
+export type UserAction = CreateUserAction | EditUserAction | SetUserAction | ChangeAppearanceAction;
