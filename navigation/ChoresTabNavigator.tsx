@@ -1,5 +1,7 @@
 import { createMaterialTopTabNavigator, MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
+import { useFocusEffect } from '@react-navigation/native';
 import React from 'react';
+import { BackHandler } from 'react-native';
 import AllChoresScreen from '../screens/profileChores/AllChoresScreen';
 import MonthChoresScreen from '../screens/profileChores/MonthChoresScreen';
 import TodayChoresScreen from '../screens/profileChores/TodayChoresScreen';
@@ -23,6 +25,20 @@ export type ChoreTabScreenProps<Screen extends keyof ParamList> = MaterialTopTab
 const Tab = createMaterialTopTabNavigator<ParamList>();
 
 function ChoresTabNavigator() {
+    // Pressing the back button in the navbar doesn't make the app go back in this screen
+    useFocusEffect(
+        React.useCallback(() => {
+            const onBackPress = () => {
+                return true;
+            };
+
+            BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+            return () =>
+                BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+        }, [])
+    );
+
     return (
         <Tab.Navigator tabBar={(props) => <CustomHeader {...props} />}>
             <Tab.Screen name="Today" component={TodayChoresScreen} initialParams={{ memberId: undefined, householdId: undefined }} />
