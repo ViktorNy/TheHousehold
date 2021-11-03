@@ -96,7 +96,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
             return (
                 <View style={styles.user}>
                     <View style={[styles.circle, { borderColor: colors.text }]}>{/* <Text style={{ color: colors.text }}></Text> */}</View>
-                    <Text style={{ color: colors.text }}>{userInformation?.member?.memberName}</Text>
+                    <Text style={{ color: colors.text }}>{userInformation?.user.username}</Text>
                 </View>
             );
         }
