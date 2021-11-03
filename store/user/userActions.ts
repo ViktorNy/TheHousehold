@@ -4,6 +4,7 @@ export interface CreateUserAction {
     type: 'CREATE_USER';
     payload: {
         id: string,
+        username: string,
         email: string,
         password: string
     };
