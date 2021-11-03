@@ -21,6 +21,7 @@ export function LayoutChoice(modalCase: string, id?: string) {
         modalSecondaryPlaceholder = 'Användarnamn';
         modalInputActive = true;
         avatar = false;
+        createChore = false;
     } else if (modalCase === 'CH') {
         modalTitle = 'Skapa Hushåll';
         modalLeft = 'Skapa';
@@ -29,6 +30,7 @@ export function LayoutChoice(modalCase: string, id?: string) {
         modalSecondaryPlaceholder = 'Användarnamn';
         modalInputActive = true;
         avatar = false;
+        createChore = false;
     } else if (modalCase === 'MO') {
         modalTitle = 'Gör till ägare';
         modalLeft = 'Acceptera';
@@ -36,6 +38,7 @@ export function LayoutChoice(modalCase: string, id?: string) {
         modalPlaceholder = 'Gör ' + username + ' till ägare';
         modalInputActive = false;
         avatar = false;
+        createChore = false;
     } else if (modalCase === 'RUFH') {
         modalTitle = 'Ta bort från hushåll';
         modalLeft = 'Ja';
@@ -43,6 +46,7 @@ export function LayoutChoice(modalCase: string, id?: string) {
         modalPlaceholder = 'Vill du verkligen ta bort ' + username + '?';
         modalInputActive = false;
         avatar = false;
+        createChore = false;
     } else if (modalCase === 'AR') {
         modalTitle = 'Besvara förfrågan';
         modalLeft = 'Acceptera';
@@ -50,6 +54,20 @@ export function LayoutChoice(modalCase: string, id?: string) {
         modalPlaceholder = username + ' vill gå med';
         modalInputActive = false;
         avatar = false;
+        createChore = false;
+    } else if (modalCase === 'AI') {
+        modalTitle = 'Välj avatar';
+        avatar = true;
+        createChore = false;
+    } else if (modalCase === 'CC') {
+        modalTitle = 'Skapa en ny syssla';
+        modalLeft = 'Spara';
+        modalRight = 'Stäng';
+        modalPlaceholder = 'Titel';
+        modalSecondaryPlaceholder = 'Beskrivning';
+        modalInputActive = true;
+        avatar = false;
+        createChore = true;
     } else if (modalCase === 'CHN') {
         modalTitle = 'Byt Hushållsnamn';
         modalLeft = 'Byt namn';
@@ -59,15 +77,6 @@ export function LayoutChoice(modalCase: string, id?: string) {
         avatar = false;
     } else if (modalCase === 'EC') {
         modalTitle = 'Redigera syssla';
-        modalLeft = 'Spara';
-        modalRight = 'Stäng';
-        modalPlaceholder = 'Titel';
-        modalSecondaryPlaceholder = 'Beskrivning';
-        modalInputActive = true;
-        avatar = false;
-        createChore = true;
-    } else if (modalCase === 'CC') {
-        modalTitle = 'Skapa en ny syssla';
         modalLeft = 'Spara';
         modalRight = 'Stäng';
         modalPlaceholder = 'Titel';
