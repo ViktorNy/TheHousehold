@@ -9,6 +9,7 @@ export default function NoHouseholdScreen({ navigation, route }: RootStackScreen
     const { colors } = useTheme();
 
     const [isShowJoinHouseholdModal, setIsShowJoinHouseholdModal] = useState(false);
+    const [isShowJoinWithCodeModal, setIsShowJoinWithCodeModal] = useState(false);
 
     const navigateToHousehold = () => {
         navigation.navigate('Household');
@@ -30,13 +31,15 @@ export default function NoHouseholdScreen({ navigation, route }: RootStackScreen
                     <CustomPlusButton buttonText="Skapa nytt" goto={() => {
                         setIsShowJoinHouseholdModal(!isShowJoinHouseholdModal);
                     }} />
-                    <CustomPlusButton buttonText="Gå med i" goto={() => { setIsShowJoinHouseholdModal(!isShowJoinHouseholdModal); }} />
+                    <CustomPlusButton buttonText="Gå med i" goto={() => {
+                        setIsShowJoinWithCodeModal(!isShowJoinWithCodeModal);
+                    }} />
 
                 </View>
             </View>
-            {/* Should be changed for correct madol */}
+            {/* Should be changed for correct modal */}
             <HouseholdModal modalCase={'CH'} isShowing={isShowJoinHouseholdModal} toggleModal={setIsShowJoinHouseholdModal} navigationTo={navigateToHousehold} />
-            <HouseholdModal modalCase={'JH'} isShowing={isShowJoinHouseholdModal} toggleModal={setIsShowJoinHouseholdModal} navigationTo={navigateToHousehold} />
+            <HouseholdModal modalCase={'JH'} isShowing={isShowJoinWithCodeModal} toggleModal={setIsShowJoinWithCodeModal} navigationTo={navigateToHousehold} />
 
         </SafeAreaView>
     );
