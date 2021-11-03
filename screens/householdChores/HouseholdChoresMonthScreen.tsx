@@ -15,7 +15,6 @@ type Props = CompositeScreenProps<HouseholdChoresTabScreenProx<'HouseholdChoresM
 
 export default function HouseholdChoresMonthScreen(props: Props) {
     const { colors } = useTheme();
-
     const currentHousehold = useAppSelector((state) => state.household.householdList.find((h) => h.id === state.household.currentHouseholdId));
     const memberList = useAppSelector((state) => state.member.memberList.filter((m) => m.householdId === currentHousehold?.id));
 
@@ -25,7 +24,6 @@ export default function HouseholdChoresMonthScreen(props: Props) {
     const [toggleEdit, setToggleEdit] = useState<boolean>(false);
     const [isShowingCreateModal, setIsShowingCreateModal] = useState(false);
 
-    console.log('toggleEdit Month: ' + toggleEdit);
     if (currentHousehold) {
         return (
             <View style={styles.root}>
