@@ -87,6 +87,7 @@ export default function CustomHeader(props: MaterialTopTabBarProps) {
                     modalCase={modalCase}
                     isShowing={isShowModalCaseModal}
                     toggleModal={toggleModalAndSetModalCase}
+                    navigationTo={() => props.navigation.navigate('Household')}
                 />
             )}
         </View>

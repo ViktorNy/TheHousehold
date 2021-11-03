@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { AntDesign } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
@@ -25,8 +26,8 @@ export default function HouseholdModal({ memberId, modalCase, isShowing, toggleM
     const { colors } = useTheme();
     const iconColor = colors.text;
     const dispatch = useAppDispatch();
-    const user = useAppSelector(state => state.user.user) as User;
-    const allHouseHolds = useAppSelector(state => state.household.householdList);
+    const user = useAppSelector((state) => state.user.user) as User;
+    const allHouseHolds = useAppSelector((state) => state.household.householdList);
 
     return (
         <View>
@@ -81,35 +82,54 @@ export default function HouseholdModal({ memberId, modalCase, isShowing, toggleM
                                 onPress={() => {
                                     toggleModal(false);
                                     switch (modalCase) {
-                                    case 'CH':
-                                        // eslint-disable-next-line no-case-declarations
-                                        const newHouseholdId = uuid.v4().toString();
-                                        dispatch({
-                                            type: 'CREATE_HOUSEHOLD',
-                                            payload: { householdName: userInput, householdId: newHouseholdId }
-                                        });
-                                        dispatch({
-                                            type: 'CREATE_MEMBER',
-                                            payload: { householdId: newHouseholdId, memberName: secondaryUserInput, userId: user.id, memberType: 'owner' }
-                                        });
-                                        navigationTo!();
-                                        break;
-                                    case 'JH':
-                                        if (userInput) {
-                                            const householdToJoin = deepcopy(allHouseHolds.find(h => h.codeToJoin === userInput));
-                                            if (householdToJoin) {
-                                                dispatch({
-                                                    type: 'CREATE_MEMBER',
-                                                    payload: { householdId: householdToJoin.id, memberName: secondaryUserInput, userId: user.id, memberType: 'member' }
-                                                });
-                                                navigationTo!();
+                                        case 'CH':
+                                            // eslint-disable-next-line no-case-declarations
+                                            const newHouseholdId = uuid.v4().toString();
+                                            dispatch({
+                                                type: 'CREATE_HOUSEHOLD',
+                                                payload: { householdName: userInput, householdId: newHouseholdId }
+                                            });
+                                            dispatch({
+                                                type: 'CREATE_MEMBER',
+                                                payload: {
+                                                    householdId: newHouseholdId,
+                                                    memberName: secondaryUserInput,
+                                                    userId: user.id,
+                                                    memberType: 'owner'
+                                                }
+                                            });
+                                            dispatch({
+                                                type: 'SETHOUSEHOLD',
+                                                payload: newHouseholdId
+                                            });
+                                            navigationTo!();
+                                            break;
+                                        case 'JH':
+                                            if (userInput) {
+                                                const householdToJoin = deepcopy(allHouseHolds.find((h) => h.codeToJoin === userInput));
+                                                if (householdToJoin) {
+                                                    dispatch({
+                                                        type: 'CREATE_MEMBER',
+                                                        payload: {
+                                                            householdId: householdToJoin.id,
+                                                            memberName: secondaryUserInput,
+                                                            userId: user.id,
+                                                            memberType: 'member'
+                                                        }
+                                                    });
+                                                    dispatch({
+                                                        type: 'SETHOUSEHOLD',
+                                                        payload: householdToJoin.id
+                                                    });
+                                                    navigationTo!();
+                                                }
                                             }
-                                        }
-                                        break;
-                                    default: break;
+                                            break;
+                                        default:
+                                            break;
                                     }
-                                }
-                                }>
+                                }}
+                            >
                                 <AntDesign name="pluscircleo" size={24} color={iconColor} />
                                 <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.modalLeft}</Text>
                             </Pressable>
