@@ -105,7 +105,7 @@ export function CreateChoreModal({ modalCase, isShowing, toggleModal, chore }: P
                                                 { backgroundColor: colors.popupOverlayColor },
                                                 modalStyles.middleContainer,
                                                 { borderRadius: 100 },
-                                                { backgroundColor: '#181818' }
+                                                { backgroundColor: colors.border }
                                             ]}
                                             onPress={() => {
                                                 onRecurringPressedChange(!recurringPressed);
@@ -145,14 +145,13 @@ export function CreateChoreModal({ modalCase, isShowing, toggleModal, chore }: P
                         {/* eslint-disable-next-line multiline-ternary */}
                         {valuePressed === true ? (
                             <View style={[{ backgroundColor: colors.popupOverlayColor }, choreStyles.frequencyContainer]}>
-                                <ScrollView horizontal={true}>
+                                <View style={[{ flexDirection: 'row' }, { justifyContent: 'space-between' }]}>
                                     {values.map((value) => (
                                         <TouchableOpacity
                                             key={value}
                                             style={[
                                                 { backgroundColor: colors.popupOverlayColor },
                                                 modalStyles.valueContainer,
-                                                { borderRadius: 100 },
                                                 { backgroundColor: colors.border }
                                             ]}
                                             onPress={() => {
@@ -163,7 +162,7 @@ export function CreateChoreModal({ modalCase, isShowing, toggleModal, chore }: P
                                             <Text style={{ color: colors.text }}>{value}</Text>
                                         </TouchableOpacity>
                                     ))}
-                                </ScrollView>
+                                </View>
                             </View>
                         ) : (
                             <TouchableOpacity
@@ -206,7 +205,7 @@ export function CreateChoreModal({ modalCase, isShowing, toggleModal, chore }: P
                                                     id: chore.id,
                                                     name: choreName!,
                                                     description: choreDesc!,
-                                                    frequency: choreValue!,
+                                                    frequency: choreDays!,
                                                     lastDone: chore.lastDone,
                                                     createdDate: chore.createdDate,
                                                     doneBy: chore.doneBy,

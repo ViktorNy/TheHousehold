@@ -156,12 +156,12 @@ export const modalStyles = StyleSheet.create({
         flexDirection: 'row'
     },
     valueContainer: {
-        borderRadius: 10,
-        height: 30,
-        width: 30,
+        borderRadius: 100,
+        height: 50,
+        width: 50,
         margin: 5,
-        marginTop: 13,
-        marginBottom: 13,
+        marginTop: 5,
+        marginBottom: 5,
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row'

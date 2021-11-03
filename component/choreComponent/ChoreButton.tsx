@@ -46,7 +46,7 @@ export function ChoreButton({ goto, chore, avatarIdList, editChore }: Props) {
                         <AntDesign name="edit" size={20} color={colors.text} />
                     </TouchableOpacity>
                     <CreateChoreModal
-                        modalCase={'CC'}
+                        modalCase={'EC'}
                         isShowing={isShowingEditModal}
                         toggleModal={() => setIsShowingEditModal(!isShowingEditModal)}
                         chore={chore}
