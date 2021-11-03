@@ -24,7 +24,7 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
 
     const allMembers = useAppSelector((state) => getMembersOfHouseholdSelector(state, route.params.householdId));
     const user = useAppSelector((state) => state.user.user);
-    const currentMember = useAppSelector((state) => state.member.memberList.find((m) => m.userId === user?.id));
+    const currentMember = useAppSelector((state) => state.member.memberList.find((m) => m.userId === user?.id && m.householdId === route.params.householdId));
 
     const avatars = mockAvatarData;
 
