@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomNavigateButton } from '../component/CustomNavigateButton';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
@@ -13,9 +13,21 @@ export default function MemberScreen({ navigation, route }: RootStackScreenProps
         <SafeAreaView>
             <FlatList data={memberList} renderItem={
                 ({ item }) => {
-                    return <CustomNavigateButton buttonText={item.memberName} singleAvatarId={item.avatar} goto={() => navigation.navigate('MemeberDetailScreen', { memberId: item.id })} />;
+                    return (
+                        <View style={styles.memberContainer}>
+                            <CustomNavigateButton buttonText={item.memberName} singleAvatarId={item.avatar} goto={() => navigation.navigate('MemeberDetailScreen', { memberId: item.id })} />
+                        </View>
+                    );
                 }
             } />
         </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    memberContainer: {
+        marginLeft: 5,
+        marginRight: 5,
+        marginBottom: 5
+    }
+});
