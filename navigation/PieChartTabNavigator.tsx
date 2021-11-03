@@ -6,16 +6,11 @@ import PieChartTodayScreen from '../screens/pieChart/PieChartTodayScreen';
 import PieChartWeekScreen from '../screens/pieChart/PieChartWeekScreen';
 import StatisticsHeader from './TabDateHeader';
 
-interface Props {
-    householdId?: string;
-    // ?? det som behövs inne på screen för rätt info..
-}
-
 export type PieParamList = {
-    PieAll: Props;
-    PieToday: Props;
-    PieWeek: Props;
-    PieMonth: Props;
+    PieAll: undefined;
+    PieToday: undefined;
+    PieWeek: undefined;
+    PieMonth: undefined;
 };
 
 export type PieTabScreenProx<Screen extends keyof PieParamList> = MaterialTopTabScreenProps<PieParamList, Screen>;
@@ -25,10 +20,10 @@ const Tab = createMaterialTopTabNavigator<PieParamList>();
 function PieChartTabNavigator() {
     return (
         <Tab.Navigator tabBar={(props) => <StatisticsHeader props={{ ...props }} headline={'Statestik Sysslor'} />}>
-            <Tab.Screen name="PieAll" component={PieChartAllScreen} initialParams={{ householdId: undefined }} />
-            <Tab.Screen name="PieToday" component={PieChartTodayScreen} initialParams={{ householdId: undefined }} />
-            <Tab.Screen name="PieWeek" component={PieChartWeekScreen} initialParams={{ householdId: undefined }} />
-            <Tab.Screen name="PieMonth" component={PieChartMonthScreen} initialParams={{ householdId: undefined }} />
+            <Tab.Screen name="PieAll" component={PieChartAllScreen} options={{ title: 'Alla' }} />
+            <Tab.Screen name="PieToday" component={PieChartTodayScreen} options={{ title: 'Idag' }} />
+            <Tab.Screen name="PieWeek" component={PieChartWeekScreen} options={{ title: 'Denna veckan' }} />
+            <Tab.Screen name="PieMonth" component={PieChartMonthScreen} options={{ title: 'Denna månad' }} />
         </Tab.Navigator>
     );
 }
