@@ -26,12 +26,12 @@ export default function ChoresPieCharts({ currentHouseholdChores, memberList }: 
         let renderData: PieChartData[] = [];
         for (const member of memberList) {
             const memberAvatar = avtarList.find(a => a.id === member.avatar);
-            const memberDoneCHoreCount = chore.doneBy.filter(doneBy => doneBy.memberId === member.id).length;
-            if (memberAvatar && memberDoneCHoreCount > 0) {
+            const memberDoneChoreCount = chore.doneBy.filter(doneBy => doneBy.memberId === member.id).length;
+            if (memberAvatar && memberDoneChoreCount > 0) {
                 renderData = [
                     ...renderData,
                     {
-                        value: memberDoneCHoreCount,
+                        value: memberDoneChoreCount * chore.score,
                         key: memberAvatar.avatar,
                         svg: { fill: memberAvatar.backgroundColor }
                     }];
