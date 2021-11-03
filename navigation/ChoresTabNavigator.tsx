@@ -1,6 +1,5 @@
 import { createMaterialTopTabNavigator, MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import React from 'react';
-import { SafeAreaView } from 'react-native';
 import AllChoresScreen from '../screens/profileChores/AllChoresScreen';
 import MonthChoresScreen from '../screens/profileChores/MonthChoresScreen';
 import TodayChoresScreen from '../screens/profileChores/TodayChoresScreen';

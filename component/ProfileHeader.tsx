@@ -4,6 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Household, Member, User } from '../data/data';
 import Avatar from './Avatar';
 import { Entypo } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface Props {
     household?: Household;
@@ -104,29 +105,31 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
     }
 
     return (
-        <View style={[styles.root, { backgroundColor: colors.primary }]}>
-            {/* Row 1: household + menu */}
-            <View style={[styles.row, styles.spaceBetween]}>
-                {ShowProfile(household)}
-                <TouchableOpacity
-                    onPress={() => openMainMenu && openMainMenu(true)}>
-                    <Entypo name="menu" size={24} color={colors.text} />
-                </TouchableOpacity>
-            </View>
-            {/* Row 2: circles + text */}
-            <View style={styles.rowTwo}>
-                {/*  */}
-                {DisplayUser({ userInformation, household, visitMember, openMainMenu: openMainMenu })}
-                <View style={{ alignItems: 'center' }}>
-                    <View style={[styles.row, styles.spaceBetween]}>
-                        {DisplayScore('Att göra', 0)}
-                        {DisplayScore('Avklarade', 10)}
-                        {DisplayScore('Poäng')}
+        <SafeAreaView>
+            <View style={[styles.root, { backgroundColor: colors.primary }]}>
+                {/* Row 1: household + menu */}
+                <View style={[styles.row, styles.spaceBetween]}>
+                    {ShowProfile(household)}
+                    <TouchableOpacity
+                        onPress={() => openMainMenu && openMainMenu(true)}>
+                        <Entypo name="menu" size={24} color={colors.text} />
+                    </TouchableOpacity>
+                </View>
+                {/* Row 2: circles + text */}
+                <View style={styles.rowTwo}>
+                    {/*  */}
+                    {DisplayUser({ userInformation, household, visitMember, openMainMenu: openMainMenu })}
+                    <View style={{ alignItems: 'center' }}>
+                        <View style={[styles.row, styles.spaceBetween]}>
+                            {DisplayScore('Att göra', 0)}
+                            {DisplayScore('Avklarade', 10)}
+                            {DisplayScore('Poäng')}
+                        </View>
+                        <Text style={{ color: colors.text }}>För nuvarande månad</Text>
                     </View>
-                    <Text style={{ color: colors.text }}>För nuvarande månad</Text>
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 
