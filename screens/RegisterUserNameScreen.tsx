@@ -19,22 +19,24 @@ export default function RegisterUserNameScreen({ navigation, route }: RootStackS
                 style={[styles.input, { marginBottom: 0, backgroundColor: colors.primary, color: colors.text }]}
                 value={username}
                 onChangeText={onUsernameChange}
-                placeholder='Användarnamn'
-                textAlign='center'
+                placeholder="Användarnamn"
+                textAlign="center"
                 placeholderTextColor={colors.text}
             />
             <View style={styles.viewStyle}>
-                <CustomNavigateButton buttonText="Registrera användare" goto={() => {
-                    dispatch(createUser(username, route.params.email, route.params.password)).then(isSuccessfull => {
-                        isSuccessfull
-                            ? navigation.navigate('Household')
-                            : Alert.alert('Ajdå, något gick fel', 'Kunde inte komma åt API');
-                    });
-                }} />
+                <CustomNavigateButton
+                    buttonText="Registrera användare"
+                    goto={() => {
+                        dispatch(createUser(username, route.params.email, route.params.password)).then((isSuccessfull) => {
+                            isSuccessfull ? navigation.navigate('Household') : Alert.alert('Ajdå, något gick fel', 'Kunde inte komma åt API');
+                        });
+                    }}
+                />
             </View>
-            <Text style={[styles.approvalText, { color: colors.text }]}>Genom att klicka “Registrera användare” godkänner du
-                <Text style={[styles.underlineText, { color: colors.text }]}> Hemmets användarvillkor</Text>
-                .</Text>
+            <Text style={[styles.approvalText, { color: colors.text }]}>
+                Genom att klicka “Registrera användare” godkänner du
+                <Text style={[styles.underlineText, { color: colors.text }]}> Hemmets användarvillkor</Text>.
+            </Text>
         </SafeAreaView>
     );
 }

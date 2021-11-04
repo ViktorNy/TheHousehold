@@ -1,9 +1,9 @@
 /* eslint-disable indent */
+import { addDoc, collection, getDocs } from 'firebase/firestore';
+import uuid from 'react-native-uuid';
 import { User } from '../../data/data';
 import firebaseInit from '../firebase';
 import { AppThunk } from '../store';
-import uuid from 'react-native-uuid';
-import { get, ref, set } from 'firebase/database';
 
 export interface CreateUserAction {
     type: 'CREATE';
@@ -31,13 +31,22 @@ export const loginUser =
     async (dispatch) => {
         // Need to find a better way to find localhost on computer from emulator
         try {
-            const db = firebaseInit();
             // eslint-disable-next-line no-undef
-            const response = await fetch('http://10.0.0.6:3000/api/user/' + name + '/' + password);
-            if (response.status !== 200) return Promise.resolve(false);
-            const user: User = await response.json();
-            dispatch({ type: 'SET_USER', payload: user });
-            return Promise.resolve(true);
+            const db = firebaseInit();
+            const docRef = await getDocs(collection(db, 'user'));
+            let user: User | undefined;
+            docRef.forEach((doc) => {
+                const fetchUser = doc.data() as User;
+                if (fetchUser.password === password && (fetchUser.username === name || fetchUser.email === name)) {
+                    user = fetchUser;
+                }
+            });
+            if (user) {
+                dispatch({ type: 'SET_USER', payload: user });
+                return Promise.resolve(true);
+            } else {
+                return Promise.resolve(false);
+            }
         } catch (error) {
             return Promise.reject(error);
         }
@@ -46,28 +55,27 @@ export const loginUser =
 export const createUser =
     (username: string, email: string, password: string): AppThunk =>
     async (dispatch) => {
+        if (email === '' || username === '' || password === '') {
+            return Promise.resolve(false);
+        }
         try {
+            const user: User = {
+                username: username,
+                email: email,
+                password: password,
+                id: uuid.v4().toString()
+            };
             const db = firebaseInit();
-            const id = uuid.v4();
-            await set(ref(db, 'users/' + id), {
-                id: id,
-                username: email,
-                email: username,
-                password: password
+            await addDoc(collection(db, 'user'), {
+                username: user.username,
+                email: user.email,
+                password: user.password,
+                id: user.id
+            }).then((a) => {
+                dispatch({ type: 'SET_USER', payload: user });
             });
-            await get(ref(db, 'users/' + id))
-                .then((response) => {
-                    const user = response as unknown;
-                    const userReturn = user as User;
-                    console.log(userReturn);
-                    dispatch({ type: 'SET_USER', payload: userReturn });
-                })
-                .catch(() => {
-                    return Promise.resolve(false);
-                });
             return Promise.resolve(true);
         } catch (error) {
-            console.log('crash');
             return Promise.reject(error);
         }
     };

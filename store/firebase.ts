@@ -1,5 +1,6 @@
-import { getDatabase } from 'firebase/database';
+// import firebase from 'firebase/database';
 import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
 
 export default function firebaseInit() {
     const firebaseConfig = {
@@ -13,8 +14,9 @@ export default function firebaseInit() {
         measurementId: 'G-KW6GR0CRQG'
     };
 
-    const app = initializeApp(firebaseConfig);
+    initializeApp(firebaseConfig);
 
-    const db = getDatabase(app);
+    const db = getFirestore();
+
     return db;
 }
