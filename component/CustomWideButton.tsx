@@ -5,8 +5,6 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 interface Props {
     goto: () => void;
     buttonText?: string;
-    // avatarIdList?: string[];
-    // singleAvatarId?: string; // for future use
 }
 
 export function CustomWideButton({ goto, buttonText }: Props) {
