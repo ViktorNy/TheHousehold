@@ -102,11 +102,11 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
                 name: action.payload.chore.name,
                 description: action.payload.chore.description,
                 frequency: action.payload.chore.frequency,
-                lastDone: '',
+                // lastDone: '',
                 createdDate: moment(new Date()).format('YYYY-MM-DD'),
                 doneBy: [],
                 score: action.payload.chore.score,
-                signedToUserId: ['']
+                signedToUserId: []
             };
             updatedHousehold?.chores.push(newChore);
             return {

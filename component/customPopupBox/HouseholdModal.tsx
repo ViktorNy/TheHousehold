@@ -39,6 +39,8 @@ export default function HouseholdModal({ memberId, modalCase, isShowing, toggleM
                 isVisible={isShowing}
                 statusBarTranslucent={true}
                 onBackButtonPress={() => {
+                    onUserInputChange('');
+                    onSecondaryUserInputChange('');
                     toggleModal(false);
                 }}
             >
@@ -80,6 +82,8 @@ export default function HouseholdModal({ memberId, modalCase, isShowing, toggleM
                                     modalStyles.centeredView
                                 ]}
                                 onPress={() => {
+                                    onUserInputChange('');
+                                    onSecondaryUserInputChange('');
                                     toggleModal(false);
                                     switch (modalCase) {
                                         case 'CH':
@@ -141,7 +145,11 @@ export default function HouseholdModal({ memberId, modalCase, isShowing, toggleM
                                     { backgroundColor: colors.popupOverlayColor },
                                     modalStyles.centeredView
                                 ]}
-                                onPress={() => toggleModal(false)}
+                                onPress={() => {
+                                    onUserInputChange('');
+                                    onSecondaryUserInputChange('');
+                                    toggleModal(false);
+                                }}
                             >
                                 <AntDesign name="closecircleo" size={24} color={iconColor} />
                                 <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.modalRight}</Text>

@@ -23,13 +23,18 @@ export function ChoreButton({ goto, chore, avatarIdList, editChore }: Props) {
     const [isShowingEditModal, setIsShowingEditModal] = useState(false);
 
     function setIconLastDone(chore: Chore, avatarIdList: string[], editChore?: boolean) {
-        const lastDoneDate = chore.lastDone
-            ? moment(new Date(chore.lastDone)).format('YYYY-MM-DD')
-            : moment(new Date(chore.createdDate)).format('YYYY-MM-DD');
+        let lastDoneDate;
+
+        if (chore.lastDone) {
+            lastDoneDate = moment(new Date(chore.lastDone)).format('YYYY-MM-DD');
+        } else {
+            lastDoneDate = moment(new Date(chore.createdDate)).format('YYYY-MM-DD');
+        }
 
         const doneNextByDate = moment(lastDoneDate).add(chore.frequency, 'day').format('YYYY-MM-DD');
 
         const differenceInDays = (new Date(today).getTime() - new Date(doneNextByDate).getTime()) / (1000 * 3600 * 24);
+
         if (editChore) {
             // TODO: on press need to lead to right popup by chore.id...
             return (
@@ -53,7 +58,7 @@ export function ChoreButton({ goto, chore, avatarIdList, editChore }: Props) {
                     />
                 </View>
             );
-        } else if (today === lastDoneDate && avatarIdList) {
+        } else if (today === lastDoneDate && avatarIdList.length > 0) {
             return (
                 <View style={{ flexDirection: 'row' }}>
                     {avatarIdList.map((id) => {
@@ -71,7 +76,7 @@ export function ChoreButton({ goto, chore, avatarIdList, editChore }: Props) {
             } else if (differenceInDays > 0) {
                 return (
                     // TODO: use theme colors for red + text should be white in both light and dark theme
-                    <View style={[styles.circle, { backgroundColor: 'red' }]}>
+                    <View style={[styles.circle, { backgroundColor: colors.passedDueBy }]}>
                         <Text style={{ color: colors.text }}>{differenceInDays}</Text>
                     </View>
                 );
