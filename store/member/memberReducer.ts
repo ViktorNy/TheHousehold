@@ -36,7 +36,6 @@ function memberReducer(state: MemberState = initialState, action: KnownAction): 
         };
     }
     case 'EDIT_MEMBER': {
-        // Edit used for editing member
         const nextMemberList = deepcopy(state.memberList);
         const member = action.payload;
         const index = state.memberList.findIndex((oldMember) => oldMember.id === member.id);

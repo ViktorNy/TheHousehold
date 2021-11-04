@@ -2,9 +2,9 @@ import { useTheme } from 'react-native-paper';
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { CustomNavigateButton } from '../component/CustomNavigateButton';
-import { RootStackScreenProps } from '../navigation/RootStackNavigator';
-import { useAppDispatch } from '../store/store';
+import { CustomNavigateButton } from '../../component/CustomNavigateButton';
+import { RootStackScreenProps } from '../../navigation/RootStackNavigator';
+import { useAppDispatch } from '../../store/store';
 import uuid from 'react-native-uuid';
 
 export default function RegisterScreen({ navigation }: RootStackScreenProps<'Register'>) {
@@ -19,7 +19,7 @@ export default function RegisterScreen({ navigation }: RootStackScreenProps<'Reg
         <SafeAreaView style={[{ backgroundColor: colors.background }]}>
             <Text style={[styles.loginText, { color: colors.text }]}>Registrera</Text>
             <TextInput
-                style={[styles.input, { marginTop: 30, color: colors.text }, { backgroundColor: colors.textFieldBackground }]}
+                style={[styles.input, { marginTop: 30, color: colors.text }, { backgroundColor: colors.primary }]}
                 value={userName}
                 onChangeText={onUserNameChange}
                 placeholder="Användarnamn"
@@ -27,7 +27,7 @@ export default function RegisterScreen({ navigation }: RootStackScreenProps<'Reg
                 placeholderTextColor={colors.text}
             />
             <TextInput
-                style={[styles.input, { color: colors.text }, { backgroundColor: colors.textFieldBackground }]}
+                style={[styles.input, { color: colors.text }, { backgroundColor: colors.primary }]}
                 value={userEmail}
                 onChangeText={onUserEmailChange}
                 placeholder="E-mail"
@@ -35,7 +35,7 @@ export default function RegisterScreen({ navigation }: RootStackScreenProps<'Reg
                 placeholderTextColor={colors.text}
             />
             <TextInput
-                style={[styles.input, { color: colors.text }, { backgroundColor: colors.textFieldBackground }]}
+                style={[styles.input, { color: colors.text }, { backgroundColor: colors.primary }]}
                 value={userPassword}
                 onChangeText={onUserPasswordChange}
                 secureTextEntry={true}
@@ -49,7 +49,6 @@ export default function RegisterScreen({ navigation }: RootStackScreenProps<'Reg
                     goto={() => {
                         dispatch({ type: 'CREATE_USER', payload: { id: newUserId, username: userName, email: userEmail, password: userPassword } });
                         navigation.navigate('NoHousehold');
-                        console.log(newUserId, userName, userEmail, userPassword);
                     }}
                 />
             </View>

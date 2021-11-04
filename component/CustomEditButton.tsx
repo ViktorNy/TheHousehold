@@ -6,8 +6,6 @@ import { AntDesign } from '@expo/vector-icons';
 interface Props {
     goto: () => void;
     buttonText?: string;
-    // avatarIdList?: string[];
-    // singleAvatarId?: string; // for future use
 }
 
 export function CustomEditButton({ goto, buttonText }: Props) {

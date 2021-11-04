@@ -37,10 +37,6 @@ export default function CustomHeader(props: MaterialTopTabBarProps) {
         modalCase ? setModalCase(modalCase) : setModalCase('JH');
     };
 
-    // useEffect(() => {
-    //     navigation.setOptions({ title: chore?.name });
-    // }, []);
-
     return (
         <View>
             <HamburgerMenu

@@ -12,10 +12,6 @@ import { ChoreButton } from './ChoreButton';
 import { labelCaseChoreSlider } from './ChoresSlider';
 import displayChore from './displayChore';
 
-// type combinedProps = CompositeScreenProps<
-//     CompositeScreenProps<MaterialTopTabScreenProps<ParamList, keyof ParamList>, RootStackScreenProps>,
-//     HouseholdChoresTabScreenProx<keyof HouseholdChoresParamList>
-// >;
 type NavigatorA = CompositeScreenProps<MaterialTopTabScreenProps<ParamList, keyof ParamList>, RootStackScreenProps>;
 type NavigatorB = CompositeScreenProps<HouseholdChoresTabScreenProx<keyof HouseholdChoresParamList>, RootStackScreenProps>;
 
@@ -31,10 +27,6 @@ interface Props {
 export default function RenderChores({ navigation, userHousehold, currentHousehold, members, label, editChore }: Props) {
     const { colors } = useTheme();
     const user = useAppSelector((state) => state.user.user) as User;
-    // const userHousehold = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, prop.route.params.userId));
-    // const currentHousehold = useAppSelector((state) =>
-    //     state.household.householdList.find((h) => h.id === prop.route.params.householdId)
-    // );
 
     function getAvatarIdList(chore: Chore) {
         const result: string[] = [];
@@ -48,8 +40,6 @@ export default function RenderChores({ navigation, userHousehold, currentHouseho
         }
         return result;
     }
-
-    // const members = useAppSelector((state) => state.member.memberList);
 
     if (currentHousehold) {
         const houseHoldChores = currentHousehold.chores.filter((item) => item.signedToUserId.filter((item) => item === user.id));

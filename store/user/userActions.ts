@@ -1,5 +1,3 @@
-import { User } from '../../data/data';
-
 export interface CreateUserAction {
     type: 'CREATE_USER';
     payload: {
@@ -8,11 +6,6 @@ export interface CreateUserAction {
         email: string;
         password: string;
     };
-}
-
-export interface EditUserAction {
-    type: 'EDIT';
-    payload: User;
 }
 
 export interface SetUserAction {
@@ -24,4 +17,4 @@ export interface ChangeAppearanceAction {
     payload: string;
 }
 
-export type UserAction = CreateUserAction | EditUserAction | SetUserAction | ChangeAppearanceAction | CreateUserAction;
+export type UserAction = CreateUserAction | SetUserAction | ChangeAppearanceAction | CreateUserAction;

@@ -9,13 +9,11 @@ import { useAppSelector } from '../../store/store';
 type Props = CompositeScreenProps<ChoreTabScreenProps<'Month'>, RootStackScreenProps>;
 
 export default function MonthChoresScreen({ navigation, route }: Props) {
-    // const { user } = useUser();r
-    // Vet inte om rätt
     const user = useAppSelector((state) => state.user.user);
-
     const userHousehold = useAppSelector((state) => getAllHouseholdsByUserIdSelector(state, user?.id));
     const currentHousehold = useAppSelector((state) => state.household.householdList.find((h) => h.id === state.household.currentHouseholdId));
     const members = useAppSelector((state) => state.member.memberList);
+
     return (
         <RenderChores
             label={'Month'}

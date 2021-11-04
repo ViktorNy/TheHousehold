@@ -15,7 +15,6 @@ export default function NoHouseholdScreen({ navigation, route }: RootStackScreen
         navigation.navigate('Household');
     };
 
-    // present info for user with no household
     return (
         <SafeAreaView>
 
@@ -37,10 +36,8 @@ export default function NoHouseholdScreen({ navigation, route }: RootStackScreen
 
                 </View>
             </View>
-            {/* Should be changed for correct modal */}
             <HouseholdModal modalCase={'CH'} isShowing={isShowJoinHouseholdModal} toggleModal={setIsShowJoinHouseholdModal} navigationTo={navigateToHousehold} />
             <HouseholdModal modalCase={'JH'} isShowing={isShowJoinWithCodeModal} toggleModal={setIsShowJoinWithCodeModal} navigationTo={navigateToHousehold} />
-
         </SafeAreaView>
     );
 }

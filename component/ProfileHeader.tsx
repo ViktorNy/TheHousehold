@@ -29,12 +29,10 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
     let score = 0;
     const user = useAppSelector((state) => state.user.user);
     const userMemberList = useAppSelector((state) => state.member.memberList.filter((m) => m.userId === user?.id));
-    const householdList = useAppSelector((state) => state.household.householdList); // TODO: simplify
+    const householdList = useAppSelector((state) => state.household.householdList);
 
     function ShowProfile(household?: Household) {
         if (visitMember) {
-            // visit another member profile
-            // TODO: namn på member ?
             return (
                 <TouchableOpacity style={styles.row} onPress={() => onGoBack!()}>
                     <Entypo name="arrow-long-left" size={20} color={colors.text} />
@@ -42,7 +40,6 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
                 </TouchableOpacity>
             );
         } else if (household) {
-            // visit one of youre households
             return (
                 <TouchableOpacity
                     style={styles.row}
@@ -55,7 +52,6 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
                 </TouchableOpacity>
             );
         } else {
-            // visit youre page "min sida"
             return (
                 <TouchableOpacity
                     style={styles.row}
@@ -84,7 +80,6 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
 
     function DisplayUser({ household, userInformation, visitMember }: Props) {
         if (visitMember) {
-            // visit another member profile
             for (const chore of household!.chores) {
                 const choresDone = chore.doneBy.filter((db) => db.memberId === visitMember.member?.id).length;
                 done += choresDone;
@@ -93,9 +88,9 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
             return (
                 <View style={styles.user}>
                     <View style={[styles.circle]}>
-                        {visitMember.member && <Avatar avatarId={visitMember.member.avatar} showCircle={true} avatarSize={14} />}
+                        {visitMember.member && <Avatar avatarId={visitMember.member.avatar} showCircle={true} avatarSize={22} />}
                     </View>
-                    <Text style={{ color: colors.text }}>{visitMember.member?.memberType}</Text>
+                    <Text style={{ color: colors.text }}>{(visitMember?.member?.memberType === 'owner') ? 'Ägare' : 'Medlem'}</Text>
                 </View>
             );
         } else if (household) {
@@ -104,18 +99,16 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
                 done += choresDone;
                 score += choresDone * chore.score;
             }
-            // visit one of youre households
             return (
                 <View style={styles.user}>
                     <View style={[styles.circle]}>
-                        {userInformation?.member && <Avatar avatarId={userInformation.member.avatar} showCircle={true} avatarSize={14} />}
+                        {userInformation?.member && <Avatar avatarId={userInformation.member.avatar} showCircle={true} avatarSize={22} />}
                     </View>
                     <Text style={{ color: colors.text }}>{userInformation?.member?.memberName}</Text>
-                    <Text style={{ color: colors.text }}>{userInformation?.member?.memberType}</Text>
+                    <Text style={{ color: colors.text }}>{(userInformation?.member?.memberType === 'owner') ? 'Ägare' : 'Medlem'}</Text>
                 </View>
             );
         } else {
-            // visit youre page "min sida"
             for (const house of householdList) {
                 const memberConnectedToHousehold = userMemberList.find((m) => m.householdId === house.id);
                 for (const chore of house.chores) {
@@ -126,7 +119,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
             }
             return (
                 <View style={styles.user}>
-                    <View style={[styles.circle, { borderColor: colors.text }]}>{/* <Text style={{ color: colors.text }}></Text> */}</View>
+                    <View style={[styles.circle, { borderColor: colors.text }]}></View>
                     <Text style={{ color: colors.text }}>{userInformation?.user.username}</Text>
                 </View>
             );
@@ -136,7 +129,6 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
     return (
         <SafeAreaView>
             <View style={[styles.root, { backgroundColor: colors.primary }]}>
-                {/* Row 1: household + menu */}
                 <View style={[styles.row, styles.spaceBetween]}>
                     {ShowProfile(household)}
                     {!visitMember && (
@@ -145,9 +137,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
                         </TouchableOpacity>
                     )}
                 </View>
-                {/* Row 2: circles + text */}
                 <View style={styles.rowTwo}>
-                    {/*  */}
                     {DisplayUser({ userInformation, household, visitMember, openMainMenu: openMainMenu })}
                     <View style={{ alignItems: 'center' }}>
                         <View style={[styles.row, styles.spaceBetween]}>
@@ -172,7 +162,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     rowTwo: {
-        // backgroundColor: "pink",
         justifyContent: 'space-between',
         paddingRight: 20,
         paddingTop: 5,
