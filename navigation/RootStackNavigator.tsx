@@ -13,16 +13,10 @@ import ChoresTabNavigator from './ChoresTabNavigator';
 import HouseholdChoresTabNavigator from './HouseholdChoresTabNavigator';
 import PieChartTabNavigator from './PieChartTabNavigator';
 
-// declare global {
-//     namespace ReactNavigation {
-//         interface RootParamList extends RootStackParamList { }
-//     }
-// }
-
 export interface RootStackParamList extends ParamListBase {
-    Start: undefined; // Tar inte in några parametrerar
-    Login: undefined; // Tar inte in några parametrerar
-    Register: undefined; // Tar inte in några parametrerar
+    Start: undefined;
+    Login: undefined;
+    Register: undefined;
     NoHousehold: undefined;
     Household: undefined;
     DistributeChore: undefined;

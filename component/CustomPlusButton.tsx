@@ -7,7 +7,7 @@ interface Props {
     goto: () => void;
     buttonText?: string;
     avatarIdList?: string[];
-    singleAvatarId?: string; // for future use
+    singleAvatarId?: string;
 }
 
 export function CustomPlusButton({ goto, buttonText }: Props) {

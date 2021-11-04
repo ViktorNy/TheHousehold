@@ -16,7 +16,6 @@ export default function TabDateHeader(headerProps: Props) {
 
     const label = options.tabBarLabel || options.title || currentRoute.name;
 
-    // const [isShowingModal, setIsShowingModal] = useState(false);
     return (
         <View>
             <TabDateSlider

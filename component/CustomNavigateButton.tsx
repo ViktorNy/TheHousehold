@@ -6,11 +6,10 @@ import Avatar from './Avatar';
 interface Props {
     goto: () => void;
     buttonText?: string;
-    avatarIdList?: string[];
-    singleAvatarId?: string; // for future use
+    singleAvatarId?: string;
 }
 
-export function CustomNavigateButton({ goto, buttonText, avatarIdList, singleAvatarId }: Props) {
+export function CustomNavigateButton({ goto, buttonText, singleAvatarId }: Props) {
     const { colors } = useTheme();
     if (singleAvatarId) {
         return (

@@ -36,7 +36,6 @@ export function ChoreButton({ goto, chore, avatarIdList, editChore }: Props) {
         const differenceInDays = (new Date(today).getTime() - new Date(doneNextByDate).getTime()) / (1000 * 3600 * 24);
 
         if (editChore) {
-            // TODO: on press need to lead to right popup by chore.id...
             return (
                 <View style={[{ flexDirection: 'row' }]}>
                     <TouchableOpacity
@@ -75,7 +74,6 @@ export function ChoreButton({ goto, chore, avatarIdList, editChore }: Props) {
                 );
             } else if (differenceInDays > 0) {
                 return (
-                    // TODO: use theme colors for red + text should be white in both light and dark theme
                     <View style={[styles.circle, { backgroundColor: colors.passedDueBy }]}>
                         <Text style={{ color: colors.text }}>{differenceInDays}</Text>
                     </View>

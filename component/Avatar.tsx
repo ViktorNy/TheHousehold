@@ -9,7 +9,6 @@ interface Props {
 }
 
 export default function Avatar({ avatarId, showCircle, avatarSize }: Props) {
-    // Ska troligtvis hämtas ut på annat ställe
     const avatarList = avatarData;
     const avatar = avatarList.find((a) => a.id === avatarId);
 

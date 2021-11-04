@@ -27,8 +27,6 @@ export default function HouseholdChoresAllScreen(props: Props) {
     if (currentHousehold) {
         return (
             <View style={styles.root}>
-                {/* TODO: route and navigation may be pased as props to RenderChores -> ChoreButton */}
-                {/* TODO: For more view in choreSlider, only rename label for those screens */}
                 <RenderChores navigation={props} label={'All'} currentHousehold={currentHousehold} members={memberList} editChore={toggleEdit} />
                 {!toggleEdit && currentMember?.memberType === 'owner' && (
                     <View style={[styles.buttons, { justifyContent: 'space-between' }]}>
@@ -39,7 +37,6 @@ export default function HouseholdChoresAllScreen(props: Props) {
                 {toggleEdit && (
                     <View style={[styles.buttons, { justifyContent: 'center' }]}>
                         <CustomWideButton goto={() => setToggleEdit(!toggleEdit)} buttonText={'Avbryt'} />
-                        {/* <CustomNavigateButton goto={() => setToggleEdit(!toggleEdit)} buttonText={'Avbryt'} /> */}
                     </View>
                 )}
                 <CreateChoreModal

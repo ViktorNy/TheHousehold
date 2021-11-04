@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { View } from 'react-native';
 import deepcopy from 'ts-deepcopy';
 import ChoresPieCharts from '../../component/pieChartComponents/ChoresPieCharts';
 import { Chore } from '../../data/data';
@@ -23,5 +23,5 @@ export default function PieChartWeekScreen() {
     if (currentHousehold && chores) {
         return <ChoresPieCharts memberList={memberList} currentHouseholdChores={filteredChores} />;
     }
-    return <Text>Något gick fel!</Text>;
+    return <View></View>;
 }
