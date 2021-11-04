@@ -12,7 +12,6 @@ import userReducer from './user/userReducer';
 const rootReducers = combineReducers({
     household: householdReducer,
     user: userReducer,
-    chore: choreReducer,
     member: memberReducer
 });
 
@@ -20,18 +19,9 @@ const thunkMiddleware = applyMiddleware<AppThunkDispatch>(thunk);
 export const store = createStore(rootReducers, thunkMiddleware);
 
 type KnownAction = UserAction | MemberAction | HouseholdAction;
-export type AppThunkDispatch = ThunkDispatch<
-    RootState,
-    unknown,
-    KnownAction
->
+export type AppThunkDispatch = ThunkDispatch<RootState, unknown, KnownAction>;
 
-export type AppThunk<ReturnType = Promise<boolean>> = ThunkAction<
-    ReturnType,
-    RootState,
-    unknown,
-    KnownAction
->
+export type AppThunk<ReturnType = Promise<boolean>> = ThunkAction<ReturnType, RootState, unknown, KnownAction>;
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;

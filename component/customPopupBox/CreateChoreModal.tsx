@@ -41,10 +41,13 @@ export function CreateChoreModal({ modalCase, isShowing, toggleModal, chore }: P
                 animationIn="fadeIn"
                 backdropColor="#181818"
                 coverScreen={true}
+                avoidKeyboard={true}
                 deviceHeight={10000}
                 isVisible={isShowing}
                 statusBarTranslucent={true}
                 onBackButtonPress={() => {
+                    onUserInputChange('');
+                    onUserSecondaryInputChange('');
                     toggleModal(false);
                 }}
             >
@@ -197,6 +200,8 @@ export function CreateChoreModal({ modalCase, isShowing, toggleModal, chore }: P
                                     modalStyles.centeredView
                                 ]}
                                 onPress={() => {
+                                    onUserInputChange('');
+                                    onUserSecondaryInputChange('');
                                     toggleModal(false);
                                     if (chore) {
                                         dispatch({
@@ -243,7 +248,11 @@ export function CreateChoreModal({ modalCase, isShowing, toggleModal, chore }: P
                                     { backgroundColor: colors.popupOverlayColor },
                                     modalStyles.centeredView
                                 ]}
-                                onPress={() => toggleModal(false)}
+                                onPress={() => {
+                                    onUserInputChange('');
+                                    onUserSecondaryInputChange('');
+                                    toggleModal(false);
+                                }}
                             >
                                 <AntDesign name="closecircleo" size={24} color={iconColor} />
                                 <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.modalRight}</Text>

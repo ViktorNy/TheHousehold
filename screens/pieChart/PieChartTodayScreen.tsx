@@ -6,10 +6,8 @@ import ChoresPieCharts from '../../component/pieChartComponents/ChoresPieCharts'
 import { Chore } from '../../data/data';
 import { useAppSelector } from '../../store/store';
 
-// type Props = CompositeScreenProps<PieTabScreenProx<'PieToday'>, RootStackScreenProps>;
-
 export default function PieChartTodayScreen() {
-    const currentHousehold = useAppSelector((state) => state.household.householdList.find(h => h.id === state.household.currentHouseholdId));
+    const currentHousehold = useAppSelector(state => state.household.householdList.find(h => h.id === state.household.currentHouseholdId));
     const memberList = useAppSelector((state) => state.member.memberList.filter((m) => m.householdId === currentHousehold?.id));
     const chores = currentHousehold?.chores.map((chore) => {
         const today = moment(new Date()).format('YYYY-MM-DD');
@@ -21,34 +19,8 @@ export default function PieChartTodayScreen() {
     const user = useAppSelector((state) => state.user.user);
     const houseHoldChores = currentHousehold?.chores.filter((item) => item.signedToUserId.filter((item) => item === user?.id));
 
-    // const [toggleEdit, setToggleEdit] = useState<boolean>(false);
-
-    // console.log('toggleEdit: ' + toggleEdit);
-
     if (currentHousehold && houseHoldChores) {
         return <ChoresPieCharts memberList={memberList} currentHouseholdChores={filteredChores} />;
-        // return (
-        //     <View>
-        //         <RenderChores label={'Today'} currentHousehold={currentHousehold} members={memberList} editChore={toggleEdit} />
-        //         {!toggleEdit && (
-        //             <View>
-        //                 <TouchableOpacity>
-        //                     <Text>Lägg till</Text>
-        //                 </TouchableOpacity>
-        //                 <TouchableOpacity onPress={() => setToggleEdit(!toggleEdit)}>
-        //                     <Text>Ändra</Text>
-        //                 </TouchableOpacity>
-        //             </View>
-        //         )}
-        //         {toggleEdit && (
-        //             <View>
-        //                 <TouchableOpacity onPress={() => setToggleEdit(!toggleEdit)}>
-        //                     <Text>Avbryt</Text>
-        //                 </TouchableOpacity>
-        //             </View>
-        //         )}
-        //     </View>
-        // );
     }
     return <View></View>;
 }

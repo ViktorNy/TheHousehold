@@ -1,36 +1,29 @@
-import { ParamListBase, useTheme } from '@react-navigation/native';
+import { ParamListBase } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-// import { useTheme } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 import ChoreDetailScreen from '../screens/ChoreDetailScreen';
-import DistributeChoreScreen from '../screens/DistributeChoreScreen';
-import LoginScreen from '../screens/LoginScreen';
 import MemberDetailScreen from '../screens/MemberDetailScreen';
 import MemberScreen from '../screens/MemberScreen';
-import RegisterScreen from '../screens/RegisterScreen';
-import RegisterUserNameScreen from '../screens/RegisterUserNameScreen';
-import StartScreen from '../screens/StartScreen';
+import NoHouseholdScreen from '../screens/NoHouseholdScreen';
+import LoginScreen from '../screens/start/LoginScreen';
+import RegisterScreen from '../screens/start/RegisterScreen';
+import StartScreen from '../screens/start/StartScreen';
 import ChoresTabNavigator from './ChoresTabNavigator';
 import HouseholdChoresTabNavigator from './HouseholdChoresTabNavigator';
 import PieChartTabNavigator from './PieChartTabNavigator';
 
-// declare global {
-//     namespace ReactNavigation {
-//         interface RootParamList extends RootStackParamList { }
-//     }
-// }
-
 export interface RootStackParamList extends ParamListBase {
-    Start: undefined; // Tar inte in några parametrerar
-    Login: undefined; // Tar inte in några parametrerar
-    Register: undefined; // Tar inte in några parametrerar
-    RegisterUserName: { email: string; password: string };
+    Start: undefined;
+    Login: undefined;
+    Register: undefined;
+    NoHousehold: undefined;
     Household: undefined;
     DistributeChore: undefined;
     ChoreDetail: { choreId: string; householdId: string };
     Member: { householdId: string };
     HouseholdChores: { householdId: string };
-    MemeberDetailScreen: { memberId: string };
+    MemberDetailScreen: { memberId: string };
     PieChart: { screen: string; params: { householdId?: string; memberId?: string } };
 }
 
@@ -39,9 +32,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList = strin
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStackNavigator() {
-    const theme = useTheme();
-
-    const colors = theme.colors;
+    const { colors } = useTheme();
 
     return (
         <Stack.Navigator>
@@ -65,8 +56,8 @@ function RootStackNavigator() {
                 }}
             />
             <Stack.Screen
-                name="RegisterUserName"
-                component={RegisterUserNameScreen}
+                name="NoHousehold"
+                component={NoHouseholdScreen}
                 options={{
                     title: '',
                     headerStyle: { backgroundColor: colors.background },
@@ -74,7 +65,6 @@ function RootStackNavigator() {
                 }}
             />
             <Stack.Screen name="Household" options={{ headerShown: false }} component={ChoresTabNavigator} />
-            <Stack.Screen name="DistributeChore" component={DistributeChoreScreen} />
             <Stack.Screen name="ChoreDetail" component={ChoreDetailScreen} />
             <Stack.Screen
                 name="Member"
@@ -83,9 +73,11 @@ function RootStackNavigator() {
                     headerTitle: 'Medlemmar'
                 }}
             />
-            <Stack.Screen name="HouseholdChores" component={HouseholdChoresTabNavigator} />
-            <Stack.Screen name="MemeberDetailScreen" options={{ headerShown: false }} component={MemberDetailScreen} />
-            <Stack.Screen name="PieChart" component={PieChartTabNavigator} />
+            <Stack.Screen name="HouseholdChores" component={HouseholdChoresTabNavigator} options={{
+                headerTitle: 'Hushållets sysslor'
+            }} />
+            <Stack.Screen name="MemberDetailScreen" options={{ headerShown: false }} component={MemberDetailScreen} />
+            <Stack.Screen name="PieChart" component={PieChartTabNavigator} options={{ headerTitle: 'Statistik' }} />
         </Stack.Navigator>
     );
 }

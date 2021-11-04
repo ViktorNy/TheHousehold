@@ -6,13 +6,13 @@ import firebaseInit from '../firebase';
 import { AppThunk } from '../store';
 
 export interface CreateUserAction {
-    type: 'CREATE';
-    payload: User;
-}
-
-export interface EditUserAction {
-    type: 'EDIT';
-    payload: User;
+    type: 'CREATE_USER';
+    payload: {
+        id: string;
+        username: string;
+        email: string;
+        password: string;
+    };
 }
 
 export interface SetUserAction {
@@ -24,7 +24,7 @@ export interface ChangeAppearanceAction {
     payload: string;
 }
 
-export type UserAction = CreateUserAction | EditUserAction | SetUserAction | ChangeAppearanceAction;
+export type UserAction = CreateUserAction | SetUserAction | ChangeAppearanceAction;
 
 export const loginUser =
     (name: string, password: string): AppThunk =>

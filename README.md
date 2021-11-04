@@ -4,11 +4,15 @@
 
 ## <p align = "center">Beskrivning av projektet </p>
 
-
+Household management app. You can create and join households, all households have chores with assigned scores. Owners can create and edit chores.
+Every member of a household can upon completion mark chores as done, this increases ones point total. It is also possible to see pie charts depicting 
+users and their respective completed chores.
 
 ## <p align = "center">Bygg och starta projektet</p>
 
+```npm install``` <-- installs dependencies
 
+```npm start``` <-- starts application
 
 ## <p align = "center">Komponenter</p> 
 
@@ -26,7 +30,7 @@
 
 ### Krav för G
 
-- [ ] En logga, splashscreen och appikon ska designas och användas. *
+- [x] En logga, splashscreen och appikon ska designas och användas. *
 - [x] Applikationen ska byggas med RN, Expo & TS. *
 - [x] Designen av appen ska utgå ifrån befintliga skisser, undantag kan ges men ska diskuteras
 med produktägare, godkännas och dokumenteras. *
@@ -80,9 +84,9 @@ godkänna användaren.
 
 ### Krav för G
 
-- [ ] En ägare ska kunna lägga till sysslor att göra i hemmet. *
+- [x] En ägare ska kunna lägga till sysslor att göra i hemmet. *
 - [x] En syssla ska ha ett namn, en beskrivning (text), hur ofta den ska göras (dagar), och en vikt som beskriver hur energikrävande den är. *
-- [ ] En ägare ska kunna redigera en syssla. *
+- [x] En ägare ska kunna redigera en syssla. *
 - [x] En ägare ska kunna ta bort en syssla. *
 
 ### Krav för VG
@@ -103,7 +107,7 @@ godkänna användaren.
 ### Krav för G
 
 - [x] En användare ska kunna se fördelningen av gjorda sysslor mellan användarna i sitt hushåll. *
-- [ ] Varje statistikvy ska visa den totala fördelningen (inräknat vikterna för sysslorna) samt fördelning av varje enskild syssla. *
+- [x] Varje statistikvy ska visa den totala fördelningen (inräknat vikterna för sysslorna) samt fördelning av varje enskild syssla. *
 - [x] Det ska finnas en statistikvy över ”nuvarande vecka”. *
 
 ### Krav för VG
@@ -117,5 +121,5 @@ godkänna användaren.
 ### Krav för VG
 
 - [ ] En ägare ska kunna tilldela och ta bort sysslor från användare i hushållet.
-- [ ] Användare ska kunna se de tilldelade sysslorna i sitt gränssnitt.
+- [x] Användare ska kunna se de tilldelade sysslorna i sitt gränssnitt. (syssla kan inte tilldelas men om den är tilldelad så syns det att den är det)
 - [ ] En ägare ska kunna skapa grupper av sysslor som automatiskt tilldelas användarna i hushållet och roteras baserat på ett intervall i dagar. 

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Button, Menu } from 'react-native-paper';
 import Avatar from '../component/Avatar';
-import { mockAvatarData } from '../data/data';
+import { avatarData } from '../data/data';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 import { getChoreByIdSelector } from '../store/household/householdSelectors';
 import { getMembersOfHouseholdSelector } from '../store/member/memberSelector';
@@ -17,16 +17,14 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
     const openMenu = () => setMenuVisible(true);
     const closeMenu = () => setMenuVisible(false);
 
-    const { colors } = useTheme();
     const dispatch = useAppDispatch();
-
     const chore = useAppSelector((state) => getChoreByIdSelector(state, route.params.choreId, route.params.householdId));
-
     const allMembers = useAppSelector((state) => getMembersOfHouseholdSelector(state, route.params.householdId));
     const user = useAppSelector((state) => state.user.user);
     const currentMember = useAppSelector((state) => state.member.memberList.find((m) => m.userId === user?.id && m.householdId === route.params.householdId));
 
-    const avatars = mockAvatarData;
+    const { colors } = useTheme();
+    const avatars = avatarData;
 
     useEffect(() => {
         navigation.setOptions({ title: chore?.name });
@@ -146,7 +144,7 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
             <View style={choreStyles.buttonContainer}>
                 <TouchableOpacity
                     style={[styles.root, { backgroundColor: colors.card }, { borderColor: colors.border }, { borderWidth: 1 }]}
-                    onPress={setChoreAsDone}
+                    onPress={ setChoreAsDone}
                 >
                     <Text style={[styles.buttonText, { color: colors.text }]}>Klarmarkera syssla</Text>
                 </TouchableOpacity>

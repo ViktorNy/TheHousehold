@@ -5,7 +5,6 @@ import React, { ReactNode } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 interface Props {
-    // TODO: Fråga David om det går att få med typer för label ('All' | 'Today' | 'Week' | 'Month')
     label: string | ((props: { focused: boolean; color: string }) => ReactNode);
     headline: string;
     onLeftPress: () => void;

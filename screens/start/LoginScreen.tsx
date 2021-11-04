@@ -1,24 +1,33 @@
-import { useTheme } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomNavigateButton } from '../component/CustomNavigateButton';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
+import { useAppDispatch } from '../store/store';
+import { loginUser } from '../store/user/userActions';
 
-export default function RegisterScreen({ navigation }: RootStackScreenProps<'Register'>) {
+export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'>) {
     const { colors } = useTheme();
-    const [userEmail, onUserEmailChange] = useState('');
+    const [userText, onUserTextChange] = useState('');
     const [userPassword, onUserPasswordChange] = useState('');
+    const dispatch = useAppDispatch();
+
+    function checkUserInfo() {
+        dispatch(loginUser(userText, userPassword)).then((isSuccessfull) => {
+            isSuccessfull ? navigation.navigate('Household') : Alert.alert('Ajdå, något gick fel', 'Felaktigt användarnamn, email eller lösenord');
+        });
+    }
 
     return (
         <SafeAreaView style={[{ backgroundColor: colors.background }]}>
-            <Text style={[styles.loginText, { color: colors.text }]}>Registrera</Text>
+            <Text style={[styles.loginText, { color: colors.text }]}>Logga in</Text>
             <TextInput
                 style={[styles.input, { backgroundColor: colors.primary, color: colors.text }]}
-                value={userEmail}
-                onChangeText={onUserEmailChange}
-                placeholder='E-mail'
-                textAlign='center'
+                value={userText}
+                onChangeText={onUserTextChange}
+                placeholder="Epost / användarnamn"
+                textAlign="center"
                 placeholderTextColor={colors.text}
             />
             <TextInput
@@ -26,12 +35,12 @@ export default function RegisterScreen({ navigation }: RootStackScreenProps<'Reg
                 value={userPassword}
                 onChangeText={onUserPasswordChange}
                 secureTextEntry={true}
-                placeholder='Lösenord'
-                textAlign='center'
+                placeholder="Lösenord"
+                textAlign="center"
                 placeholderTextColor={colors.text}
             />
             <View style={styles.viewStyle}>
-                <CustomNavigateButton buttonText="Spara" goto={() => navigation.navigate('RegisterUserName', { email: userEmail, password: userPassword })} />
+                <CustomNavigateButton buttonText="Logga in" goto={checkUserInfo} />
             </View>
         </SafeAreaView>
     );
@@ -49,7 +58,7 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 50,
-        margin: 12,
+        margin: 10,
         borderWidth: 1,
         padding: 10,
         borderRadius: 10,

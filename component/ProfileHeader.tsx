@@ -1,9 +1,10 @@
-import { useTheme } from 'react-native-paper';
+import { Entypo } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import { Household, Member, User } from '../data/data';
 import Avatar from './Avatar';
-import { Entypo } from '@expo/vector-icons';
+import { useAppSelector } from '../store/store';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface Props {
@@ -16,39 +17,48 @@ interface Props {
         member?: Member;
         userName?: string;
     };
-    openMainMenu?: (open: boolean) => void
-    openHouseholdMenu?: (open: boolean) => void
-    onGoBack?: () => void
+    openMainMenu?: (open: boolean) => void;
+    openHouseholdMenu?: (open: boolean) => void;
+    onGoBack?: () => void;
 }
 
 export function ProfileHeader({ household, userInformation, visitMember, openMainMenu, openHouseholdMenu, onGoBack }: Props) {
     const { colors } = useTheme();
 
+    let done = 0;
+    let score = 0;
+    const user = useAppSelector((state) => state.user.user);
+    const userMemberList = useAppSelector((state) => state.member.memberList.filter((m) => m.userId === user?.id));
+    const householdList = useAppSelector((state) => state.household.householdList);
+
     function ShowProfile(household?: Household) {
         if (visitMember) {
-            // visit another member profile
-            // TODO: namn på member ?
             return (
-                <TouchableOpacity style={styles.row}
-                    onPress={() => onGoBack!() }>
+                <TouchableOpacity style={styles.row} onPress={() => onGoBack!()}>
                     <Entypo name="arrow-long-left" size={20} color={colors.text} />
                     <Text style={[styles.title, { paddingLeft: 10, color: colors.text }]}>{visitMember.userName}</Text>
                 </TouchableOpacity>
             );
         } else if (household) {
-            // visit one of youre households
             return (
-                <TouchableOpacity style={styles.row}
-                    onPress={() => { openHouseholdMenu && openHouseholdMenu(true); }}>
+                <TouchableOpacity
+                    style={styles.row}
+                    onPress={() => {
+                        openHouseholdMenu && openHouseholdMenu(true);
+                    }}
+                >
                     <Text style={[styles.title, { color: colors.text }]}>{household.name}</Text>
                     <Entypo name="chevron-small-down" size={24} color={colors.text} />
                 </TouchableOpacity>
             );
         } else {
-            // visit youre page "min sida"
             return (
-                <TouchableOpacity style={styles.row}
-                    onPress={() => { openHouseholdMenu && openHouseholdMenu(true); }}>
+                <TouchableOpacity
+                    style={styles.row}
+                    onPress={() => {
+                        openHouseholdMenu && openHouseholdMenu(true);
+                    }}
+                >
                     <Text style={[styles.title, { color: colors.text }]}>Min sida</Text>
                     <Entypo name="chevron-small-down" size={24} color={colors.text} />
                 </TouchableOpacity>
@@ -70,34 +80,46 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
 
     function DisplayUser({ household, userInformation, visitMember }: Props) {
         if (visitMember) {
-            // visit another member profile
-            // TODO: hämta rätt info
+            for (const chore of household!.chores) {
+                const choresDone = chore.doneBy.filter((db) => db.memberId === visitMember.member?.id).length;
+                done += choresDone;
+                score += choresDone * chore.score;
+            }
             return (
                 <View style={styles.user}>
                     <View style={[styles.circle]}>
                         {visitMember.member && <Avatar avatarId={visitMember.member.avatar} showCircle={true} avatarSize={22} />}
                     </View>
-                    <Text style={{ color: colors.text }}>{visitMember.member?.memberType}</Text>
+                    <Text style={{ color: colors.text }}>{(visitMember?.member?.memberType === 'owner') ? 'Ägare' : 'Medlem'}</Text>
                 </View>
             );
         } else if (household) {
-            // visit one of youre households
-            // TODO: hämta rätt info
+            for (const chore of household.chores) {
+                const choresDone = chore.doneBy.filter((db) => db.memberId === userInformation?.member?.id).length;
+                done += choresDone;
+                score += choresDone * chore.score;
+            }
             return (
                 <View style={styles.user}>
                     <View style={[styles.circle]}>
                         {userInformation?.member && <Avatar avatarId={userInformation.member.avatar} showCircle={true} avatarSize={22} />}
                     </View>
-                    <Text style={{ color: colors.text }}>{userInformation?.user.username}</Text>
-                    <Text style={{ color: colors.text }}>{userInformation?.member?.memberType}</Text>
+                    <Text style={{ color: colors.text }}>{userInformation?.member?.memberName}</Text>
+                    <Text style={{ color: colors.text }}>{(userInformation?.member?.memberType === 'owner') ? 'Ägare' : 'Medlem'}</Text>
                 </View>
             );
         } else {
-            // visit youre page "min sida"
-            // TODO: Hämta rätt info
+            for (const house of householdList) {
+                const memberConnectedToHousehold = userMemberList.find((m) => m.householdId === house.id);
+                for (const chore of house.chores) {
+                    const choresDone = chore.doneBy.filter((db) => db.memberId === memberConnectedToHousehold?.id).length;
+                    done += choresDone;
+                    score += choresDone * chore.score;
+                }
+            }
             return (
                 <View style={styles.user}>
-                    <View style={[styles.circle, { borderColor: colors.text }]}>{/* <Text style={{ color: colors.text }}></Text> */}</View>
+                    <View style={[styles.circle, { borderColor: colors.text }]}></View>
                     <Text style={{ color: colors.text }}>{userInformation?.user.username}</Text>
                 </View>
             );
@@ -107,25 +129,21 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
     return (
         <SafeAreaView>
             <View style={[styles.root, { backgroundColor: colors.primary }]}>
-                {/* Row 1: household + menu */}
                 <View style={[styles.row, styles.spaceBetween]}>
                     {ShowProfile(household)}
-                    <TouchableOpacity
-                        onPress={() => openMainMenu && openMainMenu(true)}>
-                        <Entypo name="menu" size={24} color={colors.text} />
-                    </TouchableOpacity>
+                    {!visitMember && (
+                        <TouchableOpacity onPress={() => openMainMenu && openMainMenu(true)}>
+                            <Entypo name="menu" size={24} color={colors.text} />
+                        </TouchableOpacity>
+                    )}
                 </View>
-                {/* Row 2: circles + text */}
                 <View style={styles.rowTwo}>
-                    {/*  */}
                     {DisplayUser({ userInformation, household, visitMember, openMainMenu: openMainMenu })}
                     <View style={{ alignItems: 'center' }}>
                         <View style={[styles.row, styles.spaceBetween]}>
-                            {DisplayScore('Att göra', 0)}
-                            {DisplayScore('Avklarade', 10)}
-                            {DisplayScore('Poäng')}
+                            {DisplayScore('Avklarade', done)}
+                            {DisplayScore('Poäng', score)}
                         </View>
-                        <Text style={{ color: colors.text }}>För nuvarande månad</Text>
                     </View>
                 </View>
             </View>
@@ -144,7 +162,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     rowTwo: {
-        // backgroundColor: "pink",
         justifyContent: 'space-between',
         paddingRight: 20,
         paddingTop: 5,

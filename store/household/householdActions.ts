@@ -2,7 +2,7 @@ import { Chore, ChoreScore, Household } from '../../data/data';
 
 export interface CreateHouseholdAction {
     type: 'CREATE_HOUSEHOLD';
-    payload: { householdName: string; householdId: string }; // Rätt! Wow!
+    payload: { householdName: string; householdId: string };
 }
 
 export interface EditHouseholdAction {

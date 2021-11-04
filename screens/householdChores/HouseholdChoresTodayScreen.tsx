@@ -18,8 +18,8 @@ export default function HouseholdChoresTodayScreen(props: Props) {
     const currentHousehold = useAppSelector((state) => state.household.householdList.find((h) => h.id === state.household.currentHouseholdId));
     const memberList = useAppSelector((state) => state.member.memberList.filter((m) => m.householdId === currentHousehold?.id));
 
-    const user = useAppSelector(state => state.user.user);
-    const currentMember = (memberList.find(m => m.householdId === currentHousehold?.id && m.userId === user?.id));
+    const user = useAppSelector((state) => state.user.user);
+    const currentMember = memberList.find((m) => m.householdId === currentHousehold?.id && m.userId === user?.id);
 
     const [toggleEdit, setToggleEdit] = useState<boolean>(false);
     const [isShowingCreateModal, setIsShowingCreateModal] = useState(false);
@@ -27,19 +27,16 @@ export default function HouseholdChoresTodayScreen(props: Props) {
     if (currentHousehold) {
         return (
             <View style={styles.root}>
-                {/* TODO: route and navigation may be pased as props to RenderChores -> ChoreButton */}
-                {/* TODO: For more view in choreSlider, only rename label for those screens */}
                 <RenderChores navigation={props} label={'Today'} currentHousehold={currentHousehold} members={memberList} editChore={toggleEdit} />
                 {!toggleEdit && currentMember?.memberType === 'owner' && (
                     <View style={[styles.buttons, { justifyContent: 'space-between' }]}>
-                        <CustomPlusButton goto={() => console.log('Lägg till en syssla')} buttonText={'Lägg till'} />
+                        <CustomPlusButton goto={() => setIsShowingCreateModal(!isShowingCreateModal)} buttonText={'Lägg till'} />
                         <CustomEditButton goto={() => setToggleEdit(!toggleEdit)} buttonText={'Ändra'} />
                     </View>
                 )}
                 {toggleEdit && (
                     <View style={[styles.buttons, { justifyContent: 'center' }]}>
                         <CustomWideButton goto={() => setToggleEdit(!toggleEdit)} buttonText={'Avbryt'} />
-                        {/* <CustomNavigateButton goto={() => setToggleEdit(!toggleEdit)} buttonText={'Avbryt'} /> */}
                     </View>
                 )}
                 <CreateChoreModal

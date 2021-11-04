@@ -25,7 +25,6 @@ export type ChoreTabScreenProps<Screen extends keyof ParamList> = MaterialTopTab
 const Tab = createMaterialTopTabNavigator<ParamList>();
 
 function ChoresTabNavigator() {
-    // Pressing the back button in the navbar doesn't make the app go back in this screen
     useFocusEffect(
         React.useCallback(() => {
             const onBackPress = () => {
@@ -34,13 +33,11 @@ function ChoresTabNavigator() {
 
             BackHandler.addEventListener('hardwareBackPress', onBackPress);
 
-            return () =>
-                BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+            return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
         }, [])
     );
 
     return (
-
         <Tab.Navigator tabBar={(props) => <CustomHeader {...props} />}>
             <Tab.Screen name="Today" component={TodayChoresScreen} initialParams={{ memberId: undefined, householdId: undefined }} />
             <Tab.Screen name="All" component={AllChoresScreen} initialParams={{ memberId: undefined, householdId: undefined }} />

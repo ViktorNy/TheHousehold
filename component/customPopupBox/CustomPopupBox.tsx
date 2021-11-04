@@ -1,17 +1,17 @@
 /* eslint-disable indent */
 import { AntDesign } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import { Pressable, TextInput, TouchableOpacity, View } from 'react-native';
+import { Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
-import { Text, useTheme } from 'react-native-paper';
-import { Member, mockAvatarData, User } from '../../data/data';
+import { useTheme } from 'react-native-paper';
+import deepcopy from 'ts-deepcopy';
+import { Member, avatarData, User } from '../../data/data';
 import { getMemberByIdSelector, getMembersOfHouseholdSelector } from '../../store/member/memberSelector';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { modalStyles } from '../../style/modalStyle';
 import Avatar from '../Avatar';
 import { LayoutChoice } from './popupLayoutChoice';
 import uuid from 'react-native-uuid';
-import deepcopy from 'ts-deepcopy';
 
 interface Props {
     memberId?: string;
@@ -29,18 +29,16 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
     const { colors } = useTheme();
     const iconColor = colors.text;
     let memberObject: Member | undefined;
-    const avatarArray = mockAvatarData;
+    const avatarArray = avatarData;
     const activeMember = useAppSelector((state) => getMemberByIdSelector(state, memberId));
     const allMembersOfCurrentHousehold: Member[] = useAppSelector((state) => getMembersOfHouseholdSelector(state, activeMember?.householdId));
 
-    // Kolla om det finns ett snyggare sätt för if-satsen - Nils
     const [currentlyChosenAvatar, setCurrentlyChosenAvatar] = useState(() => {
         if (memberId) return memberId;
         else return '';
     });
 
     const onAvatarPress = (avatar: string) => {
-        // needed?
         setCurrentlyChosenAvatar(avatar);
         const updatedMember = deepcopy(activeMember);
         updatedMember!.avatar = avatar;
@@ -57,6 +55,7 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                     animationIn="fadeIn"
                     backdropColor="#181818"
                     coverScreen={true}
+                    avoidKeyboard={true}
                     deviceHeight={10000}
                     isVisible={isShowing}
                     statusBarTranslucent={true}

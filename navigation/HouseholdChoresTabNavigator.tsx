@@ -4,7 +4,7 @@ import HouseholdChoresAllScreen from '../screens/householdChores/HouseholdChores
 import HouseholdChoresMonthScreen from '../screens/householdChores/HouseholdChoresMonthScreen';
 import HouseholdChoresTodayScreen from '../screens/householdChores/HouseholdChoresTodayScreen';
 import HouseholdChoresWeekScreen from '../screens/householdChores/HouseholdChoresWeekScreen';
-import StatisticsHeader from './TabDateHeader';
+import TabDateHeader from './TabDateHeader';
 
 export type HouseholdChoresParamList = {
     HouseholdChoresAll: undefined;
@@ -19,7 +19,7 @@ const Tab = createMaterialTopTabNavigator<HouseholdChoresParamList>();
 
 function HouseholdChoresTabNavigator() {
     return (
-        <Tab.Navigator tabBar={(props) => <StatisticsHeader props={{ ...props }} headline={'Alla sysslor'} />}>
+        <Tab.Navigator tabBar={(props) => <TabDateHeader props={{ ...props }} headline={'Alla sysslor'} />}>
             <Tab.Screen name="HouseholdChoresAll" options={{ title: 'Alla' }} component={HouseholdChoresAllScreen} />
             <Tab.Screen name="HouseholdChoresToday" options={{ title: 'Idag' }} component={HouseholdChoresTodayScreen} />
             <Tab.Screen name="HouseholdChoresWeek" options={{ title: 'Denna veckan' }} component={HouseholdChoresWeekScreen} />

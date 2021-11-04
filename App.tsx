@@ -23,6 +23,7 @@ declare global {
             appearanceButtonText: string;
             appearanceSwithContainer: string;
             notSelectedAppearance: string;
+            textFieldBackground: string;
         }
     }
 }
@@ -38,12 +39,13 @@ const CustomDefaultTheme = {
         popupOverlayColor: 'rgb(255, 255, 255)',
         grayedOutText: 'rgb(100, 100, 100)',
         avatarOutline: '#001f3f',
-        passedDueBy: 'black', // för Emelie
+        passedDueBy: 'red', // för Emelie
         border: 'rgb(200, 200, 200)',
         appearanceSwitchButton: 'rgb(210, 210, 210)',
         appearanceButtonText: 'rgb(0, 0, 0)',
         appearanceSwithContainer: 'rgb(150, 150, 150)',
-        notSelectedAppearance: 'rgb(150, 150, 150)'
+        notSelectedAppearance: 'rgb(150, 150, 150)',
+        textFieldBackground: 'rgb(210, 210, 210)'
     }
 };
 
@@ -59,12 +61,13 @@ const CustomDarkTheme = {
         popupOverlayColor: 'rgb(50, 50, 50)',
         grayedOutText: 'rgb(130, 130, 130)',
         avatarOutline: '#B10DC9',
-        passedDueBy: 'white', // för Emelie
+        passedDueBy: 'red', // för Emelie
         border: 'rgb(20, 20, 20)',
         appearanceSwitchButton: 'rgb(40, 40, 40)',
         appearanceButtonText: 'rgb(210, 210, 210)',
         appearanceSwithContainer: 'rgb(0, 0, 0)',
-        notSelectedAppearance: 'rgb(0, 0, 0)'
+        notSelectedAppearance: 'rgb(0, 0, 0)',
+        textFieldBackground: 'rgb(100, 100, 100)'
     }
 };
 

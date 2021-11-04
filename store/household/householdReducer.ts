@@ -23,7 +23,6 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
             };
         }
         case 'EDIT_HOUSEHOLD': {
-            // Edit can be used for: add member, remove member, pause mamber, change member type
             const nextHouseholdList = deepcopy(state.householdList);
             const household = action.payload;
             const index = state.householdList.findIndex((oldHousehold) => oldHousehold.id === household.id);
@@ -34,7 +33,8 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
             };
         }
         case 'SETHOUSEHOLD': {
-            const householdIndex = state.householdList.findIndex(h => h.id === action.payload);
+            const householdIndex = state.householdList.findIndex((h) => h.id === action.payload);
+
             if (householdIndex > -1) {
                 return {
                     ...state,
@@ -47,10 +47,11 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
                 };
             }
         }
+
+        // TODO: Issue #110
         case 'EDIT_CHORELIST_IN_HOUSEHOLD': {
             const allHouseholds = deepcopy(state.householdList);
 
-            // Edit used for editing chore
             const nextHousehold = deepcopy(allHouseholds.find((h) => h.id === action.payload.householdId));
 
             const householdIndex = allHouseholds.findIndex((h) => h.id === nextHousehold?.id);
@@ -88,11 +89,11 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
                 name: action.payload.chore.name,
                 description: action.payload.chore.description,
                 frequency: action.payload.chore.frequency,
-                lastDone: '',
+                // lastDone: '',
                 createdDate: moment(new Date()).format('YYYY-MM-DD'),
                 doneBy: [],
                 score: action.payload.chore.score,
-                signedToUserId: ['']
+                signedToUserId: []
             };
             updatedHousehold?.chores.push(newChore);
             return {
@@ -100,10 +101,10 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
                 householdList: allHouseholds
             };
         }
+        // TODO: Issue #110
         case 'EDIT_CHORE_IN_HOUSEHOLD': {
             const allHouseholds = deepcopy(state.householdList);
 
-            // Edit used for editing chore
             const nextHousehold = deepcopy(allHouseholds.find((h) => h.id === action.payload.householdId));
 
             const householdIndex = allHouseholds.findIndex((h) => h.id === nextHousehold?.id);
@@ -136,16 +137,3 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
 }
 
 export default householdReducer;
-
-// ----------------------------------------------
-
-// case 'JOIN': {
-//     const index = state.householdList.findIndex(
-//         (household) => household.id === action.payload.householdId)
-//     const household = state.householdList[index];
-//     household?.members.push(action.payload.member)
-//     return {
-//         ...state,
-//         householdList: [...state.householdList.splice(index, 1, household)]
-//     }
-// }

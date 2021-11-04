@@ -99,12 +99,8 @@ export default function HamburgerMenu({
                                 rootStackProps.navigation.navigate('PieChart');
                             }}
                         >
-                            <Text style={[styles.modalText, { color: colors.text }]}>Visa statestik</Text>
+                            <Text style={[styles.modalText, { color: colors.text }]}>Visa statistik</Text>
                         </TouchableOpacity>
-
-                        <Text style={[styles.modalText, { color: colors.text }]}>Lämna hushållet</Text>
-
-                        {currentMember?.memberType === 'owner' && <Text style={[styles.modalText, { color: colors.text }]}>Visa förfrågningar</Text>}
 
                         <TouchableOpacity
                             onPress={() => {
@@ -138,7 +134,7 @@ export default function HamburgerMenu({
                                 onPress={() => setAppearance('light')}
                             >
                                 <Text style={[currentChoice === 'light' ? { color: colors.appearanceButtonText } : { color: colors.text }]}>
-                                    Light
+                                    Ljust
                                 </Text>
                             </TouchableOpacity>
 
@@ -151,7 +147,9 @@ export default function HamburgerMenu({
                                 ]}
                                 onPress={() => setAppearance('dark')}
                             >
-                                <Text style={[currentChoice === 'dark' ? { color: colors.appearanceButtonText } : { color: colors.text }]}>Dark</Text>
+                                <Text style={[currentChoice === 'dark' ? { color: colors.appearanceButtonText } : { color: colors.text }]}>
+                                    Mörkt
+                                </Text>
                             </TouchableOpacity>
                         </View>
                     </View>
