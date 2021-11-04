@@ -18,8 +18,8 @@ export default function HouseholdChoresMonthScreen(props: Props) {
     const currentHousehold = useAppSelector((state) => state.household.householdList.find((h) => h.id === state.household.currentHouseholdId));
     const memberList = useAppSelector((state) => state.member.memberList.filter((m) => m.householdId === currentHousehold?.id));
 
-    const user = useAppSelector(state => state.user.user);
-    const currentMember = (memberList.find(m => m.householdId === currentHousehold?.id && m.userId === user?.id));
+    const user = useAppSelector((state) => state.user.user);
+    const currentMember = memberList.find((m) => m.householdId === currentHousehold?.id && m.userId === user?.id);
 
     const [toggleEdit, setToggleEdit] = useState<boolean>(false);
     const [isShowingCreateModal, setIsShowingCreateModal] = useState(false);

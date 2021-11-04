@@ -12,7 +12,7 @@ interface Props {
     goto: () => void;
     chore: Chore;
     avatarIdList: string[];
-    editChore?: boolean | undefined;
+    editChore?: boolean;
 }
 
 export function ChoreButton({ goto, chore, avatarIdList, editChore }: Props) {
@@ -28,7 +28,7 @@ export function ChoreButton({ goto, chore, avatarIdList, editChore }: Props) {
             : moment(new Date(chore.createdDate)).format('YYYY-MM-DD');
 
         const doneNextByDate = moment(lastDoneDate).add(chore.frequency, 'day').format('YYYY-MM-DD');
-        console.log();
+
         const differenceInDays = (new Date(today).getTime() - new Date(doneNextByDate).getTime()) / (1000 * 3600 * 24);
         if (editChore) {
             // TODO: on press need to lead to right popup by chore.id...

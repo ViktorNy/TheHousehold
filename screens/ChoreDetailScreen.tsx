@@ -144,9 +144,10 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
                 </View>
             </View>
             <View style={choreStyles.buttonContainer}>
+                {/* Problem here is: we know that chore is always defined, TS does not know this however */}
                 <TouchableOpacity
                     style={[styles.root, { backgroundColor: colors.card }, { borderColor: colors.border }, { borderWidth: 1 }]}
-                    onPress={setChoreAsDone}
+                    onPress={ setChoreAsDone}
                 >
                     <Text style={[styles.buttonText, { color: colors.text }]}>Klarmarkera syssla</Text>
                 </TouchableOpacity>

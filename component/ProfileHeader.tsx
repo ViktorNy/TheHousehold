@@ -1,9 +1,9 @@
-import { useTheme } from 'react-native-paper';
+import { Entypo } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import { Household, Member, User } from '../data/data';
 import Avatar from './Avatar';
-import { Entypo } from '@expo/vector-icons';
 import { useAppSelector } from '../store/store';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -110,7 +110,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
                     <View style={[styles.circle]}>
                         {userInformation?.member && <Avatar avatarId={userInformation.member.avatar} showCircle={true} avatarSize={14} />}
                     </View>
-                    <Text style={{ color: colors.text }}>{userInformation?.user.username}</Text>
+                    <Text style={{ color: colors.text }}>{userInformation?.member?.memberName}</Text>
                     <Text style={{ color: colors.text }}>{userInformation?.member?.memberType}</Text>
                 </View>
             );

@@ -9,7 +9,7 @@ export default function StartScreen({ navigation }: RootStackScreenProps<'Start'
     const { colors } = useTheme();
 
     return (
-        <SafeAreaView style={[{ backgroundColor: colors.background }, { height: '100%' }]}>
+        <SafeAreaView style={[{ backgroundColor: colors.background }]}>
             <Text style={[styles.homeTextStyle, { color: colors.text }]}>Hemmet</Text>
 
             <Text style={[styles.simplifyText, { color: colors.text }]}>Förenkla din vardag</Text>
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     viewStyle: {
+        marginTop: 50,
         margin: 10
     },
     imageStyle: {

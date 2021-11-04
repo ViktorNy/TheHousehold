@@ -9,7 +9,7 @@ import { useAppSelector } from '../../store/store';
 // type Props = CompositeScreenProps<PieTabScreenProx<'PieToday'>, RootStackScreenProps>;
 
 export default function PieChartTodayScreen() {
-    const currentHousehold = useAppSelector((state) => state.household.householdList.find(h => h.id === state.household.currentHouseholdId));
+    const currentHousehold = useAppSelector(state => state.household.householdList.find(h => h.id === state.household.currentHouseholdId));
     const memberList = useAppSelector((state) => state.member.memberList.filter((m) => m.householdId === currentHousehold?.id));
     const chores = currentHousehold?.chores.map((chore) => {
         const today = moment(new Date()).format('YYYY-MM-DD');

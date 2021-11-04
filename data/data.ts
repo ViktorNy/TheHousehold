@@ -1,15 +1,16 @@
+
 export interface User {
-    id: string;
-    email: string;
-    username: string;
-    password: string;
+    id: string,
+    username: string,
+    email: string,
+    password: string,
 }
 
 export interface Household {
-    id: string;
-    name: string;
-    codeToJoin: string;
-    chores: Chore[];
+    id: string,
+    name: string,
+    codeToJoin: string,
+    chores: Chore[],
 }
 
 export type MemberType = 'member' | 'owner';
@@ -26,38 +27,38 @@ export interface Member {
 }
 
 export interface PausedMember {
-    householdId: string;
-    userId: string;
-    fromDate: string; // ta med år, månad och datum
-    toDate: string;
+    householdId: string,
+    userId: string,
+    fromDate: string, // ta med år, månad och datum
+    toDate: string
 }
 
 export interface MemberAvatar {
-    id: string;
-    avatar: string;
-    backgroundColor: string;
+    id: string,
+    avatar: string,
+    backgroundColor: string
 }
 
 export type ChoreScore = 1 | 2 | 4 | 6 | 8;
 
 export interface Chore {
-    id: string;
-    name: string;
-    description: string;
-    frequency: number;
-    lastDone?: string;
-    createdDate: string; // lagt till / emelie
-    doneBy: ChoreDoneBy[];
-    score: ChoreScore;
-    signedToUserId: string[];
+    id: string,
+    name: string,
+    description: string,
+    frequency: number,
+    lastDone?: string,
+    createdDate: string, // lagt till / emelie
+    doneBy: ChoreDoneBy[],
+    score: ChoreScore,
+    signedToUserId: string[],
 }
 
 export interface ChoreDoneBy {
-    choreId: string;
+    choreId: string,
     // userId: string,
-    memberId: string;
-    date: string;
-    score: number; // spara score här  ifall men justerar det senare
+    memberId: string,
+    date: string,
+    score: number, // spara score här  ifall men justerar det senare
 }
 
 // ------------ MOCKED DATA BELOW -----------------
@@ -143,20 +144,17 @@ export const mockedHouseholdData: Household[] = [
                         memberId: '1',
                         date: '2021-11-01',
                         score: 4
-                    },
-                    {
+                    }, {
                         choreId: '1',
                         memberId: '1',
                         date: '2021-10-31',
                         score: 4
-                    },
-                    {
+                    }, {
                         choreId: '1',
                         memberId: '2',
                         date: '2021-10-26',
                         score: 4
-                    }
-                ]
+                    }]
             },
             {
                 id: '2',
@@ -183,7 +181,7 @@ export const mockedHouseholdData: Household[] = [
                 name: 'Byta sängkläder',
                 description: 'Copy pasta lorem ipsum städa då snälla hjälp mig',
                 frequency: 7,
-                score: 2,
+                score: 4,
                 signedToUserId: ['2'],
                 createdDate: '2021-10-13',
                 lastDone: '2021-10-25',
@@ -193,8 +191,7 @@ export const mockedHouseholdData: Household[] = [
                         memberId: '2',
                         date: '2021-10-12',
                         score: 4
-                    },
-                    {
+                    }, {
                         choreId: '1',
                         memberId: '2',
                         date: '2021-10-25',
@@ -204,10 +201,8 @@ export const mockedHouseholdData: Household[] = [
                         memberId: '1',
                         date: '2021-10-15',
                         score: 4
-                    }
-                ]
-            }
-        ]
+                    }]
+            }]
     },
     {
         id: '2',

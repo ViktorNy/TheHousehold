@@ -25,45 +25,45 @@ type KnownAction =
 
 function householdReducer(state: HouseholdState = initialState, action: KnownAction): HouseholdState {
     switch (action.type) {
-    case 'CREATE_HOUSEHOLD': {
-        const newHousehold: Household = {
-            name: action.payload.householdName,
-            chores: [],
-            codeToJoin: uuid.v4().toString().substring(0, 6).toUpperCase(),
-            id: action.payload.householdId
-        };
-        return {
-            ...state,
-            householdList: [...state.householdList, newHousehold]
-        };
-    }
-    case 'EDIT_HOUSEHOLD': {
-        // Edit can be used for: add member, remove member, pause mamber, change member type
-        const nextHouseholdList = deepcopy(state.householdList);
-        const household = action.payload;
-        const index = state.householdList.findIndex((oldHousehold) => oldHousehold.id === household.id);
-        if (index > -1) nextHouseholdList.splice(index, 1, household);
-        return {
-            ...state,
-            householdList: nextHouseholdList
-        };
-    }
-    case 'SETHOUSEHOLD': {
-        const householdIndex = state.householdList.findIndex(h => h.id === action.payload);
-        if (householdIndex > -1) {
-            return {
-                ...state,
-                currentHouseholdId: action.payload
+        case 'CREATE_HOUSEHOLD': {
+            const newHousehold: Household = {
+                name: action.payload.householdName,
+                chores: [],
+                codeToJoin: uuid.v4().toString().substring(0, 6).toUpperCase(),
+                id: action.payload.householdId
             };
-        } else {
             return {
                 ...state,
-                currentHouseholdId: undefined
+                householdList: [...state.householdList, newHousehold]
             };
         }
-    }
-    case 'EDIT_CHORELIST_IN_HOUSEHOLD': {
-        const allHouseholds = deepcopy(state.householdList);
+        case 'EDIT_HOUSEHOLD': {
+            // Edit can be used for: add member, remove member, pause mamber, change member type
+            const nextHouseholdList = deepcopy(state.householdList);
+            const household = action.payload;
+            const index = state.householdList.findIndex((oldHousehold) => oldHousehold.id === household.id);
+            if (index > -1) nextHouseholdList.splice(index, 1, household);
+            return {
+                ...state,
+                householdList: nextHouseholdList
+            };
+        }
+        case 'SETHOUSEHOLD': {
+            const householdIndex = state.householdList.findIndex((h) => h.id === action.payload);
+            if (householdIndex > -1) {
+                return {
+                    ...state,
+                    currentHouseholdId: action.payload
+                };
+            } else {
+                return {
+                    ...state,
+                    currentHouseholdId: undefined
+                };
+            }
+        }
+        case 'EDIT_CHORELIST_IN_HOUSEHOLD': {
+            const allHouseholds = deepcopy(state.householdList);
 
             // Edit used for editing chore
             const nextHousehold = deepcopy(allHouseholds.find((h) => h.id === action.payload.householdId));

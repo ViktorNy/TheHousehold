@@ -1,14 +1,14 @@
-import { ParamListBase, useTheme } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, ParamListBase } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-// import { useTheme } from 'react-native-paper';
+import { useColorScheme } from 'react-native';
 import ChoreDetailScreen from '../screens/ChoreDetailScreen';
 import DistributeChoreScreen from '../screens/DistributeChoreScreen';
 import LoginScreen from '../screens/LoginScreen';
 import MemberDetailScreen from '../screens/MemberDetailScreen';
 import MemberScreen from '../screens/MemberScreen';
+import NoHouseholdScreen from '../screens/NoHouseholdScreen';
 import RegisterScreen from '../screens/RegisterScreen';
-import RegisterUserNameScreen from '../screens/RegisterUserNameScreen';
 import StartScreen from '../screens/StartScreen';
 import ChoresTabNavigator from './ChoresTabNavigator';
 import HouseholdChoresTabNavigator from './HouseholdChoresTabNavigator';
@@ -24,7 +24,7 @@ export interface RootStackParamList extends ParamListBase {
     Start: undefined; // Tar inte in några parametrerar
     Login: undefined; // Tar inte in några parametrerar
     Register: undefined; // Tar inte in några parametrerar
-    RegisterUserName: { email: string; password: string };
+    NoHousehold: undefined;
     Household: undefined;
     DistributeChore: undefined;
     ChoreDetail: { choreId: string; householdId: string };
@@ -39,8 +39,28 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList = strin
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStackNavigator() {
-    const theme = useTheme();
+    const colorScheme = useColorScheme();
 
+    const DefaultCustomTheme = {
+        ...DefaultTheme,
+        colors: {
+            ...DefaultTheme.colors,
+            primary: 'rgb(255, 255, 255)',
+            notification: 'rgb(100, 100, 100)'
+        }
+    };
+
+    const DarkCustomTheme = {
+        ...DarkTheme,
+        colors: {
+            ...DarkTheme.colors,
+            primary: 'rgb(50, 50, 50)',
+            notification: 'rgb(200, 200, 200)',
+            background: 'rgb(0, 0, 0)'
+        }
+    };
+
+    const theme = colorScheme === 'dark' ? DarkCustomTheme : DefaultCustomTheme;
     const colors = theme.colors;
 
     return (
@@ -65,8 +85,8 @@ function RootStackNavigator() {
                 }}
             />
             <Stack.Screen
-                name="RegisterUserName"
-                component={RegisterUserNameScreen}
+                name="NoHousehold"
+                component={NoHouseholdScreen}
                 options={{
                     title: '',
                     headerStyle: { backgroundColor: colors.background },
