@@ -49,7 +49,6 @@ export default function RegisterScreen({ navigation }: RootStackScreenProps<'Reg
                     goto={() => {
                         dispatch({ type: 'CREATE_USER', payload: { id: newUserId, username: userName, email: userEmail, password: userPassword } });
                         navigation.navigate('NoHousehold');
-                        console.log(newUserId, userName, userEmail, userPassword);
                     }}
                 />
             </View>

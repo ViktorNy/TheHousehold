@@ -22,26 +22,14 @@ function userReducer(state: UserState = initialState, action: KnownAction): User
                 }
             };
         }
-        case 'EDIT': {
-            // Edit used for editing member
-            // const nextUserList = [...state.user];
-            // const user = action.payload;
-            // const index = state.userList.findIndex((item) => item.id === user.id);
-            // if (index) nextUserList.splice(index, 1, user);
-            return {
-                ...state
-                // userList: nextUserList
-            };
-        }
         case 'SET_USER': {
             const loggedinUser = mockedUserData.find((u) => u.id === action.payload);
             if (loggedinUser) {
                 return {
                     ...{
                         user: loggedinUser,
-                        appearance: initialState.appearance // Appearance ska sättas till initialstate i början av appen?
+                        appearance: initialState.appearance
                     }
-                    // userList: nextUserList
                 };
             } else {
                 return {

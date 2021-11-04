@@ -4,7 +4,7 @@ import PieChartAllScreen from '../screens/pieChart/PieChartAllScreen';
 import PieChartMonthScreen from '../screens/pieChart/PieChartMonthScreen';
 import PieChartTodayScreen from '../screens/pieChart/PieChartTodayScreen';
 import PieChartWeekScreen from '../screens/pieChart/PieChartWeekScreen';
-import StatisticsHeader from './TabDateHeader';
+import TabDateHeader from './TabDateHeader';
 
 export type PieParamList = {
     PieAll: undefined;
@@ -19,7 +19,7 @@ const Tab = createMaterialTopTabNavigator<PieParamList>();
 
 function PieChartTabNavigator() {
     return (
-        <Tab.Navigator tabBar={(props) => <StatisticsHeader props={{ ...props }} headline={'Statistik Sysslor'} />}>
+        <Tab.Navigator tabBar={(props) => <TabDateHeader props={{ ...props }} headline={'Statistik Sysslor'} />}>
             <Tab.Screen name="PieAll" component={PieChartAllScreen} options={{ title: 'Alla' }} />
             <Tab.Screen name="PieToday" component={PieChartTodayScreen} options={{ title: 'Idag' }} />
             <Tab.Screen name="PieWeek" component={PieChartWeekScreen} options={{ title: 'Denna veckan' }} />

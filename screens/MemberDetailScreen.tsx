@@ -9,8 +9,8 @@ import { useAppSelector } from '../store/store';
 export default function MemberDetailScreen({ route, navigation }: RootStackScreenProps<'MemberDetailScreen'>) {
     const memberData = useAppSelector((state) => getMemberByIdSelector(state, route.params.memberId));
     const householdData = useAppSelector((state) => state.household.householdList.find((h) => h.id === memberData?.householdId));
-    const { colors } = useTheme();
     const currentHousehold = useAppSelector((state) => state.household.householdList.find((h) => h.id === state.household.currentHouseholdId));
+    const { colors } = useTheme();
 
     const choresDone: { name: string; date: string; score: number }[] = [];
     for (const chore of currentHousehold!.chores) {

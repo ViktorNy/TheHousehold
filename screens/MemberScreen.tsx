@@ -14,7 +14,13 @@ export default function MemberScreen({ navigation, route }: RootStackScreenProps
                 ({ item }) => {
                     return (
                         <View style={styles.memberContainer}>
-                            <CustomNavigateButton buttonText={item.memberName} singleAvatarId={item.avatar} goto={() => navigation.navigate('MemberDetailScreen', { memberId: item.id })} />
+                            <CustomNavigateButton
+                                buttonText={item.memberName}
+                                singleAvatarId={item.avatar}
+                                goto={
+                                    () => navigation.navigate('MemberDetailScreen', { memberId: item.id })
+                                }
+                            />
                         </View>
                     );
                 }
