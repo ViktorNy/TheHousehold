@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { mockAvatarData } from '../data/data';
+import { avatarData } from '../data/data';
 
 interface Props {
     avatarId: string;
@@ -10,7 +10,7 @@ interface Props {
 
 export default function Avatar({ avatarId, showCircle, avatarSize }: Props) {
     // Ska troligtvis hämtas ut på annat ställe
-    const avatarList = mockAvatarData;
+    const avatarList = avatarData;
     const avatar = avatarList.find((a) => a.id === avatarId);
 
     if (showCircle) {

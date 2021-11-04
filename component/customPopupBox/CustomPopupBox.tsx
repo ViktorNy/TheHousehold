@@ -5,7 +5,7 @@ import { Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native
 import Modal from 'react-native-modal';
 import { useTheme } from 'react-native-paper';
 import deepcopy from 'ts-deepcopy';
-import { Member, mockAvatarData, User } from '../../data/data';
+import { Member, avatarData, User } from '../../data/data';
 import { getMemberByIdSelector, getMembersOfHouseholdSelector } from '../../store/member/memberSelector';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { modalStyles } from '../../style/modalStyle';
@@ -29,7 +29,7 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
     const { colors } = useTheme();
     const iconColor = colors.text;
     let memberObject: Member | undefined;
-    const avatarArray = mockAvatarData;
+    const avatarArray = avatarData;
     const activeMember = useAppSelector((state) => getMemberByIdSelector(state, memberId));
     const allMembersOfCurrentHousehold: Member[] = useAppSelector((state) => getMembersOfHouseholdSelector(state, activeMember?.householdId));
 

@@ -19,7 +19,7 @@ const Tab = createMaterialTopTabNavigator<PieParamList>();
 
 function PieChartTabNavigator() {
     return (
-        <Tab.Navigator tabBar={(props) => <StatisticsHeader props={{ ...props }} headline={'Statestik Sysslor'} />}>
+        <Tab.Navigator tabBar={(props) => <StatisticsHeader props={{ ...props }} headline={'Statistik Sysslor'} />}>
             <Tab.Screen name="PieAll" component={PieChartAllScreen} options={{ title: 'Alla' }} />
             <Tab.Screen name="PieToday" component={PieChartTodayScreen} options={{ title: 'Idag' }} />
             <Tab.Screen name="PieWeek" component={PieChartWeekScreen} options={{ title: 'Denna veckan' }} />

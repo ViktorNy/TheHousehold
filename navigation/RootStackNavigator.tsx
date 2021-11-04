@@ -105,7 +105,7 @@ function RootStackNavigator() {
             />
             <Stack.Screen name="HouseholdChores" component={HouseholdChoresTabNavigator} />
             <Stack.Screen name="MemeberDetailScreen" options={{ headerShown: false }} component={MemberDetailScreen} />
-            <Stack.Screen name="PieChart" component={PieChartTabNavigator} />
+            <Stack.Screen name="PieChart" component={PieChartTabNavigator} options={{ headerTitle: 'Statistik' }} />
         </Stack.Navigator>
     );
 }

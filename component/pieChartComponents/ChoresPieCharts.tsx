@@ -3,7 +3,7 @@ import { useTheme } from 'react-native-paper';
 import { Text, View } from 'react-native';
 import { PieChart, PieChartData } from 'react-native-svg-charts';
 import PieChartLabel from '../../component/pieChartComponents/PieChartLabel';
-import { Chore, Member, mockAvatarData } from '../../data/data';
+import { Chore, Member, avatarData } from '../../data/data';
 
 interface allGraphicData {
     renderDataAllChores: PieChartData[]
@@ -18,7 +18,7 @@ interface Props {
     memberList: Member[]
 }
 export default function ChoresPieCharts({ currentHouseholdChores, memberList }: Props) {
-    const avtarList = mockAvatarData;
+    const avtarList = avatarData;
     const graphicDataForChoresList: allGraphicData = { renderDataAllChores: [], subChores: [] };
     const { colors } = useTheme();
 
@@ -65,7 +65,7 @@ export default function ChoresPieCharts({ currentHouseholdChores, memberList }: 
         <View>
             <View>
                 <PieChart style={{ height: 180 }} data={graphicDataForChoresList.renderDataAllChores} innerRadius={0} padAngle={0}>
-                    <PieChartLabel />
+                    <PieChartLabel slices={[]}/>
                 </PieChart>
                 <Text style={{ alignSelf: 'center', color: colors.text }}>Totalt</Text>
             </View>

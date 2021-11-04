@@ -27,7 +27,7 @@ export default function MemberDetailScreen({ route, navigation }: RootStackScree
     };
 
     return (
-        <SafeAreaView>
+        <View>
             <ProfileHeader onGoBack={goBack} household={householdData} visitMember={{ member: memberData, userName: memberData?.memberName }} />
             <View style={styles.displayInfo}>
                 <Text style={[styles.headline, { color: colors.text }]}>{currentHousehold?.name}</Text>
@@ -44,7 +44,7 @@ export default function MemberDetailScreen({ route, navigation }: RootStackScree
                     )}
                 />
             </View>
-        </SafeAreaView>
+        </View>
     );
 }
 

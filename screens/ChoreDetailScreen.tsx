@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Button, Menu } from 'react-native-paper';
 import Avatar from '../component/Avatar';
-import { mockAvatarData } from '../data/data';
+import { avatarData } from '../data/data';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 import { getChoreByIdSelector } from '../store/household/householdSelectors';
 import { getMembersOfHouseholdSelector } from '../store/member/memberSelector';
@@ -26,7 +26,7 @@ export default function ChoreDetailScreen({ navigation, route }: RootStackScreen
     const user = useAppSelector((state) => state.user.user);
     const currentMember = useAppSelector((state) => state.member.memberList.find((m) => m.userId === user?.id && m.householdId === route.params.householdId));
 
-    const avatars = mockAvatarData;
+    const avatars = avatarData;
 
     useEffect(() => {
         navigation.setOptions({ title: chore?.name });
