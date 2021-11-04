@@ -4,11 +4,15 @@
 
 ## <p align = "center">Beskrivning av projektet </p>
 
-
+Household management app. You can create and join households, all households have chores with assigned scores. Owners can create and edit chores.
+Every member of a household can upon completion mark chores as done, this increases ones point total. It is also possible to see pie charts depicting 
+users and their respective completed chores.
 
 ## <p align = "center">Bygg och starta projektet</p>
 
+```npm install``` <-- installs dependencies
 
+```npm start``` <-- starts application
 
 ## <p align = "center">Komponenter</p> 
 
@@ -117,5 +121,5 @@ godkänna användaren.
 ### Krav för VG
 
 - [ ] En ägare ska kunna tilldela och ta bort sysslor från användare i hushållet.
-- [x] Användare ska kunna se de tilldelade sysslorna i sitt gränssnitt.
+- [x] Användare ska kunna se de tilldelade sysslorna i sitt gränssnitt. (syssla kan inte tilldelas men om den är tilldelad så syns det att den är det)
 - [ ] En ägare ska kunna skapa grupper av sysslor som automatiskt tilldelas användarna i hushållet och roteras baserat på ett intervall i dagar. 
