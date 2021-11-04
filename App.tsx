@@ -43,7 +43,7 @@ const CustomDefaultTheme = {
         appearanceSwitchButton: 'rgb(210, 210, 210)',
         appearanceButtonText: 'rgb(0, 0, 0)',
         appearanceSwithContainer: 'rgb(150, 150, 150)',
-        notSelectedAppearance: 'rgb(180, 180, 180)'
+        notSelectedAppearance: 'rgb(150, 150, 150)'
     }
 };
 
@@ -64,7 +64,7 @@ const CustomDarkTheme = {
         appearanceSwitchButton: 'rgb(40, 40, 40)',
         appearanceButtonText: 'rgb(210, 210, 210)',
         appearanceSwithContainer: 'rgb(0, 0, 0)',
-        notSelectedAppearance: 'rgb(20, 20, 20)'
+        notSelectedAppearance: 'rgb(0, 0, 0)'
     }
 };
 

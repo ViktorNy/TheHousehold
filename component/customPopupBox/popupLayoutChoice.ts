@@ -75,6 +75,15 @@ export function LayoutChoice(modalCase: string, id?: string) {
         modalPlaceholder = currentHousehold!.name;
         modalInputActive = true;
         avatar = false;
+    } else if (modalCase === 'EC') {
+        modalTitle = 'Redigera syssla';
+        modalLeft = 'Spara';
+        modalRight = 'Stäng';
+        modalPlaceholder = 'Titel';
+        modalSecondaryPlaceholder = 'Beskrivning';
+        modalInputActive = true;
+        avatar = false;
+        createChore = true;
     } else {
         modalTitle = 'Ajdå, här blev det fel';
         modalRight = 'Tillbaka';
