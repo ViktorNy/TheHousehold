@@ -2,7 +2,7 @@ import { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import { CompositeScreenProps, useTheme } from '@react-navigation/native';
 import moment from 'moment';
 import React from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, Text, View, StyleSheet } from 'react-native';
 import { Chore, Household, Member, User } from '../../data/data';
 import { ParamList } from '../../navigation/ChoresTabNavigator';
 import { HouseholdChoresParamList, HouseholdChoresTabScreenProx } from '../../navigation/HouseholdChoresTabNavigator';
@@ -55,7 +55,7 @@ export default function RenderChores({ navigation, userHousehold, currentHouseho
         const houseHoldChores = currentHousehold.chores.filter((item) => item.signedToUserId.filter((item) => item === user.id));
         return (
             <View>
-                <Text style={[{ color: colors.text }]}>{currentHousehold.name}</Text>
+                <Text style={[styles.householdNameStyle, { color: colors.text }]}>{currentHousehold.name}</Text>
                 <FlatList
                     data={houseHoldChores}
                     renderItem={({ item }) => {
@@ -87,7 +87,7 @@ export default function RenderChores({ navigation, userHousehold, currentHouseho
                     data={userHousehold}
                     renderItem={({ item }) => (
                         <View>
-                            <Text style={[{ color: colors.text }]}>{item.name}</Text>
+                            <Text style={[styles.householdNameStyle, { color: colors.text }]}>{item.name}</Text>
 
                             {item.chores.map((chore) => {
                                 if (displayChore(label, chore)) {
@@ -114,3 +114,10 @@ export default function RenderChores({ navigation, userHousehold, currentHouseho
         );
     }
 }
+
+const styles = StyleSheet.create({
+    householdNameStyle: {
+        paddingLeft: 20,
+        paddingTop: 5
+    }
+});
