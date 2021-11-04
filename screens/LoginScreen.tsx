@@ -37,6 +37,8 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'
         }
     }
 
+    // comment for testing
+
     return (
         <SafeAreaView style={[{ backgroundColor: colors.background }]}>
             <Text style={[styles.loginText, { color: colors.text }]}>Logga in</Text>
