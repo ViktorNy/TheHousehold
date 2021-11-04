@@ -2,8 +2,8 @@ import React from 'react';
 import { useTheme } from '@react-navigation/native';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { CustomNavigateButton } from '../component/CustomNavigateButton';
-import { RootStackScreenProps } from '../navigation/RootStackNavigator';
+import { CustomNavigateButton } from '../../component/CustomNavigateButton';
+import { RootStackScreenProps } from '../../navigation/RootStackNavigator';
 
 export default function StartScreen({ navigation }: RootStackScreenProps<'Start'>) {
     const { colors } = useTheme();
