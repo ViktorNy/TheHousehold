@@ -1,8 +1,9 @@
+/* eslint-disable indent */
 import { User } from '../../data/data';
 import firebaseInit from '../firebase';
 import { AppThunk } from '../store';
 import uuid from 'react-native-uuid';
-import { ref, set } from 'firebase/database';
+import { get, ref, set } from 'firebase/database';
 
 export interface CreateUserAction {
     type: 'CREATE';
@@ -19,13 +20,14 @@ export interface SetUserAction {
     payload: User;
 }
 export interface ChangeAppearanceAction {
-    type: 'CHANGE_APPEARANCE',
-    payload: string
+    type: 'CHANGE_APPEARANCE';
+    payload: string;
 }
 
 export type UserAction = CreateUserAction | EditUserAction | SetUserAction | ChangeAppearanceAction;
 
-export const loginUser = (name: string, password: string): AppThunk =>
+export const loginUser =
+    (name: string, password: string): AppThunk =>
     async (dispatch) => {
         // Need to find a better way to find localhost on computer from emulator
         try {
@@ -41,22 +43,31 @@ export const loginUser = (name: string, password: string): AppThunk =>
         }
     };
 
-export const createUser = (username: string, email: string, password: string): AppThunk =>
+export const createUser =
+    (username: string, email: string, password: string): AppThunk =>
     async (dispatch) => {
         try {
             const db = firebaseInit();
             const id = uuid.v4();
-            set(ref(db, 'users/' + id), {
+            await set(ref(db, 'users/' + id), {
+                id: id,
                 username: email,
                 email: username,
                 password: password
-            }).then(() => {
-                // dispatch({ type: 'SET_USER', payload: user });
-                console.log('registrera');
-                return Promise.resolve(false);
             });
-            return Promise.resolve(false);
+            await get(ref(db, 'users/' + id))
+                .then((response) => {
+                    const user = response as unknown;
+                    const userReturn = user as User;
+                    console.log(userReturn);
+                    dispatch({ type: 'SET_USER', payload: userReturn });
+                })
+                .catch(() => {
+                    return Promise.resolve(false);
+                });
+            return Promise.resolve(true);
         } catch (error) {
+            console.log('crash');
             return Promise.reject(error);
         }
     };
