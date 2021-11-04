@@ -102,10 +102,6 @@ export default function HamburgerMenu({
                             <Text style={[styles.modalText, { color: colors.text }]}>Visa statistik</Text>
                         </TouchableOpacity>
 
-                        <Text style={[styles.modalText, { color: colors.text }]}>Lämna hushållet</Text>
-
-                        {currentMember?.memberType === 'owner' && <Text style={[styles.modalText, { color: colors.text }]}>Visa förfrågningar</Text>}
-
                         <TouchableOpacity
                             onPress={() => {
                                 unselectCurrentHousehold();
@@ -151,7 +147,9 @@ export default function HamburgerMenu({
                                 ]}
                                 onPress={() => setAppearance('dark')}
                             >
-                                <Text style={[currentChoice === 'dark' ? { color: colors.appearanceButtonText } : { color: colors.text }]}>Mörkt</Text>
+                                <Text style={[currentChoice === 'dark' ? { color: colors.appearanceButtonText } : { color: colors.text }]}>
+                                    Mörkt
+                                </Text>
                             </TouchableOpacity>
                         </View>
                     </View>
