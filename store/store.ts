@@ -1,7 +1,6 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
-import choreReducer from './chore/choreReducer';
 import { HouseholdAction } from './household/householdActions';
 import householdReducer from './household/householdReducer';
 import { MemberAction } from './member/memberActions';
