@@ -17,7 +17,7 @@ const rootReducers = combineReducers({
 });
 
 const thunkMiddleware = applyMiddleware<AppThunkDispatch>(thunk);
-const store = createStore(rootReducers, thunkMiddleware);
+export const store = createStore(rootReducers, thunkMiddleware);
 
 type KnownAction = UserAction | MemberAction | HouseholdAction;
 export type AppThunkDispatch = ThunkDispatch<
@@ -26,7 +26,7 @@ export type AppThunkDispatch = ThunkDispatch<
     KnownAction
 >
 
-export type AppThunk<ReturnType = void> = ThunkAction<
+export type AppThunk<ReturnType = Promise<boolean>> = ThunkAction<
     ReturnType,
     RootState,
     unknown,
