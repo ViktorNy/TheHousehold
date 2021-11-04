@@ -33,7 +33,7 @@ export const loginUser =
         try {
             // eslint-disable-next-line no-undef
             const db = firebaseInit();
-            const docRef = await getDocs(collection(db, 'user'));
+            const docRef = await getDocs(collection(db, 'users'));
             let user: User | undefined;
             docRef.forEach((doc) => {
                 const fetchUser = doc.data() as User;
@@ -66,7 +66,7 @@ export const createUser =
                 id: uuid.v4().toString()
             };
             const db = firebaseInit();
-            await addDoc(collection(db, 'user'), {
+            await addDoc(collection(db, 'users'), {
                 username: user.username,
                 email: user.email,
                 password: user.password,
