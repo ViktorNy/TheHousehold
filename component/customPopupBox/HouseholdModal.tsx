@@ -35,6 +35,7 @@ export default function HouseholdModal({ memberId, modalCase, isShowing, toggleM
                 animationIn="fadeIn"
                 backdropColor="#181818"
                 coverScreen={true}
+                avoidKeyboard={true}
                 deviceHeight={10000}
                 isVisible={isShowing}
                 statusBarTranslucent={true}
