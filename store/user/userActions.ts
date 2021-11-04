@@ -1,8 +1,13 @@
 import { User } from '../../data/data';
 
 export interface CreateUserAction {
-    type: 'CREATE';
-    payload: User;
+    type: 'CREATE_USER';
+    payload: {
+        id: string;
+        username: string;
+        email: string;
+        password: string;
+    };
 }
 
 export interface EditUserAction {
@@ -15,8 +20,8 @@ export interface SetUserAction {
     payload: string;
 }
 export interface ChangeAppearanceAction {
-    type: 'CHANGE_APPEARANCE',
-    payload: string
+    type: 'CHANGE_APPEARANCE';
+    payload: string;
 }
 
-export type UserAction = CreateUserAction | EditUserAction | SetUserAction | ChangeAppearanceAction;
+export type UserAction = CreateUserAction | EditUserAction | SetUserAction | ChangeAppearanceAction | CreateUserAction;

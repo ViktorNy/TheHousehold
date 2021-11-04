@@ -99,7 +99,7 @@ export default function HamburgerMenu({
                                 rootStackProps.navigation.navigate('PieChart');
                             }}
                         >
-                            <Text style={[styles.modalText, { color: colors.text }]}>Visa statestik</Text>
+                            <Text style={[styles.modalText, { color: colors.text }]}>Visa statistik</Text>
                         </TouchableOpacity>
 
                         <Text style={[styles.modalText, { color: colors.text }]}>Lämna hushållet</Text>

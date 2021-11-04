@@ -23,6 +23,7 @@ declare global {
             appearanceButtonText: string;
             appearanceSwithContainer: string;
             notSelectedAppearance: string;
+            textFieldBackground: string;
         }
     }
 }
@@ -43,7 +44,8 @@ const CustomDefaultTheme = {
         appearanceSwitchButton: 'rgb(210, 210, 210)',
         appearanceButtonText: 'rgb(0, 0, 0)',
         appearanceSwithContainer: 'rgb(150, 150, 150)',
-        notSelectedAppearance: 'rgb(150, 150, 150)'
+        notSelectedAppearance: 'rgb(150, 150, 150)',
+        textFieldBackground: 'rgb(210, 210, 210)'
     }
 };
 
@@ -64,7 +66,8 @@ const CustomDarkTheme = {
         appearanceSwitchButton: 'rgb(40, 40, 40)',
         appearanceButtonText: 'rgb(210, 210, 210)',
         appearanceSwithContainer: 'rgb(0, 0, 0)',
-        notSelectedAppearance: 'rgb(0, 0, 0)'
+        notSelectedAppearance: 'rgb(0, 0, 0)',
+        textFieldBackground: 'rgb(100, 100, 100)'
     }
 };
 
