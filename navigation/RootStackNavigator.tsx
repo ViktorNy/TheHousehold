@@ -1,13 +1,12 @@
-import { DarkTheme, DefaultTheme, ParamListBase } from '@react-navigation/native';
+import { ParamListBase } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { useColorScheme } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import ChoreDetailScreen from '../screens/ChoreDetailScreen';
-import DistributeChoreScreen from '../screens/DistributeChoreScreen';
-import LoginScreen from '../screens/start/LoginScreen';
 import MemberDetailScreen from '../screens/MemberDetailScreen';
 import MemberScreen from '../screens/MemberScreen';
 import NoHouseholdScreen from '../screens/NoHouseholdScreen';
+import LoginScreen from '../screens/start/LoginScreen';
 import RegisterScreen from '../screens/start/RegisterScreen';
 import StartScreen from '../screens/start/StartScreen';
 import ChoresTabNavigator from './ChoresTabNavigator';
@@ -30,7 +29,7 @@ export interface RootStackParamList extends ParamListBase {
     ChoreDetail: { choreId: string; householdId: string };
     Member: { householdId: string };
     HouseholdChores: { householdId: string };
-    MemeberDetailScreen: { memberId: string };
+    MemberDetailScreen: { memberId: string };
     PieChart: { screen: string; params: { householdId?: string; memberId?: string } };
 }
 
@@ -39,29 +38,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList = strin
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStackNavigator() {
-    const colorScheme = useColorScheme();
-
-    const DefaultCustomTheme = {
-        ...DefaultTheme,
-        colors: {
-            ...DefaultTheme.colors,
-            primary: 'rgb(255, 255, 255)',
-            notification: 'rgb(100, 100, 100)'
-        }
-    };
-
-    const DarkCustomTheme = {
-        ...DarkTheme,
-        colors: {
-            ...DarkTheme.colors,
-            primary: 'rgb(50, 50, 50)',
-            notification: 'rgb(200, 200, 200)',
-            background: 'rgb(0, 0, 0)'
-        }
-    };
-
-    const theme = colorScheme === 'dark' ? DarkCustomTheme : DefaultCustomTheme;
-    const colors = theme.colors;
+    const { colors } = useTheme();
 
     return (
         <Stack.Navigator>
@@ -94,7 +71,6 @@ function RootStackNavigator() {
                 }}
             />
             <Stack.Screen name="Household" options={{ headerShown: false }} component={ChoresTabNavigator} />
-            <Stack.Screen name="DistributeChore" component={DistributeChoreScreen} />
             <Stack.Screen name="ChoreDetail" component={ChoreDetailScreen} />
             <Stack.Screen
                 name="Member"
@@ -103,8 +79,10 @@ function RootStackNavigator() {
                     headerTitle: 'Medlemmar'
                 }}
             />
-            <Stack.Screen name="HouseholdChores" component={HouseholdChoresTabNavigator} />
-            <Stack.Screen name="MemeberDetailScreen" options={{ headerShown: false }} component={MemberDetailScreen} />
+            <Stack.Screen name="HouseholdChores" component={HouseholdChoresTabNavigator} options={{
+                headerTitle: 'Hushållets sysslor'
+            }} />
+            <Stack.Screen name="MemberDetailScreen" options={{ headerShown: false }} component={MemberDetailScreen} />
             <Stack.Screen name="PieChart" component={PieChartTabNavigator} options={{ headerTitle: 'Statistik' }} />
         </Stack.Navigator>
     );

@@ -95,7 +95,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
                     <View style={[styles.circle]}>
                         {visitMember.member && <Avatar avatarId={visitMember.member.avatar} showCircle={true} avatarSize={22} />}
                     </View>
-                    <Text style={{ color: colors.text }}>{visitMember.member?.memberType}</Text>
+                    <Text style={{ color: colors.text }}>{(visitMember?.member?.memberType === 'owner') ? 'Ägare' : 'Medlem'}</Text>
                 </View>
             );
         } else if (household) {
@@ -111,7 +111,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
                         {userInformation?.member && <Avatar avatarId={userInformation.member.avatar} showCircle={true} avatarSize={22} />}
                     </View>
                     <Text style={{ color: colors.text }}>{userInformation?.member?.memberName}</Text>
-                    <Text style={{ color: colors.text }}>{userInformation?.member?.memberType}</Text>
+                    <Text style={{ color: colors.text }}>{(userInformation?.member?.memberType === 'owner') ? 'Ägare' : 'Medlem'}</Text>
                 </View>
             );
         } else {

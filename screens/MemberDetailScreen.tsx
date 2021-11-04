@@ -1,13 +1,12 @@
 import { useTheme } from '@react-navigation/native';
 import React from 'react';
-import { Text, View, StyleSheet, FlatList } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { ProfileHeader } from '../component/ProfileHeader';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
-import { useAppSelector } from '../store/store';
 import { getMemberByIdSelector } from '../store/member/memberSelector';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useAppSelector } from '../store/store';
 
-export default function MemberDetailScreen({ route, navigation }: RootStackScreenProps<'MemeberDetailScreen'>) {
+export default function MemberDetailScreen({ route, navigation }: RootStackScreenProps<'MemberDetailScreen'>) {
     const memberData = useAppSelector((state) => getMemberByIdSelector(state, route.params.memberId));
     const householdData = useAppSelector((state) => state.household.householdList.find((h) => h.id === memberData?.householdId));
     const { colors } = useTheme();
@@ -33,13 +32,13 @@ export default function MemberDetailScreen({ route, navigation }: RootStackScree
                 <Text style={[styles.headline, { color: colors.text }]}>{currentHousehold?.name}</Text>
                 <Text style={[{ color: colors.text }]}>Medlem: {memberData?.memberName}</Text>
                 <Text style={[{ color: colors.text }]}>Medlem sedan: {memberData?.joinData}</Text>
-                <Text style={[{ color: colors.text }]}>Medlemstyp: {memberData?.memberType}</Text>
+                <Text style={[{ color: colors.text }]}>Medlemstyp: {(memberData?.memberType === 'owner') ? 'Ägare' : 'Medlem'}</Text>
                 <Text style={[styles.headline, { color: colors.text }]}>Utförda sysslor:</Text>
                 <FlatList
                     data={choresDone}
                     renderItem={({ item, index }) => (
                         <Text key={index} style={[{ color: colors.text }]}>
-                            {item.date} | {item.score} | {item.name}
+                            {item.date} | Poäng: {item.score} | {item.name}
                         </Text>
                     )}
                 />

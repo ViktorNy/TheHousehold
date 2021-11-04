@@ -16,7 +16,7 @@ export default function StartScreen({ navigation }: RootStackScreenProps<'Start'
             <Text style={[styles.pitchText, { color: colors.text }]}>
                 Få koll på era sysslor, fördela och engagera. Att glömma bort blir nu ett minne blott!
             </Text>
-            <Image style={styles.imageStyle} source={require('../assets/ladyontrashcan.png')} />
+            <Image style={styles.imageStyle} source={require('../../assets/ladyontrashcan.png')} />
             <View style={styles.viewStyle}>
                 <CustomNavigateButton buttonText="Logga in" goto={() => navigation.navigate('Login')} />
                 <Text style={[styles.notMemberText, { color: colors.text }]}>Är du inte medlem?</Text>
