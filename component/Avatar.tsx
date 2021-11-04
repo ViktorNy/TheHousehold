@@ -16,7 +16,7 @@ export default function Avatar({ avatarId, showCircle, avatarSize }: Props) {
     if (showCircle) {
         return (
             <View style={[styles.avatarPosition, styles.root, { backgroundColor: avatar?.backgroundColor }]}>
-                <Text style={[{ fontSize: 32 }]}>{avatar?.avatar}</Text>
+                <Text style={[{ fontSize: avatarSize }]}>{avatar?.avatar}</Text>
             </View>
         );
     } else {
@@ -26,8 +26,8 @@ export default function Avatar({ avatarId, showCircle, avatarSize }: Props) {
 
 const styles = StyleSheet.create({
     root: {
-        height: 50,
-        width: 50,
+        height: 40,
+        width: 40,
         borderRadius: 100
     },
     avatarPosition: {

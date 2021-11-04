@@ -93,7 +93,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
             return (
                 <View style={styles.user}>
                     <View style={[styles.circle]}>
-                        {visitMember.member && <Avatar avatarId={visitMember.member.avatar} showCircle={true} avatarSize={14} />}
+                        {visitMember.member && <Avatar avatarId={visitMember.member.avatar} showCircle={true} avatarSize={22} />}
                     </View>
                     <Text style={{ color: colors.text }}>{visitMember.member?.memberType}</Text>
                 </View>
@@ -108,7 +108,7 @@ export function ProfileHeader({ household, userInformation, visitMember, openMai
             return (
                 <View style={styles.user}>
                     <View style={[styles.circle]}>
-                        {userInformation?.member && <Avatar avatarId={userInformation.member.avatar} showCircle={true} avatarSize={14} />}
+                        {userInformation?.member && <Avatar avatarId={userInformation.member.avatar} showCircle={true} avatarSize={22} />}
                     </View>
                     <Text style={{ color: colors.text }}>{userInformation?.member?.memberName}</Text>
                     <Text style={{ color: colors.text }}>{userInformation?.member?.memberType}</Text>
