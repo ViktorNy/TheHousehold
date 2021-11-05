@@ -122,7 +122,9 @@ export default function HouseholdModal({ memberId, modalCase, isShowing, toggleM
                                             }
                                             break;
                                         case 'JH':
-                                            if (userInput) {
+                                            if (fieldsAreEmpty()) {
+                                                Alert.alert('Fyll i båda fälten och försök igen!');
+                                            } else {
                                                 const householdToJoin = deepcopy(allHouseHolds.find((h) => h.codeToJoin === userInput));
                                                 if (householdToJoin) {
                                                     dispatch({
@@ -139,6 +141,8 @@ export default function HouseholdModal({ memberId, modalCase, isShowing, toggleM
                                                         payload: householdToJoin.id
                                                     });
                                                     navigationTo!();
+                                                } else {
+                                                    Alert.alert('Hushållet du försökte gå med i hittades tyvärr inte. Försök igen!');
                                                 }
                                             }
                                             break;
