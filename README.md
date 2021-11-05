@@ -14,7 +14,7 @@ users and their respective completed chores.
 
 ```npm start``` <-- starts application
 
-### fungerande login (små bokstäver):
+### Fungerande login (små bokstäver):
 **användarnamn**: sven  
 **lösenord**: s
 
