@@ -15,14 +15,21 @@ users and their respective completed chores.
 ```npm start``` <-- starts application
 
 ### fungerande login (små bokstäver):
-användarnamn: sven
-lösenord: s
+**användarnamn**: sven  
+**lösenord**: s
 
-användarnamn: johan  
-lösenord: j
+**användarnamn**: johan  
+**lösenord**: j
 
-användarnamn: peder  
-lösenord: p
+**användarnamn**: peder  
+**lösenord**: p  
+
+**Fungerande hushållskoder**:  
+123  
+444  
+112358
+
+**NOTISER** - För tillfället går det att registrera en ny användare, det går däremot inte att logga in som denna användaren om man loggar ut. Vi vill också notera att vi enbart utvecklat mot Android. 
 
 ## <p align = "center">Komponenter</p> 
 
