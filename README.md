@@ -14,6 +14,16 @@ users and their respective completed chores.
 
 ```npm start``` <-- starts application
 
+### fungerande login (små bokstäver):
+användarnamn: sven
+lösenord: s
+
+användarnamn: johan
+lösenord: j
+
+användarnamn: peder
+lösenord: p
+
 ## <p align = "center">Komponenter</p> 
 
 # Kravlista
