@@ -4,9 +4,16 @@ import { CustomNavigateButton } from '../component/CustomNavigateButton';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 import { getMembersOfHouseholdSelector } from '../store/member/memberSelector';
 import { useAppSelector } from '../store/store';
+import deepcopy from 'ts-deepcopy';
 
 export default function MemberScreen({ navigation, route }: RootStackScreenProps<'Member'>) {
-    const memberList = useAppSelector((state) => getMembersOfHouseholdSelector(state, route.params.householdId));
+    const memberList = deepcopy(useAppSelector((state) => getMembersOfHouseholdSelector(state, route.params.householdId)));
+
+    const user = useAppSelector(state => state.user.user);
+
+    const indexOfUser = memberList.findIndex((u) => u.userId === user!.id);
+
+    memberList.splice(indexOfUser, 1);
 
     return (
         <View style={styles.root}>
