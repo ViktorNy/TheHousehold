@@ -18,10 +18,10 @@ users and their respective completed chores.
 användarnamn: sven
 lösenord: s
 
-användarnamn: johan
+användarnamn: johan  
 lösenord: j
 
-användarnamn: peder
+användarnamn: peder  
 lösenord: p
 
 ## <p align = "center">Komponenter</p> 
