@@ -1,6 +1,6 @@
 import { AntDesign } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import { Pressable, ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Pressable, ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { Text, useTheme } from 'react-native-paper';
 import { Chore, ChoreScore } from '../../data/data';
@@ -21,7 +21,7 @@ export function CreateChoreModal({ modalCase, isShowing, toggleModal, chore }: P
     const currentHousehold = useAppSelector((state) => state.household.householdList.find((h) => h.id === state.household.currentHouseholdId));
     const [userSecondaryInput, onUserSecondaryInputChange] = useState('');
     const [recurringPressed, onRecurringPressedChange] = useState(false);
-    const [chosenDay, setChosenDay] = useState(Number);
+    const [chosenDay, setChosenDay] = useState(1);
     const [valuePressed, onValuePressedChange] = useState(false);
     const layoutChoices = LayoutChoice(modalCase);
     const { colors } = useTheme();
@@ -34,6 +34,14 @@ export function CreateChoreModal({ modalCase, isShowing, toggleModal, chore }: P
     const [choreDesc, onChoreDescChange] = useState(chore?.description);
     const [choreDays, setChosenChoreDay] = useState(chore?.frequency);
     const [choreValue, setChosenChoreValue] = useState(chore?.score);
+
+    const fieldsAreEmpty = () => {
+        if (!userInput || !userSecondaryInput) {
+            return true;
+        } else {
+            return false;
+        }
+    };
 
     return (
         <View>
@@ -222,18 +230,22 @@ export function CreateChoreModal({ modalCase, isShowing, toggleModal, chore }: P
                                             }
                                         });
                                     } else {
-                                        dispatch({
-                                            type: 'CREATE_CHORE_IN_HOUSEHOLD',
-                                            payload: {
-                                                chore: {
-                                                    name: userInput,
-                                                    description: userSecondaryInput,
-                                                    frequency: chosenDay,
-                                                    score: chosenValue
-                                                },
-                                                householdId: currentHousehold!.id
-                                            }
-                                        });
+                                        if (fieldsAreEmpty()) {
+                                            Alert.alert('Några fält verkar vara tomma. Försök på nytt!');
+                                        } else {
+                                            dispatch({
+                                                type: 'CREATE_CHORE_IN_HOUSEHOLD',
+                                                payload: {
+                                                    chore: {
+                                                        name: userInput,
+                                                        description: userSecondaryInput,
+                                                        frequency: chosenDay,
+                                                        score: chosenValue
+                                                    },
+                                                    householdId: currentHousehold!.id
+                                                }
+                                            });
+                                        }
                                     }
                                 }}
                             >
