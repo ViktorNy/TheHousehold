@@ -4,18 +4,18 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Avatar from './Avatar';
 
 interface Props {
-    goto: () => void;
+    action: () => void;
     buttonText?: string;
     singleAvatarId?: string;
 }
 
-export function CustomNavigateButton({ goto, buttonText, singleAvatarId }: Props) {
+export function CustomActionButton({ action, buttonText, singleAvatarId }: Props) {
     const { colors } = useTheme();
     if (singleAvatarId) {
         return (
             <TouchableOpacity
                 style={[styles.rootAvatar, { backgroundColor: colors.primary }, { borderColor: colors.border }, { borderWidth: 1 }]}
-                onPress={goto}
+                onPress={action}
             >
                 <Avatar avatarId={singleAvatarId} showCircle={true} avatarSize={22} />
                 <Text style={[styles.textpadding, { color: colors.text }]}>{buttonText}</Text>
@@ -25,7 +25,7 @@ export function CustomNavigateButton({ goto, buttonText, singleAvatarId }: Props
         return (
             <TouchableOpacity
                 style={[styles.root, { backgroundColor: colors.primary }, { borderColor: colors.border }, { borderWidth: 1 }]}
-                onPress={goto}
+                onPress={action}
             >
                 <Text style={[styles.buttonText, { color: colors.text }]}>{buttonText}</Text>
             </TouchableOpacity>

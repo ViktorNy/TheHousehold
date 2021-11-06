@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { CustomNavigateButton } from '../component/CustomNavigateButton';
+import { CustomActionButton } from '../component/CustomNavigateButton';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 import { getMembersOfHouseholdSelector } from '../store/member/memberSelector';
 import { useAppSelector } from '../store/store';
@@ -21,10 +21,10 @@ export default function MemberScreen({ navigation, route }: RootStackScreenProps
                 ({ item }) => {
                     return (
                         <View style={styles.memberContainer}>
-                            <CustomNavigateButton
+                            <CustomActionButton
                                 buttonText={item.memberName}
                                 singleAvatarId={item.avatar}
-                                goto={
+                                action={
                                     () => navigation.navigate('MemberDetailScreen', { memberId: item.id })
                                 }
                             />
