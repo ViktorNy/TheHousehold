@@ -75,30 +75,37 @@ export default function RenderChores({ navigation, userHousehold, currentHouseho
             <View>
                 <FlatList
                     data={userHousehold}
-                    renderItem={({ item }) => (
-                        <View>
-                            <Text style={[styles.householdNameStyle, { color: colors.text }]}>{item.name}</Text>
+                    renderItem={({ item }) => {
+                        const currentMember = members.find(m => m.userId === user.id && m.householdId === item.id);
+                        if (currentMember?.memberType !== 'pending') {
+                            return (
+                                <View>
+                                    <Text style={[styles.householdNameStyle, { color: colors.text }]}>{item.name}</Text>
 
-                            {item.chores.map((chore) => {
-                                if (displayChore(label, chore)) {
-                                    return (
-                                        <ChoreButton
-                                            key={chore.id}
-                                            chore={chore}
-                                            avatarIdList={getAvatarIdList(chore)}
-                                            goto={() => {
-                                                // todo: refactor/improve types issue #91
-                                                (navigation.navigation as any).navigate('ChoreDetail', {
-                                                    choreId: chore.id,
-                                                    householdId: item.id
-                                                });
-                                            }}
-                                        />
-                                    );
-                                } else return null;
-                            })}
-                        </View>
-                    )}
+                                    {item.chores.map((chore) => {
+                                        if (displayChore(label, chore)) {
+                                            return (
+                                                <ChoreButton
+                                                    key={chore.id}
+                                                    chore={chore}
+                                                    avatarIdList={getAvatarIdList(chore)}
+                                                    goto={() => {
+                                                        // todo: refactor/improve types issue #91
+                                                        (navigation.navigation as any).navigate('ChoreDetail', {
+                                                            choreId: chore.id,
+                                                            householdId: item.id
+                                                        });
+                                                    }}
+                                                />
+                                            );
+                                        } else return null;
+                                    })}
+                                </View>
+                            );
+                        } else {
+                            return (null);
+                        }
+                    }}
                 />
             </View>
         );

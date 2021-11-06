@@ -19,17 +19,21 @@ export default function MemberScreen({ navigation, route }: RootStackScreenProps
         <View style={styles.root}>
             <FlatList data={memberList} renderItem={
                 ({ item }) => {
-                    return (
-                        <View style={styles.memberContainer}>
-                            <CustomNavigateButton
-                                buttonText={item.memberName}
-                                singleAvatarId={item.avatar}
-                                goto={
-                                    () => navigation.navigate('MemberDetailScreen', { memberId: item.id })
-                                }
-                            />
-                        </View>
-                    );
+                    if (item.memberType !== 'pending') {
+                        return (
+                            <View style={styles.memberContainer}>
+                                <CustomNavigateButton
+                                    buttonText={item.memberName}
+                                    singleAvatarId={item.avatar}
+                                    goto={
+                                        () => navigation.navigate('MemberDetailScreen', { memberId: item.id })
+                                    }
+                                />
+                            </View>
+                        );
+                    } else {
+                        return (null);
+                    }
                 }
             } />
         </View>

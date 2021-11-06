@@ -36,6 +36,12 @@ export default function HamburgerMenu({
         dispatch({ type: 'SETHOUSEHOLD', payload: '' });
     };
 
+    const membersInHousehold = useAppSelector(state =>
+        state.member.memberList.filter(m =>
+            m.householdId === currentHousehold?.id))!;
+
+    const requestItemDissabled = (membersInHousehold.findIndex(m => m.memberType === 'pending') !== -1);
+
     if (currentHousehold) {
         return (
             <Modal
@@ -101,6 +107,7 @@ export default function HamburgerMenu({
                         >
                             <Text style={[styles.modalText, { color: colors.text }]}>Visa statistik</Text>
                         </TouchableOpacity>
+
                         {currentMember?.memberType === 'member' && (
                             <TouchableOpacity
                                 onPress={() => {
@@ -112,6 +119,18 @@ export default function HamburgerMenu({
                                 <Text style={[styles.modalText, { color: colors.text }]}>Lämna hushållet</Text>
                             </TouchableOpacity>
                         )}
+
+                        {(currentMember?.memberType === 'owner' && requestItemDissabled) &&
+                            (
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        toggleIsShowing(!isShowingMenu);
+                                        toggleExternalModal(true, 'AR');
+                                    }}
+                                >
+                                    <Text style={[styles.modalText, { color: 'red' }]}>Visa förfrågningar</Text>
+                                </TouchableOpacity>
+                            )}
 
                         <TouchableOpacity
                             onPress={() => {

@@ -13,7 +13,7 @@ export interface Household {
     chores: Chore[],
 }
 
-export type MemberType = 'member' | 'owner';
+export type MemberType = 'member' | 'owner' | 'pending';
 
 export interface Member {
     id: string,
