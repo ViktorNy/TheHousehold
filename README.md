@@ -129,8 +129,8 @@ godkänna användaren.
 
 ### Krav för VG
 
-- [ ] Det ska finnas en statistikvy över ”förra vecka”.
-- [ ] Det ska finnas en statistikvy över ”förra månaden”. 
+- [x] Det ska finnas en statistikvy över ”förra vecka”.
+- [x] Det ska finnas en statistikvy över ”förra månaden”. 
 - [ ] Om det inte finns statistik för en av vyerna ska den vyn inte visas.
 
 # Schemaläggning (3)

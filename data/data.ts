@@ -134,7 +134,7 @@ export const mockedHouseholdData: Household[] = [
                 name: 'Städa',
                 description: 'Copy pasta lorem ipsum städa då snälla hjälp mig',
                 frequency: 3,
-                score: 4,
+                score: 2,
                 signedToUserId: ['1', '2'],
                 createdDate: '2021-10-01',
                 lastDone: '2021-11-04',
@@ -142,17 +142,17 @@ export const mockedHouseholdData: Household[] = [
                     {
                         choreId: '1',
                         memberId: '1',
-                        date: '2021-11-01',
+                        date: '2021-10-30',
                         score: 4
                     }, {
                         choreId: '1',
                         memberId: '1',
-                        date: '2021-09-31',
+                        date: '2021-10-31',
                         score: 4
                     }, {
                         choreId: '1',
                         memberId: '2',
-                        date: '2021-09-26',
+                        date: '2021-10-26',
                         score: 4
                     },
                     {
@@ -201,7 +201,7 @@ export const mockedHouseholdData: Household[] = [
                     {
                         choreId: '1',
                         memberId: '2',
-                        date: '2021-10-12',
+                        date: '2021-10-24',
                         score: 4
                     }, {
                         choreId: '1',
@@ -211,7 +211,7 @@ export const mockedHouseholdData: Household[] = [
                     }, {
                         choreId: '1',
                         memberId: '1',
-                        date: '2021-11-15',
+                        date: '2021-11-01',
                         score: 4
                     }]
             }]
