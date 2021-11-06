@@ -3,7 +3,6 @@ import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { CustomActionButton } from '../component/CustomNavigateButton';
 import { ProfileHeader } from '../component/ProfileHeader';
-import { MemberType } from '../data/data';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 import { getMemberByIdSelector } from '../store/member/memberSelector';
 import { useAppDispatch, useAppSelector } from '../store/store';
@@ -72,4 +71,3 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     }
 });
-
