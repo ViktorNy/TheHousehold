@@ -2,6 +2,7 @@ import { createMaterialTopTabNavigator, MaterialTopTabScreenProps } from '@react
 import React from 'react';
 import PieChartAllScreen from '../screens/pieChart/PieChartAllScreen';
 import PieChartMonthScreen from '../screens/pieChart/PieChartMonthScreen';
+import PieChartPrevMonthScreen from '../screens/pieChart/PieChartPrevMonth';
 import PieChartTodayScreen from '../screens/pieChart/PieChartTodayScreen';
 import PieChartWeekScreen from '../screens/pieChart/PieChartWeekScreen';
 import TabDateHeader from './TabDateHeader';
@@ -23,7 +24,7 @@ function PieChartTabNavigator() {
             <Tab.Screen name="PieAll" component={PieChartAllScreen} options={{ title: 'Alla' }} />
             <Tab.Screen name="PieToday" component={PieChartTodayScreen} options={{ title: 'Idag' }} />
             <Tab.Screen name="PieWeek" component={PieChartWeekScreen} options={{ title: 'Denna veckan' }} />
-            <Tab.Screen name="PieMonth" component={PieChartMonthScreen} options={{ title: 'Denna månad' }} />
+            <Tab.Screen name="PieMonth" component={PieChartPrevMonthScreen} options={{ title: 'Denna månad' }} />
         </Tab.Navigator>
     );
 }
