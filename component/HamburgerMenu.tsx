@@ -101,6 +101,17 @@ export default function HamburgerMenu({
                         >
                             <Text style={[styles.modalText, { color: colors.text }]}>Visa statistik</Text>
                         </TouchableOpacity>
+                        {currentMember?.memberType === 'member' && (
+                            <TouchableOpacity
+                                onPress={() => {
+                                    toggleIsShowing(!isShowingMenu);
+                                    unselectCurrentHousehold();
+                                    dispatch({ type: 'REMOVE_MEMBER', payload: currentMember.id });
+                                }}
+                            >
+                                <Text style={[styles.modalText, { color: colors.text }]}>Lämna hushållet</Text>
+                            </TouchableOpacity>
+                        )}
 
                         <TouchableOpacity
                             onPress={() => {

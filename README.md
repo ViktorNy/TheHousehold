@@ -84,7 +84,7 @@ godkänna användaren.
 
 ### Krav för VG
 
-- [ ] En användare ska kunna lämna ett hushåll.
+- [x] En användare ska kunna lämna ett hushåll. (ägare kan inte lämna hushållet, då vi inte vill göra hushåll ägarlösa)
 
 # Profil (6)
 
