@@ -10,9 +10,9 @@ import deepcopy from 'ts-deepcopy';
 
 export default function MemberDetailScreen({ route, navigation }: RootStackScreenProps<'MemberDetailScreen'>) {
     const memberData = useAppSelector((state) => getMemberByIdSelector(state, route.params.memberId));
-    const userMemberType = useAppSelector((state) => state.member.memberList.find(m => m.userId === state.user.user?.id))?.memberType;
     const householdData = useAppSelector((state) => state.household.householdList.find((h) => h.id === memberData?.householdId));
     const currentHousehold = useAppSelector((state) => state.household.householdList.find((h) => h.id === state.household.currentHouseholdId));
+    const userMemberType = useAppSelector((state) => state.member.memberList.find(m => m.userId === state.user.user?.id && m.householdId === currentHousehold?.id))?.memberType;
     const dispatch = useAppDispatch();
     const { colors } = useTheme();
 
