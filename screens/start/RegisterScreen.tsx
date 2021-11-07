@@ -46,9 +46,11 @@ export default function RegisterScreen({ navigation }: RootStackScreenProps<'Reg
                 <CustomActionButton
                     buttonText="Spara"
                     action={() => {
-                        dispatch(createUser(userName, userEmail, userPassword)).then((isSuccessfull) => {
-                            isSuccessfull ? navigation.navigate('Household') : Alert.alert('Ajdå, något gick fel', 'Kunde inte komma åt API');
-                        });
+                        dispatch(createUser(userName, userEmail, userPassword))
+                            .then((isSuccessfull) => {
+                                isSuccessfull ? navigation.navigate('NoHousehold') : Alert.alert('Ajdå, något gick fel', 'Kunde inte komma åt API');
+                            })
+                            .catch(() => Alert.alert('Ajdå, något gick fel', 'Kunde inte komma åt API'));
                     }}
                 />
             </View>
