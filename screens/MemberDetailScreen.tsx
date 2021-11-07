@@ -1,7 +1,7 @@
 import { useTheme } from '@react-navigation/native';
 import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { CustomActionButton } from '../component/CustomNavigateButton';
+import { CustomActionButton } from '../component/CustomActionButton';
 import { ProfileHeader } from '../component/ProfileHeader';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 import { getMemberByIdSelector } from '../store/member/memberSelector';

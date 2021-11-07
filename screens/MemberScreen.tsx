@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { CustomActionButton } from '../component/CustomNavigateButton';
+import { CustomActionButton } from '../component/CustomActionButton';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 import { getMembersOfHouseholdSelector } from '../store/member/memberSelector';
 import { useAppSelector } from '../store/store';
@@ -19,17 +19,21 @@ export default function MemberScreen({ navigation, route }: RootStackScreenProps
         <View style={styles.root}>
             <FlatList data={memberList} renderItem={
                 ({ item }) => {
-                    return (
-                        <View style={styles.memberContainer}>
-                            <CustomActionButton
-                                buttonText={item.memberName}
-                                singleAvatarId={item.avatar}
-                                action={
-                                    () => navigation.navigate('MemberDetailScreen', { memberId: item.id })
-                                }
-                            />
-                        </View>
-                    );
+                    if (item.memberType !== 'pending') {
+                        return (
+                            <View style={styles.memberContainer}>
+                                <CustomActionButton
+                                    buttonText={item.memberName}
+                                    singleAvatarId={item.avatar}
+                                    action={
+                                        () => navigation.navigate('MemberDetailScreen', { memberId: item.id })
+                                    }
+                                />
+                            </View>
+                        );
+                    } else {
+                        return (null);
+                    }
                 }
             } />
         </View>

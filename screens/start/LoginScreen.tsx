@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { CustomActionButton } from '../../component/CustomNavigateButton';
+import { CustomActionButton } from '../../component/CustomActionButton';
 import { mockedUserData } from '../../data/data';
 import { RootStackScreenProps } from '../../navigation/RootStackNavigator';
 import { useAppDispatch } from '../../store/store';

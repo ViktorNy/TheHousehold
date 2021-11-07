@@ -5,13 +5,12 @@ import { Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native
 import Modal from 'react-native-modal';
 import { useTheme } from 'react-native-paper';
 import deepcopy from 'ts-deepcopy';
-import { Member, avatarData, User } from '../../data/data';
+import { avatarData, Member } from '../../data/data';
 import { getMemberByIdSelector, getMembersOfHouseholdSelector } from '../../store/member/memberSelector';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { modalStyles } from '../../style/modalStyle';
 import Avatar from '../Avatar';
 import { LayoutChoice } from './popupLayoutChoice';
-import uuid from 'react-native-uuid';
 
 interface Props {
     memberId?: string;
@@ -21,8 +20,6 @@ interface Props {
 }
 
 export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: Props) {
-    const user = useAppSelector((state) => state.user.user) as User;
-    const allHouseHolds = useAppSelector((state) => state.household.householdList);
     const currentHousehold = useAppSelector((state) => state.household.householdList.find((h) => h.id === state.household.currentHouseholdId));
     const [userInput, onUserInputChange] = useState('');
     const layoutChoices = LayoutChoice(modalCase, memberId);
@@ -148,23 +145,6 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                                     onPress={() => {
                                         toggleModal(false);
                                         switch (modalCase) {
-                                            case 'CH':
-                                                // eslint-disable-next-line no-case-declarations
-                                                const newHouseholdId = uuid.v4().toString();
-                                                dispatch({
-                                                    type: 'CREATE_HOUSEHOLD',
-                                                    payload: { householdName: userInput, householdId: newHouseholdId }
-                                                });
-                                                dispatch({
-                                                    type: 'CREATE_MEMBER',
-                                                    payload: {
-                                                        householdId: newHouseholdId,
-                                                        memberName: user.username,
-                                                        userId: user.id,
-                                                        memberType: 'owner'
-                                                    }
-                                                });
-                                                break;
                                             case 'CHN':
                                                 if (userInput && currentHousehold) {
                                                     const newHousehold = deepcopy(currentHousehold);
@@ -172,19 +152,12 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                                                     dispatch({ type: 'EDIT_HOUSEHOLD', payload: newHousehold });
                                                 }
                                                 break;
-                                            case 'JH':
-                                                if (userInput) {
-                                                    const householdToJoid = deepcopy(allHouseHolds.find((h) => h.codeToJoin === userInput));
-                                                    if (householdToJoid) {
-                                                        dispatch({
-                                                            type: 'CREATE_MEMBER',
-                                                            payload: {
-                                                                householdId: householdToJoid.id,
-                                                                memberName: user.username,
-                                                                userId: user.id,
-                                                                memberType: 'member'
-                                                            }
-                                                        });
+                                            case 'AR':
+                                                if (currentHousehold) {
+                                                    const acceptedMember = deepcopy(allMembersOfCurrentHousehold.find(m => m.memberType === 'pending'));
+                                                    if (acceptedMember) {
+                                                        acceptedMember.memberType = 'member';
+                                                        dispatch({ type: 'EDIT_MEMBER', payload: acceptedMember });
                                                     }
                                                 }
                                                 break;
@@ -204,7 +177,22 @@ export function CustomPopupBox({ memberId, modalCase, isShowing, toggleModal }: 
                                         { backgroundColor: colors.popupOverlayColor },
                                         modalStyles.centeredView
                                     ]}
-                                    onPress={() => toggleModal(false)}
+                                    onPress={() => {
+                                        toggleModal(false);
+                                        switch (modalCase) {
+                                            case 'CHN':
+                                            case 'AR':
+                                                if (currentHousehold) {
+                                                    const rejectedMember = deepcopy(allMembersOfCurrentHousehold.find(m => m.memberType === 'pending'));
+                                                    if (rejectedMember) {
+                                                        dispatch({ type: 'REMOVE_MEMBER', payload: rejectedMember.id });
+                                                    }
+                                                }
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }}
                                 >
                                     <AntDesign name="closecircleo" size={24} color={iconColor} />
                                     <Text style={[modalStyles.textStyle, { color: colors.text }]}> {layoutChoices.modalRight}</Text>

@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from '@react-navigation/native';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { CustomActionButton } from '../../component/CustomNavigateButton';
+import { CustomActionButton } from '../../component/CustomActionButton';
 import { RootStackScreenProps } from '../../navigation/RootStackNavigator';
 
 export default function StartScreen({ navigation }: RootStackScreenProps<'Start'>) {

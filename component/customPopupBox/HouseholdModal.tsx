@@ -133,12 +133,8 @@ export default function HouseholdModal({ memberId, modalCase, isShowing, toggleM
                                                             householdId: householdToJoin.id,
                                                             memberName: secondaryUserInput,
                                                             userId: user.id,
-                                                            memberType: 'member'
+                                                            memberType: 'pending'
                                                         }
-                                                    });
-                                                    dispatch({
-                                                        type: 'SETHOUSEHOLD',
-                                                        payload: householdToJoin.id
                                                     });
                                                     navigationTo!();
                                                 } else {

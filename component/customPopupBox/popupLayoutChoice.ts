@@ -12,6 +12,7 @@ let createChore = false;
 export function LayoutChoice(modalCase: string, id?: string) {
     const username = useAppSelector((state) => state.member.memberList.find((m) => m.userId === id))?.memberName;
     const currentHousehold = useAppSelector((state) => state.household.householdList.find((h) => h.id === state.household.currentHouseholdId));
+    const pendingMember = useAppSelector((state) => state.member.memberList.find(m => m.memberType === 'pending' && m.householdId === currentHousehold?.id));
 
     // JH = join household
     if (modalCase === 'JH') {
@@ -56,7 +57,7 @@ export function LayoutChoice(modalCase: string, id?: string) {
         modalTitle = 'Besvara förfrågan';
         modalLeft = 'Acceptera';
         modalRight = 'Avslå';
-        modalPlaceholder = username + ' vill gå med';
+        modalPlaceholder = pendingMember?.memberName + ' vill gå med';
         modalInputActive = false;
         avatar = false;
         createChore = false;
