@@ -2,7 +2,7 @@ import { useTheme } from 'react-native-paper';
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { CustomActionButton } from '../../component/CustomNavigateButton';
+import { CustomActionButton } from '../../component/CustomActionButton';
 import { RootStackScreenProps } from '../../navigation/RootStackNavigator';
 import { useAppDispatch } from '../../store/store';
 import uuid from 'react-native-uuid';
