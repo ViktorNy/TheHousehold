@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from '@react-navigation/native';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { CustomNavigateButton } from '../../component/CustomNavigateButton';
+import { CustomActionButton } from '../../component/CustomNavigateButton';
 import { RootStackScreenProps } from '../../navigation/RootStackNavigator';
 
 export default function StartScreen({ navigation }: RootStackScreenProps<'Start'>) {
@@ -18,9 +18,9 @@ export default function StartScreen({ navigation }: RootStackScreenProps<'Start'
             </Text>
             <Image style={styles.imageStyle} source={require('../../assets/ladyontrashcan.png')} />
             <View style={styles.viewStyle}>
-                <CustomNavigateButton buttonText="Logga in" goto={() => navigation.navigate('Login')} />
+                <CustomActionButton buttonText="Logga in" action={() => navigation.navigate('Login')} />
                 <Text style={[styles.notMemberText, { color: colors.text }]}>Är du inte medlem?</Text>
-                <CustomNavigateButton buttonText="Registrera" goto={() => navigation.navigate('Register')} />
+                <CustomActionButton buttonText="Registrera" action={() => navigation.navigate('Register')} />
             </View>
         </SafeAreaView>
     );
