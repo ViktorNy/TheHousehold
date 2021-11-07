@@ -1,27 +1,12 @@
 /* eslint-disable indent */
-import {
-    CreateHouseholdAction,
-    EditHouseholdAction,
-    SetHouseholdAction,
-    EditChoreAction,
-    RemoveChoreAction,
-    CreateChoreAction,
-    EditChoreListAction
-} from './householdActions';
-import { HouseholdState, initialState } from './householdState';
+import moment from 'moment';
+import uuid from 'react-native-uuid';
 import deepcopy from 'ts-deepcopy';
 import { Household } from '../../data/data';
-import uuid from 'react-native-uuid';
-import moment from 'moment';
+import { HouseholdAction } from './householdActions';
+import { HouseholdState, initialState } from './householdState';
 
-type KnownAction =
-    | CreateHouseholdAction
-    | EditHouseholdAction
-    | SetHouseholdAction
-    | EditChoreAction
-    | EditChoreListAction
-    | RemoveChoreAction
-    | CreateChoreAction;
+type KnownAction = HouseholdAction;
 
 function householdReducer(state: HouseholdState = initialState, action: KnownAction): HouseholdState {
     switch (action.type) {
@@ -49,6 +34,7 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
         }
         case 'SETHOUSEHOLD': {
             const householdIndex = state.householdList.findIndex((h) => h.id === action.payload);
+
             if (householdIndex > -1) {
                 return {
                     ...state,
@@ -61,6 +47,7 @@ function householdReducer(state: HouseholdState = initialState, action: KnownAct
                 };
             }
         }
+
         // TODO: Issue #110
         case 'EDIT_CHORELIST_IN_HOUSEHOLD': {
             const allHouseholds = deepcopy(state.householdList);

@@ -41,3 +41,12 @@ export interface EditChoreAction {
         householdId: string;
     };
 }
+
+export type HouseholdAction =
+    | CreateHouseholdAction
+    | EditHouseholdAction
+    | SetHouseholdAction
+    | EditChoreAction
+    | EditChoreListAction
+    | RemoveChoreAction
+    | CreateChoreAction;

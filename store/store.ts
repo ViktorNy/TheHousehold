@@ -1,7 +1,11 @@
-import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux';
-import { combineReducers, createStore } from 'redux';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { HouseholdAction } from './household/householdActions';
 import householdReducer from './household/householdReducer';
+import { MemberAction } from './member/memberActions';
 import memberReducer from './member/memberReducer';
+import { UserAction } from './user/userActions';
 import userReducer from './user/userReducer';
 
 const rootReducers = combineReducers({
@@ -10,7 +14,13 @@ const rootReducers = combineReducers({
     member: memberReducer
 });
 
-export const store = createStore(rootReducers);
+const thunkMiddleware = applyMiddleware<AppThunkDispatch>(thunk);
+export const store = createStore(rootReducers, thunkMiddleware);
+
+type KnownAction = UserAction | MemberAction | HouseholdAction;
+export type AppThunkDispatch = ThunkDispatch<RootState, unknown, KnownAction>;
+
+export type AppThunk<ReturnType = Promise<boolean>> = ThunkAction<ReturnType, RootState, unknown, KnownAction>;
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;

@@ -1,11 +1,11 @@
-import { Member } from '../../data/data';
-import { CreateMemberAction, EditMemberAction, RemoveMemberAction } from './memberActions';
-import { initialState, MemberState } from './memberState';
-import deepcopy from 'ts-deepcopy';
-import uuid from 'react-native-uuid';
 import moment from 'moment';
+import uuid from 'react-native-uuid';
+import deepcopy from 'ts-deepcopy';
+import { Member } from '../../data/data';
+import { MemberAction } from './memberActions';
+import { initialState, MemberState } from './memberState';
 
-type KnownAction = CreateMemberAction | EditMemberAction | RemoveMemberAction;
+type KnownAction = MemberAction;
 
 function memberReducer(state: MemberState = initialState, action: KnownAction): MemberState {
     switch (action.type) {
