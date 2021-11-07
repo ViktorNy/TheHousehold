@@ -29,7 +29,7 @@ users and their respective completed chores.
 444  
 112358
 
-**NOTISER** - För tillfället går det att registrera en ny användare, det går däremot inte att logga in som denna användaren om man loggar ut. Vi vill också notera att vi enbart utvecklat mot Android. 
+**NOTISER** - Vi vill notera att vi enbart utvecklat mot Android. 
 
 ## <p align = "center">Komponenter</p> 
 
@@ -39,9 +39,9 @@ users and their respective completed chores.
 
 # Antal krav: 40.
 
-### G: 24 (60%). (3st)
+### G: 20 (50%).
 
-### VG: 34 (85%). (10st)
+### VG: 32 (80%).
 
 # Kravlista (4)
 
@@ -54,7 +54,7 @@ med produktägare, godkännas och dokumenteras. *
 
 ### Krav för VG
 
-- [ ] All information ska kommuniceras till och från en server. (VG)
+- [x] Information ska kommuniceras till och från en server. (VG)
 
 # Hushåll (7)
 
@@ -140,3 +140,9 @@ godkänna användaren.
 - [ ] En ägare ska kunna tilldela och ta bort sysslor från användare i hushållet.
 - [x] Användare ska kunna se de tilldelade sysslorna i sitt gränssnitt. (syssla kan inte tilldelas men om den är tilldelad så syns det att den är det)
 - [ ] En ägare ska kunna skapa grupper av sysslor som automatiskt tilldelas användarna i hushållet och roteras baserat på ett intervall i dagar. 
+
+# Extra (3)
+
+- [x] Att vi har displayar totalt antal gjorde sysslor/poäng användare har i sina hushåll.
+- [x] Att användare har en egen sida med lite generell information.
+- [x] Att vi kan registrera nya användare.
