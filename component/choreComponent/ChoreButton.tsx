@@ -75,7 +75,7 @@ export function ChoreButton({ goto, chore, avatarIdList, editChore }: Props) {
             } else if (differenceInDays > 0) {
                 return (
                     <View style={[styles.circle, { backgroundColor: colors.passedDueBy }]}>
-                        <Text style={{ color: colors.text }}>{differenceInDays}</Text>
+                        <Text style={{ color: colors.passedDueByText }}>{differenceInDays}</Text>
                     </View>
                 );
             } else if (differenceInDays < 0) {
