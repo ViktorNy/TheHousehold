@@ -45,12 +45,11 @@ function memberReducer(state: MemberState = initialState, action: KnownAction): 
             memberList: nextMemberList
         };
     }
-    case 'REMOVE': {
-        const nextMemberList = [...state.memberList];
-        const chore = action.payload;
+    case 'REMOVE_MEMBER': {
+        const updatedMemberList = deepcopy(state.memberList);
         return {
             ...state,
-            memberList: nextMemberList.filter((item) => item.id !== chore.id)
+            memberList: updatedMemberList.filter((item) => item.id !== action.payload)
         };
     }
     default: return state;

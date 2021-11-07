@@ -18,6 +18,7 @@ declare global {
             grayedOutText: string;
             avatarOutline: string;
             passedDueBy: string;
+            passedDueByText: string;
             border: string;
             appearanceSwitchButton: string;
             appearanceButtonText: string;
@@ -39,7 +40,8 @@ const CustomDefaultTheme = {
         popupOverlayColor: 'rgb(255, 255, 255)',
         grayedOutText: 'rgb(100, 100, 100)',
         avatarOutline: '#001f3f',
-        passedDueBy: 'red', // för Emelie
+        passedDueBy: 'red',
+        passedDueByText: 'white',
         border: 'rgb(200, 200, 200)',
         appearanceSwitchButton: 'rgb(210, 210, 210)',
         appearanceButtonText: 'rgb(0, 0, 0)',
@@ -61,7 +63,8 @@ const CustomDarkTheme = {
         popupOverlayColor: 'rgb(50, 50, 50)',
         grayedOutText: 'rgb(130, 130, 130)',
         avatarOutline: '#B10DC9',
-        passedDueBy: 'red', // för Emelie
+        passedDueBy: 'red',
+        passedDueByText: 'white',
         border: 'rgb(20, 20, 20)',
         appearanceSwitchButton: 'rgb(40, 40, 40)',
         appearanceButtonText: 'rgb(210, 210, 210)',

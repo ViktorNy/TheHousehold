@@ -14,6 +14,23 @@ users and their respective completed chores.
 
 ```npm start``` <-- starts application
 
+### Fungerande login (små bokstäver):
+**användarnamn**: sven  
+**lösenord**: s
+
+**användarnamn**: johan  
+**lösenord**: j
+
+**användarnamn**: peder  
+**lösenord**: p  
+
+**Fungerande hushållskoder**:  
+123  
+444  
+112358
+
+**NOTISER** - För tillfället går det att registrera en ny användare, det går däremot inte att logga in som denna användaren om man loggar ut. Vi vill också notera att vi enbart utvecklat mot Android. 
+
 ## <p align = "center">Komponenter</p> 
 
 # Kravlista
@@ -49,9 +66,9 @@ namnet ska gå att ändra. *
 ### Krav för VG
 
 - [x] Alla användare i ett hushåll ska kunna se vilka som tillhör ett hushåll.
-- [ ] En ägare av ett hushåll ska kunna se förfrågningar om att gå med i hushållet.
-- [ ] En ägare ska kunna acceptera eller neka förfrågningar.
-- [ ] En ägare ska kunna göra andra till ägare.
+- [x] En ägare av ett hushåll ska kunna se förfrågningar om att gå med i hushållet.
+- [x] En ägare ska kunna acceptera eller neka förfrågningar.
+- [x] En ägare ska kunna göra andra till ägare.
 - [ ] En ägare ska kunna pausa en användare och under pausade perioder ska användare inte tas med i statistiken.
 - [ ] Om en använder har pausats under en del av en period i statistiken ska graferna normaliseras.
 
@@ -62,12 +79,12 @@ namnet ska gå att ändra. *
 - [x] En användare ska kunna logga in sig. *
 - [x] En användare ska kunna skapa ett nytt hushåll. *
 - [x] En användare ska kunna gå med i ett hushåll genom att ange hushållets kod. *
-- [ ] När en användare har valt att gå med i ett hushåll behöver en ägare av hushållet först
+- [x] När en användare har valt att gå med i ett hushåll behöver en ägare av hushållet först
 godkänna användaren.
 
 ### Krav för VG
 
-- [ ] En användare ska kunna lämna ett hushåll.
+- [x] En användare ska kunna lämna ett hushåll. (ägare kan inte lämna hushållet, då vi inte vill göra hushåll ägarlösa)
 
 # Profil (6)
 
@@ -112,8 +129,8 @@ godkänna användaren.
 
 ### Krav för VG
 
-- [ ] Det ska finnas en statistikvy över ”förra vecka”.
-- [ ] Det ska finnas en statistikvy över ”förra månaden”. 
+- [x] Det ska finnas en statistikvy över ”förra vecka”.
+- [x] Det ska finnas en statistikvy över ”förra månaden”. 
 - [ ] Om det inte finns statistik för en av vyerna ska den vyn inte visas.
 
 # Schemaläggning (3)

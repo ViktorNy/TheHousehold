@@ -2,7 +2,7 @@ import { useTheme } from 'react-native-paper';
 import React, { useState } from 'react';
 import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { CustomNavigateButton } from '../../component/CustomNavigateButton';
+import { CustomActionButton } from '../../component/CustomActionButton';
 import { RootStackScreenProps } from '../../navigation/RootStackNavigator';
 import { useAppDispatch } from '../../store/store';
 import { createUser } from '../../store/user/userActions';
@@ -43,9 +43,9 @@ export default function RegisterScreen({ navigation }: RootStackScreenProps<'Reg
                 placeholderTextColor={colors.text}
             />
             <View style={styles.viewStyle}>
-                <CustomNavigateButton
+                <CustomActionButton
                     buttonText="Spara"
-                    goto={() => {
+                    action={() => {
                         dispatch(createUser(userName, userEmail, userPassword)).then((isSuccessfull) => {
                             isSuccessfull ? navigation.navigate('Household') : Alert.alert('Ajdå, något gick fel', 'Kunde inte komma åt API');
                         });

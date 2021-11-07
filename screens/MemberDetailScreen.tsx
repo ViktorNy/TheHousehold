@@ -1,15 +1,19 @@
 import { useTheme } from '@react-navigation/native';
 import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { CustomActionButton } from '../component/CustomActionButton';
 import { ProfileHeader } from '../component/ProfileHeader';
 import { RootStackScreenProps } from '../navigation/RootStackNavigator';
 import { getMemberByIdSelector } from '../store/member/memberSelector';
-import { useAppSelector } from '../store/store';
+import { useAppDispatch, useAppSelector } from '../store/store';
+import deepcopy from 'ts-deepcopy';
 
 export default function MemberDetailScreen({ route, navigation }: RootStackScreenProps<'MemberDetailScreen'>) {
     const memberData = useAppSelector((state) => getMemberByIdSelector(state, route.params.memberId));
     const householdData = useAppSelector((state) => state.household.householdList.find((h) => h.id === memberData?.householdId));
     const currentHousehold = useAppSelector((state) => state.household.householdList.find((h) => h.id === state.household.currentHouseholdId));
+    const userMemberType = useAppSelector((state) => state.member.memberList.find(m => m.userId === state.user.user?.id && m.householdId === currentHousehold?.id))?.memberType;
+    const dispatch = useAppDispatch();
     const { colors } = useTheme();
 
     const choresDone: { name: string; date: string; score: number }[] = [];
@@ -42,6 +46,16 @@ export default function MemberDetailScreen({ route, navigation }: RootStackScree
                         </Text>
                     )}
                 />
+                {(userMemberType === 'owner') && (
+                    <CustomActionButton
+                        buttonText={(memberData?.memberType === 'member') ? 'Sätt som ägare' : 'Ta bort som ägare'}
+                        action={() => {
+                            const memberToSetMembertype = deepcopy(memberData)!;
+                            memberToSetMembertype.memberType = (memberToSetMembertype?.memberType === 'member') ? 'owner' : 'member';
+                            dispatch({ type: 'EDIT_MEMBER', payload: memberToSetMembertype });
+                        }}
+                    />
+                )}
             </View>
         </View>
     );

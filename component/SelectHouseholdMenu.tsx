@@ -61,6 +61,9 @@ export default function SelectHouseholdMenu({ isShowingMenu, toggleIsShowing, ro
                                     break;
                                 }
                             }
+                            if (member.memberType === 'pending') {
+                                isDisabled = true;
+                            }
                         }
                         return (
                             <TouchableOpacity
@@ -75,7 +78,7 @@ export default function SelectHouseholdMenu({ isShowingMenu, toggleIsShowing, ro
                                 <View style={[styles.householdRow, isDisabled ? { opacity: 0.2 } : { opacity: 1 }]}>
                                     {member && <Avatar avatarId={member.avatar} showCircle={true} avatarSize={22} />}
                                     <Text style={[styles.modalText, { color: colors.text }]}>{household.name}</Text>
-                                    {isDisabled && <Text style={[styles.modalText, { color: colors.text }]}>Pausad</Text>}
+                                    {isDisabled && <Text style={[styles.modalText, { color: colors.text }]}>Väntar på svar</Text>}
                                 </View>
                             </TouchableOpacity>
                         );
