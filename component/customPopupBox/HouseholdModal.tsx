@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import { AntDesign } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import { Pressable, Text, TextInput, View } from 'react-native';
+import { Alert, Pressable, Text, TextInput, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { useTheme } from 'react-native-paper';
 import { useAppDispatch, useAppSelector } from '../../store/store';
@@ -28,6 +28,14 @@ export default function HouseholdModal({ memberId, modalCase, isShowing, toggleM
     const dispatch = useAppDispatch();
     const user = useAppSelector((state) => state.user.user) as User;
     const allHouseHolds = useAppSelector((state) => state.household.householdList);
+
+    const fieldsAreEmpty = () => {
+        if (!userInput || !secondaryUserInput) {
+            return true;
+        } else {
+            return false;
+        }
+    };
 
     return (
         <View>
@@ -89,28 +97,34 @@ export default function HouseholdModal({ memberId, modalCase, isShowing, toggleM
                                     switch (modalCase) {
                                         case 'CH':
                                             // eslint-disable-next-line no-case-declarations
-                                            const newHouseholdId = uuid.v4().toString();
-                                            dispatch({
-                                                type: 'CREATE_HOUSEHOLD',
-                                                payload: { householdName: userInput, householdId: newHouseholdId }
-                                            });
-                                            dispatch({
-                                                type: 'CREATE_MEMBER',
-                                                payload: {
-                                                    householdId: newHouseholdId,
-                                                    memberName: secondaryUserInput,
-                                                    userId: user.id,
-                                                    memberType: 'owner'
-                                                }
-                                            });
-                                            dispatch({
-                                                type: 'SETHOUSEHOLD',
-                                                payload: newHouseholdId
-                                            });
-                                            navigationTo!();
+                                            if (fieldsAreEmpty()) {
+                                                Alert.alert('Vänligen fyll i alla fält och försök igen!');
+                                            } else {
+                                                const newHouseholdId = uuid.v4().toString();
+                                                dispatch({
+                                                    type: 'CREATE_HOUSEHOLD',
+                                                    payload: { householdName: userInput, householdId: newHouseholdId }
+                                                });
+                                                dispatch({
+                                                    type: 'CREATE_MEMBER',
+                                                    payload: {
+                                                        householdId: newHouseholdId,
+                                                        memberName: secondaryUserInput,
+                                                        userId: user.id,
+                                                        memberType: 'owner'
+                                                    }
+                                                });
+                                                dispatch({
+                                                    type: 'SETHOUSEHOLD',
+                                                    payload: newHouseholdId
+                                                });
+                                                navigationTo!();
+                                            }
                                             break;
                                         case 'JH':
-                                            if (userInput) {
+                                            if (fieldsAreEmpty()) {
+                                                Alert.alert('Fyll i båda fälten och försök igen!');
+                                            } else {
                                                 const householdToJoin = deepcopy(allHouseHolds.find((h) => h.codeToJoin === userInput));
                                                 if (householdToJoin) {
                                                     dispatch({
@@ -127,6 +141,8 @@ export default function HouseholdModal({ memberId, modalCase, isShowing, toggleM
                                                         payload: householdToJoin.id
                                                     });
                                                     navigationTo!();
+                                                } else {
+                                                    Alert.alert('Hushållet du försökte gå med i hittades tyvärr inte. Försök igen!');
                                                 }
                                             }
                                             break;
