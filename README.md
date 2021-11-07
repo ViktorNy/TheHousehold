@@ -68,7 +68,7 @@ namnet ska gå att ändra. *
 - [x] Alla användare i ett hushåll ska kunna se vilka som tillhör ett hushåll.
 - [x] En ägare av ett hushåll ska kunna se förfrågningar om att gå med i hushållet.
 - [x] En ägare ska kunna acceptera eller neka förfrågningar.
-- [ ] En ägare ska kunna göra andra till ägare.
+- [x] En ägare ska kunna göra andra till ägare.
 - [ ] En ägare ska kunna pausa en användare och under pausade perioder ska användare inte tas med i statistiken.
 - [ ] Om en använder har pausats under en del av en period i statistiken ska graferna normaliseras.
 
@@ -129,8 +129,8 @@ godkänna användaren.
 
 ### Krav för VG
 
-- [ ] Det ska finnas en statistikvy över ”förra vecka”.
-- [ ] Det ska finnas en statistikvy över ”förra månaden”. 
+- [x] Det ska finnas en statistikvy över ”förra vecka”.
+- [x] Det ska finnas en statistikvy över ”förra månaden”. 
 - [ ] Om det inte finns statistik för en av vyerna ska den vyn inte visas.
 
 # Schemaläggning (3)
