@@ -3,7 +3,6 @@ import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomActionButton } from '../../component/CustomActionButton';
-import { mockedUserData } from '../../data/data';
 import { RootStackScreenProps } from '../../navigation/RootStackNavigator';
 import { useAppDispatch } from '../../store/store';
 import { loginUser } from '../../store/user/userActions';
@@ -15,9 +14,13 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'
     const dispatch = useAppDispatch();
 
     function checkUserInfo() {
-        dispatch(loginUser(userText, userPassword)).then((isSuccessfull) => {
-            isSuccessfull ? navigation.navigate('Household') : Alert.alert('Ajdå, något gick fel', 'Felaktigt användarnamn, email eller lösenord');
-        });
+        dispatch(loginUser(userText, userPassword))
+            .then((isSuccessfull) => {
+                isSuccessfull
+                    ? navigation.navigate('Household')
+                    : Alert.alert('Ajdå, något gick fel', 'Felaktigt användarnamn, email eller lösenord');
+            })
+            .catch(() => Alert.alert('Ajdå, något gick fel', 'Gick inte att komma åt api:t'));
     }
 
     return (
